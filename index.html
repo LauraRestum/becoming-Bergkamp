@@ -30,7 +30,7 @@
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Cinzel:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&family=Cinzel:wght@400;500;600&family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,700;0,800;0,900;1,700;1,900&family=Italianno&family=Oswald:wght@400;500;600;700&family=Abril+Fatface&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
 
 <!-- Preload LCP imagery -->
 <link rel="preload" as="image" href="/images/main-2.jpg" fetchpriority="high" />
@@ -962,6 +962,565 @@
     body { background: #fff; color: #000; }
     body.cover-open { overflow: visible; height: auto; }
   }
+
+  /* ============================================================
+     THE BERGKAMP ALMANAC — broadside section, scoped under .almanac
+     ============================================================ */
+  .almanac {
+    /* vintage palette and typography stack, scoped to this section */
+    --a-paper: #EDE5D1;
+    --a-paper-deep: #E0D6BC;
+    --a-paper-shadow: #C9BD9E;
+    --a-ink: #0A0907;
+    --a-ink-soft: #1A1714;
+    --a-brass: #6B5223;
+
+    --a-display: 'Abril Fatface', 'Playfair Display', serif;
+    --a-display-alt: 'DM Serif Display', 'Playfair Display', serif;
+    --a-serif: 'Playfair Display', serif;
+    --a-serif-body: 'Cormorant Garamond', 'Playfair Display', serif;
+    --a-condensed: 'Oswald', 'Playfair Display', sans-serif;
+    --a-script: 'Italianno', cursive;
+
+    position: relative;
+    background-color: var(--a-paper);
+    background-image: url('/images/party-1.jpg');
+    background-repeat: repeat;
+    background-size: 560px auto;
+    color: var(--a-ink);
+    font-family: var(--a-serif-body);
+    font-weight: 500;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    padding: 80px 0 40px;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .almanac::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(237, 229, 209, 0.85) 0%, rgba(224, 214, 188, 0.92) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .almanac::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 12% 18%, rgba(92, 84, 72, 0.08) 0%, transparent 8%),
+      radial-gradient(circle at 88% 72%, rgba(92, 84, 72, 0.06) 0%, transparent 10%),
+      radial-gradient(circle at 65% 25%, rgba(138, 106, 42, 0.05) 0%, transparent 5%),
+      radial-gradient(circle at 30% 85%, rgba(138, 106, 42, 0.04) 0%, transparent 7%);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .almanac > * { position: relative; z-index: 2; }
+
+  /* FRONTISPIECE */
+  .almanac .frontispiece {
+    text-align: center;
+    padding: 60px 24px 60px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .almanac .frontispiece-frame {
+    border: 3px solid var(--a-ink);
+    padding: 60px 40px;
+    position: relative;
+    background: rgba(237, 229, 209, 0.45);
+  }
+  .almanac .frontispiece-frame::before {
+    content: ""; position: absolute; inset: 8px;
+    border: 1px solid var(--a-ink); pointer-events: none;
+  }
+  .almanac .frontispiece-frame::after {
+    content: "❦"; position: absolute;
+    top: -18px; left: 50%; transform: translateX(-50%);
+    background: var(--a-paper); padding: 0 18px;
+    font-size: 26px; color: var(--a-ink); font-weight: 700;
+  }
+  .almanac .frontispiece-eyebrow {
+    font-family: var(--a-condensed); font-weight: 700; font-size: 13px;
+    letter-spacing: 0.45em; color: var(--a-ink); margin-bottom: 28px;
+    padding-left: 0.45em; text-transform: uppercase;
+  }
+  .almanac .frontispiece-ornament {
+    font-family: var(--a-condensed); font-weight: 600; font-size: 17px;
+    color: var(--a-ink); letter-spacing: 0.32em; margin-bottom: 18px;
+    text-transform: uppercase; padding-left: 0.32em;
+  }
+  .almanac .frontispiece-ornament::before,
+  .almanac .frontispiece-ornament::after {
+    content: "❦"; margin: 0 14px; font-size: 13px; vertical-align: middle;
+  }
+  .almanac .frontispiece-title {
+    font-family: var(--a-display); font-weight: 400;
+    font-size: clamp(56px, 10vw, 112px); line-height: 0.95;
+    color: var(--a-ink); margin-bottom: 10px; letter-spacing: -0.01em;
+  }
+  .almanac .frontispiece-subtitle {
+    font-family: var(--a-display-alt); font-weight: 400;
+    font-size: clamp(28px, 4.5vw, 48px); letter-spacing: 0.35em;
+    color: var(--a-ink); margin-bottom: 36px;
+    padding-left: 0.35em; text-transform: uppercase;
+  }
+  .almanac .frontispiece-divider {
+    display: flex; align-items: center; justify-content: center;
+    gap: 14px; margin-bottom: 36px;
+  }
+  .almanac .frontispiece-divider span { width: 90px; height: 2px; background: var(--a-ink); }
+  .almanac .frontispiece-divider .asterism {
+    font-family: var(--a-display); font-size: 22px; color: var(--a-ink);
+    line-height: 0.5; font-weight: 700;
+  }
+  .almanac .frontispiece-meta {
+    font-family: var(--a-serif-body); font-style: italic; font-weight: 500;
+    font-size: 17px; color: var(--a-ink); line-height: 1.8;
+    max-width: 480px; margin: 0 auto;
+  }
+  .almanac .frontispiece-imprint {
+    font-family: var(--a-condensed); font-weight: 700; font-size: 11px;
+    letter-spacing: 0.45em; color: var(--a-ink); margin-top: 36px;
+    padding-top: 24px; border-top: 2px solid var(--a-ink);
+    text-transform: uppercase; padding-left: 0.45em;
+  }
+
+  /* TOC */
+  .almanac .toc-wrapper { max-width: 600px; margin: 40px auto 80px; padding: 0 32px; }
+  .almanac .toc-title {
+    text-align: center; font-family: var(--a-condensed); font-weight: 700;
+    font-size: 12px; letter-spacing: 0.5em; color: var(--a-ink);
+    margin-bottom: 24px; padding-left: 0.5em; text-transform: uppercase;
+  }
+  .almanac .toc-list {
+    list-style: none; border-top: 3px solid var(--a-ink);
+    border-bottom: 3px solid var(--a-ink); padding: 18px 0; position: relative;
+  }
+  .almanac .toc-list::before,
+  .almanac .toc-list::after {
+    content: ""; position: absolute; left: 0; right: 0; height: 1px; background: var(--a-ink);
+  }
+  .almanac .toc-list::before { top: 5px; }
+  .almanac .toc-list::after { bottom: 5px; }
+  .almanac .toc-list li {
+    display: flex; align-items: baseline; padding: 10px 16px;
+    font-family: var(--a-serif); font-size: 15px;
+  }
+  .almanac .toc-list a {
+    color: var(--a-ink); text-decoration: none; display: flex;
+    align-items: baseline; width: 100%; gap: 8px;
+    transition: color 0.3s ease;
+  }
+  .almanac .toc-list a:hover { color: var(--a-brass); }
+  .almanac .toc-list .toc-numeral {
+    font-family: var(--a-display-alt); font-style: italic; flex: 0 0 54px;
+    color: var(--a-ink); font-size: 22px; line-height: 1;
+  }
+  .almanac .toc-list .toc-name {
+    font-family: var(--a-condensed); font-weight: 700; letter-spacing: 0.2em;
+    font-size: 14px; flex: 0 0 auto; text-transform: uppercase;
+  }
+  .almanac .toc-list .toc-dots {
+    flex: 1; border-bottom: 2px dotted rgba(10, 9, 7, 0.55);
+    height: 0.8em; margin: 0 6px;
+  }
+  .almanac .toc-list .toc-page {
+    font-family: var(--a-display-alt); font-style: italic; font-size: 16px;
+    flex: 0 0 auto; color: var(--a-ink);
+  }
+
+  /* CHAPTER */
+  .almanac .chapter { max-width: 1180px; margin: 0 auto; padding: 80px 32px; position: relative; }
+  .almanac .chapter-header { text-align: center; margin-bottom: 80px; position: relative; }
+  .almanac .chapter-numeral {
+    font-family: var(--a-condensed); font-weight: 600; font-size: 13px;
+    color: var(--a-ink); letter-spacing: 0.45em; margin-bottom: 18px;
+    text-transform: uppercase; padding-left: 0.45em;
+  }
+  .almanac .chapter-numeral::before,
+  .almanac .chapter-numeral::after { content: "—"; margin: 0 14px; font-weight: 700; }
+  .almanac .chapter-title {
+    font-family: var(--a-display); font-weight: 400;
+    font-size: clamp(40px, 7vw, 78px); letter-spacing: 0.04em;
+    color: var(--a-ink); margin-bottom: 14px; text-transform: uppercase; line-height: 0.95;
+  }
+  .almanac .chapter-script {
+    font-family: var(--a-script); font-size: 44px; color: var(--a-brass);
+    line-height: 1; margin-bottom: 24px;
+  }
+  .almanac .chapter-description {
+    font-family: var(--a-serif-body); font-style: italic; font-weight: 500;
+    font-size: 17px; color: var(--a-ink); max-width: 540px;
+    margin: 0 auto; line-height: 1.85;
+  }
+  .almanac .fleuron {
+    display: flex; align-items: center; justify-content: center;
+    gap: 16px; margin: 36px auto 0;
+  }
+  .almanac .fleuron span { width: 60px; height: 2px; background: var(--a-ink); }
+  .almanac .fleuron .ornament {
+    font-family: var(--a-display); font-size: 24px; color: var(--a-ink);
+    line-height: 0.5; font-weight: 700;
+  }
+
+  /* PARENTS */
+  .almanac .parents-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+    max-width: 1000px; margin: 0 auto;
+  }
+  .almanac .parent-card {
+    text-align: center; padding: 48px 32px 40px;
+    background: rgba(237, 229, 209, 0.4);
+    border: 3px solid var(--a-ink); position: relative;
+  }
+  .almanac .parent-card::before {
+    content: ""; position: absolute; inset: 6px;
+    border: 1px solid var(--a-ink); pointer-events: none;
+  }
+  .almanac .parent-card > .card-crown {
+    position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+    background: var(--a-paper); padding: 0 14px; font-size: 22px;
+    color: var(--a-ink); z-index: 2; font-weight: 700;
+  }
+  .almanac .parent-portraits {
+    display: flex; justify-content: center; margin-bottom: 28px; position: relative;
+  }
+  .almanac .parent-portrait {
+    width: 120px; height: 120px; border-radius: 50%; overflow: hidden;
+    background: var(--a-paper-deep);
+    box-shadow:
+      0 0 0 2px var(--a-ink),
+      0 0 0 5px var(--a-paper),
+      0 0 0 7px var(--a-ink);
+    filter: grayscale(1) contrast(1.15) brightness(0.95);
+    position: relative;
+  }
+  .almanac .parent-portrait:first-child { margin-right: -16px; z-index: 2; }
+  .almanac .parent-portrait:last-child { margin-left: -16px; z-index: 1; }
+  .almanac .parent-portrait.placeholder::after {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 35%, var(--a-paper) 0%, var(--a-paper-deep) 100%);
+  }
+  .almanac .parent-portrait img { width: 100%; height: 100%; object-fit: cover; }
+  .almanac .parent-names {
+    font-family: var(--a-script); font-size: 64px; line-height: 1;
+    color: var(--a-ink); margin-bottom: 10px;
+  }
+  .almanac .parent-names .amp { font-size: 56px; margin: 0 4px; }
+  .almanac .parent-surname {
+    font-family: var(--a-display); font-weight: 400; font-size: 22px;
+    letter-spacing: 0.32em; color: var(--a-ink); margin-bottom: 10px;
+    padding-left: 0.32em; text-transform: uppercase;
+  }
+  .almanac .parent-role {
+    font-family: var(--a-condensed); font-weight: 600; font-size: 12px;
+    color: var(--a-ink); margin-bottom: 20px; letter-spacing: 0.35em;
+    text-transform: uppercase; padding-left: 0.35em;
+  }
+  .almanac .parent-divider {
+    font-family: var(--a-display); font-size: 18px; color: var(--a-ink);
+    margin: 0 auto 18px; line-height: 0.5; font-weight: 700;
+  }
+  .almanac .parent-bio {
+    font-family: var(--a-serif-body); font-weight: 500; font-size: 16px;
+    line-height: 1.75; color: var(--a-ink); max-width: 360px; margin: 0 auto;
+  }
+
+  /* WEDDING PARTY HEADERS */
+  .almanac .party-side-wrap { text-align: center; margin-bottom: 56px; }
+  .almanac .party-side-wrap:not(:first-of-type) { margin-top: 100px; }
+  .almanac .party-side-wrap .side-rule {
+    display: flex; align-items: center; justify-content: center;
+    gap: 22px; max-width: 680px; margin: 0 auto 14px;
+  }
+  .almanac .party-side-wrap .side-rule span { flex: 1; height: 2px; background: var(--a-ink); }
+  .almanac .party-side-wrap .side-rule .glyph {
+    font-family: var(--a-display); font-size: 18px; color: var(--a-ink);
+    flex: 0 0 auto; font-weight: 700;
+  }
+  .almanac .party-side-wrap .side-label {
+    font-family: var(--a-display); font-weight: 400;
+    font-size: clamp(32px, 5vw, 52px); color: var(--a-ink);
+    line-height: 1; letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .almanac .party-side-wrap .side-sub {
+    font-family: var(--a-condensed); font-weight: 700; font-size: 11px;
+    letter-spacing: 0.5em; color: var(--a-ink); margin-top: 10px;
+    padding-left: 0.5em; text-transform: uppercase;
+  }
+
+  /* PEOPLE */
+  .almanac .party-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 70px 40px;
+  }
+  .almanac .party-grid.single-feature { max-width: 360px; margin: 0 auto; }
+  .almanac .person { text-align: center; position: relative; }
+  .almanac .person-portrait {
+    width: 170px; height: 170px; margin: 0 auto 20px;
+    border-radius: 50%; overflow: hidden; position: relative;
+    background: var(--a-paper-deep);
+    box-shadow:
+      0 0 0 2px var(--a-ink),
+      0 0 0 6px var(--a-paper),
+      0 0 0 8px var(--a-ink);
+    filter: grayscale(1) contrast(1.15) brightness(0.95);
+    transition: transform 0.5s ease;
+  }
+  .almanac .person:hover .person-portrait { transform: scale(1.04); }
+  .almanac .person-portrait img { width: 100%; height: 100%; object-fit: cover; }
+  .almanac .person-portrait.placeholder::after {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 38%, var(--a-paper) 0%, var(--a-paper-deep) 100%);
+  }
+  .almanac .person-portrait.placeholder::before {
+    content: "❦"; position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 30px; color: var(--a-ink); opacity: 0.5; z-index: 1; font-weight: 700;
+  }
+  .almanac .person-name {
+    font-family: var(--a-script); font-size: 50px; line-height: 1;
+    margin-bottom: 8px; color: var(--a-ink);
+  }
+  .almanac .person-role {
+    font-family: var(--a-condensed); font-weight: 700; font-size: 11px;
+    letter-spacing: 0.4em; color: var(--a-ink); margin-bottom: 8px;
+    padding-left: 0.4em; text-transform: uppercase;
+    padding-top: 4px; border-top: 2px solid var(--a-ink);
+    padding-bottom: 4px; border-bottom: 1px solid var(--a-ink);
+    max-width: 200px; margin-left: auto; margin-right: auto;
+  }
+  .almanac .person-relation {
+    font-family: var(--a-serif-body); font-style: italic; font-weight: 500;
+    font-size: 14px; color: var(--a-ink); margin-bottom: 14px; margin-top: 10px;
+  }
+  .almanac .person-divider {
+    font-family: var(--a-display); font-size: 14px; color: var(--a-ink);
+    margin: 0 auto 14px; line-height: 0.5; font-weight: 700;
+  }
+  .almanac .person-bio {
+    font-family: var(--a-serif-body); font-weight: 500; font-size: 15px;
+    line-height: 1.7; color: var(--a-ink); max-width: 280px; margin: 0 auto;
+  }
+
+  /* HOUSEHOLDS */
+  .almanac .households {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .almanac .household {
+    text-align: center; padding: 56px 32px 48px;
+    background: rgba(237, 229, 209, 0.4);
+    border: 3px solid var(--a-ink); position: relative;
+  }
+  .almanac .household::before {
+    content: ""; position: absolute; inset: 6px;
+    border: 1px solid var(--a-ink); pointer-events: none;
+  }
+  .almanac .household > .card-crown {
+    position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+    background: var(--a-paper); padding: 0 14px; font-size: 22px;
+    color: var(--a-ink); z-index: 2; font-weight: 700;
+  }
+  .almanac .household-eyebrow {
+    font-family: var(--a-condensed); font-weight: 600; font-size: 12px;
+    color: var(--a-ink); letter-spacing: 0.35em; margin-bottom: 8px;
+    text-transform: uppercase; padding-left: 0.35em;
+  }
+  .almanac .household-name {
+    font-family: var(--a-display); font-weight: 400; font-size: 30px;
+    letter-spacing: 0.18em; color: var(--a-ink); margin-bottom: 32px;
+    padding-left: 0.18em; text-transform: uppercase;
+  }
+  .almanac .household-adults {
+    display: flex; justify-content: center; gap: 28px; margin-bottom: 28px; flex-wrap: wrap;
+  }
+  .almanac .household-adult { text-align: center; }
+  .almanac .household-adult-portrait {
+    width: 110px; height: 110px; border-radius: 50%; overflow: hidden;
+    background: var(--a-paper-deep); margin: 0 auto 10px;
+    box-shadow:
+      0 0 0 2px var(--a-ink),
+      0 0 0 5px var(--a-paper),
+      0 0 0 7px var(--a-ink);
+    filter: grayscale(1) contrast(1.15) brightness(0.95); position: relative;
+  }
+  .almanac .household-adult-portrait.placeholder::after {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 38%, var(--a-paper) 0%, var(--a-paper-deep) 100%);
+  }
+  .almanac .household-adult-portrait.placeholder::before {
+    content: "❦"; position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; color: var(--a-ink); opacity: 0.5; z-index: 1; font-weight: 700;
+  }
+  .almanac .household-adult-portrait img { width: 100%; height: 100%; object-fit: cover; }
+  .almanac .household-adult-name {
+    font-family: var(--a-script); font-size: 36px; line-height: 1;
+    color: var(--a-ink); margin-bottom: 4px;
+  }
+  .almanac .household-adult-role {
+    font-family: var(--a-condensed); font-weight: 600; font-size: 10px;
+    color: var(--a-ink); letter-spacing: 0.3em; text-transform: uppercase;
+    padding-left: 0.3em;
+  }
+  .almanac .household-divider {
+    display: flex; align-items: center; justify-content: center;
+    gap: 16px; margin: 28px auto; max-width: 320px;
+  }
+  .almanac .household-divider span { flex: 1; height: 2px; background: var(--a-ink); }
+  .almanac .household-divider .label {
+    flex: 0 0 auto; font-family: var(--a-condensed); font-weight: 700;
+    font-size: 11px; color: var(--a-ink); letter-spacing: 0.32em;
+    text-transform: uppercase; padding-left: 0.32em;
+  }
+  .almanac .household-kids {
+    display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 24px;
+  }
+  .almanac .household-kid { text-align: center; }
+  .almanac .household-kid-portrait {
+    width: 64px; height: 64px; border-radius: 50%; overflow: hidden;
+    background: var(--a-paper-deep); margin: 0 auto 8px;
+    box-shadow:
+      0 0 0 2px var(--a-ink),
+      0 0 0 4px var(--a-paper),
+      0 0 0 5px var(--a-ink);
+    filter: grayscale(1) contrast(1.15) brightness(0.95); position: relative;
+  }
+  .almanac .household-kid-portrait.placeholder::after {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 38%, var(--a-paper) 0%, var(--a-paper-deep) 100%);
+  }
+  .almanac .household-kid-portrait.placeholder::before {
+    content: "❦"; position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; color: var(--a-ink); opacity: 0.5; z-index: 1; font-weight: 700;
+  }
+  .almanac .household-kid-portrait img { width: 100%; height: 100%; object-fit: cover; }
+  .almanac .household-kid-name {
+    font-family: var(--a-script); font-size: 26px; line-height: 1;
+    color: var(--a-ink); margin-bottom: 2px;
+  }
+  .almanac .household-kid-age {
+    font-family: var(--a-serif-body); font-style: italic; font-weight: 500;
+    font-size: 11px; color: var(--a-ink);
+  }
+  .almanac .household-bio {
+    font-family: var(--a-serif-body); font-style: italic; font-weight: 500;
+    font-size: 15px; line-height: 1.75; color: var(--a-ink);
+    max-width: 380px; margin: 0 auto;
+  }
+
+  /* MENAGERIE */
+  .almanac .menagerie {
+    background: var(--a-paper-deep);
+    border-top: 3px solid var(--a-ink);
+    border-bottom: 3px solid var(--a-ink);
+    margin-top: 40px; padding: 100px 32px; position: relative;
+  }
+  .almanac .menagerie::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 5px;
+    height: 1px; background: var(--a-ink);
+  }
+  .almanac .menagerie::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 5px;
+    height: 1px; background: var(--a-ink);
+  }
+  .almanac .menagerie-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 60px 30px; max-width: 1100px; margin: 0 auto;
+  }
+  .almanac .creature { text-align: center; }
+  .almanac .creature-portrait {
+    width: 130px; height: 130px; margin: 0 auto 18px;
+    border-radius: 50%; overflow: hidden; background: var(--a-paper); position: relative;
+    box-shadow:
+      0 0 0 2px var(--a-ink),
+      0 0 0 5px var(--a-paper-deep),
+      0 0 0 7px var(--a-ink);
+    filter: grayscale(1) contrast(1.15) brightness(0.95);
+  }
+  .almanac .creature-portrait img { width: 100%; height: 100%; object-fit: cover; }
+  .almanac .creature-portrait.placeholder::after {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 38%, var(--a-paper) 0%, var(--a-paper-deep) 100%);
+  }
+  .almanac .creature-portrait.placeholder::before {
+    content: "❦"; position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; color: var(--a-ink); opacity: 0.5; z-index: 1; font-weight: 700;
+  }
+  .almanac .creature-name {
+    font-family: var(--a-script); font-size: 40px; line-height: 1;
+    margin-bottom: 6px; color: var(--a-ink);
+  }
+  .almanac .creature-species {
+    font-family: var(--a-condensed); font-weight: 700; font-size: 11px;
+    letter-spacing: 0.4em; color: var(--a-ink); margin-bottom: 14px;
+    padding-left: 0.4em; text-transform: uppercase;
+    padding-top: 4px; border-top: 2px solid var(--a-ink);
+    padding-bottom: 4px; border-bottom: 1px solid var(--a-ink);
+    max-width: 180px; margin-left: auto; margin-right: auto;
+  }
+  .almanac .creature-bio {
+    font-family: var(--a-serif-body); font-style: italic; font-weight: 500;
+    font-size: 15px; line-height: 1.7; color: var(--a-ink);
+    max-width: 240px; margin: 0 auto;
+  }
+
+  /* COLOPHON */
+  .almanac .colophon {
+    text-align: center; padding: 100px 24px 60px;
+    max-width: 540px; margin: 0 auto;
+  }
+  .almanac .colophon-frame {
+    border-top: 3px solid var(--a-ink); border-bottom: 3px solid var(--a-ink);
+    padding: 36px 24px; position: relative;
+  }
+  .almanac .colophon-frame::before,
+  .almanac .colophon-frame::after {
+    content: ""; position: absolute; left: 0; right: 0;
+    height: 1px; background: var(--a-ink);
+  }
+  .almanac .colophon-frame::before { top: 5px; }
+  .almanac .colophon-frame::after { bottom: 5px; }
+  .almanac .colophon-ornament {
+    font-family: var(--a-display); font-size: 26px; color: var(--a-ink);
+    margin-bottom: 18px; letter-spacing: 0.4em; line-height: 0.5; font-weight: 700;
+  }
+  .almanac .colophon-crest {
+    font-family: var(--a-display); font-weight: 400; font-size: 32px;
+    letter-spacing: 0.18em; color: var(--a-ink);
+    padding-left: 0.18em; text-transform: uppercase;
+  }
+  .almanac .colophon-crest .amp {
+    font-family: var(--a-script); font-size: 56px; letter-spacing: 0;
+    vertical-align: middle; margin: 0 6px; color: var(--a-ink); font-weight: 400;
+  }
+  .almanac .colophon-line {
+    font-family: var(--a-condensed); font-weight: 600; font-size: 12px;
+    color: var(--a-ink); margin-top: 20px; letter-spacing: 0.32em;
+    text-transform: uppercase; padding-left: 0.32em;
+  }
+
+  @media (max-width: 820px) {
+    .almanac .parents-grid { grid-template-columns: 1fr; gap: 56px; }
+    .almanac .households { grid-template-columns: 1fr; gap: 56px; }
+  }
+  @media (max-width: 720px) {
+    .almanac .frontispiece { padding: 40px 16px 30px; }
+    .almanac .frontispiece-frame { padding: 40px 24px; }
+    .almanac .chapter { padding: 60px 20px; }
+    .almanac .menagerie { padding: 60px 20px; }
+    .almanac .parent-portrait { width: 92px; height: 92px; }
+    .almanac .parent-portrait:first-child { margin-right: -12px; }
+    .almanac .parent-portrait:last-child { margin-left: -12px; }
+    .almanac .parent-names { font-size: 44px; }
+    .almanac .toc-list .toc-numeral { flex: 0 0 36px; }
+    .almanac .toc-list .toc-name { font-size: 11px; letter-spacing: 0.12em; }
+  }
 </style>
 </head>
 <body class="cover-open">
@@ -994,7 +1553,7 @@
     <a href="#top" class="mono" aria-label="Top of page">LBR &middot; WJB</a>
     <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="nav" aria-label="Toggle menu">Menu</button>
     <div class="right">
-      <a href="/wedding-party.html">Wedding Party</a>
+      <a href="#wedding-party">Wedding Party</a>
       <a href="#honeymoon">Honeymoon</a>
       <a href="#rsvp">RSVP</a>
     </div>
@@ -1169,9 +1728,409 @@
       </div>
 
       <div class="party-cta">
-        <a href="/wedding-party.html">Meet the Wedding Party →</a>
+        <a href="#wedding-party">Meet the Wedding Party ↓</a>
       </div>
     </div>
+  </section>
+
+  <!-- ============ THE BERGKAMP ALMANAC ============ -->
+  <section id="wedding-party" class="almanac" aria-label="The Bergkamp Almanac">
+
+    <header class="frontispiece">
+      <div class="frontispiece-frame">
+        <div class="frontispiece-eyebrow">VOLUME I &middot; EDITION FIRST</div>
+        <div class="frontispiece-ornament">A REGISTRY OF PERSONS</div>
+        <h2 class="frontispiece-title">The Bergkamp</h2>
+        <div class="frontispiece-subtitle">ALMANAC</div>
+        <div class="frontispiece-divider">
+          <span></span><div class="asterism">⁂</div><span></span>
+        </div>
+        <p class="frontispiece-meta">
+          Containing the parents, the standing party, the family, and
+          the creatures of the small kingdom of William &amp; Laura,
+          gathered in their honor on the occasion of their marriage.
+        </p>
+        <div class="frontispiece-imprint">PRINTED IN THE YEAR OF MMXXVII</div>
+      </div>
+    </header>
+
+    <div class="toc-wrapper">
+      <div class="toc-title">~ TABLE OF CONTENTS ~</div>
+      <ol class="toc-list">
+        <li><a href="#parents"><span class="toc-numeral">I.</span><span class="toc-name">THE PARENTS</span><span class="toc-dots"></span><span class="toc-page">i</span></a></li>
+        <li><a href="#party"><span class="toc-numeral">II.</span><span class="toc-name">THE WEDDING PARTY</span><span class="toc-dots"></span><span class="toc-page">ii</span></a></li>
+        <li><a href="#family"><span class="toc-numeral">III.</span><span class="toc-name">THE FAMILY</span><span class="toc-dots"></span><span class="toc-page">iii</span></a></li>
+        <li><a href="#menagerie"><span class="toc-numeral">IV.</span><span class="toc-name">THE MENAGERIE</span><span class="toc-dots"></span><span class="toc-page">iv</span></a></li>
+      </ol>
+    </div>
+
+    <!-- I. THE PARENTS -->
+    <div class="chapter" id="parents">
+      <div class="chapter-header">
+        <div class="chapter-numeral">Chapter the First</div>
+        <h3 class="chapter-title">THE PARENTS</h3>
+        <div class="chapter-script">the four who began it</div>
+        <p class="chapter-description">
+          The four people who raised the bride and the groom, and who
+          will see their children begin a household of their own.
+        </p>
+        <div class="fleuron"><span></span><div class="ornament">❦</div><span></span></div>
+      </div>
+
+      <div class="parents-grid">
+        <article class="parent-card">
+          <div class="card-crown">❦</div>
+          <div class="parent-portraits">
+            <div class="parent-portrait placeholder"></div>
+            <div class="parent-portrait placeholder"></div>
+          </div>
+          <div class="parent-names">Amy <span class="amp">&amp;</span> Ron</div>
+          <div class="parent-surname">RESTUM</div>
+          <div class="parent-role">Parents of the Bride</div>
+          <div class="parent-divider">⁂</div>
+          <p class="parent-bio">A short tribute to Amy and Ron will live here. The kind of parents Laura got, and what she carries from them into this marriage.</p>
+        </article>
+
+        <article class="parent-card">
+          <div class="card-crown">❦</div>
+          <div class="parent-portraits">
+            <div class="parent-portrait placeholder"></div>
+            <div class="parent-portrait placeholder"></div>
+          </div>
+          <div class="parent-names">Julie <span class="amp">&amp;</span> Gil</div>
+          <div class="parent-surname">BERGKAMP</div>
+          <div class="parent-role">Parents of the Groom</div>
+          <div class="parent-divider">⁂</div>
+          <p class="parent-bio">A short tribute to Julie and Gil will live here. The kind of parents William got, and what he carries from them into this marriage.</p>
+        </article>
+      </div>
+    </div>
+
+    <!-- II. THE WEDDING PARTY -->
+    <div class="chapter" id="party">
+      <div class="chapter-header">
+        <div class="chapter-numeral">Chapter the Second</div>
+        <h3 class="chapter-title">THE WEDDING PARTY</h3>
+        <div class="chapter-script">those who stand closest</div>
+        <p class="chapter-description">
+          The people standing closest on the day of the vow. Each was
+          chosen because they have already been standing close for a
+          very long time.
+        </p>
+        <div class="fleuron"><span></span><div class="ornament">❦</div><span></span></div>
+      </div>
+
+      <div class="party-side-wrap">
+        <div class="side-rule"><span></span><div class="glyph">❦</div><span></span></div>
+        <div class="side-label">Bride's Side</div>
+        <div class="side-sub">~ THE FIRST ROW ~</div>
+      </div>
+
+      <div class="party-grid">
+        <article class="person">
+          <div class="person-portrait placeholder"></div>
+          <h4 class="person-name">Paige</h4>
+          <div class="person-role">MAID OF HONOR</div>
+          <div class="person-relation">Placeholder relation</div>
+          <div class="person-divider">⁂</div>
+          <p class="person-bio">A short and warm note about Paige. Replace with the real one when ready.</p>
+        </article>
+        <article class="person">
+          <div class="person-portrait placeholder"></div>
+          <h4 class="person-name">Ginger</h4>
+          <div class="person-role">MATRON OF HONOR</div>
+          <div class="person-relation">Placeholder relation</div>
+          <div class="person-divider">⁂</div>
+          <p class="person-bio">A short and warm note about Ginger. Replace with the real one when ready.</p>
+        </article>
+        <article class="person">
+          <div class="person-portrait placeholder"></div>
+          <h4 class="person-name">Erica</h4>
+          <div class="person-role">SISTER OF THE BRIDE</div>
+          <div class="person-divider">⁂</div>
+          <p class="person-bio">A short and warm note about Erica. Replace with the real one when ready.</p>
+        </article>
+        <article class="person">
+          <div class="person-portrait placeholder"></div>
+          <h4 class="person-name">Jacey</h4>
+          <div class="person-role">BRIDESMAID</div>
+          <div class="person-relation">Placeholder relation</div>
+          <div class="person-divider">⁂</div>
+          <p class="person-bio">A short and warm note about Jacey. Replace with the real one when ready.</p>
+        </article>
+        <article class="person">
+          <div class="person-portrait placeholder"></div>
+          <h4 class="person-name">Ali</h4>
+          <div class="person-role">BRIDESMAID</div>
+          <div class="person-relation">Placeholder relation</div>
+          <div class="person-divider">⁂</div>
+          <p class="person-bio">A short and warm note about Ali. Replace with the real one when ready.</p>
+        </article>
+        <article class="person">
+          <div class="person-portrait placeholder"></div>
+          <h4 class="person-name">Ashtyn</h4>
+          <div class="person-role">BRIDESMAID</div>
+          <div class="person-relation">Placeholder relation</div>
+          <div class="person-divider">⁂</div>
+          <p class="person-bio">A short and warm note about Ashtyn. Replace with the real one when ready.</p>
+        </article>
+        <article class="person">
+          <div class="person-portrait placeholder"></div>
+          <h4 class="person-name">Rachel</h4>
+          <div class="person-role">BRIDESMAID</div>
+          <div class="person-relation">Placeholder relation</div>
+          <div class="person-divider">⁂</div>
+          <p class="person-bio">A short and warm note about Rachel. Replace with the real one when ready.</p>
+        </article>
+        <article class="person">
+          <div class="person-portrait placeholder"></div>
+          <h4 class="person-name">Maddie</h4>
+          <div class="person-role">BRIDESMAID</div>
+          <div class="person-relation">Placeholder relation</div>
+          <div class="person-divider">⁂</div>
+          <p class="person-bio">A short and warm note about Maddie. Replace with the real one when ready.</p>
+        </article>
+      </div>
+
+      <div class="party-side-wrap">
+        <div class="side-rule"><span></span><div class="glyph">❦</div><span></span></div>
+        <div class="side-label">Groom's Side</div>
+        <div class="side-sub">~ THE FIRST ROW ~</div>
+      </div>
+
+      <div class="party-grid">
+        <article class="person">
+          <div class="person-portrait placeholder"></div>
+          <h4 class="person-name">James</h4>
+          <div class="person-role">BEST MAN</div>
+          <div class="person-relation">Brother of the Groom</div>
+          <div class="person-divider">⁂</div>
+          <p class="person-bio">A short and warm note about James. Replace with the real one when ready.</p>
+        </article>
+        <article class="person">
+          <div class="person-portrait placeholder"></div>
+          <h4 class="person-name">Andrew</h4>
+          <div class="person-role">GROOMSMAN</div>
+          <div class="person-relation">Placeholder relation</div>
+          <div class="person-divider">⁂</div>
+          <p class="person-bio">A short and warm note about Andrew. Replace with the real one when ready.</p>
+        </article>
+        <article class="person">
+          <div class="person-portrait placeholder"></div>
+          <h4 class="person-name">Nick</h4>
+          <div class="person-role">GROOMSMAN</div>
+          <div class="person-relation">Placeholder relation</div>
+          <div class="person-divider">⁂</div>
+          <p class="person-bio">A short and warm note about Nick. Replace with the real one when ready.</p>
+        </article>
+        <article class="person">
+          <div class="person-portrait placeholder"></div>
+          <h4 class="person-name">Tim</h4>
+          <div class="person-role">GROOMSMAN</div>
+          <div class="person-relation">Placeholder relation</div>
+          <div class="person-divider">⁂</div>
+          <p class="person-bio">A short and warm note about Tim. Replace with the real one when ready.</p>
+        </article>
+        <article class="person">
+          <div class="person-portrait placeholder"></div>
+          <h4 class="person-name">Gabe</h4>
+          <div class="person-role">GROOMSMAN</div>
+          <div class="person-relation">Placeholder relation</div>
+          <div class="person-divider">⁂</div>
+          <p class="person-bio">A short and warm note about Gabe. Replace with the real one when ready.</p>
+        </article>
+        <article class="person">
+          <div class="person-portrait placeholder"></div>
+          <h4 class="person-name">Thomas</h4>
+          <div class="person-role">GROOMSMAN</div>
+          <div class="person-relation">Placeholder relation</div>
+          <div class="person-divider">⁂</div>
+          <p class="person-bio">A short and warm note about Thomas. Replace with the real one when ready.</p>
+        </article>
+        <article class="person">
+          <div class="person-portrait placeholder"></div>
+          <h4 class="person-name">Ethan</h4>
+          <div class="person-role">GROOMSMAN</div>
+          <div class="person-relation">Placeholder relation</div>
+          <div class="person-divider">⁂</div>
+          <p class="person-bio">A short and warm note about Ethan. Replace with the real one when ready.</p>
+        </article>
+        <article class="person">
+          <div class="person-portrait placeholder"></div>
+          <h4 class="person-name">Eddy</h4>
+          <div class="person-role">GROOMSMAN</div>
+          <div class="person-relation">Placeholder relation</div>
+          <div class="person-divider">⁂</div>
+          <p class="person-bio">A short and warm note about Eddy. Replace with the real one when ready.</p>
+        </article>
+      </div>
+
+      <div class="party-side-wrap">
+        <div class="side-rule"><span></span><div class="glyph">❦</div><span></span></div>
+        <div class="side-label">A Note on David</div>
+        <div class="side-sub">~ READER &amp; WITNESS ~</div>
+      </div>
+
+      <div class="party-grid single-feature">
+        <article class="person">
+          <div class="person-portrait placeholder"></div>
+          <h4 class="person-name">David</h4>
+          <div class="person-role">READER &amp; WITNESS</div>
+          <div class="person-relation">Brother of the Bride</div>
+          <div class="person-divider">⁂</div>
+          <p class="person-bio">A short and warm note about David. His household appears in the next chapter.</p>
+        </article>
+      </div>
+    </div>
+
+    <!-- III. THE FAMILY -->
+    <div class="chapter" id="family">
+      <div class="chapter-header">
+        <div class="chapter-numeral">Chapter the Third</div>
+        <h3 class="chapter-title">THE FAMILY</h3>
+        <div class="chapter-script">the households &amp; little ones</div>
+        <p class="chapter-description">
+          The households that surround the bride and groom, and the
+          next generation already growing inside them.
+        </p>
+        <div class="fleuron"><span></span><div class="ornament">❦</div><span></span></div>
+      </div>
+
+      <div class="households">
+        <article class="household">
+          <div class="card-crown">❦</div>
+          <div class="household-eyebrow">Bride's Side</div>
+          <h4 class="household-name">THE RESTUMS</h4>
+
+          <div class="household-adults">
+            <div class="household-adult">
+              <div class="household-adult-portrait placeholder"></div>
+              <div class="household-adult-name">David</div>
+              <div class="household-adult-role">Brother of the Bride</div>
+            </div>
+            <div class="household-adult">
+              <div class="household-adult-portrait placeholder"></div>
+              <div class="household-adult-name">Teal</div>
+              <div class="household-adult-role">Sister of the Bride</div>
+            </div>
+          </div>
+
+          <div class="household-divider"><span></span><div class="label">&amp; the little ones</div><span></span></div>
+
+          <div class="household-kids">
+            <div class="household-kid">
+              <div class="household-kid-portrait placeholder"></div>
+              <div class="household-kid-name">Ayla</div>
+              <div class="household-kid-age">age 5 by then</div>
+            </div>
+            <div class="household-kid">
+              <div class="household-kid-portrait placeholder"></div>
+              <div class="household-kid-name">Emmy</div>
+              <div class="household-kid-age">age 4 by then</div>
+            </div>
+            <div class="household-kid">
+              <div class="household-kid-portrait placeholder"></div>
+              <div class="household-kid-name">Reed</div>
+              <div class="household-kid-age">age 1½ by then</div>
+            </div>
+          </div>
+
+          <p class="household-bio">A short paragraph about David, Teal, and the three. Replace with the real one when ready.</p>
+        </article>
+
+        <article class="household">
+          <div class="card-crown">❦</div>
+          <div class="household-eyebrow">Groom's Side</div>
+          <h4 class="household-name">THE BERGKAMPS</h4>
+
+          <div class="household-adults">
+            <div class="household-adult">
+              <div class="household-adult-portrait placeholder"></div>
+              <div class="household-adult-name">James</div>
+              <div class="household-adult-role">Brother of the Groom</div>
+            </div>
+            <div class="household-adult">
+              <div class="household-adult-portrait placeholder"></div>
+              <div class="household-adult-name">Ginny</div>
+              <div class="household-adult-role">Sister of the Groom</div>
+            </div>
+          </div>
+
+          <div class="household-divider"><span></span><div class="label">&amp; the little ones</div><span></span></div>
+
+          <div class="household-kids">
+            <div class="household-kid">
+              <div class="household-kid-portrait placeholder"></div>
+              <div class="household-kid-name">Archer</div>
+              <div class="household-kid-age">high school freshman</div>
+            </div>
+            <div class="household-kid">
+              <div class="household-kid-portrait placeholder"></div>
+              <div class="household-kid-name">Greyson</div>
+              <div class="household-kid-age">middle school</div>
+            </div>
+            <div class="household-kid">
+              <div class="household-kid-portrait placeholder"></div>
+              <div class="household-kid-name">Harper</div>
+              <div class="household-kid-age">age 8 or 9 by then</div>
+            </div>
+          </div>
+
+          <p class="household-bio">A short paragraph about James, Ginny, and the three. Replace with the real one when ready.</p>
+        </article>
+      </div>
+    </div>
+
+    <!-- IV. THE MENAGERIE -->
+    <div class="menagerie" id="menagerie">
+      <div class="chapter-header">
+        <div class="chapter-numeral">Chapter the Fourth</div>
+        <h3 class="chapter-title">THE MENAGERIE</h3>
+        <div class="chapter-script">the four-legged residents</div>
+        <p class="chapter-description">
+          The four-legged residents of the Bergkamp household, each
+          already pictured in the family crest, each entirely indispensable.
+        </p>
+        <div class="fleuron"><span></span><div class="ornament">❦</div><span></span></div>
+      </div>
+
+      <div class="menagerie-grid">
+        <article class="creature">
+          <div class="creature-portrait placeholder"></div>
+          <h4 class="creature-name">Pet Name</h4>
+          <div class="creature-species">BORDER COLLIE</div>
+          <p class="creature-bio">A small note. Two sentences is plenty.</p>
+        </article>
+        <article class="creature">
+          <div class="creature-portrait placeholder"></div>
+          <h4 class="creature-name">Pet Name</h4>
+          <div class="creature-species">GERMAN SHEPHERD</div>
+          <p class="creature-bio">A small note. Two sentences is plenty.</p>
+        </article>
+        <article class="creature">
+          <div class="creature-portrait placeholder"></div>
+          <h4 class="creature-name">Pet Name</h4>
+          <div class="creature-species">THE GOAT</div>
+          <p class="creature-bio">A small note. Two sentences is plenty.</p>
+        </article>
+        <article class="creature">
+          <div class="creature-portrait placeholder"></div>
+          <h4 class="creature-name">Pet Name</h4>
+          <div class="creature-species">THE ALPACA</div>
+          <p class="creature-bio">A small note. Two sentences is plenty.</p>
+        </article>
+      </div>
+    </div>
+
+    <!-- COLOPHON -->
+    <div class="colophon">
+      <div class="colophon-frame">
+        <div class="colophon-ornament">⁂</div>
+        <div class="colophon-crest">W <span class="amp">&amp;</span> L</div>
+        <div class="colophon-line">End of Volume I &middot; The Bergkamp Almanac</div>
+      </div>
+    </div>
+
   </section>
 
   <section id="honeymoon" class="dark-section" style="padding-top: 0;">
@@ -1220,7 +2179,7 @@
       <a href="#story">Story</a>
       <a href="#ceremony">Ceremony</a>
       <a href="#travel">Travel</a>
-      <a href="/wedding-party.html">Wedding Party</a>
+      <a href="#wedding-party">Wedding Party</a>
       <a href="#honeymoon">Honeymoon</a>
       <a href="#rsvp">RSVP</a>
     </div>
@@ -1256,22 +2215,24 @@
       enter();
     }
 
-    // nav scroll behavior
+    // nav scroll behavior — switches to dark-on-light over any paper section
     var nav = document.getElementById('nav');
-    var story = document.getElementById('story');
-    var actBreak = document.querySelector('.act-break');
+    var lightZones = Array.from(document.querySelectorAll(
+      '.light-section, .ceremony-bleed, .lattice-section, .quote-section, .countdown, .almanac'
+    ));
 
     function updateNav() {
       if (!nav) return;
-      var scrolled = window.scrollY > 60;
-      nav.classList.toggle('scrolled', scrolled);
-      if (!story || !actBreak) return;
-      var storyTop = story.getBoundingClientRect().top;
-      var actBreakTop = actBreak.getBoundingClientRect().top;
-      var lightActive = storyTop < 80 && actBreakTop > 80;
-      nav.classList.toggle('light', lightActive);
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+      var probe = 80;
+      var overLight = lightZones.some(function (el) {
+        var r = el.getBoundingClientRect();
+        return r.top < probe && r.bottom > probe;
+      });
+      nav.classList.toggle('light', overLight);
     }
     window.addEventListener('scroll', updateNav, { passive: true });
+    window.addEventListener('resize', updateNav, { passive: true });
     updateNav();
 
     // Mobile menu toggle

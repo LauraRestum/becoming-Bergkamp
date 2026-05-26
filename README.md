@@ -3,15 +3,15 @@
 Wedding website for **Laura Restum & William Bergkamp** — Saturday, 13 March 2027,
 Wichita, Kansas.
 
-A static, hand-built site. No framework, no build step. Two pages bound together
-by a fixed nav and a back-link.
+A static, hand-built single-page site. No framework, no build step. The Bergkamp
+Almanac (parents, wedding party, family, menagerie) lives as a section inside
+`index.html` and is reached via `#wedding-party`.
 
 ## Structure
 
 ```
 .
-├── index.html                # the home / chapel
-├── wedding-party.html        # The Bergkamp Almanac (parents, party, family)
+├── index.html                # the whole site — chapel + Almanac
 ├── 404.html
 ├── favicon.svg
 ├── robots.txt
