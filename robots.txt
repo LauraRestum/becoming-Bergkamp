@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://becoming-bergkamp.vercel.app/sitemap.xml

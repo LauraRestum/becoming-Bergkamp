@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="8" fill="#0a0807"/>
+  <text x="50%" y="54%" text-anchor="middle" dominant-baseline="middle"
+        font-family="'Cinzel','Trajan Pro',serif" font-weight="500" font-size="28"
+        letter-spacing="2" fill="#d4b87c">L<tspan font-family="Garamond,serif" font-style="italic" font-size="20" fill="#b89968">&amp;</tspan>W</text>
+</svg>

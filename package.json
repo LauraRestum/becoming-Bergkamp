@@ -1,0 +1,10 @@
+{
+  "name": "becoming-bergkamp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Wedding website for Laura Restum & William Bergkamp — 13 March 2027, Wichita, Kansas.",
+  "scripts": {
+    "dev": "npx --yes serve -l 3000 .",
+    "start": "npx --yes serve -l 3000 ."
+  }
+}
