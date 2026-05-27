@@ -498,6 +498,104 @@
   }
 
   /* ============================================
+     SECTION STRIP — skinny single-row nav under countdown
+     ============================================ */
+  .section-strip {
+    background: var(--paper);
+    border-bottom: 0.5px solid var(--rule-light);
+    padding: 0 16px;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .section-strip::-webkit-scrollbar { display: none; }
+  .section-strip a {
+    font-family: var(--sans);
+    font-size: 10px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    padding: 16px 22px;
+    white-space: nowrap;
+    border-right: 0.5px solid var(--rule-light);
+    transition: color 200ms ease, background 200ms ease;
+    display: inline-flex; align-items: center;
+  }
+  .section-strip a:first-child { border-left: 0.5px solid var(--rule-light); }
+  .section-strip a:hover { color: var(--gold-deep); background: rgba(26, 22, 18, 0.03); }
+
+  /* ============================================
+     SECTION PORTALS — bigger, clear section cards at end of main scroll
+     ============================================ */
+  .section-portals {
+    background: var(--paper-2);
+    color: var(--ink-on-paper);
+    padding: 140px 40px;
+    position: relative;
+    border-top: 0.5px solid var(--rule-light);
+  }
+  .section-portals .portal-grid {
+    margin-top: 72px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .section-portals .portal-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background: var(--paper);
+    border: 0.5px solid var(--rule-light);
+    padding: 48px 36px 36px;
+    min-height: 260px;
+    text-decoration: none;
+    color: var(--ink-on-paper);
+    transition: transform 280ms ease, box-shadow 280ms ease, background 280ms ease;
+    position: relative;
+  }
+  .section-portals .portal-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 60px -28px rgba(26, 22, 18, 0.4);
+    background: #fbf8f0;
+  }
+  .section-portals .portal-numeral {
+    font-family: var(--serif); font-style: italic;
+    font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 18px;
+  }
+  .section-portals .portal-card h3 {
+    font-family: var(--display); font-weight: 500;
+    font-size: 26px; letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 14px;
+    line-height: 1.15;
+  }
+  .section-portals .portal-card p {
+    font-family: var(--serif);
+    font-size: 16px; line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+    flex: 1;
+  }
+  .section-portals .portal-arrow {
+    font-family: var(--sans);
+    font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--gold-deep);
+    align-self: flex-start;
+    border-top: 0.5px solid var(--rule-light);
+    padding-top: 18px;
+    width: 100%;
+  }
+
+  /* ============================================
      SECTIONS
      ============================================ */
   .light-section {
@@ -1024,6 +1122,15 @@
     .sched-row { grid-template-columns: 1fr; gap: 6px; }
     .countdown .units { gap: 22px; }
     .countdown .num { font-size: 30px; }
+    .section-strip { justify-content: flex-start; }
+    .section-strip a { padding: 14px 18px; font-size: 9px; letter-spacing: 0.28em; }
+    .section-portals { padding: 88px 24px; }
+    .section-portals .portal-grid { grid-template-columns: 1fr; gap: 14px; margin-top: 56px; }
+    .section-portals .portal-card { min-height: 0; padding: 36px 28px 28px; }
+    .section-portals .portal-card h3 { font-size: 22px; }
+  }
+  @media (max-width: 1100px) and (min-width: 801px) {
+    .section-portals .portal-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -1673,6 +1780,17 @@
     </div>
   </div>
 
+  <!-- SECTION STRIP — skinny one-row nav -->
+  <nav class="section-strip" aria-label="Jump to section">
+    <a href="#story">Our Story</a>
+    <a href="#ceremony">Ceremony</a>
+    <a href="#travel">Travel</a>
+    <a href="#schedule">Evening</a>
+    <a href="#wedding-party">Wedding Party</a>
+    <a href="#honeymoon">Honeymoon</a>
+    <a href="#rsvp">RSVP</a>
+  </nav>
+
   <!-- STORY -->
   <section id="story" class="light-section">
     <div class="container">
@@ -1758,6 +1876,60 @@
           <div class="story-chapter-ornament" aria-hidden="true">✦</div>
         </article>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION PORTALS — bigger, clear section cards (end of main scroll) -->
+  <section class="section-portals" aria-label="Continue exploring">
+    <div class="container">
+      <div class="kicker">Continue Exploring</div>
+      <h2 class="display-h">The Day, In Parts</h2>
+      <div class="rule"><span class="line"></span><span class="ornament">✦</span><span class="line"></span></div>
+      <p class="lede">Six chapters of the weekend. Step into whichever calls you first.</p>
+
+      <div class="portal-grid">
+        <a href="#ceremony" class="portal-card">
+          <div class="portal-numeral">Chapter I</div>
+          <h3>The Ceremony</h3>
+          <p>Saturday at four o'clock — a quiet service at the chapel at Central Community Church.</p>
+          <span class="portal-arrow">View &rarr;</span>
+        </a>
+
+        <a href="#travel" class="portal-card">
+          <div class="portal-numeral">Chapter II</div>
+          <h3>Travel &amp; Stay</h3>
+          <p>Flights into Wichita, the hotel block at The Ambassador, and the shuttle to the reception.</p>
+          <span class="portal-arrow">View &rarr;</span>
+        </a>
+
+        <a href="#schedule" class="portal-card">
+          <div class="portal-numeral">Chapter III</div>
+          <h3>The Evening</h3>
+          <p>The order of the night — cocktails, dinner, first toasts, and dancing by candlelight.</p>
+          <span class="portal-arrow">View &rarr;</span>
+        </a>
+
+        <a href="#wedding-party" class="portal-card">
+          <div class="portal-numeral">Chapter IV</div>
+          <h3>The Wedding Party</h3>
+          <p>The Bergkamp Almanac — the parents, the standing party, the family, and the menagerie.</p>
+          <span class="portal-arrow">View &rarr;</span>
+        </a>
+
+        <a href="#honeymoon" class="portal-card">
+          <div class="portal-numeral">Chapter V</div>
+          <h3>The Honeymoon</h3>
+          <p>In lieu of a gift — a contribution to the coastline that awaits us after the vow.</p>
+          <span class="portal-arrow">View &rarr;</span>
+        </a>
+
+        <a href="#rsvp" class="portal-card">
+          <div class="portal-numeral">Chapter VI</div>
+          <h3>RSVP</h3>
+          <p>The honor of a reply, kindly requested by the first of February, two thousand twenty seven.</p>
+          <span class="portal-arrow">View &rarr;</span>
+        </a>
       </div>
     </div>
   </section>
@@ -1864,7 +2036,7 @@
   </div>
 
   <!-- DARK ACT -->
-  <section class="dark-section">
+  <section id="schedule" class="dark-section">
     <div class="container narrow">
       <div class="kicker">The Order of the Evening</div>
       <h2 class="display-h">Saturday Evening</h2>
@@ -2361,7 +2533,7 @@
     // nav scroll behavior — switches to dark-on-light over any paper section
     var nav = document.getElementById('nav');
     var lightZones = Array.from(document.querySelectorAll(
-      '.light-section, .ceremony-bleed, .lattice-section, .quote-section, .countdown, .almanac'
+      '.light-section, .ceremony-bleed, .lattice-section, .quote-section, .countdown, .section-strip, .section-portals, .almanac'
     ));
 
     function updateNav() {
