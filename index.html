@@ -32,8 +32,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&family=Cinzel:wght@400;500;600&family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,700;0,800;0,900;1,700;1,900&family=Italianno&family=Oswald:wght@400;500;600;700&family=Abril+Fatface&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
 
-<!-- Preload LCP imagery -->
-<link rel="preload" as="image" href="/images/main-2.jpg" fetchpriority="high" />
 
 <!-- Schema.org Event -->
 <script type="application/ld+json">
@@ -140,7 +138,8 @@
     position: fixed;
     inset: 0;
     z-index: 999;
-    background: #050402;
+    background:
+      radial-gradient(ellipse at 50% 40%, #fbf6ea 0%, #f1ead8 55%, #e3dac3 100%);
     overflow: hidden;
     cursor: default;
     transition: opacity 1400ms ease;
@@ -148,82 +147,69 @@
   .cover-art {
     position: absolute;
     inset: 0;
-    background-image: url(/images/main-1.jpg);
-    background-size: contain;
-    background-position: center 62%;
-    background-repeat: no-repeat;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='520' height='520'><filter id='plaster'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' seed='7'/><feColorMatrix values='0 0 0 0 0.78 0 0 0 0 0.72 0 0 0 0 0.60 0 0 0 0.55 0'/></filter><filter id='plasterCoarse'><feTurbulence type='fractalNoise' baseFrequency='0.22' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0.85 0 0 0 0 0.80 0 0 0 0 0.68 0 0 0 0.22 0'/></filter><rect width='100%' height='100%' filter='url(%23plasterCoarse)'/><rect width='100%' height='100%' filter='url(%23plaster)'/></svg>");
+    background-size: 520px 520px;
+    background-repeat: repeat;
     opacity: 0;
+    mix-blend-mode: multiply;
     animation: coverArtIn 2200ms ease-out 200ms forwards;
     transition: transform 1800ms cubic-bezier(0.4, 0, 0.2, 1), opacity 1400ms ease-out;
   }
   .cover.opening .cover-art {
-    transform: scale(1.6);
+    transform: scale(1.1);
     opacity: 0;
   }
   @keyframes coverArtIn {
-    from { opacity: 0; transform: scale(1.02); }
-    to { opacity: 1; transform: scale(1); }
-  }
-
-  .cover-art::after {
-    content: "";
-    position: absolute;
-    bottom: 20%; left: 50%;
-    transform: translateX(-50%);
-    width: 55%; height: 35%;
-    background: radial-gradient(ellipse at center, rgba(244, 210, 140, 0.32) 0%, rgba(244, 210, 140, 0.1) 40%, transparent 70%);
-    pointer-events: none;
-    animation: candleBreath 4s ease-in-out infinite alternate;
-    mix-blend-mode: screen;
-  }
-  @keyframes candleBreath {
-    0% { opacity: 0.7; }
-    100% { opacity: 1; }
+    from { opacity: 0; }
+    to { opacity: 0.9; }
   }
 
   .cover-doors {
     position: absolute;
-    bottom: 23%;
+    bottom: 14%;
     left: 50%;
     transform: translateX(-50%);
-    width: 14%;
-    height: 24%;
+    width: 220px;
+    max-width: 60%;
+    height: 56px;
     cursor: pointer;
     z-index: 5;
     transition: all 400ms ease;
-    border-radius: 2px;
+    border-radius: 1px;
+    border: 1px solid var(--gold-deep);
+    background: rgba(255, 252, 244, 0.35);
   }
   .cover-doors::before {
-    content: "";
+    content: "Enter";
     position: absolute;
-    inset: -40% -50%;
-    border-radius: 50%;
-    background:
-      radial-gradient(ellipse at center, rgba(244, 210, 140, 0.42) 0%, rgba(244, 210, 140, 0.22) 30%, rgba(244, 210, 140, 0.08) 55%, transparent 75%);
-    opacity: 0.85;
-    animation: doorGlow 3.2s ease-in-out infinite alternate;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    padding-left: 0.5em;
     pointer-events: none;
-    mix-blend-mode: screen;
-    filter: blur(8px);
   }
   .cover-doors::after {
     content: "";
     position: absolute;
-    inset: 0;
-    border-radius: 2px;
-    background: radial-gradient(ellipse at center, rgba(255, 220, 140, 0.18) 0%, transparent 70%);
-    opacity: 0.9;
-    animation: doorGlow 3.2s ease-in-out infinite alternate;
+    inset: -8px;
+    border: 1px solid rgba(138, 111, 68, 0.0);
+    border-radius: 1px;
     pointer-events: none;
-    mix-blend-mode: screen;
+    animation: doorGlow 3.2s ease-in-out infinite alternate;
   }
-  .cover-doors:hover::before,
-  .cover-doors:focus-visible::before { opacity: 1; animation-duration: 1.8s; }
+  .cover-doors:hover,
+  .cover-doors:focus-visible { background: rgba(255, 252, 244, 0.7); }
   .cover-doors:hover::after,
-  .cover-doors:focus-visible::after { opacity: 1; animation-duration: 1.8s; }
+  .cover-doors:focus-visible::after { border-color: rgba(138, 111, 68, 0.35); }
   @keyframes doorGlow {
-    0% { opacity: 0.6; transform: scale(0.95); }
-    100% { opacity: 1; transform: scale(1.08); }
+    0% { border-color: rgba(138, 111, 68, 0.0); }
+    100% { border-color: rgba(138, 111, 68, 0.25); }
   }
 
   .cover-mono {
@@ -241,20 +227,20 @@
     font-weight: 500;
     font-size: clamp(42px, 6vw, 76px);
     letter-spacing: 0.16em;
-    color: #f5f1e8;
+    color: var(--ink-on-paper);
     line-height: 1;
-    text-shadow: 0 3px 24px rgba(0, 0, 0, 0.9), 0 0 60px rgba(244, 210, 140, 0.18);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
   }
   .cover-mono .mono-amp {
     font-family: var(--serif);
     font-style: italic;
     font-weight: 400;
     font-size: clamp(24px, 3.4vw, 42px);
-    color: var(--gold-bright);
+    color: var(--gold-deep);
     letter-spacing: 0.04em;
     padding: 0 0.12em;
     vertical-align: 0.05em;
-    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85), 0 0 24px rgba(244, 210, 140, 0.3);
+    text-shadow: none;
   }
 
   .cover-verse {
@@ -285,18 +271,18 @@
     font-weight: 400;
     font-size: clamp(18px, 2.1vw, 24px);
     line-height: 1.65;
-    color: #f5f1e8;
+    color: var(--ink-on-paper);
     letter-spacing: 0.01em;
     margin-bottom: 16px;
-    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.95), 0 0 36px rgba(0, 0, 0, 0.8), 0 0 60px rgba(0, 0, 0, 0.5);
+    text-shadow: none;
   }
   .cover-verse .citation {
     font-family: var(--sans);
     font-size: 10px;
     letter-spacing: 0.55em;
     text-transform: uppercase;
-    color: var(--gold-bright);
-    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9);
+    color: var(--gold-deep);
+    text-shadow: none;
   }
 
   .cover-cue {
@@ -308,12 +294,12 @@
     font-size: 10px;
     letter-spacing: 0.5em;
     text-transform: uppercase;
-    color: var(--gold-bright);
+    color: var(--gold-deep);
     z-index: 6;
     opacity: 0;
     animation: coverFadeIn 1600ms ease-out 3400ms forwards, cuePulse 2.8s ease-in-out 4800ms infinite;
     white-space: nowrap;
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
+    text-shadow: none;
   }
   @keyframes coverFadeIn {
     from { opacity: 0; transform: translate(-50%, 10px); }
@@ -379,7 +365,8 @@
     position: relative;
     min-height: 100vh;
     width: 100%;
-    background: var(--ink);
+    background:
+      radial-gradient(ellipse at 50% 40%, #fbf6ea 0%, #f1ead8 55%, #e3dac3 100%);
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -388,10 +375,10 @@
   .hero-bg {
     position: absolute;
     inset: 0;
-    background-image: url(/images/main-2.jpg);
-    background-size: cover;
-    background-position: center 30%;
-    background-repeat: no-repeat;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='520' height='520'><filter id='hp'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' seed='7'/><feColorMatrix values='0 0 0 0 0.78 0 0 0 0 0.72 0 0 0 0 0.60 0 0 0 0.45 0'/></filter><filter id='hpc'><feTurbulence type='fractalNoise' baseFrequency='0.22' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0.85 0 0 0 0 0.80 0 0 0 0 0.68 0 0 0 0.18 0'/></filter><rect width='100%' height='100%' filter='url(%23hpc)'/><rect width='100%' height='100%' filter='url(%23hp)'/></svg>");
+    background-size: 520px 520px;
+    background-repeat: repeat;
+    mix-blend-mode: multiply;
     opacity: 0;
   }
   body.entered .hero-bg { animation: heroEmerge 2200ms ease-out forwards; }
@@ -1556,14 +1543,14 @@
       <div class="mono-letters">L<span class="mono-amp">&amp;</span>W</div>
     </div>
 
-    <div class="cover-doors" id="coverDoors" role="button" aria-label="Enter the chapel" tabindex="0"></div>
+    <div class="cover-doors" id="coverDoors" role="button" aria-label="Enter" tabindex="0"></div>
 
     <div class="cover-verse">
       <p class="quote">I have found the one whom my soul loves.</p>
       <p class="citation">Song of Solomon 3 &middot; 4</p>
     </div>
 
-    <div class="cover-cue">— Press the doors to enter —</div>
+    <div class="cover-cue">— Press to enter —</div>
   </div>
 
   <!-- NAV -->
