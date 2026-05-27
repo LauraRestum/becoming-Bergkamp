@@ -138,7 +138,7 @@
     position: fixed;
     inset: 0;
     z-index: 999;
-    background: #f4efe4;
+    background: #050402;
     overflow: hidden;
     cursor: default;
     transition: opacity 1400ms ease;
@@ -146,69 +146,82 @@
   .cover-art {
     position: absolute;
     inset: 0;
-    background-image: url(/images/plaster.png);
-    background-size: cover;
-    background-position: center center;
+    background-image: url(/images/main-1.jpg);
+    background-size: contain;
+    background-position: center 62%;
     background-repeat: no-repeat;
     opacity: 0;
     animation: coverArtIn 2200ms ease-out 200ms forwards;
     transition: transform 1800ms cubic-bezier(0.4, 0, 0.2, 1), opacity 1400ms ease-out;
   }
   .cover.opening .cover-art {
-    transform: scale(1.05);
+    transform: scale(1.6);
     opacity: 0;
   }
   @keyframes coverArtIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from { opacity: 0; transform: scale(1.02); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .cover-art::after {
+    content: "";
+    position: absolute;
+    bottom: 20%; left: 50%;
+    transform: translateX(-50%);
+    width: 55%; height: 35%;
+    background: radial-gradient(ellipse at center, rgba(244, 210, 140, 0.32) 0%, rgba(244, 210, 140, 0.1) 40%, transparent 70%);
+    pointer-events: none;
+    animation: candleBreath 4s ease-in-out infinite alternate;
+    mix-blend-mode: screen;
+  }
+  @keyframes candleBreath {
+    0% { opacity: 0.7; }
+    100% { opacity: 1; }
   }
 
   .cover-doors {
     position: absolute;
-    bottom: 14%;
+    bottom: 23%;
     left: 50%;
     transform: translateX(-50%);
-    width: 220px;
-    max-width: 60%;
-    height: 56px;
+    width: 14%;
+    height: 24%;
     cursor: pointer;
     z-index: 5;
     transition: all 400ms ease;
-    border-radius: 1px;
-    border: 1px solid var(--gold-deep);
-    background: rgba(255, 252, 244, 0.35);
+    border-radius: 2px;
   }
   .cover-doors::before {
-    content: "Enter";
+    content: "";
     position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--sans);
-    font-size: 11px;
-    letter-spacing: 0.5em;
-    text-transform: uppercase;
-    color: var(--gold-deep);
-    padding-left: 0.5em;
+    inset: -40% -50%;
+    border-radius: 50%;
+    background:
+      radial-gradient(ellipse at center, rgba(244, 210, 140, 0.42) 0%, rgba(244, 210, 140, 0.22) 30%, rgba(244, 210, 140, 0.08) 55%, transparent 75%);
+    opacity: 0.85;
+    animation: doorGlow 3.2s ease-in-out infinite alternate;
     pointer-events: none;
+    mix-blend-mode: screen;
+    filter: blur(8px);
   }
   .cover-doors::after {
     content: "";
     position: absolute;
-    inset: -8px;
-    border: 1px solid rgba(138, 111, 68, 0.0);
-    border-radius: 1px;
-    pointer-events: none;
+    inset: 0;
+    border-radius: 2px;
+    background: radial-gradient(ellipse at center, rgba(255, 220, 140, 0.18) 0%, transparent 70%);
+    opacity: 0.9;
     animation: doorGlow 3.2s ease-in-out infinite alternate;
+    pointer-events: none;
+    mix-blend-mode: screen;
   }
-  .cover-doors:hover,
-  .cover-doors:focus-visible { background: rgba(255, 252, 244, 0.7); }
+  .cover-doors:hover::before,
+  .cover-doors:focus-visible::before { opacity: 1; animation-duration: 1.8s; }
   .cover-doors:hover::after,
-  .cover-doors:focus-visible::after { border-color: rgba(138, 111, 68, 0.35); }
+  .cover-doors:focus-visible::after { opacity: 1; animation-duration: 1.8s; }
   @keyframes doorGlow {
-    0% { border-color: rgba(138, 111, 68, 0.0); }
-    100% { border-color: rgba(138, 111, 68, 0.25); }
+    0% { opacity: 0.6; transform: scale(0.95); }
+    100% { opacity: 1; transform: scale(1.08); }
   }
 
   .cover-mono {
@@ -226,20 +239,20 @@
     font-weight: 500;
     font-size: clamp(42px, 6vw, 76px);
     letter-spacing: 0.16em;
-    color: var(--ink-on-paper);
+    color: #f5f1e8;
     line-height: 1;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+    text-shadow: 0 3px 24px rgba(0, 0, 0, 0.9), 0 0 60px rgba(244, 210, 140, 0.18);
   }
   .cover-mono .mono-amp {
     font-family: var(--serif);
     font-style: italic;
     font-weight: 400;
     font-size: clamp(24px, 3.4vw, 42px);
-    color: var(--gold-deep);
+    color: var(--gold-bright);
     letter-spacing: 0.04em;
     padding: 0 0.12em;
     vertical-align: 0.05em;
-    text-shadow: none;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85), 0 0 24px rgba(244, 210, 140, 0.3);
   }
 
   .cover-verse {
@@ -270,18 +283,18 @@
     font-weight: 400;
     font-size: clamp(18px, 2.1vw, 24px);
     line-height: 1.65;
-    color: var(--ink-on-paper);
+    color: #f5f1e8;
     letter-spacing: 0.01em;
     margin-bottom: 16px;
-    text-shadow: none;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.95), 0 0 36px rgba(0, 0, 0, 0.8), 0 0 60px rgba(0, 0, 0, 0.5);
   }
   .cover-verse .citation {
     font-family: var(--sans);
     font-size: 10px;
     letter-spacing: 0.55em;
     text-transform: uppercase;
-    color: var(--gold-deep);
-    text-shadow: none;
+    color: var(--gold-bright);
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9);
   }
 
   .cover-cue {
@@ -293,12 +306,12 @@
     font-size: 10px;
     letter-spacing: 0.5em;
     text-transform: uppercase;
-    color: var(--gold-deep);
+    color: var(--gold-bright);
     z-index: 6;
     opacity: 0;
     animation: coverFadeIn 1600ms ease-out 3400ms forwards, cuePulse 2.8s ease-in-out 4800ms infinite;
     white-space: nowrap;
-    text-shadow: none;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
   }
   @keyframes coverFadeIn {
     from { opacity: 0; transform: translate(-50%, 10px); }
@@ -1541,14 +1554,14 @@
       <div class="mono-letters">L<span class="mono-amp">&amp;</span>W</div>
     </div>
 
-    <div class="cover-doors" id="coverDoors" role="button" aria-label="Enter" tabindex="0"></div>
+    <div class="cover-doors" id="coverDoors" role="button" aria-label="Enter the chapel" tabindex="0"></div>
 
     <div class="cover-verse">
       <p class="quote">I have found the one whom my soul loves.</p>
       <p class="citation">Song of Solomon 3 &middot; 4</p>
     </div>
 
-    <div class="cover-cue">— Press to enter —</div>
+    <div class="cover-cue">— Press the doors to enter —</div>
   </div>
 
   <!-- NAV -->
