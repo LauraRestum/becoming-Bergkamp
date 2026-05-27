@@ -1,6 +1,6 @@
 # Becoming Bergkamp
 
-Wedding website for **Laura Restum & William Bergkamp** — Saturday, 13 March 2027,
+Wedding website for **Laura Restum & William Bergkamp** — Saturday, 20 March 2027,
 Wichita, Kansas.
 
 A static, hand-built single-page site. No framework, no build step. The Bergkamp
