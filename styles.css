@@ -1007,6 +1007,23 @@
     font-family: var(--sans); font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase;
     color: rgba(235, 226, 200, 0.28);
   }
+  .replay-cover {
+    display: inline-block;
+    margin-top: 30px;
+    background: transparent;
+    border: 0.5px solid var(--rule-dark);
+    color: var(--gold);
+    font-family: var(--sans); font-size: 10px; letter-spacing: 0.34em; text-transform: uppercase;
+    padding: 12px 26px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: color 220ms ease, border-color 220ms ease, background 220ms ease;
+  }
+  .replay-cover:hover {
+    color: var(--gold-bright);
+    border-color: var(--gold);
+    background: rgba(244, 210, 140, 0.06);
+  }
 
   /* ============================================
      RESPONSIVE

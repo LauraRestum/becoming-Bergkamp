@@ -30,6 +30,40 @@
     document.body.classList.add('entered');
   }
 
+  // Replay the chapel intro. On the home page it re-runs in place; from a
+  // subpage (no cover present) it returns home where the intro plays fresh.
+  function restartCover() {
+    if (!cover) {
+      window.location.href = '/';
+      return;
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    cover.style.display = 'block';
+    cover.classList.remove('opening');
+    document.body.classList.remove('entered');
+    document.body.classList.add('cover-open');
+    var animated = [
+      cover.querySelector('.cover-art'),
+      cover.querySelector('.cover-mono'),
+      cover.querySelector('.cover-verse'),
+      cover.querySelector('.cover-cue')
+    ];
+    animated.forEach(function (el) { if (el) el.style.animation = 'none'; });
+    void cover.offsetWidth; // force reflow so the animations restart
+    animated.forEach(function (el) { if (el) el.style.animation = ''; });
+  }
+
+  // Inject the replay control into the footer on every page.
+  var footer = document.querySelector('footer');
+  if (footer) {
+    var replay = document.createElement('button');
+    replay.type = 'button';
+    replay.className = 'replay-cover';
+    replay.innerHTML = '&#8635; Replay the chapel';
+    footer.appendChild(replay);
+    replay.addEventListener('click', restartCover);
+  }
+
   // nav scroll behavior — switches to dark-on-light over any paper section
   var nav = document.getElementById('nav');
   var lightZones = Array.from(document.querySelectorAll(
