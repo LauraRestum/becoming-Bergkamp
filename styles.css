@@ -1092,6 +1092,26 @@
 
   /* (quote-section, act-break, reception-venue removed — replaced by blinds reveal) */
 
+  /* RECEPTION INTRO — dark text banner between ceremony & reception */
+  .reception-intro {
+    background: var(--ink);
+    padding: 120px 40px;
+    text-align: center;
+  }
+  .reception-intro .kicker {
+    color: var(--gold-bright);
+  }
+  .reception-intro .display-h {
+    color: var(--paper-on-ink);
+    font-size: clamp(36px, 6vw, 64px);
+  }
+  .reception-intro .rule .line {
+    background: var(--rule-dark);
+  }
+  .reception-intro .rule .ornament {
+    color: var(--gold-bright);
+  }
+
   /* RECEPTION — full-screen oil-painted reveal */
   .reception-bleed {
     position: relative;
@@ -1377,6 +1397,7 @@
     .ceremony-details { grid-template-columns: 1fr; }
     .ceremony-details > div { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
     .ceremony-details > div:last-child { border-bottom: none; }
+    .reception-intro { padding: 80px 24px; }
     .blinds-section { height: 60vh; }
     .blinds-track { padding: calc((1 - var(--blinds-progress)) * 12px); gap: calc((1 - var(--blinds-progress)) * 6px); }
     .portal { padding: 56px 28px; }
