@@ -178,9 +178,10 @@
     });
   }
 
-  // Blinds reveal — scroll-driven progress
+  // Blinds reveal — scroll-driven progress, text fades in when assembled
   var blinds = document.getElementById('blindsReveal');
   if (blinds) {
+    var textRevealed = false;
     function updateBlinds() {
       var rect = blinds.getBoundingClientRect();
       var vh = window.innerHeight;
@@ -188,24 +189,14 @@
       var raw = 1 - (center - vh / 2) / (vh * 0.8);
       var progress = Math.min(1, Math.max(0, raw));
       blinds.style.setProperty('--blinds-progress', progress);
+      if (progress >= 0.95 && !textRevealed) {
+        textRevealed = true;
+        blinds.classList.add('blinds-complete');
+      }
     }
     window.addEventListener('scroll', updateBlinds, { passive: true });
     window.addEventListener('resize', updateBlinds, { passive: true });
     updateBlinds();
-  }
-
-  // Reception reveal — fade in info once section is mostly in view
-  var reception = document.getElementById('reception');
-  if (reception && 'IntersectionObserver' in window) {
-    var recObs = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          setTimeout(function () { reception.classList.add('revealed'); }, 600);
-          recObs.unobserve(reception);
-        }
-      });
-    }, { threshold: 0.45 });
-    recObs.observe(reception);
   }
 
   // Honeymoon amounts feedback
