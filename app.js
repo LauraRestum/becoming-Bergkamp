@@ -68,7 +68,7 @@
   // nav scroll behavior — switches to dark-on-light over any paper section
   var nav = document.getElementById('nav');
   var lightZones = Array.from(document.querySelectorAll(
-    '.light-section, .ceremony-bleed, .lattice-section, .quote-section, .countdown, .section-strip, .section-portals, .almanac'
+    '.light-section, .ceremony-bleed, .chapel-exterior, .countdown, .section-strip, .section-portals, .almanac'
   ));
 
   function updateNav() {
@@ -176,6 +176,22 @@
         }
       });
     });
+  }
+
+  // Blinds reveal — scroll-driven progress
+  var blinds = document.getElementById('blindsReveal');
+  if (blinds) {
+    function updateBlinds() {
+      var rect = blinds.getBoundingClientRect();
+      var vh = window.innerHeight;
+      var center = rect.top + rect.height / 2;
+      var raw = 1 - (center - vh / 2) / (vh * 0.8);
+      var progress = Math.min(1, Math.max(0, raw));
+      blinds.style.setProperty('--blinds-progress', progress);
+    }
+    window.addEventListener('scroll', updateBlinds, { passive: true });
+    window.addEventListener('resize', updateBlinds, { passive: true });
+    updateBlinds();
   }
 
   // Honeymoon amounts feedback

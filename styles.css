@@ -700,8 +700,8 @@
     height: 100%;
     display: block;
     object-fit: cover;
-    object-position: 50% 55%;
-    transform-origin: 50% 55%;
+    object-position: 50% 30%;
+    transform-origin: 50% 30%;
     animation: aisleWalk 18s ease-out forwards;
   }
   @keyframes aisleWalk {
@@ -712,16 +712,16 @@
     position: absolute;
     inset: 0;
     background: linear-gradient(180deg,
-      rgba(0,0,0,0.25) 0%,
-      rgba(0,0,0,0.05) 20%,
-      rgba(0,0,0,0.05) 45%,
-      rgba(0,0,0,0.55) 70%,
-      rgba(0,0,0,0.85) 100%);
+      rgba(0,0,0,0.35) 0%,
+      rgba(0,0,0,0.05) 25%,
+      rgba(0,0,0,0.05) 50%,
+      rgba(0,0,0,0.45) 70%,
+      rgba(0,0,0,0.8) 100%);
     pointer-events: none;
   }
   .ceremony-bleed .content {
     position: absolute;
-    top: 10%; left: 50%; transform: translateX(-50%);
+    top: 6%; left: 50%; transform: translateX(-50%);
     width: 90%; max-width: 720px;
     text-align: center;
     z-index: 2;
@@ -750,6 +750,7 @@
   .ceremony-bleed .content .lede {
     color: rgba(255, 255, 255, 0.8);
   }
+  .ceremony-bleed .content .rule { margin-bottom: 0; }
   .ceremony-bleed .content-bottom {
     position: absolute;
     bottom: 8%; left: 50%; transform: translateX(-50%);
@@ -759,7 +760,7 @@
     animation: ceremonyBoxReveal 1.2s ease-out 0.7s forwards;
   }
   .ceremony-details {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 0;
     background: rgba(10, 10, 10, 0.7);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -790,33 +791,33 @@
     100% { opacity: 1; transform: translateX(-50%) translateY(0); }
   }
 
-  /* LATTICE */
-  .lattice-section {
+  /* CHAPEL EXTERIOR */
+  .chapel-exterior {
     background: var(--paper);
     padding: 0;
     position: relative;
     overflow: hidden;
   }
-  .lattice-grid {
+  .chapel-exterior-grid {
     display: grid; grid-template-columns: 1fr 1fr;
     align-items: center;
     gap: 0;
-    min-height: 90vh;
+    min-height: 80vh;
   }
-  .lattice-grid .art-pane {
+  .chapel-exterior-img {
     position: relative;
     height: 100%;
     overflow: hidden;
     background: var(--paper);
   }
-  .lattice-grid .art-pane img {
+  .chapel-exterior-img img {
     width: 100%; height: 100%;
     object-fit: cover;
     object-position: center;
     mix-blend-mode: multiply;
     filter: contrast(1.05);
   }
-  .lattice-grid .art-pane::after {
+  .chapel-exterior-img::after {
     content: "";
     position: absolute;
     top: 0; right: 0; bottom: 0;
@@ -824,22 +825,77 @@
     background: linear-gradient(90deg, transparent, var(--paper));
     pointer-events: none;
   }
-  .lattice-grid .text-pane { padding: 100px 80px 100px 60px; max-width: 580px; }
-  .lattice-grid .text-pane .kicker { text-align: left; }
-  .lattice-grid .text-pane h3 {
-    font-family: var(--display); font-weight: 500; font-size: clamp(28px, 3.2vw, 40px);
+  .chapel-exterior-info {
+    padding: 80px 80px 80px 60px;
+    max-width: 580px;
+  }
+  .chapel-exterior-info .kicker { text-align: left; }
+  .chapel-exterior-info h3 {
+    font-family: var(--display); font-weight: 500; font-size: clamp(24px, 2.8vw, 36px);
     letter-spacing: 0.12em; text-transform: uppercase;
-    margin-bottom: 24px;
+    margin-bottom: 36px;
   }
-  .lattice-grid .text-pane p {
-    font-family: var(--serif); font-size: 17px; line-height: 1.85;
-    color: var(--ink-soft); margin-bottom: 14px;
+  .detail-row {
+    display: flex; gap: 18px; align-items: baseline;
+    padding: 16px 0;
+    border-bottom: 0.5px solid var(--rule-light);
   }
-  .lattice-grid .text-pane .quote {
-    font-family: var(--serif); font-style: italic; font-size: 21px;
-    color: var(--gold-deep); margin-top: 28px;
-    padding-top: 22px;
+  .detail-row:last-of-type { border-bottom: none; }
+  .detail-label {
+    font-family: var(--sans); font-size: 9px; letter-spacing: 0.42em; text-transform: uppercase;
+    color: var(--ink-faint); min-width: 70px; flex-shrink: 0;
+  }
+  .detail-value {
+    font-family: var(--serif); font-size: 17px; line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .chapel-note {
+    font-family: var(--serif); font-style: italic; font-size: 17px;
+    color: var(--gold-deep); margin-top: 32px;
+    padding-top: 24px;
     border-top: 0.5px solid var(--rule-light);
+    line-height: 1.7;
+  }
+
+  /* BLINDS REVEAL */
+  .blinds-section {
+    --blinds-progress: 0;
+    position: relative;
+    background: var(--ink);
+    overflow: hidden;
+    height: 100vh;
+  }
+  .blinds-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    gap: calc((1 - var(--blinds-progress)) * 12px);
+    padding: calc((1 - var(--blinds-progress)) * 24px);
+    align-items: center;
+  }
+  .blinds-strip {
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+    transform: translateY(calc((1 - var(--blinds-progress)) * var(--stagger)));
+    border-radius: calc((1 - var(--blinds-progress)) * 8px);
+    scale: calc(0.88 + var(--blinds-progress) * 0.12);
+  }
+  .blinds-strip:nth-child(1) { --stagger: -30px; }
+  .blinds-strip:nth-child(2) { --stagger: 45px; }
+  .blinds-strip:nth-child(3) { --stagger: -20px; }
+  .blinds-strip:nth-child(4) { --stagger: 55px; }
+  .blinds-strip:nth-child(5) { --stagger: -40px; }
+  .blinds-strip:nth-child(6) { --stagger: 35px; }
+  .blinds-strip:nth-child(7) { --stagger: -25px; }
+  .blinds-strip:nth-child(8) { --stagger: 50px; }
+  .blinds-img {
+    width: 100%;
+    height: 100%;
+    background: url('/images/reception-pavilion.png') no-repeat;
+    background-size: 800% 100%;
+    background-position-x: calc(var(--i) / 7 * 100%);
+    background-position-y: center;
   }
 
   /* TRAVEL */
@@ -891,83 +947,7 @@
     border-bottom: 0.5px solid var(--gold);
   }
 
-  /* QUOTE */
-  .quote-section {
-    background: var(--paper-2); padding: 130px 40px;
-    text-align: center;
-  }
-  .quote-section .marks {
-    font-family: var(--serif); font-style: italic; font-size: 72px;
-    color: var(--gold); line-height: 1; margin-bottom: 8px;
-  }
-  .quote-section blockquote {
-    font-family: var(--serif); font-style: italic; font-size: clamp(22px, 2.6vw, 32px);
-    line-height: 1.5; color: var(--ink-on-paper); max-width: 680px; margin: 0 auto 28px;
-  }
-  .quote-section cite {
-    font-family: var(--sans); font-style: normal; font-size: 10px;
-    letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold-deep);
-  }
-
-  /* ACT BREAK */
-  .act-break {
-    position: relative;
-    background: linear-gradient(180deg, var(--paper-2) 0%, var(--paper-3) 18%, #666666 48%, var(--ink-2) 78%, var(--ink) 100%);
-    text-align: center;
-    overflow: hidden;
-    padding: 180px 40px;
-  }
-  .act-break .roman {
-    font-family: var(--display); font-weight: 500; font-size: 13px;
-    letter-spacing: 0.6em; color: var(--gold); margin-bottom: 28px;
-  }
-  .act-break .title {
-    font-family: var(--display); font-weight: 500; font-size: clamp(32px, 5vw, 56px);
-    letter-spacing: 0.14em; text-transform: uppercase; color: var(--paper-on-ink);
-    margin-bottom: 18px;
-  }
-  .act-break .sub {
-    font-family: var(--serif); font-style: italic; font-size: 19px;
-    color: var(--paper-soft-on-ink); max-width: 480px; margin: 0 auto;
-  }
-  .act-break .candle-row { display: flex; justify-content: center; gap: 56px; margin-top: 60px; }
-  .act-break .candle {
-    width: 4px; height: 4px; border-radius: 50%; background: var(--candle);
-    box-shadow: 0 0 12px 4px rgba(200,200,200,0.6), 0 0 28px 8px rgba(200,200,200,0.25);
-    animation: flicker 3s infinite alternate ease-in-out;
-  }
-  .act-break .candle:nth-child(2) { animation-delay: 0.5s; }
-  .act-break .candle:nth-child(3) { animation-delay: 1s; }
-  .act-break .candle:nth-child(4) { animation-delay: 1.5s; }
-  .act-break .candle:nth-child(5) { animation-delay: 2s; }
-  @keyframes flicker {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.75; transform: scale(0.92); }
-  }
-
-  /* RECEPTION VENUE */
-  .reception-venue {
-    background: var(--ink);
-    padding: 0;
-    overflow: hidden;
-  }
-  .reception-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-  }
-  .reception-pane {
-    position: relative;
-    overflow: hidden;
-    height: 65vh;
-    min-height: 400px;
-  }
-  .reception-pane img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
+  /* (quote-section, act-break, reception-venue removed — replaced by blinds reveal) */
 
   /* DARK ACT */
   .dark-section {
@@ -1129,11 +1109,9 @@
   @media (max-width: 900px) {
     .cover-art { background-size: cover; }
     .cover-doors { width: 22%; height: 18%; bottom: 24%; }
-    .lattice-grid { grid-template-columns: 1fr; min-height: auto; }
-    .reception-grid { grid-template-columns: 1fr; }
-    .reception-pane { height: 50vh; min-height: 280px; }
-    .lattice-grid .art-pane { height: 60vh; }
-    .lattice-grid .text-pane { padding: 60px 32px; max-width: 100%; }
+    .chapel-exterior-grid { grid-template-columns: 1fr; min-height: auto; }
+    .chapel-exterior-img { height: 60vh; }
+    .chapel-exterior-info { padding: 60px 32px; max-width: 100%; }
     .story-chapters { gap: 80px; margin-top: 64px; }
     .story-perspectives { grid-template-columns: 1fr; gap: 40px; }
     .story-perspectives .divider { width: 60%; height: 0.5px; min-height: 0; justify-self: center; }
@@ -1165,8 +1143,8 @@
     .ceremony-details { grid-template-columns: 1fr; }
     .ceremony-details > div { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
     .ceremony-details > div:last-child { border-bottom: none; }
-    .act-break { padding: 100px 24px; }
-    .quote-section { padding: 80px 24px; }
+    .blinds-section { height: 60vh; }
+    .blinds-track { padding: calc((1 - var(--blinds-progress)) * 12px); gap: calc((1 - var(--blinds-progress)) * 6px); }
     .portal { padding: 56px 28px; }
     .portal-input { display: flex; width: 100%; max-width: 360px; margin: 0 auto; }
     .portal-input input { width: 100%; }
