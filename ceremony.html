@@ -37,6 +37,8 @@
 </head>
 <body class="subpage">
 
+  <a class="skip-link" href="#ceremony">Skip to content</a>
+
   <!-- NAV -->
   <nav class="top" id="nav" aria-label="Primary">
     <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">Menu</button>
@@ -53,14 +55,16 @@
     </div>
   </nav>
 
+  <main>
+
   <!-- CEREMONY -->
   <section id="ceremony" class="ceremony-bleed">
-    <img class="art-bg" src="/images/main-3.png" alt="Chapel interior with stained glass window" loading="lazy" decoding="async" />
+    <img class="art-bg" src="/images/main-3.jpg" alt="Chapel interior with stained glass window" decoding="async" />
     <div class="overlay"></div>
 
     <div class="content">
       <div class="kicker">Saturday, 20th March 2027</div>
-      <h2 class="display-h">The Wedding Day</h2>
+      <h1 class="display-h">The Wedding Day</h1>
       <div class="rule"><span class="line"></span><span class="ornament">&#10022;</span><span class="line"></span></div>
     </div>
 
@@ -84,7 +88,7 @@
   <section class="chapel-exterior">
     <div class="chapel-exterior-grid">
       <div class="chapel-exterior-img">
-        <img src="/images/main-4.png" alt="Chapel exterior at sunset with lattice windows" loading="lazy" decoding="async" />
+        <img src="/images/main-4.jpg" alt="Chapel exterior at sunset with lattice windows" loading="lazy" decoding="async" />
       </div>
       <div class="chapel-exterior-info">
         <div class="kicker">The Ceremony</div>
@@ -111,7 +115,7 @@
   </section>
 
   <!-- BLINDS REVEAL — transition to dark -->
-  <section class="blinds-section" id="blindsReveal">
+  <section class="blinds-section" id="blindsReveal" aria-hidden="true">
     <div class="blinds-track">
       <div class="blinds-strip"><div class="blinds-img" style="--i:0"></div></div>
       <div class="blinds-strip"><div class="blinds-img" style="--i:1"></div></div>
@@ -127,6 +131,7 @@
   <!-- RECEPTION — full-screen reveal -->
   <section id="reception" class="reception-bleed">
     <img class="art-bg" src="/images/reception-pavilion.png" alt="Reception pavilion interior with string lights" loading="lazy" decoding="async" />
+    <noscript><style>.reception-info { opacity: 1 !important; transform: none !important; }</style></noscript>
     <div class="overlay"></div>
 
     <div class="reception-info">
@@ -175,6 +180,8 @@
       </div>
     </div>
   </section>
+
+  </main>
 
   <footer>
     <span class="mono">LBR &middot; WJB</span>
