@@ -82,7 +82,7 @@
   .cover-art {
     position: absolute;
     inset: 0;
-    background-image: url(/images/main-1.jpg);
+    background-image: url(/images/main-1.png);
     background-size: contain;
     background-position: center 62%;
     background-repeat: no-repeat;
@@ -313,7 +313,7 @@
     position: relative;
     min-height: 100vh;
     width: 100%;
-    background: #f5f5f5;
+    background: #1a1610;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -322,7 +322,7 @@
   .hero-bg {
     position: absolute;
     inset: 0;
-    background-image: url(/images/plaster.png);
+    background-image: url(/images/hero-mirror.png);
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -338,8 +338,8 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 80% 60% at 50% 50%, transparent 0%, rgba(245,245,245,0.5) 70%, rgba(245,245,245,0.92) 100%),
-      linear-gradient(180deg, rgba(245,245,245,0.4) 0%, transparent 25%, transparent 70%, rgba(245,245,245,0.95) 100%);
+      radial-gradient(ellipse 80% 60% at 50% 50%, transparent 0%, rgba(26,22,16,0.15) 70%, rgba(26,22,16,0.6) 100%),
+      linear-gradient(180deg, rgba(26,22,16,0.3) 0%, transparent 25%, transparent 70%, rgba(26,22,16,0.7) 100%);
     z-index: 1;
     pointer-events: none;
     opacity: 0;
@@ -349,6 +349,13 @@
     position: relative; z-index: 3;
     text-align: center; padding: 0 32px;
     max-width: 800px;
+    /* Visually hidden — mirror image contains the text; kept for screen readers */
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    white-space: nowrap;
     opacity: 0;
   }
   body.entered .hero-inner { animation: heroTextFade 1800ms ease-out 1400ms forwards; }
@@ -668,15 +675,14 @@
   }
   .ceremony-bleed .art-bg {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
-    mix-blend-mode: multiply;
-    filter: contrast(1.02);
+    object-fit: cover;
   }
   .ceremony-bleed .overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(245,245,245,0.7) 0%, transparent 25%, transparent 70%, rgba(245,245,245,0.95) 100%);
+    background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 25%, rgba(0,0,0,0.1) 70%, rgba(0,0,0,0.4) 100%);
     pointer-events: none;
   }
   .ceremony-bleed .content {
