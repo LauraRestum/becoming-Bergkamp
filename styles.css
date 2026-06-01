@@ -323,7 +323,7 @@
     position: absolute;
     inset: 0;
     background-image: url(/images/hero-mirror.png);
-    background-size: contain;
+    background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
     opacity: 0;
