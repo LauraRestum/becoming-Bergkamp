@@ -20,6 +20,34 @@
     font-style: normal;
     font-display: swap;
   }
+  @font-face {
+    font-family: 'Hijrnotes';
+    src: url('/fonts/HijrnotesPersonalUseOnly01-DXOD.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Rosaline';
+    src: url('/fonts/RosalineRegular-9MErB.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Vintage Glamour';
+    src: url('/fonts/VintageGlamourRegular-ALX27.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Vintage Glamour';
+    src: url('/fonts/VintageGlamourItalic-DO471.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }
 
   :root {
     --paper: #ffffff;
