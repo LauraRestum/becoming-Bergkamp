@@ -20,6 +20,34 @@
     font-style: normal;
     font-display: swap;
   }
+  @font-face {
+    font-family: 'Hijrnotes';
+    src: url('/fonts/HijrnotesPersonalUseOnly01-DXOD.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Rosaline';
+    src: url('/fonts/RosalineRegular-9MErB.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Vintage Glamour';
+    src: url('/fonts/VintageGlamourRegular-ALX27.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Vintage Glamour';
+    src: url('/fonts/VintageGlamourItalic-DO471.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }
 
   :root {
     --paper: #ffffff;
@@ -40,8 +68,8 @@
     --gold-bright: #999999;
     --gold-deep: #444444;
     --candle: #cccccc;
-    --display: 'Walker Knight', 'Cinzel', 'Trajan Pro', serif;
-    --serif: 'Cormorant Garamond', Garamond, Georgia, serif;
+    --display: 'Rosaline', 'Cinzel', 'Trajan Pro', serif;
+    --serif: 'Rosaline', Garamond, Georgia, serif;
     --sans: 'Inter', 'Helvetica Neue', sans-serif;
   }
 
@@ -632,7 +660,7 @@
     height: 3px; background: #1a1a1a; margin: 0;
   }
   .np-title {
-    font-family: 'Old Money Basic', 'Playfair Display', 'DM Serif Display', Georgia, serif;
+    font-family: 'Hijrnotes', 'DM Serif Display', Georgia, serif;
     font-size: clamp(48px, 7vw, 86px);
     font-weight: 400;
     letter-spacing: 0.02em;
@@ -662,7 +690,7 @@
     border-bottom: 1px solid #1a1a1a;
   }
   .np-headline {
-    font-family: 'Playfair Display', 'DM Serif Display', Georgia, serif;
+    font-family: 'Hijrnotes', 'DM Serif Display', Georgia, serif;
     font-size: clamp(28px, 4vw, 44px);
     font-weight: 900;
     line-height: 1.15;
@@ -692,7 +720,7 @@
   /* Articles */
   .np-article { margin-bottom: 24px; }
   .np-article-hed {
-    font-family: 'Playfair Display', 'DM Serif Display', Georgia, serif;
+    font-family: 'Hijrnotes', 'DM Serif Display', Georgia, serif;
     font-size: 20px; font-weight: 700;
     line-height: 1.25;
     color: #1a1a1a;
@@ -721,7 +749,7 @@
     hyphens: auto;
   }
   .np-dropcap::first-letter {
-    font-family: 'Playfair Display', Georgia, serif;
+    font-family: 'Hijrnotes', Georgia, serif;
     font-size: 3.2em;
     float: left;
     line-height: 0.8;
@@ -1390,11 +1418,11 @@
     --a-ink-soft: #e0e0e0;
     --a-brass: #c9a84c;
 
-    --a-display: 'Brolia', 'Abril Fatface', 'Playfair Display', serif;
-    --a-display-alt: 'Old Money Basic', 'DM Serif Display', 'Playfair Display', serif;
-    --a-serif: 'Playfair Display', serif;
-    --a-serif-body: 'Cormorant Garamond', 'Playfair Display', serif;
-    --a-condensed: 'Oswald', 'Playfair Display', sans-serif;
+    --a-display: 'Brolia', 'Abril Fatface', 'Hijrnotes', serif;
+    --a-display-alt: 'Hijrnotes', 'DM Serif Display', serif;
+    --a-serif: 'Rosaline', serif;
+    --a-serif-body: 'Rosaline', serif;
+    --a-condensed: 'Oswald', 'Hijrnotes', sans-serif;
     --a-script: 'Italianno', cursive;
 
     position: relative;
