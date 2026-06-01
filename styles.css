@@ -879,6 +879,30 @@
     50% { opacity: 0.75; transform: scale(0.92); }
   }
 
+  /* RECEPTION VENUE */
+  .reception-venue {
+    background: var(--ink);
+    padding: 0;
+    overflow: hidden;
+  }
+  .reception-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .reception-pane {
+    position: relative;
+    overflow: hidden;
+    height: 65vh;
+    min-height: 400px;
+  }
+  .reception-pane img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
   /* DARK ACT */
   .dark-section {
     background: var(--ink);
@@ -1040,6 +1064,8 @@
     .cover-art { background-size: cover; }
     .cover-doors { width: 22%; height: 18%; bottom: 24%; }
     .lattice-grid { grid-template-columns: 1fr; min-height: auto; }
+    .reception-grid { grid-template-columns: 1fr; }
+    .reception-pane { height: 50vh; min-height: 280px; }
     .lattice-grid .art-pane { height: 60vh; }
     .lattice-grid .text-pane { padding: 60px 32px; max-width: 100%; }
     .story-chapters { gap: 80px; margin-top: 64px; }
