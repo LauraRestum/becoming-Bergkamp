@@ -194,6 +194,20 @@
     updateBlinds();
   }
 
+  // Reception reveal — fade in info once section is mostly in view
+  var reception = document.getElementById('reception');
+  if (reception && 'IntersectionObserver' in window) {
+    var recObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          setTimeout(function () { reception.classList.add('revealed'); }, 600);
+          recObs.unobserve(reception);
+        }
+      });
+    }, { threshold: 0.45 });
+    recObs.observe(reception);
+  }
+
   // Honeymoon amounts feedback
   var honeyNote = document.getElementById('honeymoonNote');
   document.querySelectorAll('.honeymoon-amounts .amt').forEach(function (btn) {
