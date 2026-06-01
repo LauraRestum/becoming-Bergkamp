@@ -82,7 +82,7 @@
   .cover-art {
     position: absolute;
     inset: 0;
-    background-image: url(/images/main-1.png);
+    background-image: url(/images/main-1.jpg);
     background-size: contain;
     background-position: center 62%;
     background-repeat: no-repeat;
@@ -328,10 +328,29 @@
     background-repeat: no-repeat;
     opacity: 0;
   }
-  body.entered .hero-bg { animation: heroEmerge 2200ms ease-out forwards; }
+  body.entered .hero-bg { animation: heroEmerge 3000ms ease-out forwards, heroBreath 20s ease-in-out 3000ms infinite alternate; }
   @keyframes heroEmerge {
-    from { opacity: 0; transform: scale(1.15); }
-    to { opacity: 1; transform: scale(1); }
+    0%   { opacity: 0; transform: scale(1.25); filter: brightness(0.4) blur(6px); }
+    50%  { opacity: 0.8; transform: scale(1.08); filter: brightness(0.85) blur(1px); }
+    100% { opacity: 1; transform: scale(1); filter: brightness(1) blur(0); }
+  }
+  body.entered .hero-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0) 40%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 60%);
+    background-size: 200% 200%;
+    animation: mirrorShine 2400ms ease-in-out 2600ms forwards;
+    pointer-events: none;
+  }
+  @keyframes mirrorShine {
+    0%   { background-position: 150% 150%; opacity: 0; }
+    30%  { opacity: 1; }
+    100% { background-position: -50% -50%; opacity: 0; }
+  }
+  @keyframes heroBreath {
+    from { transform: scale(1); }
+    to   { transform: scale(1.04); }
   }
   .hero::before {
     content: "";
