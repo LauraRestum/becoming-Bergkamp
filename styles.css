@@ -323,7 +323,7 @@
     position: absolute;
     inset: 0;
     background-image: url(/images/hero-mirror.png);
-    background-size: cover;
+    background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
     opacity: 0;
@@ -418,7 +418,8 @@
     position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
     z-index: 3;
     font-family: var(--sans); font-size: 9px; letter-spacing: 0.5em; text-transform: uppercase;
-    color: var(--ink-soft);
+    color: rgba(255,255,255,0.7);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
     opacity: 0;
   }
   body.entered .hero-scroll {

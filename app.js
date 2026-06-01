@@ -7,6 +7,7 @@
   function enter() {
     if (!cover || cover.classList.contains('opening')) return;
     cover.classList.add('opening');
+    window.scrollTo(0, 0);
     document.body.classList.remove('cover-open');
     setTimeout(function () { document.body.classList.add('entered'); }, 200);
     setTimeout(function () { cover.style.display = 'none'; }, 1600);
