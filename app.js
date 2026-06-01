@@ -68,7 +68,7 @@
   // nav scroll behavior — switches to dark-on-light over any paper section
   var nav = document.getElementById('nav');
   var lightZones = Array.from(document.querySelectorAll(
-    '.light-section, .ceremony-bleed, .chapel-exterior, .countdown, .section-strip, .section-portals, .almanac'
+    '.light-section, .chapel-exterior, .countdown, .section-strip, .section-portals, .almanac'
   ));
 
   function updateNav() {
@@ -79,7 +79,7 @@
       var r = el.getBoundingClientRect();
       return r.top < probe && r.bottom > probe;
     });
-    nav.classList.toggle('light', overLight || document.body.classList.contains('subpage'));
+    nav.classList.toggle('light', overLight);
   }
   window.addEventListener('scroll', updateNav, { passive: true });
   window.addEventListener('resize', updateNav, { passive: true });
