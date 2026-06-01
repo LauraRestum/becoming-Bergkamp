@@ -1551,7 +1551,7 @@
   }
   .almanac .toc-list a:hover { color: var(--a-brass); }
   .almanac .toc-list .toc-numeral {
-    font-family: var(--a-display-alt); font-style: italic; flex: 0 0 54px;
+    font-family: var(--a-display-alt); flex: 0 0 54px;
     color: var(--a-ink); font-size: 22px; line-height: 1;
   }
   .almanac .toc-list .toc-name {
@@ -1563,7 +1563,7 @@
     height: 0.8em; margin: 0 6px;
   }
   .almanac .toc-list .toc-page {
-    font-family: var(--a-display-alt); font-style: italic; font-size: 16px;
+    font-family: var(--a-display-alt); font-size: 16px;
     flex: 0 0 auto; color: var(--a-ink);
   }
 
@@ -1587,7 +1587,7 @@
     line-height: 1; margin-bottom: 24px;
   }
   .almanac .chapter-description {
-    font-family: var(--a-serif-body); font-style: italic; font-weight: 500;
+    font-family: var(--a-serif-body); font-weight: 500;
     font-size: 17px; color: var(--a-ink); max-width: 540px;
     margin: 0 auto; line-height: 1.85;
   }
@@ -1729,7 +1729,7 @@
     max-width: 200px; margin-left: auto; margin-right: auto;
   }
   .almanac .person-relation {
-    font-family: var(--a-serif-body); font-style: italic; font-weight: 500;
+    font-family: var(--a-serif-body); font-weight: 500;
     font-size: 14px; color: var(--a-ink); margin-bottom: 14px; margin-top: 10px;
   }
   .almanac .person-divider {
@@ -1840,11 +1840,11 @@
     color: var(--a-ink); margin-bottom: 2px;
   }
   .almanac .household-kid-age {
-    font-family: var(--a-serif-body); font-style: italic; font-weight: 500;
+    font-family: var(--a-serif-body); font-weight: 500;
     font-size: 11px; color: var(--a-ink);
   }
   .almanac .household-bio {
-    font-family: var(--a-serif-body); font-style: italic; font-weight: 500;
+    font-family: var(--a-serif-body); font-weight: 500;
     font-size: 15px; line-height: 1.75; color: var(--a-ink);
     max-width: 380px; margin: 0 auto;
   }
@@ -1901,7 +1901,7 @@
     max-width: 180px; margin-left: auto; margin-right: auto;
   }
   .almanac .creature-bio {
-    font-family: var(--a-serif-body); font-style: italic; font-weight: 500;
+    font-family: var(--a-serif-body); font-weight: 500;
     font-size: 15px; line-height: 1.7; color: var(--a-ink);
     max-width: 240px; margin: 0 auto;
   }
