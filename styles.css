@@ -1170,12 +1170,12 @@
      ============================================================ */
   .almanac {
     /* vintage palette and typography stack, scoped to this section */
-    --a-paper: #f0f0f0;
-    --a-paper-deep: #e0e0e0;
-    --a-paper-shadow: #c0c0c0;
-    --a-ink: #0a0a0a;
-    --a-ink-soft: #1a1a1a;
-    --a-brass: #555555;
+    --a-paper: #0a0a0a;
+    --a-paper-deep: #151515;
+    --a-paper-shadow: #222222;
+    --a-ink: #ffffff;
+    --a-ink-soft: #e0e0e0;
+    --a-brass: #c9a84c;
 
     --a-display: 'Brolia', 'Abril Fatface', 'Playfair Display', serif;
     --a-display-alt: 'Old Money Basic', 'DM Serif Display', 'Playfair Display', serif;
@@ -1185,10 +1185,12 @@
     --a-script: 'Italianno', cursive;
 
     position: relative;
-    background-color: var(--a-paper);
-    background-image: url('/images/party-1.jpg');
-    background-repeat: repeat;
-    background-size: 560px auto;
+    background-color: #000000;
+    background-image: url('/images/glow-frame.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     color: var(--a-ink);
     font-family: var(--a-serif-body);
     font-weight: 500;
@@ -1202,7 +1204,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at center, rgba(240, 240, 240, 0.88) 0%, rgba(224, 224, 224, 0.94) 100%);
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%);
     pointer-events: none;
     z-index: 0;
   }
@@ -1210,11 +1212,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background-image:
-      radial-gradient(circle at 12% 18%, rgba(0, 0, 0, 0.06) 0%, transparent 8%),
-      radial-gradient(circle at 88% 72%, rgba(0, 0, 0, 0.04) 0%, transparent 10%),
-      radial-gradient(circle at 65% 25%, rgba(0, 0, 0, 0.03) 0%, transparent 5%),
-      radial-gradient(circle at 30% 85%, rgba(0, 0, 0, 0.03) 0%, transparent 7%);
+    background: none;
     pointer-events: none;
     z-index: 1;
   }
@@ -1228,19 +1226,19 @@
     margin: 0 auto;
   }
   .almanac .frontispiece-frame {
-    border: 3px solid var(--a-ink);
+    border: 3px solid rgba(255, 255, 255, 0.5);
     padding: 60px 40px;
     position: relative;
-    background: rgba(240, 240, 240, 0.45);
+    background: rgba(0, 0, 0, 0.5);
   }
   .almanac .frontispiece-frame::before {
     content: ""; position: absolute; inset: 8px;
-    border: 1px solid var(--a-ink); pointer-events: none;
+    border: 1px solid rgba(255, 255, 255, 0.4); pointer-events: none;
   }
   .almanac .frontispiece-frame::after {
     content: "❦"; position: absolute;
     top: -18px; left: 50%; transform: translateX(-50%);
-    background: var(--a-paper); padding: 0 18px;
+    background: #0a0a0a; padding: 0 18px;
     font-size: 26px; color: var(--a-ink); font-weight: 700;
   }
   .almanac .frontispiece-eyebrow {
@@ -1325,7 +1323,7 @@
     font-size: 14px; flex: 0 0 auto; text-transform: uppercase;
   }
   .almanac .toc-list .toc-dots {
-    flex: 1; border-bottom: 2px dotted rgba(10, 9, 7, 0.55);
+    flex: 1; border-bottom: 2px dotted rgba(255, 255, 255, 0.45);
     height: 0.8em; margin: 0 6px;
   }
   .almanac .toc-list .toc-page {
@@ -1374,16 +1372,16 @@
   }
   .almanac .parent-card {
     text-align: center; padding: 48px 32px 40px;
-    background: rgba(240, 240, 240, 0.4);
-    border: 3px solid var(--a-ink); position: relative;
+    background: rgba(0, 0, 0, 0.45);
+    border: 3px solid rgba(255, 255, 255, 0.5); position: relative;
   }
   .almanac .parent-card::before {
     content: ""; position: absolute; inset: 6px;
-    border: 1px solid var(--a-ink); pointer-events: none;
+    border: 1px solid rgba(255, 255, 255, 0.3); pointer-events: none;
   }
   .almanac .parent-card > .card-crown {
     position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
-    background: var(--a-paper); padding: 0 14px; font-size: 22px;
+    background: #0a0a0a; padding: 0 14px; font-size: 22px;
     color: var(--a-ink); z-index: 2; font-weight: 700;
   }
   .almanac .parent-portraits {
@@ -1393,9 +1391,9 @@
     width: 120px; height: 120px; border-radius: 50%; overflow: hidden;
     background: var(--a-paper-deep);
     box-shadow:
-      0 0 0 2px var(--a-ink),
-      0 0 0 5px var(--a-paper),
-      0 0 0 7px var(--a-ink);
+      0 0 0 2px rgba(255, 255, 255, 0.6),
+      0 0 0 5px rgba(0, 0, 0, 0.8),
+      0 0 0 7px rgba(255, 255, 255, 0.4);
     filter: grayscale(1) contrast(1.15) brightness(0.95);
     position: relative;
   }
@@ -1403,7 +1401,7 @@
   .almanac .parent-portrait:last-child { margin-left: -16px; z-index: 1; }
   .almanac .parent-portrait.placeholder::after {
     content: ""; position: absolute; inset: 0;
-    background: radial-gradient(circle at 50% 35%, var(--a-paper) 0%, var(--a-paper-deep) 100%);
+    background: radial-gradient(circle at 50% 35%, #1a1a1a 0%, #0a0a0a 100%);
   }
   .almanac .parent-portrait img { width: 100%; height: 100%; object-fit: cover; }
   .almanac .parent-names {
@@ -1465,9 +1463,9 @@
     border-radius: 50%; overflow: hidden; position: relative;
     background: var(--a-paper-deep);
     box-shadow:
-      0 0 0 2px var(--a-ink),
-      0 0 0 6px var(--a-paper),
-      0 0 0 8px var(--a-ink);
+      0 0 0 2px rgba(255, 255, 255, 0.6),
+      0 0 0 6px rgba(0, 0, 0, 0.8),
+      0 0 0 8px rgba(255, 255, 255, 0.4);
     filter: grayscale(1) contrast(1.15) brightness(0.95);
     transition: transform 0.5s ease;
   }
@@ -1475,7 +1473,7 @@
   .almanac .person-portrait img { width: 100%; height: 100%; object-fit: cover; }
   .almanac .person-portrait.placeholder::after {
     content: ""; position: absolute; inset: 0;
-    background: radial-gradient(circle at 50% 38%, var(--a-paper) 0%, var(--a-paper-deep) 100%);
+    background: radial-gradient(circle at 50% 38%, #1a1a1a 0%, #0a0a0a 100%);
   }
   .almanac .person-portrait.placeholder::before {
     content: "❦"; position: absolute; inset: 0;
@@ -1514,16 +1512,16 @@
   }
   .almanac .household {
     text-align: center; padding: 56px 32px 48px;
-    background: rgba(240, 240, 240, 0.4);
-    border: 3px solid var(--a-ink); position: relative;
+    background: rgba(0, 0, 0, 0.45);
+    border: 3px solid rgba(255, 255, 255, 0.5); position: relative;
   }
   .almanac .household::before {
     content: ""; position: absolute; inset: 6px;
-    border: 1px solid var(--a-ink); pointer-events: none;
+    border: 1px solid rgba(255, 255, 255, 0.3); pointer-events: none;
   }
   .almanac .household > .card-crown {
     position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
-    background: var(--a-paper); padding: 0 14px; font-size: 22px;
+    background: #0a0a0a; padding: 0 14px; font-size: 22px;
     color: var(--a-ink); z-index: 2; font-weight: 700;
   }
   .almanac .household-eyebrow {
@@ -1544,14 +1542,14 @@
     width: 110px; height: 110px; border-radius: 50%; overflow: hidden;
     background: var(--a-paper-deep); margin: 0 auto 10px;
     box-shadow:
-      0 0 0 2px var(--a-ink),
-      0 0 0 5px var(--a-paper),
-      0 0 0 7px var(--a-ink);
+      0 0 0 2px rgba(255, 255, 255, 0.6),
+      0 0 0 5px rgba(0, 0, 0, 0.8),
+      0 0 0 7px rgba(255, 255, 255, 0.4);
     filter: grayscale(1) contrast(1.15) brightness(0.95); position: relative;
   }
   .almanac .household-adult-portrait.placeholder::after {
     content: ""; position: absolute; inset: 0;
-    background: radial-gradient(circle at 50% 38%, var(--a-paper) 0%, var(--a-paper-deep) 100%);
+    background: radial-gradient(circle at 50% 38%, #1a1a1a 0%, #0a0a0a 100%);
   }
   .almanac .household-adult-portrait.placeholder::before {
     content: "❦"; position: absolute; inset: 0;
@@ -1586,14 +1584,14 @@
     width: 64px; height: 64px; border-radius: 50%; overflow: hidden;
     background: var(--a-paper-deep); margin: 0 auto 8px;
     box-shadow:
-      0 0 0 2px var(--a-ink),
-      0 0 0 4px var(--a-paper),
-      0 0 0 5px var(--a-ink);
+      0 0 0 2px rgba(255, 255, 255, 0.6),
+      0 0 0 4px rgba(0, 0, 0, 0.8),
+      0 0 0 5px rgba(255, 255, 255, 0.4);
     filter: grayscale(1) contrast(1.15) brightness(0.95); position: relative;
   }
   .almanac .household-kid-portrait.placeholder::after {
     content: ""; position: absolute; inset: 0;
-    background: radial-gradient(circle at 50% 38%, var(--a-paper) 0%, var(--a-paper-deep) 100%);
+    background: radial-gradient(circle at 50% 38%, #1a1a1a 0%, #0a0a0a 100%);
   }
   .almanac .household-kid-portrait.placeholder::before {
     content: "❦"; position: absolute; inset: 0;
@@ -1617,18 +1615,18 @@
 
   /* MENAGERIE */
   .almanac .menagerie {
-    background: var(--a-paper-deep);
-    border-top: 3px solid var(--a-ink);
-    border-bottom: 3px solid var(--a-ink);
+    background: rgba(0, 0, 0, 0.4);
+    border-top: 3px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 3px solid rgba(255, 255, 255, 0.5);
     margin-top: 40px; padding: 100px 32px; position: relative;
   }
   .almanac .menagerie::before {
     content: ""; position: absolute; left: 0; right: 0; top: 5px;
-    height: 1px; background: var(--a-ink);
+    height: 1px; background: rgba(255, 255, 255, 0.3);
   }
   .almanac .menagerie::after {
     content: ""; position: absolute; left: 0; right: 0; bottom: 5px;
-    height: 1px; background: var(--a-ink);
+    height: 1px; background: rgba(255, 255, 255, 0.3);
   }
   .almanac .menagerie-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -1639,15 +1637,15 @@
     width: 130px; height: 130px; margin: 0 auto 18px;
     border-radius: 50%; overflow: hidden; background: var(--a-paper); position: relative;
     box-shadow:
-      0 0 0 2px var(--a-ink),
-      0 0 0 5px var(--a-paper-deep),
-      0 0 0 7px var(--a-ink);
+      0 0 0 2px rgba(255, 255, 255, 0.6),
+      0 0 0 5px rgba(0, 0, 0, 0.8),
+      0 0 0 7px rgba(255, 255, 255, 0.4);
     filter: grayscale(1) contrast(1.15) brightness(0.95);
   }
   .almanac .creature-portrait img { width: 100%; height: 100%; object-fit: cover; }
   .almanac .creature-portrait.placeholder::after {
     content: ""; position: absolute; inset: 0;
-    background: radial-gradient(circle at 50% 38%, var(--a-paper) 0%, var(--a-paper-deep) 100%);
+    background: radial-gradient(circle at 50% 38%, #1a1a1a 0%, #0a0a0a 100%);
   }
   .almanac .creature-portrait.placeholder::before {
     content: "❦"; position: absolute; inset: 0;
