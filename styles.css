@@ -545,7 +545,7 @@
     background: #fafafa;
   }
   .section-portals .portal-numeral {
-    font-family: var(--serif); font-style: italic;
+    font-family: var(--serif);
     font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase;
     color: var(--gold-deep);
     margin-bottom: 18px;
@@ -657,13 +657,13 @@
     text-transform: none;
   }
   .np-subtitle {
-    font-family: var(--serif); font-style: italic;
+    font-family: var(--serif);
     font-size: 15px; letter-spacing: 0.06em;
     color: #444;
     padding-bottom: 12px;
   }
   .np-motto {
-    font-family: var(--serif); font-style: italic;
+    font-family: var(--serif);
     font-size: 13px; letter-spacing: 0.04em;
     color: #555;
     padding: 10px 0;
@@ -686,7 +686,7 @@
     letter-spacing: -0.01em;
   }
   .np-subhead {
-    font-family: var(--serif); font-style: italic;
+    font-family: var(--serif);
     font-size: 17px; color: #444;
     letter-spacing: 0.02em;
   }
@@ -714,7 +714,7 @@
     margin-bottom: 4px;
   }
   .np-article-dek {
-    font-family: var(--serif); font-style: italic;
+    font-family: var(--serif);
     font-size: 13px; color: #666;
     margin-bottom: 10px;
     letter-spacing: 0.02em;
@@ -1081,7 +1081,6 @@
   }
   .reception-when {
     font-family: var(--serif);
-    font-style: italic;
     font-size: 17px;
     color: rgba(255,255,255,0.8);
     text-shadow: 0 1px 8px rgba(0,0,0,0.5);
@@ -1123,7 +1122,7 @@
     color: var(--ink-soft); margin-bottom: 12px;
   }
   .travel-card .city {
-    font-family: var(--serif); font-style: italic; font-size: 15px;
+    font-family: var(--serif); font-size: 15px;
     color: var(--ink-faint);
   }
   .travel-card .code {
@@ -1174,7 +1173,7 @@
   .sched-row:last-child { border-bottom: none; }
   .sched-row .left { display: flex; gap: 20px; align-items: baseline; }
   .sched-row .time {
-    font-family: var(--serif); font-style: italic; font-size: 19px;
+    font-family: var(--serif); font-size: 19px;
     color: var(--gold-bright); min-width: 120px;
   }
   .sched-row .event { font-family: var(--serif); font-size: 19px; letter-spacing: 0.02em; }
@@ -1253,7 +1252,7 @@
   .honeymoon-amounts .amt:hover,
   .honeymoon-amounts .amt:focus-visible { background: var(--gold); color: var(--ink); }
   .honeymoon-amounts .amt.custom {
-    font-style: italic; font-family: var(--serif); font-size: 16px;
+    font-family: var(--serif); font-size: 16px;
     letter-spacing: 0.05em; text-transform: none;
   }
 
@@ -1366,7 +1365,7 @@
     .portal-input { display: flex; width: 100%; max-width: 360px; margin: 0 auto; }
     .portal-input input { width: 100%; }
     .sched-row { grid-template-columns: 1fr; gap: 6px; }
-    .sched-row .loc { margin-top: 2px; font-style: italic; }
+    .sched-row .loc { margin-top: 2px; }
     .countdown .units { gap: 22px; }
     .countdown .num { font-size: 30px; }
     .section-strip { justify-content: flex-start; }
@@ -1563,7 +1562,7 @@
   }
   .almanac .toc-list a:hover { color: var(--a-brass); }
   .almanac .toc-list .toc-numeral {
-    font-family: var(--a-display-alt); font-style: italic; flex: 0 0 54px;
+    font-family: var(--a-display-alt); flex: 0 0 54px;
     color: var(--a-ink); font-size: 22px; line-height: 1;
   }
   .almanac .toc-list .toc-name {
@@ -1575,7 +1574,7 @@
     height: 0.8em; margin: 0 6px;
   }
   .almanac .toc-list .toc-page {
-    font-family: var(--a-display-alt); font-style: italic; font-size: 16px;
+    font-family: var(--a-display-alt); font-size: 16px;
     flex: 0 0 auto; color: var(--a-ink);
   }
 
@@ -1599,7 +1598,7 @@
     line-height: 1; margin-bottom: 24px;
   }
   .almanac .chapter-description {
-    font-family: var(--a-serif-body); font-style: italic; font-weight: 500;
+    font-family: var(--a-serif-body); font-weight: 500;
     font-size: 17px; color: var(--a-ink); max-width: 540px;
     margin: 0 auto; line-height: 1.85;
   }
@@ -1741,7 +1740,7 @@
     max-width: 200px; margin-left: auto; margin-right: auto;
   }
   .almanac .person-relation {
-    font-family: var(--a-serif-body); font-style: italic; font-weight: 500;
+    font-family: var(--a-serif-body); font-weight: 500;
     font-size: 14px; color: var(--a-ink); margin-bottom: 14px; margin-top: 10px;
   }
   .almanac .person-divider {
@@ -1852,11 +1851,11 @@
     color: var(--a-ink); margin-bottom: 2px;
   }
   .almanac .household-kid-age {
-    font-family: var(--a-serif-body); font-style: italic; font-weight: 500;
+    font-family: var(--a-serif-body); font-weight: 500;
     font-size: 11px; color: var(--a-ink);
   }
   .almanac .household-bio {
-    font-family: var(--a-serif-body); font-style: italic; font-weight: 500;
+    font-family: var(--a-serif-body); font-weight: 500;
     font-size: 15px; line-height: 1.75; color: var(--a-ink);
     max-width: 380px; margin: 0 auto;
   }
@@ -1913,7 +1912,7 @@
     max-width: 180px; margin-left: auto; margin-right: auto;
   }
   .almanac .creature-bio {
-    font-family: var(--a-serif-body); font-style: italic; font-weight: 500;
+    font-family: var(--a-serif-body); font-weight: 500;
     font-size: 15px; line-height: 1.7; color: var(--a-ink);
     max-width: 240px; margin: 0 auto;
   }
