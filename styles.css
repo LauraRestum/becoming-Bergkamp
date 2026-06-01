@@ -1,26 +1,5 @@
   /* Custom fonts shipped with the repo */
   @font-face {
-    font-family: 'Walker Knight';
-    src: url('/WalkerKnight-mLnrP.otf') format('opentype');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Old Money Basic';
-    src: url('/OldMoneyV1a.otf') format('opentype');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Brolia';
-    src: url('/Brolia.otf') format('opentype');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
     font-family: 'Hijrnotes';
     src: url('/fonts/HijrnotesPersonalUseOnly01-DXOD.ttf') format('truetype');
     font-weight: 400;
@@ -68,9 +47,9 @@
     --gold-bright: #999999;
     --gold-deep: #444444;
     --candle: #cccccc;
-    --display: 'Rosaline', 'Cinzel', 'Trajan Pro', serif;
-    --serif: 'Rosaline', Garamond, Georgia, serif;
-    --sans: 'Inter', 'Helvetica Neue', sans-serif;
+    --display: 'Rosaline', serif;
+    --serif: 'Rosaline', serif;
+    --sans: 'Vintage Glamour', serif;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -660,7 +639,7 @@
     height: 3px; background: #1a1a1a; margin: 0;
   }
   .np-title {
-    font-family: 'Hijrnotes', 'DM Serif Display', Georgia, serif;
+    font-family: 'Hijrnotes', serif;
     font-size: clamp(48px, 7vw, 86px);
     font-weight: 400;
     letter-spacing: 0.02em;
@@ -690,7 +669,7 @@
     border-bottom: 1px solid #1a1a1a;
   }
   .np-headline {
-    font-family: 'Hijrnotes', 'DM Serif Display', Georgia, serif;
+    font-family: 'Hijrnotes', serif;
     font-size: clamp(28px, 4vw, 44px);
     font-weight: 900;
     line-height: 1.15;
@@ -720,7 +699,7 @@
   /* Articles */
   .np-article { margin-bottom: 24px; }
   .np-article-hed {
-    font-family: 'Hijrnotes', 'DM Serif Display', Georgia, serif;
+    font-family: 'Hijrnotes', serif;
     font-size: 20px; font-weight: 700;
     line-height: 1.25;
     color: #1a1a1a;
@@ -749,7 +728,7 @@
     hyphens: auto;
   }
   .np-dropcap::first-letter {
-    font-family: 'Hijrnotes', Georgia, serif;
+    font-family: 'Hijrnotes', serif;
     font-size: 3.2em;
     float: left;
     line-height: 0.8;
@@ -1418,12 +1397,12 @@
     --a-ink-soft: #e0e0e0;
     --a-brass: #c9a84c;
 
-    --a-display: 'Brolia', 'Abril Fatface', 'Hijrnotes', serif;
-    --a-display-alt: 'Hijrnotes', 'DM Serif Display', serif;
+    --a-display: 'Hijrnotes', serif;
+    --a-display-alt: 'Hijrnotes', serif;
     --a-serif: 'Rosaline', serif;
     --a-serif-body: 'Rosaline', serif;
-    --a-condensed: 'Oswald', 'Hijrnotes', sans-serif;
-    --a-script: 'Italianno', cursive;
+    --a-condensed: 'Vintage Glamour', serif;
+    --a-script: 'Hijrnotes', cursive;
 
     position: relative;
     background-color: #000000;
