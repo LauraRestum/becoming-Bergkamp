@@ -844,13 +844,13 @@
     position: absolute;
     inset: 0;
     background: linear-gradient(180deg,
-      rgba(0,0,0,0.7) 0%,
-      rgba(0,0,0,0.55) 15%,
-      rgba(0,0,0,0.4) 35%,
-      rgba(0,0,0,0.35) 50%,
-      rgba(0,0,0,0.5) 65%,
-      rgba(0,0,0,0.75) 80%,
-      rgba(0,0,0,0.9) 100%);
+      rgba(0,0,0,0.72) 0%,
+      rgba(0,0,0,0.6) 15%,
+      rgba(0,0,0,0.52) 35%,
+      rgba(0,0,0,0.55) 50%,
+      rgba(0,0,0,0.66) 65%,
+      rgba(0,0,0,0.82) 80%,
+      rgba(0,0,0,0.92) 100%);
     pointer-events: none;
   }
   .ceremony-bleed .content {
@@ -864,12 +864,12 @@
     animation: ceremonyFadeIn 1.6s ease-out 0.3s forwards;
   }
   .ceremony-bleed .content .kicker {
-    color: rgba(255, 255, 255, 0.8);
-    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6);
+    color: rgba(255, 255, 255, 0.88);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7), 0 1px 14px rgba(0, 0, 0, 0.55);
   }
   .ceremony-bleed .content .display-h {
     color: #fff;
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5), 0 4px 40px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7), 0 2px 24px rgba(0, 0, 0, 0.55), 0 4px 48px rgba(0, 0, 0, 0.35);
     font-size: clamp(36px, 6vw, 64px);
   }
   .ceremony-bleed .content .rule .line {
@@ -888,7 +888,11 @@
     position: absolute;
     bottom: 0; left: 0; right: 0;
     z-index: 2;
-    padding: 0 40px 48px;
+    padding: 56px 40px 48px;
+    background: linear-gradient(to top,
+      rgba(0,0,0,0.6) 0%,
+      rgba(0,0,0,0.38) 55%,
+      rgba(0,0,0,0) 100%);
     opacity: 0;
     animation: ceremonySlideUp 1.2s ease-out 0.7s forwards;
   }
@@ -914,19 +918,19 @@
   .ceremony-details > a.ceremony-detail-link:last-child { border-right: none; }
   .ceremony-details .lbl {
     font-family: var(--sans); font-size: 11px; letter-spacing: 0.42em; text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.75); margin-bottom: 14px;
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+    color: rgba(255, 255, 255, 0.85); margin-bottom: 14px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7), 0 1px 10px rgba(0, 0, 0, 0.5);
   }
   .ceremony-details .val {
     font-family: var(--display); font-weight: 500; font-size: 22px;
     letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px;
     color: #fff;
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.75), 0 2px 16px rgba(0, 0, 0, 0.55);
   }
   .ceremony-details .sub {
     font-family: var(--serif); font-style: italic; font-size: 15px;
-    color: rgba(255, 255, 255, 0.7); line-height: 1.6;
-    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+    color: rgba(255, 255, 255, 0.82); line-height: 1.6;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7), 0 1px 10px rgba(0, 0, 0, 0.5);
   }
   @keyframes ceremonyFadeIn {
     0% { opacity: 0; transform: translate(-50%, -50%); }
@@ -987,12 +991,14 @@
   .chapel-exterior-info {
     padding: 80px 80px 80px 60px;
     max-width: 580px;
+    color: var(--ink-on-paper);
   }
   .chapel-exterior-info .kicker { text-align: left; }
   .chapel-exterior-info h3 {
     font-family: var(--display); font-weight: 500; font-size: clamp(24px, 2.8vw, 36px);
     letter-spacing: 0.12em; text-transform: uppercase;
     margin-bottom: 36px;
+    color: var(--ink-on-paper);
   }
   .detail-row {
     display: flex; gap: 18px; align-items: baseline;
