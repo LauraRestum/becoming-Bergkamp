@@ -942,7 +942,19 @@
     background: var(--paper);
     padding: 0;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+    z-index: 1;
+  }
+  .chapel-exterior::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.08) 25%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.7) 75%, #000 100%);
+    pointer-events: none;
+    z-index: 2;
   }
   .chapel-exterior-grid {
     display: grid; grid-template-columns: 1fr 1fr;
@@ -970,6 +982,7 @@
     width: 80px;
     background: linear-gradient(90deg, transparent, var(--paper));
     pointer-events: none;
+    z-index: 1;
   }
   .chapel-exterior-info {
     padding: 80px 80px 80px 60px;
@@ -1014,6 +1027,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: -15vh;
+    z-index: 0;
   }
   .blinds-section::after {
     content: "";
@@ -1044,10 +1059,10 @@
     overflow: hidden;
     height: calc(var(--h) + var(--blinds-progress) * (100% - var(--h)));
     transform: translateY(calc((1 - var(--blinds-progress)) * var(--stagger)));
-    border-radius: calc((1 - var(--blinds-progress)) * 6px);
-    box-shadow: 0 calc((1 - var(--blinds-progress)) * 20px)
-                  calc((1 - var(--blinds-progress)) * 40px)
-                  rgba(0,0,0, calc((1 - var(--blinds-progress)) * 0.5));
+    border-radius: calc((1 - var(--blinds-progress)) * 4px);
+    box-shadow: 0 calc((1 - var(--blinds-progress)) * 12px)
+                  calc((1 - var(--blinds-progress)) * 28px)
+                  rgba(0,0,0, calc((1 - var(--blinds-progress)) * 0.35));
   }
   .blinds-strip:nth-child(1) { --stagger: 20px;  --h: 55%; }
   .blinds-strip:nth-child(2) { --stagger: -15px; --h: 75%; }
@@ -1332,7 +1347,7 @@
     .cover-art { background-size: cover; }
     .cover-doors { width: 22%; height: 18%; bottom: 24%; }
     .chapel-exterior-grid { grid-template-columns: 1fr; min-height: auto; }
-    .chapel-exterior-img { height: 60vh; }
+    .chapel-exterior-img { height: 60vh; overflow: hidden; }
     .chapel-exterior-info { padding: 60px 32px; max-width: 100%; }
     .newspaper { padding: 32px 20px 28px; }
     .np-body { grid-template-columns: 1fr; }
