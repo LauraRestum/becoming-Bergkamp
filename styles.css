@@ -1219,6 +1219,59 @@
     color: var(--paper-faint-on-ink);
   }
 
+  /* RECEPTION CHECKERBOARD FLOOR — perspective floor that fades up into black */
+  #schedule.dark-section {
+    position: relative;
+    overflow: hidden;
+  }
+  /* The receding checkerboard. Dark squares are transparent so the section's
+     black shows through (the image's background is "removed"); only the light
+     squares render, and they fade out into the distance via the mask. */
+  #schedule.dark-section::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 260%;
+    height: 66%;
+    transform: translateX(-50%) perspective(38vh) rotateX(60deg);
+    transform-origin: bottom center;
+    background-image: conic-gradient(
+      rgba(214, 214, 214, 0.48) 90deg,
+      transparent 0 180deg,
+      rgba(214, 214, 214, 0.48) 0 270deg,
+      transparent 0);
+    background-size: 72px 72px;
+    background-position: center bottom;
+    -webkit-mask-image: linear-gradient(to top, #000 28%, transparent 82%);
+    mask-image: linear-gradient(to top, #000 28%, transparent 82%);
+    z-index: 0;
+    pointer-events: none;
+  }
+  /* Vignette: keep the edges dark and the words readable over the floor. */
+  #schedule.dark-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(150% 72% at 50% 90%,
+      transparent 0%,
+      rgba(10, 10, 10, 0.5) 68%,
+      rgba(10, 10, 10, 0.82) 100%);
+    z-index: 0;
+    pointer-events: none;
+  }
+  #schedule.dark-section > .container {
+    position: relative;
+    z-index: 1;
+  }
+  #schedule.dark-section .display-h,
+  #schedule.dark-section .kicker,
+  #schedule.dark-section .sched-row .time,
+  #schedule.dark-section .sched-row .event,
+  #schedule.dark-section .sched-row .loc {
+    text-shadow: 0 1px 14px rgba(0, 0, 0, 0.7);
+  }
+
   /* PARTY CTA */
   .party-cta {
     text-align: center;
@@ -1444,6 +1497,7 @@
     .dark-section .sched-row .event, .dark-section .sched-row .loc { color: #000 !important; text-shadow: none !important; }
     .dark-section .rule .line { background: #000 !important; }
     .dark-section .sched-row { border-color: rgba(0, 0, 0, 0.2) !important; }
+    #schedule.dark-section::before, #schedule.dark-section::after { display: none !important; }
     .ceremony-bleed .overlay, .blinds-overlay { display: none !important; }
     .reception-info { opacity: 1 !important; transform: none !important; }
     .ceremony-bleed .content, .ceremony-bleed .content-bottom { opacity: 1 !important; }
