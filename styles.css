@@ -1219,44 +1219,42 @@
     color: var(--paper-faint-on-ink);
   }
 
-  /* RECEPTION CHECKERBOARD FLOOR — perspective floor that fades up into black */
+  /* RECEPTION CHECKERBOARD FLOOR — photographic floor that fades up into black */
   #schedule.dark-section {
     position: relative;
     overflow: hidden;
   }
-  /* The receding checkerboard. Dark squares are transparent so the section's
-     black shows through (the image's background is "removed"); only the light
-     squares render, and they fade out into the distance via the mask. */
+  /* The dance-floor photo sits at the bottom of the section. Its top already
+     falls off to black, and the mask blends that fade into the section's black
+     so it sits seamlessly behind the words. */
   #schedule.dark-section::before {
     content: "";
     position: absolute;
-    left: 50%;
+    left: 0;
+    right: 0;
     bottom: 0;
-    width: 260%;
-    height: 66%;
-    transform: translateX(-50%) perspective(38vh) rotateX(60deg);
-    transform-origin: bottom center;
-    background-image: conic-gradient(
-      rgba(214, 214, 214, 0.48) 90deg,
-      transparent 0 180deg,
-      rgba(214, 214, 214, 0.48) 0 270deg,
-      transparent 0);
-    background-size: 72px 72px;
+    height: 78%;
+    background-image: url(/images/dance-floor.png);
+    background-size: cover;
     background-position: center bottom;
-    -webkit-mask-image: linear-gradient(to top, #000 28%, transparent 82%);
-    mask-image: linear-gradient(to top, #000 28%, transparent 82%);
+    background-repeat: no-repeat;
+    opacity: 0.7;
+    -webkit-mask-image: linear-gradient(to top, #000 32%, transparent 90%);
+    mask-image: linear-gradient(to top, #000 32%, transparent 90%);
     z-index: 0;
     pointer-events: none;
   }
-  /* Vignette: keep the edges dark and the words readable over the floor. */
+  /* Soft veil + vignette: keep the words readable over the bright floor. */
   #schedule.dark-section::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(150% 72% at 50% 90%,
-      transparent 0%,
-      rgba(10, 10, 10, 0.5) 68%,
-      rgba(10, 10, 10, 0.82) 100%);
+    background:
+      linear-gradient(to bottom, rgba(10, 10, 10, 0.15), rgba(10, 10, 10, 0.42)),
+      radial-gradient(150% 75% at 50% 95%,
+        transparent 0%,
+        rgba(10, 10, 10, 0.45) 70%,
+        rgba(10, 10, 10, 0.82) 100%);
     z-index: 0;
     pointer-events: none;
   }
