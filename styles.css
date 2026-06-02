@@ -1442,12 +1442,12 @@
     --a-ink-soft: #e0e0e0;
     --a-brass: #c9a84c;
 
-    --a-display: 'Hijrnotes', serif;
-    --a-display-alt: 'Hijrnotes', serif;
+    --a-display: 'Rosaline', serif;
+    --a-display-alt: 'Rosaline', serif;
     --a-serif: 'Rosaline', serif;
     --a-serif-body: 'Rosaline', serif;
     --a-condensed: 'Vintage Glamour', serif;
-    --a-script: 'Hijrnotes', cursive;
+    --a-script: 'Rosaline', cursive;
 
     position: relative;
     background-color: #000000;
