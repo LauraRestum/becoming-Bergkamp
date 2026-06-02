@@ -1541,7 +1541,7 @@
     line-height: 0.5; font-weight: 700;
   }
   .almanac .frontispiece-meta {
-    font-family: var(--a-serif-body); font-style: italic; font-weight: 500;
+    font-family: var(--a-serif-body); font-weight: 500;
     font-size: 17px; color: var(--a-ink); line-height: 1.8;
     max-width: 480px; margin: 0 auto;
   }
@@ -1612,7 +1612,7 @@
     color: var(--a-ink); margin-bottom: 14px; text-transform: uppercase; line-height: 0.95;
   }
   .almanac .chapter-script {
-    font-family: var(--a-script); font-size: 44px; color: var(--a-brass);
+    font-family: var(--a-serif-body); font-size: 24px; color: var(--a-brass);
     line-height: 1; margin-bottom: 24px;
   }
   .almanac .chapter-description {
@@ -1670,10 +1670,10 @@
   }
   .almanac .parent-portrait img { width: 100%; height: 100%; object-fit: cover; }
   .almanac .parent-names {
-    font-family: var(--a-script); font-size: 64px; line-height: 1;
+    font-family: var(--a-serif-body); font-size: 44px; line-height: 1;
     color: var(--a-ink); margin-bottom: 10px;
   }
-  .almanac .parent-names .amp { font-size: 56px; margin: 0 4px; }
+  .almanac .parent-names .amp { font-size: 38px; margin: 0 4px; }
   .almanac .parent-surname {
     font-family: var(--a-display); font-weight: 400; font-size: 22px;
     letter-spacing: 0.32em; color: var(--a-ink); margin-bottom: 10px;
@@ -1746,8 +1746,7 @@
     font-size: 30px; color: var(--a-ink); opacity: 0.5; z-index: 1; font-weight: 700;
   }
   .almanac .person-name {
-    font-family: var(--a-script); font-size: 50px; line-height: 1;
-    margin-bottom: 8px; color: var(--a-ink);
+    font-family: var(--a-serif-body); font-size: 34px; line-height: 1;
   }
   .almanac .person-role {
     font-family: var(--a-condensed); font-weight: 700; font-size: 11px;
@@ -1823,7 +1822,7 @@
   }
   .almanac .household-adult-portrait img { width: 100%; height: 100%; object-fit: cover; }
   .almanac .household-adult-name {
-    font-family: var(--a-script); font-size: 36px; line-height: 1;
+    font-family: var(--a-serif-body); font-size: 28px; line-height: 1;
     color: var(--a-ink); margin-bottom: 4px;
   }
   .almanac .household-adult-role {
@@ -1865,7 +1864,7 @@
   }
   .almanac .household-kid-portrait img { width: 100%; height: 100%; object-fit: cover; }
   .almanac .household-kid-name {
-    font-family: var(--a-script); font-size: 26px; line-height: 1;
+    font-family: var(--a-serif-body); font-size: 20px; line-height: 1;
     color: var(--a-ink); margin-bottom: 2px;
   }
   .almanac .household-kid-age {
@@ -1918,7 +1917,7 @@
     font-size: 24px; color: var(--a-ink); opacity: 0.5; z-index: 1; font-weight: 700;
   }
   .almanac .creature-name {
-    font-family: var(--a-script); font-size: 40px; line-height: 1;
+    font-family: var(--a-serif-body); font-size: 30px; line-height: 1;
     margin-bottom: 6px; color: var(--a-ink);
   }
   .almanac .creature-species {
@@ -1961,7 +1960,7 @@
     padding-left: 0.18em; text-transform: uppercase;
   }
   .almanac .colophon-crest .amp {
-    font-family: var(--a-script); font-size: 56px; letter-spacing: 0;
+    font-family: var(--a-serif-body); font-size: 40px; letter-spacing: 0;
     vertical-align: middle; margin: 0 6px; color: var(--a-ink); font-weight: 400;
   }
   .almanac .colophon-line {
