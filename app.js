@@ -3,13 +3,23 @@
 
   var cover = document.getElementById('cover');
   var doors = document.getElementById('coverDoors');
+  var heroVideo = document.getElementById('heroVideo');
+  var prefersReducedMotion = window.matchMedia
+    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function playHero() {
+    if (!heroVideo || prefersReducedMotion) return;
+    try { heroVideo.currentTime = 0; } catch (e) {}
+    var p = heroVideo.play();
+    if (p && typeof p.catch === 'function') { p.catch(function () {}); }
+  }
 
   function enter() {
     if (!cover || cover.classList.contains('opening')) return;
     cover.classList.add('opening');
     window.scrollTo(0, 0);
     document.body.classList.remove('cover-open');
-    setTimeout(function () { document.body.classList.add('entered'); }, 200);
+    setTimeout(function () { document.body.classList.add('entered'); playHero(); }, 200);
     setTimeout(function () { cover.style.display = 'none'; }, 1600);
   }
 
@@ -43,6 +53,7 @@
     cover.classList.remove('opening');
     document.body.classList.remove('entered');
     document.body.classList.add('cover-open');
+    if (heroVideo) { try { heroVideo.pause(); heroVideo.currentTime = 0; } catch (e) {} }
     var animated = [
       cover.querySelector('.cover-art'),
       cover.querySelector('.cover-mono'),
