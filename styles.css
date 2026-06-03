@@ -986,9 +986,9 @@
     pointer-events: none;
     opacity: calc((var(--blinds-progress) - 0.7) * 3.4);
   }
-  /* Colours/attire copy is the lower half of the combined panel, set off from
-     the reception line by a hairline divider. */
-  .attire-art-content {
+  /* The order-of-the-evening timeline is the lower half of the combined panel,
+     set off from the reception line by a hairline divider. */
+  .reception-timeline {
     position: relative;
     z-index: 1;
     margin-top: clamp(48px, 8vh, 96px);
@@ -997,16 +997,29 @@
     text-align: center;
     color: #fff;
   }
-  .attire-art-content .kicker {
+  .reception-timeline .kicker {
     color: rgba(255, 255, 255, 0.78);
     text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
   }
-  .attire-art-content .display-h {
+  .reception-timeline .display-h {
     color: #fff;
     text-shadow: 0 2px 20px rgba(0, 0, 0, 0.55), 0 4px 48px rgba(0, 0, 0, 0.3);
   }
-  .attire-art-content .rule .line { background: rgba(255, 255, 255, 0.35); }
-  .attire-art-content .rule .ornament { color: var(--gold-ring); }
+  .reception-timeline .rule .line { background: rgba(255, 255, 255, 0.35); }
+  .reception-timeline .rule .ornament { color: var(--gold-ring); }
+  /* Schedule rows sit on the bright reception photo, so lighten the dividers
+     and add a shadow for legibility. */
+  .reception-timeline .schedule { margin: clamp(36px, 5vh, 56px) auto 0; }
+  .reception-timeline .sched-row { border-bottom-color: rgba(255, 255, 255, 0.18); }
+  .reception-timeline .sched-row .time { text-shadow: 0 1px 12px rgba(0, 0, 0, 0.7); }
+  .reception-timeline .sched-row .event {
+    color: #fff;
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.7);
+  }
+  .reception-timeline .sched-row .loc {
+    color: rgba(255, 255, 255, 0.72);
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.7);
+  }
   .attire-lede {
     font-family: var(--serif); font-size: 19px; line-height: 1.85;
     text-align: center; max-width: 600px; margin: 0 auto 56px;
@@ -1387,14 +1400,14 @@
   }
 
   /* RECEPTION CHECKERBOARD FLOOR — photographic floor that fades up into black */
-  #schedule.dark-section {
+  #attire.dark-section {
     position: relative;
     overflow: hidden;
   }
   /* The dance-floor photo sits at the bottom of the section. Its top already
      falls off to black, and the mask blends that fade into the section's black
      so it sits seamlessly behind the words. */
-  #schedule.dark-section::before {
+  #attire.dark-section::before {
     content: "";
     position: absolute;
     left: 0;
@@ -1412,7 +1425,7 @@
     pointer-events: none;
   }
   /* Soft veil + vignette: keep the words readable over the bright floor. */
-  #schedule.dark-section::after {
+  #attire.dark-section::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -1425,15 +1438,12 @@
     z-index: 0;
     pointer-events: none;
   }
-  #schedule.dark-section > .container {
+  #attire.dark-section > .container {
     position: relative;
     z-index: 1;
   }
-  #schedule.dark-section .display-h,
-  #schedule.dark-section .kicker,
-  #schedule.dark-section .sched-row .time,
-  #schedule.dark-section .sched-row .event,
-  #schedule.dark-section .sched-row .loc {
+  #attire.dark-section .display-h,
+  #attire.dark-section .kicker {
     text-shadow: 0 1px 14px rgba(0, 0, 0, 0.7);
   }
 
@@ -1575,7 +1585,7 @@
     .chapel-exterior-img { height: 60vh; overflow: hidden; }
     .chapel-exterior-info { padding: 60px 32px; max-width: 100%; }
     .reception-attire-panel { padding: clamp(96px, 18vh, 160px) 22px 80px; }
-    .attire-art-content { margin-top: 44px; padding-top: 40px; }
+    .reception-timeline { margin-top: 44px; padding-top: 40px; }
     .attire-avoid { gap: 32px; padding-top: 36px; }
     .suggest-grid { grid-template-columns: repeat(2, 1fr); gap: 34px 20px; }
     .newspaper { padding: 32px 20px 28px; }
@@ -1672,7 +1682,7 @@
     .dark-section .sched-row .event, .dark-section .sched-row .loc { color: #000 !important; text-shadow: none !important; }
     .dark-section .rule .line { background: #000 !important; }
     .dark-section .sched-row { border-color: rgba(0, 0, 0, 0.2) !important; }
-    #schedule.dark-section::before, #schedule.dark-section::after { display: none !important; }
+    #attire.dark-section::before, #attire.dark-section::after { display: none !important; }
     .ceremony-bleed .overlay, .blinds-overlay { display: none !important; }
     .reception-info { opacity: 1 !important; transform: none !important; }
     .ceremony-bleed .content, .ceremony-bleed .content-bottom { opacity: 1 !important; }
