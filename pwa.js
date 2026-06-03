@@ -158,9 +158,9 @@
     if (!openPopup()) return;
     setBody(
       '<p class="pwa-kicker">Keep us close</p>' +
-      '<h2 class="pwa-title">Download our app</h2>' +
-      '<p class="pwa-text">Get the full-screen, app-like experience right on ' +
-      'your phone — no app store needed.</p>' +
+      '<h2 class="pwa-title">Download the Bergkamp Wedding app</h2>' +
+      '<p class="pwa-text">Add our wedding to your home screen for the ' +
+      'full-screen, app-like experience — no app store needed.</p>' +
       '<div class="pwa-actions">' +
       '<button class="pwa-btn pwa-download" type="button">Download the app</button>' +
       '<button class="pwa-later" type="button">Continue on the web version</button></div>'
