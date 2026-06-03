@@ -973,19 +973,21 @@
   }
   .attire-art-scrim {
     position: absolute; inset: 0;
-    z-index: 0;
+    z-index: 1;
     background:
       radial-gradient(120% 80% at 50% 50%, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.62) 70%, rgba(0,0,0,0.78) 100%),
       linear-gradient(180deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.35) 18%, rgba(0,0,0,0.35) 82%, rgba(0,0,0,0.9) 100%);
     pointer-events: none;
     opacity: calc((var(--blinds-progress) - 0.7) * 3.4);
   }
+  /* Colours/attire copy is the lower half of the combined panel, set off from
+     the reception line by a hairline divider. */
   .attire-art-content {
     position: relative;
     z-index: 1;
-    max-width: 880px;
-    margin: 0 auto;
-    padding: clamp(48px, 8vh, 110px) 24px clamp(90px, 12vh, 140px);
+    margin-top: clamp(48px, 8vh, 96px);
+    padding-top: clamp(44px, 7vh, 84px);
+    border-top: 0.5px solid rgba(255, 255, 255, 0.18);
     text-align: center;
     color: #fff;
   }
@@ -1173,16 +1175,26 @@
     margin-top: -15vh;
     z-index: 0;
   }
-  /* The 100vh viewport where the blinds assemble the image; colours/attire
-     flow below it within the same section, over the same photo. */
-  .blinds-hero {
-    position: relative;
-    z-index: 1;
+  /* The photo assembles from blinds across the first screen; it is pinned to
+     the top of the section so the combined panel sits over it. */
+  .blinds-backdrop {
+    position: absolute;
+    top: 0; left: 0; right: 0;
     height: 100vh;
     height: 100dvh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    z-index: 2;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  /* The whole reception + colours/attire content as a single centred panel. */
+  .reception-attire-panel {
+    position: relative;
+    z-index: 3;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: clamp(120px, 22vh, 240px) 24px clamp(90px, 12vh, 140px);
+    text-align: center;
+    color: #fff;
   }
   .blinds-section::after {
     content: "";
@@ -1252,8 +1264,9 @@
     position: relative;
     z-index: 3;
     text-align: center;
-    width: 90%;
+    width: 100%;
     max-width: 620px;
+    margin: 0 auto;
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 1.6s ease-out, transform 1.6s ease-out;
@@ -1555,7 +1568,8 @@
     .chapel-exterior-grid { grid-template-columns: 1fr; min-height: auto; }
     .chapel-exterior-img { height: 60vh; overflow: hidden; }
     .chapel-exterior-info { padding: 60px 32px; max-width: 100%; }
-    .attire-art-content { padding: 56px 22px 80px; }
+    .reception-attire-panel { padding: clamp(96px, 18vh, 160px) 22px 80px; }
+    .attire-art-content { margin-top: 44px; padding-top: 40px; }
     .attire-avoid { gap: 32px; padding-top: 36px; }
     .suggest-grid { grid-template-columns: repeat(2, 1fr); gap: 34px 20px; }
     .newspaper { padding: 32px 20px 28px; }
@@ -1603,7 +1617,7 @@
     .ceremony-details > a.ceremony-detail-link { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
     .ceremony-details > div:last-child,
     .ceremony-details > a.ceremony-detail-link:last-child { border-bottom: none; }
-    .blinds-hero { height: 80vh; }
+    .blinds-backdrop { height: 80vh; }
     .blinds-track { width: calc(90% + var(--blinds-progress) * 10%); gap: calc((1 - var(--blinds-progress)) * 6px); }
     .portal { padding: 56px 28px; }
     .portal-input { display: flex; width: 100%; max-width: 360px; margin: 0 auto; padding-left: 18px; }

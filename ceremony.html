@@ -111,13 +111,10 @@
     </div>
   </section>
 
-  <!-- RECEPTION & ATTIRE — blinds assemble into the photo, then colours/attire sit on the same image -->
+  <!-- RECEPTION & ATTIRE — one combined panel sitting on the reception image -->
   <section class="blinds-section" id="blindsReveal">
-    <div class="attire-art-bg" aria-hidden="true"></div>
-    <div class="attire-art-scrim" aria-hidden="true"></div>
-    <noscript><style>.reception-info { opacity: 1 !important; transform: none !important; } .attire-art-bg, .attire-art-scrim { opacity: 1 !important; }</style></noscript>
-
-    <div class="blinds-hero">
+    <!-- the photo assembles from blinds across the first screen -->
+    <div class="blinds-backdrop" aria-hidden="true">
       <div class="blinds-track">
         <div class="blinds-strip"><div class="blinds-img" style="--i:0"></div></div>
         <div class="blinds-strip"><div class="blinds-img" style="--i:1"></div></div>
@@ -129,17 +126,22 @@
         <div class="blinds-strip"><div class="blinds-img" style="--i:7"></div></div>
       </div>
       <div class="blinds-overlay"></div>
+    </div>
+    <div class="attire-art-bg" aria-hidden="true"></div>
+    <div class="attire-art-scrim" aria-hidden="true"></div>
+    <noscript><style>.reception-info { opacity: 1 !important; transform: none !important; } .attire-art-bg, .attire-art-scrim { opacity: 1 !important; }</style></noscript>
 
+    <!-- ONE combined panel: the reception line and the colours/attire, together on the image -->
+    <div class="reception-attire-panel">
       <div class="reception-info">
         <div class="kicker">The Reception</div>
         <h2 class="display-h">Brick &amp; Mortar</h2>
         <div class="rule"><span class="line"></span><span class="ornament">&#10022;</span><span class="line"></span></div>
         <p class="reception-when">Half past five in the evening</p>
       </div>
-    </div>
 
-    <!-- COLOURS & ATTIRE — on the same reception oil painting -->
-    <div class="attire-art-content" id="attire">
+      <!-- COLOURS & ATTIRE -->
+      <div class="attire-art-content" id="attire">
       <div class="kicker">A Note on Dress</div>
       <h2 class="display-h">Colours &amp; Attire</h2>
       <div class="rule"><span class="line"></span><span class="ornament">&#10022;</span><span class="line"></span></div>
@@ -225,6 +227,7 @@
           <p>Skip loud florals, plaids &amp; busy prints. A subtle texture is always welcome.</p>
         </div>
       </div>
+    </div>
     </div>
   </section>
 

@@ -193,8 +193,8 @@
   var blinds = document.getElementById('blindsReveal');
   if (blinds) {
     // The section now also holds the colours/attire copy, so measure the
-    // fixed-height hero (not the whole section) to drive the reveal progress.
-    var blindsHero = blinds.querySelector('.blinds-hero') || blinds;
+    // fixed-height photo backdrop (not the whole section) to drive progress.
+    var blindsHero = blinds.querySelector('.blinds-backdrop') || blinds;
     var textRevealed = false;
     function updateBlinds() {
       var rect = blindsHero.getBoundingClientRect();
