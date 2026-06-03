@@ -2354,20 +2354,23 @@
     filter: grayscale(1) contrast(1.12) brightness(0.96);
   }
   /* The label sits behind the image, so it only shows while the file is
-     missing. Drop a real photo at the named path and it covers this box. */
+     missing. A warm-white matte fills the inside of the frame so the name
+     reads like a placard; clip-path matches the frame so oval frames get an
+     oval mat. Drop a real photo at the named path and it covers this box. */
   .almanac .bio-photo figcaption {
     position: absolute; inset: 0; z-index: 0;
     display: flex; flex-direction: column; align-items: center;
-    justify-content: center; gap: 8px; padding: 14% 12%; text-align: center;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
+    justify-content: center; gap: 8px; padding: 16% 14%; text-align: center;
+    background: radial-gradient(120% 100% at 50% 22%, #fffdf6 0%, #efe7d4 62%, #dcd0b5 100%);
+    clip-path: var(--clip);
   }
   .almanac .bio-photo .ph-name {
     font-family: var(--wp-heading); font-size: 16px; line-height: 1.1;
-    color: var(--a-ink);
+    color: #2b2620;
   }
   .almanac .bio-photo .ph-file {
     font-family: var(--a-condensed); font-size: 9px; letter-spacing: 0.16em;
-    color: var(--a-brass); word-break: break-all; opacity: 0.85;
+    color: #7c6326; word-break: break-all; opacity: 0.9;
   }
 
   /* ---- Frame variants: alternate colour, shape and size ----
