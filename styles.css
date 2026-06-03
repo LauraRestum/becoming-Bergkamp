@@ -1705,10 +1705,13 @@
     content: "";
     position: fixed;
     inset: 0;
-    background-image: url('/images/glow-frame.png');
+    /* The Bergkamp damask wallpaper, full-bleed and fixed so it stays put while
+       the almanac scrolls over it. */
+    background-image: url('/images/almanac-wallpaper.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    background-color: #000000;
     pointer-events: none;
     z-index: -1;
   }
@@ -2306,13 +2309,21 @@
   }
   .almanac .bio-photo {
     position: relative;
-    aspect-ratio: 4 / 5;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* matches the gilt frame overlay (frame-gold-portrait.png, 471 x 720) so
+       the ornate corners are never stretched. */
+    aspect-ratio: 471 / 720;
     background: radial-gradient(circle at 50% 35%, #1d1d1d 0%, #0c0c0c 100%);
   }
+  /* The gilt picture frame, laid over each photo. The photo fills the whole
+     box and the frame's solid border crops it to the window, so no per-photo
+     alignment is needed — drop a real file in /photos and it is framed. */
+  .almanac .bio-photo::after {
+    content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background: url('/images/frames/frame-gold-portrait.png') center / 100% 100% no-repeat;
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.55));
+  }
   .almanac .bio-photo img {
+    /* fill the whole box; the frame border laps over the edges on top. */
     position: absolute; inset: 0; z-index: 1;
     width: 100%; height: 100%; object-fit: cover;
     filter: grayscale(1) contrast(1.12) brightness(0.96);
@@ -2349,6 +2360,36 @@
     text-align: center; max-width: 520px; margin: 0 auto;
     font-family: var(--a-serif-body); font-size: 16px;
     color: var(--a-ink-soft); line-height: 1.8;
+  }
+
+  /* ============================================
+     SCONCES — gilt wall lights used as frontispiece decoration
+     ============================================ */
+  .almanac .frontispiece { position: relative; }
+
+  /* The monogrammed "B" sconce, crowning the title block. */
+  .almanac .frontispiece-crest {
+    display: block; width: 132px; height: auto;
+    margin: 0 auto 24px; position: relative; z-index: 3;
+    filter: drop-shadow(0 0 26px rgba(201, 168, 76, 0.45))
+            drop-shadow(0 10px 22px rgba(0, 0, 0, 0.6));
+  }
+
+  /* A mirrored pair of brass sconces flanking the frontispiece frame.
+     Hidden on narrow screens where there is no room beside the block. */
+  .almanac .wall-sconce {
+    position: absolute; top: 120px; width: 116px; height: auto;
+    z-index: 3; pointer-events: none;
+    filter: drop-shadow(0 0 22px rgba(201, 168, 76, 0.4))
+            drop-shadow(0 10px 20px rgba(0, 0, 0, 0.6));
+  }
+  .almanac .wall-sconce-left { left: -86px; }
+  .almanac .wall-sconce-right { right: -86px; transform: scaleX(-1); }
+  @media (max-width: 1080px) {
+    .almanac .wall-sconce { display: none; }
+  }
+  @media (max-width: 480px) {
+    .almanac .frontispiece-crest { width: 104px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
