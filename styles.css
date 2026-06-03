@@ -2230,25 +2230,52 @@
     margin: 0 auto;
   }
 
-  /* The softly rounded, warmly lit card. */
+  /* Each card is a framed picture hung on the wall: an ornate frame drawn with
+     border-image (so it wraps any height of content without distorting the
+     corners), a warm matte behind the text, and a cast shadow. The frame
+     colour and thickness alternate per card further down. Collapsed it shows
+     the name + a short bio; opened, the same frame reveals their photos. */
   .almanac .bio-card {
+    --frame: url('/images/frames/frame-gold-portrait.png');
+    --bw: 38px;
+    --slice: 12% 16% 10% 16%;
     text-align: center;
-    background: rgba(0, 0, 0, 0.42);
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    border-radius: 22px;
-    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
-    overflow: hidden;
+    color: #332d22;
+    background: radial-gradient(135% 115% at 50% 14%, #fffdf7 0%, #f1e9d6 58%, #dccfb2 100%);
+    border: var(--bw) solid transparent;
+    border-image-source: var(--frame);
+    border-image-slice: var(--slice);
+    border-image-repeat: stretch;
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.55);
     position: relative;
-    transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+    transition: box-shadow 0.4s ease, transform 0.4s ease;
   }
   .almanac .bio-card:hover,
   .almanac .bio-card:focus-within {
-    border-color: rgba(201, 168, 76, 0.55);
-    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.55);
+    box-shadow: 0 22px 42px rgba(0, 0, 0, 0.62);
+    transform: translateY(-2px);
+  }
+  /* A small brass bolt at the top, so the picture looks fixed to the wall. */
+  .almanac .bio-card::after {
+    content: ""; position: absolute; top: calc(var(--bw) * -0.42); left: 50%; z-index: 5;
+    width: 11px; height: 11px; border-radius: 50%; transform: translateX(-50%);
+    background: radial-gradient(circle at 35% 30%, #f6e8b0 0%, #bd9740 55%, #6f561e 100%);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7), inset 0 -1px 1px rgba(0, 0, 0, 0.4);
   }
 
-  /* Parent cards reuse the rounded treatment; drop their square frame. */
-  .almanac .parent-card.bio-card { padding: 0; border-radius: 22px; }
+  /* Frame variants — alternate colour and size on a three-card cycle. */
+  .almanac .bio-grid > article:nth-of-type(3n + 2),
+  .almanac .parents-grid > article:nth-of-type(3n + 2) {
+    --frame: url('/images/frames/frame-black-landscape.png');
+    --bw: 32px; --slice: 11% 9% 13% 8%;
+  }
+  .almanac .bio-grid > article:nth-of-type(3n),
+  .almanac .parents-grid > article:nth-of-type(3n) {
+    --frame: url('/images/frames/frame-gold-square.png');
+    --bw: 44px; --slice: 16%;
+  }
+
+  /* Parent cards drop their old inner border; they use the frame like the rest. */
   .almanac .parent-card.bio-card::before { display: none; }
   .almanac .parent-card.bio-card .parent-portraits { margin-top: 8px; }
 
@@ -2263,10 +2290,10 @@
     font: inherit;
     text-align: center;
     cursor: pointer;
-    padding: 36px 30px 28px;
+    padding: 22px 16px 18px;
     -webkit-tap-highlight-color: transparent;
   }
-  .almanac .parent-card.bio-card .bio-summary { padding: 46px 32px 26px; }
+  .almanac .parent-card.bio-card .bio-summary { padding: 14px 16px 16px; }
   .almanac .bio-summary:focus { outline: none; }
   .almanac .bio-summary:focus-visible {
     outline: 2px solid #4A90D9; outline-offset: 4px; border-radius: 14px;
@@ -2274,7 +2301,7 @@
 
   .almanac .bio-card .bio-ornament {
     font-family: var(--a-display); font-size: 20px; font-weight: 700;
-    color: var(--a-brass); line-height: 1; margin-bottom: 16px;
+    color: #9a7b32; line-height: 1; margin-bottom: 16px;
   }
 
   /* Let the heading + body fonts be driven by the variables up top. */
@@ -2285,13 +2312,24 @@
   .almanac .bio-card .bio-blurb,
   .almanac .bio-card .bio-partner { font-family: var(--wp-body); }
 
+  /* Dark ink on the matte, scoped to the framed cards. */
+  .almanac .bio-card .person-name,
+  .almanac .bio-card .parent-names,
+  .almanac .bio-card .parent-surname { color: #241f18; }
+  .almanac .bio-card .person-role,
+  .almanac .bio-card .parent-role,
+  .almanac .bio-card .parent-divider,
+  .almanac .bio-card .person-divider { color: #8a6d2b; }
+  .almanac .bio-card .person-bio,
+  .almanac .bio-card .parent-bio { color: #4a4234; }
+
   /* The "tap to read more" cue. */
   .almanac .bio-cue {
     display: inline-flex; align-items: center; justify-content: center;
     gap: 9px; margin-top: 22px;
     font-family: var(--a-condensed); font-weight: 700; font-size: 10px;
     letter-spacing: 0.34em; text-transform: uppercase;
-    color: var(--a-brass); padding-left: 0.34em;
+    color: #8a6d2b; padding-left: 0.34em;
   }
   .almanac .bio-chevron {
     font-family: var(--a-condensed); font-size: 15px; line-height: 0.6;
@@ -2309,75 +2347,40 @@
   .almanac .bio-detail.open { opacity: 1; }
   .almanac .bio-detail[hidden] { display: none; }
   .almanac .bio-detail-inner {
-    padding: 6px 30px 34px;
-    border-top: 1px solid rgba(255, 255, 255, 0.14);
-    margin: 0 22px;
+    padding: 6px 14px 22px;
+    border-top: 1px solid rgba(60, 45, 15, 0.2);
+    margin: 0 10px;
   }
   .almanac .parent-card.bio-card .bio-detail-inner { padding: 6px 32px 36px; }
 
   /* Labelled photo placeholders, easy to swap for real photos. */
   .almanac .bio-photos {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
     gap: 12px;
-    margin: 26px 0 22px;
+    margin: 22px 0 20px;
   }
-  /* Each photo is a framed picture mounted on the wall. The defaults below are
-     overridden per-photo further down to alternate frame colour, shape and
-     size, so the two photos in a card — and the cards down the page — read as
-     a hung gallery wall rather than a uniform grid. The knobs:
-       --frame  the frame PNG laid over the photo
-       --ar     the box aspect ratio (must match the frame so it isn't stretched)
-       --w      how wide the framed picture sits in its column (size variation)
-       --drop   how far it hangs below the top of its column (stagger)
-       --clip   shape the photo is cropped to (rectangles: none; ovals: ellipse) */
+  /* Inside the opened frame: the photos, shown as clean framed prints (the
+     ornate frame is the card itself, so these stay simple). Drop a real photo
+     at the named path and it fills the print; until then a labelled mat shows. */
   .almanac .bio-photo {
-    --frame: url('/images/frames/frame-gold-portrait.png');
-    --ar: 471 / 720;
-    --w: 100%;
-    --drop: 0px;
-    --clip: none;
     position: relative;
-    aspect-ratio: var(--ar);
-    width: var(--w);
-    margin: var(--drop) auto 0;
-    align-self: start;
-    background: transparent;
-  }
-  /* The frame itself, with a cast shadow so it looks bolted to the wall.
-     drop-shadow follows the PNG's alpha, so ornate and oval frames cast a
-     shaped shadow rather than a rectangle. */
-  .almanac .bio-photo::after {
-    content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
-    background: var(--frame) center / 100% 100% no-repeat;
-    filter:
-      drop-shadow(0 1px 1px rgba(0, 0, 0, 0.6))
-      drop-shadow(0 14px 16px rgba(0, 0, 0, 0.6));
-  }
-  /* A small brass mounting bolt at the top, selling the "fixed to the wall" look. */
-  .almanac .bio-photo::before {
-    content: ""; position: absolute; top: -7px; left: 50%; z-index: 3;
-    width: 8px; height: 8px; border-radius: 50%; transform: translateX(-50%);
-    background: radial-gradient(circle at 35% 30%, #f6e8b0 0%, #bd9740 55%, #6f561e 100%);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.7), inset 0 -1px 1px rgba(0, 0, 0, 0.4);
+    aspect-ratio: 4 / 5;
+    background: #fbf8f0;
+    padding: 7px;                       /* the white mat */
+    border: 1px solid rgba(60, 45, 15, 0.35);
+    box-shadow: 0 5px 13px rgba(0, 0, 0, 0.28), inset 0 0 0 2px rgba(201, 168, 76, 0.5);
   }
   .almanac .bio-photo img {
-    /* fill the window; the frame border laps over the edges on top. */
-    position: absolute; inset: 0; z-index: 1;
-    width: 100%; height: 100%; object-fit: cover;
-    clip-path: var(--clip);
-    filter: grayscale(1) contrast(1.12) brightness(0.96);
+    position: absolute; inset: 7px; z-index: 1;
+    width: auto; height: auto; object-fit: cover;
+    filter: grayscale(1) contrast(1.1) brightness(0.98);
   }
-  /* The label sits behind the image, so it only shows while the file is
-     missing. A warm-white matte fills the inside of the frame so the name
-     reads like a placard; clip-path matches the frame so oval frames get an
-     oval mat. Drop a real photo at the named path and it covers this box. */
   .almanac .bio-photo figcaption {
-    position: absolute; inset: 0; z-index: 0;
+    position: absolute; inset: 7px; z-index: 0;
     display: flex; flex-direction: column; align-items: center;
-    justify-content: center; gap: 8px; padding: 16% 14%; text-align: center;
-    background: radial-gradient(120% 100% at 50% 22%, #fffdf6 0%, #efe7d4 62%, #dcd0b5 100%);
-    clip-path: var(--clip);
+    justify-content: center; gap: 8px; padding: 10px; text-align: center;
+    background: #f3ecdb;
   }
   .almanac .bio-photo .ph-name {
     font-family: var(--wp-heading); font-size: 16px; line-height: 1.1;
@@ -2388,52 +2391,14 @@
     color: #7c6326; word-break: break-all; opacity: 0.9;
   }
 
-  /* ---- Frame variants: alternate colour, shape and size ----
-     Three-card cycle; within every card the left photo and right photo are a
-     gold + black pair, and the size/shape rotate so no two neighbours match.
-     :nth-of-type counts the <article> cards (the empty-state <p> is skipped). */
-
-  /* Default pairing (cards 1, 4, 7, …): gold rectangle + small black oval. */
-  .almanac .bio-photo:first-child {
-    --frame: url('/images/frames/frame-gold-portrait.png'); --ar: 471 / 720; --w: 100%;
-  }
-  .almanac .bio-photo:last-child {
-    --frame: url('/images/frames/frame-black-oval.png'); --ar: 489 / 720;
-    --w: 76%; --drop: 22px; --clip: ellipse(50% 50% at 50% 50%);
-  }
-
-  /* Cards 2, 5, 8, …: wide black landscape + medium gold oval. */
-  .almanac .parents-grid > article:nth-of-type(3n + 2) .bio-photo:first-child,
-  .almanac .bio-grid > article:nth-of-type(3n + 2) .bio-photo:first-child {
-    --frame: url('/images/frames/frame-black-landscape.png'); --ar: 720 / 546;
-    --w: 92%; --drop: 30px; --clip: none;
-  }
-  .almanac .parents-grid > article:nth-of-type(3n + 2) .bio-photo:last-child,
-  .almanac .bio-grid > article:nth-of-type(3n + 2) .bio-photo:last-child {
-    --frame: url('/images/frames/frame-gold-oval-ornate.png'); --ar: 543 / 720;
-    --w: 88%; --drop: 0px; --clip: ellipse(50% 50% at 50% 50%);
-  }
-
-  /* Cards 3, 6, 9, …: gold square + small black oval. */
-  .almanac .parents-grid > article:nth-of-type(3n) .bio-photo:first-child,
-  .almanac .bio-grid > article:nth-of-type(3n) .bio-photo:first-child {
-    --frame: url('/images/frames/frame-gold-square.png'); --ar: 671 / 720;
-    --w: 90%; --drop: 14px; --clip: none;
-  }
-  .almanac .parents-grid > article:nth-of-type(3n) .bio-photo:last-child,
-  .almanac .bio-grid > article:nth-of-type(3n) .bio-photo:last-child {
-    --frame: url('/images/frames/frame-black-oval.png'); --ar: 489 / 720;
-    --w: 78%; --drop: 4px; --clip: ellipse(50% 50% at 50% 50%);
-  }
-
   .almanac .bio-blurb {
     font-weight: 500; font-size: 15px; line-height: 1.78;
-    color: var(--a-ink); max-width: 460px; margin: 0 auto;
+    color: #4a4234; max-width: 460px; margin: 0 auto;
   }
   .almanac .bio-partner {
     font-style: italic; font-size: 14px; letter-spacing: 0.02em;
-    color: var(--a-brass); margin-top: 20px; padding-top: 16px;
-    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    color: #8a6d2b; margin-top: 20px; padding-top: 16px;
+    border-top: 1px solid rgba(60, 45, 15, 0.2);
     max-width: 460px; margin-left: auto; margin-right: auto;
   }
 
