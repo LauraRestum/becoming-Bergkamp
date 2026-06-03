@@ -30,7 +30,13 @@ frames are kept here for future use on lighter surfaces.
 
 ## How a frame is applied
 
-A frame sits on top of its photo via a CSS overlay: the photo fills the
-whole box and the frame's solid border laps over the edges, cropping it to
-the window. See `.almanac .bio-photo` in `/styles.css`. To match a
-different frame, set the box's `aspect-ratio` to that PNG's width / height.
+A frame sits on top of its photo via a CSS overlay: the photo fills the box
+and the frame laps over the edges (rectangles crop to the window; ovals clip
+the photo to an ellipse so the wall shows in the corners). A cast shadow and a
+small brass bolt make each picture look mounted on the wall.
+
+The photos alternate frame **colour, shape and size** on a three-card cycle so
+the page reads like a hung gallery wall. Each `.bio-photo` exposes a few knobs
+(`--frame`, `--ar`, `--w`, `--drop`, `--clip`); to retune a picture, set
+`--frame` to a PNG and `--ar` to that PNG's width / height. See
+`.almanac .bio-photo` in `/styles.css`.
