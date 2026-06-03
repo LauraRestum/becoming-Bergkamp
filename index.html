@@ -99,18 +99,23 @@
 
   <!-- NAV -->
   <nav class="top" id="nav" aria-label="Primary">
-    <div class="left">
-      <a href="#story">Our Story</a>
-      <a href="/ceremony">The Day</a>
-      <a href="/travel">Travel</a>
-    </div>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Menu">
+      <span class="nav-toggle-box" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
     <a href="#top" class="mono" aria-label="Top of page">LBR &middot; WJB</a>
-    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="nav" aria-label="Toggle menu">Menu</button>
-    <div class="right">
-      <a href="/wedding-party">Wedding Party</a>
-      <a href="/honeymoon">Honeymoon</a>
-      <a href="/rsvp">RSVP</a>
+    <div class="nav-links" id="navLinks">
+      <div class="left">
+        <a href="#story">Our Story</a>
+        <a href="/ceremony">The Day</a>
+        <a href="/travel">Travel</a>
+      </div>
+      <div class="right">
+        <a href="/wedding-party">Wedding Party</a>
+        <a href="/honeymoon">Honeymoon</a>
+        <a href="/rsvp">RSVP</a>
+      </div>
     </div>
+    <div class="nav-backdrop" id="navBackdrop"></div>
   </nav>
 
   <!-- HERO -->

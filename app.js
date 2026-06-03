@@ -96,18 +96,30 @@
   window.addEventListener('resize', updateNav, { passive: true });
   updateNav();
 
-  // Mobile menu toggle
+  // Mobile menu — hamburger opens a side drawer with a dimmed backdrop.
   var navToggle = document.getElementById('navToggle');
+  var navBackdrop = document.getElementById('navBackdrop');
   if (navToggle && nav) {
-    navToggle.addEventListener('click', function () {
-      var open = nav.classList.toggle('menu-open');
+    function setMenu(open) {
+      nav.classList.toggle('menu-open', open);
       navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.body.classList.toggle('nav-open', open);
+    }
+    navToggle.addEventListener('click', function () {
+      setMenu(!nav.classList.contains('menu-open'));
     });
+    // Close when a link in the drawer is tapped.
     nav.addEventListener('click', function (e) {
       if (e.target.tagName === 'A' && nav.classList.contains('menu-open')) {
-        nav.classList.remove('menu-open');
-        navToggle.setAttribute('aria-expanded', 'false');
+        setMenu(false);
       }
+    });
+    // Close on backdrop tap and on Escape.
+    if (navBackdrop) {
+      navBackdrop.addEventListener('click', function () { setMenu(false); });
+    }
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && nav.classList.contains('menu-open')) { setMenu(false); }
     });
   }
 
