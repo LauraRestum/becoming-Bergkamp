@@ -30,15 +30,16 @@ frames are kept here for future use on lighter surfaces.
 
 ## How a frame is applied
 
-Each **bio card** is a framed picture hung on the wall. The ornate frame is
-drawn with `border-image` around the card (so it wraps any height of content
-without distorting the corners), over a warm matte, with a cast shadow and a
-small brass bolt at the top. Collapsed, the frame shows the person's name and a
-short bio; opened, the same frame reveals their photos as clean prints inside.
+Each **bio card** is a framed nameplate hung on the wall. The frame PNG is laid
+over a matte that is **clipped to the frame's window shape** (`clip-path`), so
+oval / arch / cartouche frames show no white bleed past the moulding. A cast
+shadow (which follows the PNG's alpha, so shaped frames cast shaped shadows) and
+a small brass nail make it look hung. Collapsed, the frame shows the person's
+**name + title**; clicking opens a separate, unframed panel below with their
+bio and a photo placeholder.
 
-The card frames alternate **colour and size** on a three-card cycle
-(gold portrait → black landscape → gold square). Each `.bio-card` sets three
-knobs — `--frame` (the PNG), `--bw` (border width) and `--slice` (the
-border-image slice, as % insets of that PNG). See `.almanac .bio-card` in
-`/styles.css`. Only the rectangular frames border-image cleanly; the oval and
-arch frames remain in the library for photo overlays elsewhere.
+Every card gets a distinct frame via `:nth-of-type` on `.almanac .bio-summary`,
+each setting `--frame` (the PNG), `--ar` (its width / height, so it isn't
+stretched) and `--clip` (the matte shape: `none` for rectangles,
+`ellipse(...)` for ovals, a rounded `inset(...)` for arches, a `polygon(...)`
+for cartouches). See `.almanac .bio-summary` in `/styles.css`.
