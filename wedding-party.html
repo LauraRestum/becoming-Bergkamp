@@ -96,30 +96,72 @@
       </div>
 
       <div class="parents-grid">
-        <article class="parent-card">
-          <div class="card-crown">❦</div>
-          <div class="parent-portraits">
-            <div class="parent-portrait placeholder"></div>
-            <div class="parent-portrait placeholder"></div>
+        <article class="parent-card bio-card" data-bio-card>
+          <div class="card-crown" aria-hidden="true">❦</div>
+          <button type="button" class="bio-summary" aria-expanded="false" aria-controls="bio-amy-ron">
+            <div class="parent-portraits">
+              <div class="parent-portrait placeholder"></div>
+              <div class="parent-portrait placeholder"></div>
+            </div>
+            <div class="parent-names" id="name-amy-ron">Amy <span class="amp">&amp;</span> Ron</div>
+            <div class="parent-surname">RESTUM</div>
+            <div class="parent-role">Parents of the Bride</div>
+            <div class="parent-divider" aria-hidden="true">⁂</div>
+            <p class="parent-bio">Amy and Ron are Laura's parents, married nearly thirty years.</p>
+            <span class="bio-cue">
+              <span class="bio-cue-text">Tap to read more</span>
+              <span class="bio-chevron" aria-hidden="true">⌄</span>
+            </span>
+          </button>
+          <div class="bio-detail" id="bio-amy-ron" role="region" aria-labelledby="name-amy-ron" hidden>
+            <div class="bio-detail-inner">
+              <div class="bio-photos">
+                <figure class="bio-photo">
+                  <img src="/photos/amy-and-ron.jpg" alt="Laura with Amy and Ron" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">Laura, Amy &amp; Ron</span><span class="ph-file">/photos/amy-and-ron.jpg</span></figcaption>
+                </figure>
+                <figure class="bio-photo">
+                  <img src="/photos/amy-and-ron-2.jpg" alt="Laura with Amy and Ron" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">Laura, Amy &amp; Ron</span><span class="ph-file">/photos/amy-and-ron-2.jpg</span></figcaption>
+                </figure>
+              </div>
+              <p class="bio-blurb">They split their time between Wichita and Pawleys Island, South Carolina, raised their family across three states, and showed Laura what perseverance and tender love look like.</p>
+            </div>
           </div>
-          <div class="parent-names">Amy <span class="amp">&amp;</span> Ron</div>
-          <div class="parent-surname">RESTUM</div>
-          <div class="parent-role">Parents of the Bride</div>
-          <div class="parent-divider">⁂</div>
-          <p class="parent-bio">A short tribute to Amy and Ron will live here. The kind of parents Laura got, and what she carries from them into this marriage.</p>
         </article>
 
-        <article class="parent-card">
-          <div class="card-crown">❦</div>
-          <div class="parent-portraits">
-            <div class="parent-portrait placeholder"></div>
-            <div class="parent-portrait placeholder"></div>
+        <article class="parent-card bio-card" data-bio-card>
+          <div class="card-crown" aria-hidden="true">❦</div>
+          <button type="button" class="bio-summary" aria-expanded="false" aria-controls="bio-julie-gil">
+            <div class="parent-portraits">
+              <div class="parent-portrait placeholder"></div>
+              <div class="parent-portrait placeholder"></div>
+            </div>
+            <div class="parent-names" id="name-julie-gil">Julie <span class="amp">&amp;</span> Gil</div>
+            <div class="parent-surname">BERGKAMP</div>
+            <div class="parent-role">Parents of the Groom</div>
+            <div class="parent-divider" aria-hidden="true">⁂</div>
+            <p class="parent-bio">A short tribute to Julie and Gil will live here.</p>
+            <span class="bio-cue">
+              <span class="bio-cue-text">Tap to read more</span>
+              <span class="bio-chevron" aria-hidden="true">⌄</span>
+            </span>
+          </button>
+          <div class="bio-detail" id="bio-julie-gil" role="region" aria-labelledby="name-julie-gil" hidden>
+            <div class="bio-detail-inner">
+              <div class="bio-photos">
+                <figure class="bio-photo">
+                  <img src="/photos/julie-and-gil.jpg" alt="William with Julie and Gil" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">William, Julie &amp; Gil</span><span class="ph-file">/photos/julie-and-gil.jpg</span></figcaption>
+                </figure>
+                <figure class="bio-photo">
+                  <img src="/photos/julie-and-gil-2.jpg" alt="William with Julie and Gil" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">William, Julie &amp; Gil</span><span class="ph-file">/photos/julie-and-gil-2.jpg</span></figcaption>
+                </figure>
+              </div>
+              <p class="bio-blurb">The longer tribute to Julie and Gil will live here, and what William carries from them into this marriage.</p>
+            </div>
           </div>
-          <div class="parent-names">Julie <span class="amp">&amp;</span> Gil</div>
-          <div class="parent-surname">BERGKAMP</div>
-          <div class="parent-role">Parents of the Groom</div>
-          <div class="parent-divider">⁂</div>
-          <p class="parent-bio">A short tribute to Julie and Gil will live here. The kind of parents William got, and what he carries from them into this marriage.</p>
         </article>
       </div>
     </div>
@@ -144,65 +186,257 @@
         <div class="side-sub">~ THE FIRST ROW ~</div>
       </div>
 
-      <div class="party-grid">
-        <article class="person">
-          <div class="person-portrait placeholder"></div>
-          <h4 class="person-name">Paige</h4>
-          <div class="person-role">MAID OF HONOR</div>
-          <div class="person-relation">Placeholder relation</div>
-          <div class="person-divider">⁂</div>
-          <p class="person-bio">A short and warm note about Paige. Replace with the real one when ready.</p>
+      <div class="bio-grid">
+
+        <!-- Paige -->
+        <article class="person bio-card" data-bio-card>
+          <button type="button" class="bio-summary" aria-expanded="false" aria-controls="bio-paige">
+            <div class="bio-ornament" aria-hidden="true">❦</div>
+            <h4 class="person-name" id="name-paige">Paige</h4>
+            <div class="person-role">MAID OF HONOR</div>
+            <div class="person-divider" aria-hidden="true">⁂</div>
+            <p class="person-bio">Paige and Laura met waiting tables at Bubba's 33 and quickly became inseparable, spending much of their twenties side by side.</p>
+            <span class="bio-cue">
+              <span class="bio-cue-text">Tap to read more</span>
+              <span class="bio-chevron" aria-hidden="true">⌄</span>
+            </span>
+          </button>
+          <div class="bio-detail" id="bio-paige" role="region" aria-labelledby="name-paige" hidden>
+            <div class="bio-detail-inner">
+              <div class="bio-photos">
+                <figure class="bio-photo">
+                  <img src="/photos/paige.jpg" alt="Laura with Paige" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">Laura &amp; Paige</span><span class="ph-file">/photos/paige.jpg</span></figcaption>
+                </figure>
+                <figure class="bio-photo">
+                  <img src="/photos/paige-2.jpg" alt="Laura with Paige" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">Laura &amp; Paige</span><span class="ph-file">/photos/paige-2.jpg</span></figcaption>
+                </figure>
+              </div>
+              <p class="bio-blurb">A couple months in, Paige roped Laura into a Texas road trip that turned out to be just the two of them, and that was that. They have worked together, lived downtown, and traveled all over since, from Colorado to New York. Laura recently helped move her to Amarillo. Paige serves in the Air Force.</p>
+              <!-- Accompanied by: add the partner's name below, then remove the hidden attribute on this line. -->
+              <p class="bio-partner" hidden>Accompanied by <span class="partner-name"></span></p>
+            </div>
+          </div>
         </article>
-        <article class="person">
-          <div class="person-portrait placeholder"></div>
-          <h4 class="person-name">Ginger</h4>
-          <div class="person-role">MATRON OF HONOR</div>
-          <div class="person-relation">Placeholder relation</div>
-          <div class="person-divider">⁂</div>
-          <p class="person-bio">A short and warm note about Ginger. Replace with the real one when ready.</p>
+
+        <!-- Ginger -->
+        <article class="person bio-card" data-bio-card>
+          <button type="button" class="bio-summary" aria-expanded="false" aria-controls="bio-ginger">
+            <div class="bio-ornament" aria-hidden="true">❦</div>
+            <h4 class="person-name" id="name-ginger">Ginger</h4>
+            <div class="person-role">MATRON OF HONOR</div>
+            <div class="person-divider" aria-hidden="true">⁂</div>
+            <p class="person-bio">Best friends since a 2013 high school soccer season, Ginger and Laura later roomed together in college and joined the same sorority.</p>
+            <span class="bio-cue">
+              <span class="bio-cue-text">Tap to read more</span>
+              <span class="bio-chevron" aria-hidden="true">⌄</span>
+            </span>
+          </button>
+          <div class="bio-detail" id="bio-ginger" role="region" aria-labelledby="name-ginger" hidden>
+            <div class="bio-detail-inner">
+              <div class="bio-photos">
+                <figure class="bio-photo">
+                  <img src="/photos/ginger.jpg" alt="Laura with Ginger" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">Laura &amp; Ginger</span><span class="ph-file">/photos/ginger.jpg</span></figcaption>
+                </figure>
+                <figure class="bio-photo">
+                  <img src="/photos/ginger-2.jpg" alt="Laura with Ginger" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">Laura &amp; Ginger</span><span class="ph-file">/photos/ginger-2.jpg</span></figcaption>
+                </figure>
+              </div>
+              <p class="bio-blurb">Laura was maid of honor in Ginger's wedding, and Ginger returns the favor as matron of honor (which, she will note, just means she married first). She is steady, dependable, and easy to fall right back in with. She works at Koch Industries.</p>
+              <p class="bio-partner">Accompanied by her husband, Grant Kabler</p>
+            </div>
+          </div>
         </article>
-        <article class="person">
-          <div class="person-portrait placeholder"></div>
-          <h4 class="person-name">Erica</h4>
-          <div class="person-role">SISTER OF THE BRIDE</div>
-          <div class="person-divider">⁂</div>
-          <p class="person-bio">A short and warm note about Erica. Replace with the real one when ready.</p>
+
+        <!-- Erica -->
+        <article class="person bio-card" data-bio-card>
+          <button type="button" class="bio-summary" aria-expanded="false" aria-controls="bio-erica">
+            <div class="bio-ornament" aria-hidden="true">❦</div>
+            <h4 class="person-name" id="name-erica">Erica</h4>
+            <div class="person-role">SISTER OF THE BRIDE</div>
+            <div class="person-divider" aria-hidden="true">⁂</div>
+            <p class="person-bio">Erica is Laura's oldest sibling, and the sister she has always looked up to for her confidence.</p>
+            <span class="bio-cue">
+              <span class="bio-cue-text">Tap to read more</span>
+              <span class="bio-chevron" aria-hidden="true">⌄</span>
+            </span>
+          </button>
+          <div class="bio-detail" id="bio-erica" role="region" aria-labelledby="name-erica" hidden>
+            <div class="bio-detail-inner">
+              <div class="bio-photos">
+                <figure class="bio-photo">
+                  <img src="/photos/erica.jpg" alt="Laura with Erica" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">Laura &amp; Erica</span><span class="ph-file">/photos/erica.jpg</span></figcaption>
+                </figure>
+                <figure class="bio-photo">
+                  <img src="/photos/erica-2.jpg" alt="Laura with Erica" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">Laura &amp; Erica</span><span class="ph-file">/photos/erica-2.jpg</span></figcaption>
+                </figure>
+              </div>
+              <p class="bio-blurb">Growing up, Laura thought Erica was the coolest person around, and as a teenager she wanted exactly that kind of self-assurance. Erica teaches earth science in Williamsburg, Brooklyn. They are both tall, and both glad about it.</p>
+              <p class="bio-partner">Accompanied by her date, John Grabham</p>
+            </div>
+          </div>
         </article>
-        <article class="person">
-          <div class="person-portrait placeholder"></div>
-          <h4 class="person-name">Jacey</h4>
-          <div class="person-role">BRIDESMAID</div>
-          <div class="person-divider">⁂</div>
-          <p class="person-bio">Significant other: [placeholder]</p>
+
+        <!-- Ali -->
+        <article class="person bio-card" data-bio-card>
+          <button type="button" class="bio-summary" aria-expanded="false" aria-controls="bio-ali">
+            <div class="bio-ornament" aria-hidden="true">❦</div>
+            <h4 class="person-name" id="name-ali">Ali</h4>
+            <div class="person-role">BRIDESMAID</div>
+            <div class="person-divider" aria-hidden="true">⁂</div>
+            <p class="person-bio">Laura was new in high school around 2013 when she and Ali got close working on Laura's sports broadcasting project.</p>
+            <span class="bio-cue">
+              <span class="bio-cue-text">Tap to read more</span>
+              <span class="bio-chevron" aria-hidden="true">⌄</span>
+            </span>
+          </button>
+          <div class="bio-detail" id="bio-ali" role="region" aria-labelledby="name-ali" hidden>
+            <div class="bio-detail-inner">
+              <div class="bio-photos">
+                <figure class="bio-photo">
+                  <img src="/photos/ali.jpg" alt="Laura with Ali" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">Laura &amp; Ali</span><span class="ph-file">/photos/ali.jpg</span></figcaption>
+                </figure>
+                <figure class="bio-photo">
+                  <img src="/photos/ali-2.jpg" alt="Laura with Ali" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">Laura &amp; Ali</span><span class="ph-file">/photos/ali-2.jpg</span></figcaption>
+                </figure>
+              </div>
+              <p class="bio-blurb">Laura barely knew anyone yet, and Ali jumped in right beside her. They have been close ever since, with a near-daily group chat with Ashtyn going since 2021.</p>
+              <p class="bio-partner">Accompanied by her date, Adrian Perez</p>
+            </div>
+          </div>
         </article>
-        <article class="person">
-          <div class="person-portrait placeholder"></div>
-          <h4 class="person-name">Ali</h4>
-          <div class="person-role">BRIDESMAID</div>
-          <div class="person-divider">⁂</div>
-          <p class="person-bio">Significant other: [placeholder]</p>
+
+        <!-- Ashtyn -->
+        <article class="person bio-card" data-bio-card>
+          <button type="button" class="bio-summary" aria-expanded="false" aria-controls="bio-ashtyn">
+            <div class="bio-ornament" aria-hidden="true">❦</div>
+            <h4 class="person-name" id="name-ashtyn">Ashtyn</h4>
+            <div class="person-role">BRIDESMAID</div>
+            <div class="person-divider" aria-hidden="true">⁂</div>
+            <p class="person-bio">Ashtyn and Laura were both new transfers at a small school around 2014 and bonded fast in a zoology class.</p>
+            <span class="bio-cue">
+              <span class="bio-cue-text">Tap to read more</span>
+              <span class="bio-chevron" aria-hidden="true">⌄</span>
+            </span>
+          </button>
+          <div class="bio-detail" id="bio-ashtyn" role="region" aria-labelledby="name-ashtyn" hidden>
+            <div class="bio-detail-inner">
+              <div class="bio-photos">
+                <figure class="bio-photo">
+                  <img src="/photos/ashtyn.jpg" alt="Laura with Ashtyn" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">Laura &amp; Ashtyn</span><span class="ph-file">/photos/ashtyn.jpg</span></figcaption>
+                </figure>
+                <figure class="bio-photo">
+                  <img src="/photos/ashtyn-2.jpg" alt="Laura with Ashtyn" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">Laura &amp; Ashtyn</span><span class="ph-file">/photos/ashtyn-2.jpg</span></figcaption>
+                </figure>
+              </div>
+              <p class="bio-blurb">That class did more for their friendship than for their grades. Ashtyn is the friend Laura goes deepest with and the glue of her trio with Ali, loyal through anything. They played soccer together too, which still makes Laura laugh.</p>
+              <p class="bio-partner">Accompanied by her date, Tyler Mitchell</p>
+            </div>
+          </div>
         </article>
-        <article class="person">
-          <div class="person-portrait placeholder"></div>
-          <h4 class="person-name">Ashtyn</h4>
-          <div class="person-role">BRIDESMAID</div>
-          <div class="person-divider">⁂</div>
-          <p class="person-bio">Significant other: [placeholder]</p>
+
+        <!-- Jacey -->
+        <article class="person bio-card" data-bio-card>
+          <button type="button" class="bio-summary" aria-expanded="false" aria-controls="bio-jacey">
+            <div class="bio-ornament" aria-hidden="true">❦</div>
+            <h4 class="person-name" id="name-jacey">Jacey</h4>
+            <div class="person-role">BRIDESMAID</div>
+            <div class="person-divider" aria-hidden="true">⁂</div>
+            <p class="person-bio">Jacey and Laura met in the summer of 2021 living near each other downtown, and later worked together at Harry Hines hospice.</p>
+            <span class="bio-cue">
+              <span class="bio-cue-text">Tap to read more</span>
+              <span class="bio-chevron" aria-hidden="true">⌄</span>
+            </span>
+          </button>
+          <div class="bio-detail" id="bio-jacey" role="region" aria-labelledby="name-jacey" hidden>
+            <div class="bio-detail-inner">
+              <div class="bio-photos">
+                <figure class="bio-photo">
+                  <img src="/photos/jacey.jpg" alt="Laura with Jacey" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">Laura &amp; Jacey</span><span class="ph-file">/photos/jacey.jpg</span></figcaption>
+                </figure>
+                <figure class="bio-photo">
+                  <img src="/photos/jacey-2.jpg" alt="Laura with Jacey" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">Laura &amp; Jacey</span><span class="ph-file">/photos/jacey-2.jpg</span></figcaption>
+                </figure>
+              </div>
+              <p class="bio-blurb">Both Libras who can talk for hours, they read each other instantly. The hospice job sealed the friendship, including the day they learned IT reads your old messages after you leave (sorry, Jacey). Jacey is one of the funniest people Laura knows, and they are both all in on cottagecore, musicals, and anything a little grandma.</p>
+              <p class="bio-partner">Accompanied by her date, Warren Graves</p>
+            </div>
+          </div>
         </article>
-        <article class="person">
-          <div class="person-portrait placeholder"></div>
-          <h4 class="person-name">Rachel</h4>
-          <div class="person-role">BRIDESMAID</div>
-          <div class="person-divider">⁂</div>
-          <p class="person-bio">Significant other: [placeholder]</p>
+
+        <!-- Maddie -->
+        <article class="person bio-card" data-bio-card>
+          <button type="button" class="bio-summary" aria-expanded="false" aria-controls="bio-maddie">
+            <div class="bio-ornament" aria-hidden="true">❦</div>
+            <h4 class="person-name" id="name-maddie">Maddie</h4>
+            <div class="person-role">BRIDESMAID</div>
+            <div class="person-divider" aria-hidden="true">⁂</div>
+            <p class="person-bio">Maddie and Laura met in college through their sorority around 2017. She is a wife and a mom to Sunday and Dax.</p>
+            <span class="bio-cue">
+              <span class="bio-cue-text">Tap to read more</span>
+              <span class="bio-chevron" aria-hidden="true">⌄</span>
+            </span>
+          </button>
+          <div class="bio-detail" id="bio-maddie" role="region" aria-labelledby="name-maddie" hidden>
+            <div class="bio-detail-inner">
+              <div class="bio-photos">
+                <figure class="bio-photo">
+                  <img src="/photos/maddie.jpg" alt="Laura with Maddie" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">Laura &amp; Maddie</span><span class="ph-file">/photos/maddie.jpg</span></figcaption>
+                </figure>
+                <figure class="bio-photo">
+                  <img src="/photos/maddie-2.jpg" alt="Laura with Maddie" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">Laura &amp; Maddie</span><span class="ph-file">/photos/maddie-2.jpg</span></figcaption>
+                </figure>
+              </div>
+              <p class="bio-blurb">Confident and effortlessly put together, Maddie is impossible to be bored around and quick to make a friend of anyone.</p>
+              <p class="bio-partner">Accompanied by her husband, Dylan Collette</p>
+            </div>
+          </div>
         </article>
-        <article class="person">
-          <div class="person-portrait placeholder"></div>
-          <h4 class="person-name">Maddie</h4>
-          <div class="person-role">BRIDESMAID</div>
-          <div class="person-divider">⁂</div>
-          <p class="person-bio">Significant other: [placeholder]</p>
+
+        <!-- Rachel -->
+        <article class="person bio-card" data-bio-card>
+          <button type="button" class="bio-summary" aria-expanded="false" aria-controls="bio-rachel">
+            <div class="bio-ornament" aria-hidden="true">❦</div>
+            <h4 class="person-name" id="name-rachel">Rachel</h4>
+            <div class="person-role">BRIDESMAID</div>
+            <div class="person-divider" aria-hidden="true">⁂</div>
+            <p class="person-bio">Rachel and Laura knew each other in high school and got close again through the same sorority. She is a mom to Larson and Dylan.</p>
+            <span class="bio-cue">
+              <span class="bio-cue-text">Tap to read more</span>
+              <span class="bio-chevron" aria-hidden="true">⌄</span>
+            </span>
+          </button>
+          <div class="bio-detail" id="bio-rachel" role="region" aria-labelledby="name-rachel" hidden>
+            <div class="bio-detail-inner">
+              <div class="bio-photos">
+                <figure class="bio-photo">
+                  <img src="/photos/rachel.jpg" alt="Laura with Rachel" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">Laura &amp; Rachel</span><span class="ph-file">/photos/rachel.jpg</span></figcaption>
+                </figure>
+                <figure class="bio-photo">
+                  <img src="/photos/rachel-2.jpg" alt="Laura with Rachel" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">Laura &amp; Rachel</span><span class="ph-file">/photos/rachel-2.jpg</span></figcaption>
+                </figure>
+              </div>
+              <p class="bio-blurb">Funny, easygoing, and fully herself, Rachel always has a pool and good company on offer.</p>
+              <p class="bio-partner">Accompanied by her husband, Andrew Linhardt</p>
+            </div>
+          </div>
         </article>
+
       </div>
 
       <div class="party-side-wrap">
@@ -211,68 +445,56 @@
         <div class="side-sub">~ THE FIRST ROW ~</div>
       </div>
 
-      <div class="party-grid">
-        <article class="person">
-          <div class="person-portrait placeholder"></div>
-          <h4 class="person-name">James</h4>
-          <div class="person-role">BEST MAN</div>
-          <div class="person-relation">Brother of the Groom</div>
-          <div class="person-divider">⁂</div>
-          <p class="person-bio">A short and warm note about James. Replace with the real one when ready.</p>
+      <!-- ============================================================
+           GROOM'S SIDE — empty placeholder, ready to fill in later.
+
+           To add a member, copy one card from the Bride's Side grid
+           above into the .bio-grid below and update:
+             * the heading (person-name) and id (id="name-...")
+             * the role (person-role)
+             * the short bio (person-bio, always visible)
+             * aria-controls + the matching detail id (id="bio-...")
+             * the two photo paths and labels (/photos/<name>.jpg)
+             * the longer blurb (bio-blurb)
+             * the partner line (bio-partner) — remove the hidden
+               attribute once a name is added
+
+           A ready-to-use blank card template is commented out below.
+           ============================================================ -->
+      <div class="bio-grid">
+        <p class="party-empty">Names to be added soon.</p>
+
+        <!--
+        <article class="person bio-card" data-bio-card>
+          <button type="button" class="bio-summary" aria-expanded="false" aria-controls="bio-NAME">
+            <div class="bio-ornament" aria-hidden="true">❦</div>
+            <h4 class="person-name" id="name-NAME">Name</h4>
+            <div class="person-role">GROOMSMAN</div>
+            <div class="person-divider" aria-hidden="true">⁂</div>
+            <p class="person-bio">Short bio, one or two sentences, always visible.</p>
+            <span class="bio-cue">
+              <span class="bio-cue-text">Tap to read more</span>
+              <span class="bio-chevron" aria-hidden="true">⌄</span>
+            </span>
+          </button>
+          <div class="bio-detail" id="bio-NAME" role="region" aria-labelledby="name-NAME" hidden>
+            <div class="bio-detail-inner">
+              <div class="bio-photos">
+                <figure class="bio-photo">
+                  <img src="/photos/NAME.jpg" alt="William with Name" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">William &amp; Name</span><span class="ph-file">/photos/NAME.jpg</span></figcaption>
+                </figure>
+                <figure class="bio-photo">
+                  <img src="/photos/NAME-2.jpg" alt="William with Name" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">William &amp; Name</span><span class="ph-file">/photos/NAME-2.jpg</span></figcaption>
+                </figure>
+              </div>
+              <p class="bio-blurb">The longer blurb goes here.</p>
+              <p class="bio-partner" hidden>Accompanied by <span class="partner-name"></span></p>
+            </div>
+          </div>
         </article>
-        <article class="person">
-          <div class="person-portrait placeholder"></div>
-          <h4 class="person-name">Andrew</h4>
-          <div class="person-role">GROOMSMAN</div>
-          <div class="person-relation">Cousin of the Groom</div>
-          <div class="person-divider">⁂</div>
-          <p class="person-bio">Significant other: [placeholder]</p>
-        </article>
-        <article class="person">
-          <div class="person-portrait placeholder"></div>
-          <h4 class="person-name">Nick</h4>
-          <div class="person-role">GROOMSMAN</div>
-          <div class="person-divider">⁂</div>
-          <p class="person-bio">Significant other: [placeholder]</p>
-        </article>
-        <article class="person">
-          <div class="person-portrait placeholder"></div>
-          <h4 class="person-name">Tim</h4>
-          <div class="person-role">GROOMSMAN</div>
-          <div class="person-divider">⁂</div>
-          <p class="person-bio">Significant other: [placeholder]</p>
-        </article>
-        <article class="person">
-          <div class="person-portrait placeholder"></div>
-          <h4 class="person-name">Gabe</h4>
-          <div class="person-role">GROOMSMAN</div>
-          <div class="person-relation">Cousin of the Groom</div>
-          <div class="person-divider">⁂</div>
-          <p class="person-bio">Significant other: [placeholder]</p>
-        </article>
-        <article class="person">
-          <div class="person-portrait placeholder"></div>
-          <h4 class="person-name">Thomas</h4>
-          <div class="person-role">GROOMSMAN</div>
-          <div class="person-divider">⁂</div>
-          <p class="person-bio">Significant other: [placeholder]</p>
-        </article>
-        <article class="person">
-          <div class="person-portrait placeholder"></div>
-          <h4 class="person-name">Ethan</h4>
-          <div class="person-role">GROOMSMAN</div>
-          <div class="person-relation">Cousin of the Groom</div>
-          <div class="person-divider">⁂</div>
-          <p class="person-bio">Significant other: [placeholder]</p>
-        </article>
-        <article class="person">
-          <div class="person-portrait placeholder"></div>
-          <h4 class="person-name">Eddy</h4>
-          <div class="person-role">GROOMSMAN</div>
-          <div class="person-relation">Cousin of the Groom</div>
-          <div class="person-divider">⁂</div>
-          <p class="person-bio">Significant other: [placeholder]</p>
-        </article>
+        -->
       </div>
 
       <div class="party-side-wrap">
