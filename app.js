@@ -192,9 +192,12 @@
   // Blinds reveal — scroll-driven progress, text fades in when assembled
   var blinds = document.getElementById('blindsReveal');
   if (blinds) {
+    // The section now also holds the colours/attire copy, so measure the
+    // fixed-height hero (not the whole section) to drive the reveal progress.
+    var blindsHero = blinds.querySelector('.blinds-hero') || blinds;
     var textRevealed = false;
     function updateBlinds() {
-      var rect = blinds.getBoundingClientRect();
+      var rect = blindsHero.getBoundingClientRect();
       var vh = window.innerHeight;
       var center = rect.top + rect.height / 2;
       var raw = 1 - (center - vh / 2) / (vh * 0.8);
