@@ -1,9 +1,13 @@
-/* Bergkamp Wedding — "Add to Home Screen" pop-up.
+/* Bergkamp Wedding — "Download our app" pop-up.
    Most visitors arrive by scanning a QR code on their phone, so this shows a
-   centred, mobile-first pop-up (dimmed backdrop + app icon) inviting them to
-   install the site to their home screen for a full-screen, app-like experience.
-   - Android/Chrome: a button that fires the real install dialog.
-   - iPhone/Safari: Share -> Add to Home Screen instructions.
+   centred, mobile-first pop-up inviting them to download our app (add the site
+   to their home screen for a full-screen, app-like experience).
+   Flow:
+     1. Pop-up: "Download our app"  ->  [Download the app] / [Continue on the web version]
+     2. Tapping "Download the app":
+          - Android/Chrome: fires the real install dialog.
+          - iPhone/Safari: reveals the Share -> Add to Home Screen step.
+        "Continue on the web version" simply closes the pop-up.
    - Already installed (standalone) or previously dismissed: shows nothing.
    This file only ADDS the pop-up element + its own scoped styles; it does not
    touch existing page content, layout, or CSS. */
@@ -29,6 +33,12 @@
   // How long to wait after the page settles before inviting (ms).
   var SHOW_DELAY = 1100;
 
+  var shareGlyph =
+    '<svg class="pwa-share" viewBox="0 0 24 24" fill="none" stroke="#b89149" ' +
+    'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<path d="M12 16V4"/><path d="M8 8l4-4 4 4"/>' +
+    '<path d="M5 12v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>';
+
   // --- Scoped styles, matched to the site (serif display, ink + gold) ---
   var style = document.createElement('style');
   style.textContent = [
@@ -53,6 +63,7 @@
     '.pwa-install .pwa-title{font-size:23px;line-height:1.25;margin:0 0 8px;color:#f5f5f5;}',
     '.pwa-install .pwa-text{font-size:15px;line-height:1.55;margin:0 auto;max-width:30ch;',
     'color:rgba(240,240,240,0.8);}',
+    '.pwa-install .pwa-text strong{color:#f0f0f0;}',
     '.pwa-install .pwa-actions{margin-top:22px;display:flex;flex-direction:column;gap:12px;',
     'align-items:stretch;}',
     '.pwa-install .pwa-btn{font-family:"Vintage Glamour",serif;font-size:13px;letter-spacing:.16em;',
@@ -72,105 +83,118 @@
   document.head.appendChild(style);
 
   var shownAlready = false;
+  var backdropEl = null;
+  var cardEl = null;
 
   function rememberDismissed() {
     try { localStorage.setItem('bergkamp-install-dismissed', '1'); } catch (e) {}
   }
 
-  function buildPopup(innerHTML) {
-    if (shownAlready) return null;
+  // Replace just the body of the card (keeps the close button + app icon).
+  function setBody(html) {
+    var body = cardEl.querySelector('.pwa-body');
+    body.innerHTML = html;
+    return body;
+  }
+
+  function openPopup() {
+    if (shownAlready) return false;
     shownAlready = true;
 
-    var backdrop = document.createElement('div');
-    backdrop.className = 'pwa-backdrop';
+    backdropEl = document.createElement('div');
+    backdropEl.className = 'pwa-backdrop';
 
-    var card = document.createElement('div');
-    card.className = 'pwa-install';
-    card.setAttribute('role', 'dialog');
-    card.setAttribute('aria-modal', 'true');
-    card.setAttribute('aria-label', 'Add the Bergkamp Wedding app to your home screen');
-    card.innerHTML =
+    cardEl = document.createElement('div');
+    cardEl.className = 'pwa-install';
+    cardEl.setAttribute('role', 'dialog');
+    cardEl.setAttribute('aria-modal', 'true');
+    cardEl.setAttribute('aria-label', 'Download the Bergkamp Wedding app');
+    cardEl.innerHTML =
       '<button class="pwa-dismiss" aria-label="Dismiss">&times;</button>' +
       '<img class="pwa-icon" src="/icons/icon-192.png" alt="" aria-hidden="true" />' +
-      innerHTML;
+      '<div class="pwa-body"></div>';
 
-    backdrop.appendChild(card);
-    document.body.appendChild(backdrop);
+    backdropEl.appendChild(cardEl);
+    document.body.appendChild(backdropEl);
 
-    function close() { hide(backdrop); rememberDismissed(); }
-    card.querySelector('.pwa-dismiss').addEventListener('click', close);
-    var later = card.querySelector('.pwa-later');
-    if (later) later.addEventListener('click', close);
-    // Tapping the dimmed area (outside the card) also dismisses.
-    backdrop.addEventListener('click', function (e) {
-      if (e.target === backdrop) close();
+    cardEl.querySelector('.pwa-dismiss').addEventListener('click', closeAndRemember);
+    // Tapping the dimmed area (outside the card) also closes.
+    backdropEl.addEventListener('click', function (e) {
+      if (e.target === backdropEl) closeAndRemember();
     });
 
     // Animate in on the next frame.
     requestAnimationFrame(function () {
-      requestAnimationFrame(function () { backdrop.classList.add('pwa-show'); });
+      requestAnimationFrame(function () { backdropEl.classList.add('pwa-show'); });
     });
-    return card;
+    return true;
   }
 
-  function hide(backdrop) {
-    backdrop.classList.remove('pwa-show');
-    setTimeout(function () {
-      if (backdrop.parentNode) backdrop.parentNode.removeChild(backdrop);
-    }, 520);
+  function close() {
+    if (!backdropEl) return;
+    var b = backdropEl;
+    b.classList.remove('pwa-show');
+    setTimeout(function () { if (b.parentNode) b.parentNode.removeChild(b); }, 520);
+    backdropEl = null;
+    cardEl = null;
   }
 
-  function whenReady(fn) {
-    setTimeout(fn, SHOW_DELAY);
+  function closeAndRemember() { rememberDismissed(); close(); }
+
+  // Step 2 (iPhone): show the Share -> Add to Home Screen instructions.
+  function showIOSInstructions() {
+    setBody(
+      '<p class="pwa-kicker">Almost there</p>' +
+      '<h2 class="pwa-title">Add us to your home screen</h2>' +
+      '<p class="pwa-text">Tap the Share icon ' + shareGlyph +
+      ' in your browser bar, then choose <strong>&ldquo;Add to Home Screen.&rdquo;</strong></p>' +
+      '<div class="pwa-actions"><button class="pwa-btn pwa-done" type="button">Got it</button></div>'
+    );
+    cardEl.querySelector('.pwa-done').addEventListener('click', closeAndRemember);
   }
+
+  // Step 1: the "Download our app" invitation.
+  function showInvite(onDownload) {
+    if (!openPopup()) return;
+    setBody(
+      '<p class="pwa-kicker">Keep us close</p>' +
+      '<h2 class="pwa-title">Download our app</h2>' +
+      '<p class="pwa-text">Get the full-screen, app-like experience right on ' +
+      'your phone — no app store needed.</p>' +
+      '<div class="pwa-actions">' +
+      '<button class="pwa-btn pwa-download" type="button">Download the app</button>' +
+      '<button class="pwa-later" type="button">Continue on the web version</button></div>'
+    );
+    cardEl.querySelector('.pwa-download').addEventListener('click', onDownload);
+    cardEl.querySelector('.pwa-later').addEventListener('click', closeAndRemember);
+  }
+
+  function whenReady(fn) { setTimeout(fn, SHOW_DELAY); }
 
   if (isIOS) {
-    // iPhone/iPad Safari: Apple does not allow programmatic install — instruct.
-    var shareGlyph =
-      '<svg class="pwa-share" viewBox="0 0 24 24" fill="none" stroke="#b89149" ' +
-      'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-      '<path d="M12 16V4"/><path d="M8 8l4-4 4 4"/>' +
-      '<path d="M5 12v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>';
+    // iPhone/iPad Safari: Apple does not allow programmatic install — so
+    // "Download the app" reveals the Add to Home Screen step.
     whenReady(function () {
-      buildPopup(
-        '<p class="pwa-kicker">Keep us close</p>' +
-        '<h2 class="pwa-title">Add our wedding to your home screen</h2>' +
-        '<p class="pwa-text">Tap the Share icon ' + shareGlyph +
-        ' in your browser bar, then choose ' +
-        '<strong>&ldquo;Add to Home Screen.&rdquo;</strong></p>' +
-        '<div class="pwa-actions">' +
-        '<button class="pwa-later" type="button">Maybe later</button></div>'
-      );
+      showInvite(showIOSInstructions);
     });
     return;
   }
 
-  // Android/Chrome (and desktop): capture the install event, then offer the
-  // real dialog inside our pop-up.
+  // Android/Chrome (and desktop): capture the install event, then "Download
+  // the app" fires the real install dialog.
   var deferredPrompt = null;
   window.addEventListener('beforeinstallprompt', function (e) {
     e.preventDefault();
     deferredPrompt = e;
     whenReady(function () {
       if (!deferredPrompt) return;
-      var card = buildPopup(
-        '<p class="pwa-kicker">Keep us close</p>' +
-        '<h2 class="pwa-title">Add our wedding to your home screen</h2>' +
-        '<p class="pwa-text">Save us to your home screen for full-screen, ' +
-        'one-tap access — just like an app.</p>' +
-        '<div class="pwa-actions">' +
-        '<button class="pwa-btn" type="button">Add to home screen</button>' +
-        '<button class="pwa-later" type="button">Maybe later</button></div>'
-      );
-      if (!card) return;
-      card.querySelector('.pwa-btn').addEventListener('click', function () {
+      showInvite(function () {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then(function () {
           rememberDismissed();
           deferredPrompt = null;
         });
-        var backdrop = card.parentNode;
-        if (backdrop) hide(backdrop);
+        close();
       });
     });
   });
