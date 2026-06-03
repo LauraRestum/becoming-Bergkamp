@@ -3,7 +3,7 @@
    offline cache as it goes. When the network is unreachable it falls back to
    the cached copy so the app still opens and works offline. */
 
-const VERSION = 'v2';
+const VERSION = 'v3';
 const CACHE = 'bergkamp-wedding-' + VERSION;
 
 // Pre-cache the homepage, the things it needs to render, the manifest, and the

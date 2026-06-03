@@ -333,9 +333,20 @@
   nav.top .left { order: 1; flex: 1; display: flex; gap: 30px; }
   nav.top .mono {
     order: 2; flex: 0 0 auto;
+    display: inline-flex; align-items: center; gap: 12px;
     font-family: var(--display); font-size: 18px; letter-spacing: 0.36em;
     color: var(--gold); font-weight: 500;
+    opacity: 1; /* the brand is the home button — keep it fully present */
   }
+  /* Emblem home badge — tap it from any page to return home. */
+  nav.top .home-emblem {
+    width: 36px; height: 36px; display: block; flex: 0 0 auto;
+    border-radius: 50%;
+    filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.55));
+    transition: transform 300ms ease;
+  }
+  nav.top .mono:hover .home-emblem,
+  nav.top .mono:focus-visible .home-emblem { transform: scale(1.06); }
   nav.top .right { order: 3; flex: 1; display: flex; gap: 30px; justify-content: flex-end; }
   nav.top.light .mono { color: var(--gold-deep); }
   nav.top a {
@@ -1718,7 +1729,8 @@
     /* Logo on the left, hamburger on the right — matching the drawer's side. */
     .nav-toggle { display: inline-flex; align-items: center; order: 2; }
     nav.top.menu-open .nav-toggle { color: #f5f5f5; }
-    nav.top .mono { order: 0; flex: 1; font-size: 16px; }
+    nav.top .mono { order: 0; flex: 1; font-size: 16px; gap: 10px; }
+    nav.top .home-emblem { width: 32px; height: 32px; }
 
     /* Off-canvas side drawer */
     .nav-links {
