@@ -62,6 +62,7 @@
     --gold: #666666;
     --gold-bright: #999999;
     --gold-deep: #444444;
+    --gold-ring: #b89149;
     --candle: #cccccc;
     --display: 'Rosaline', serif;
     --serif: 'Rosaline', serif;
@@ -990,11 +991,45 @@
   .swatch .chip {
     width: 64px; height: 64px; border-radius: 50%;
     background: var(--c);
-    box-shadow: 0 2px 14px rgba(0, 0, 0, 0.18);
-    border: 0.5px solid var(--rule-light);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.10);
+    outline: 2px solid var(--gold-ring);
+    outline-offset: 5px;
   }
   .swatch .chip-name {
     font-family: var(--sans); font-size: 11px; letter-spacing: 0.34em;
+    text-transform: uppercase; color: var(--ink-soft);
+  }
+
+  /* Suggested palettes to wear */
+  .attire-suggest {
+    margin: 4px auto 64px;
+    padding-top: 56px;
+    border-top: 0.5px solid var(--rule-light);
+  }
+  .attire-suggest .kicker { margin-bottom: 14px; }
+  .attire-sub {
+    font-family: var(--serif); font-style: italic; font-size: 17px;
+    text-align: center; color: var(--ink-soft);
+    max-width: 520px; margin: 0 auto 48px; line-height: 1.7;
+  }
+  .suggest-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 40px 32px;
+  }
+  .suggest-card { text-align: center; }
+  .mini-palette {
+    display: flex; justify-content: center; margin-bottom: 18px;
+  }
+  .mini-palette .mini {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--c);
+    border: 2px solid var(--paper);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.14), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+    margin-left: -10px;
+  }
+  .mini-palette .mini:first-child { margin-left: 0; }
+  .suggest-name {
+    font-family: var(--sans); font-size: 11px; letter-spacing: 0.28em;
     text-transform: uppercase; color: var(--ink-soft);
   }
   .attire-guide {
@@ -1485,6 +1520,7 @@
     .chapel-exterior-info { padding: 60px 32px; max-width: 100%; }
     .attire-section { padding: 80px 24px 56px; }
     .attire-guide { gap: 36px; padding-top: 32px; }
+    .suggest-grid { grid-template-columns: repeat(2, 1fr); gap: 36px 24px; }
     .newspaper { padding: 32px 20px 28px; }
     .np-body { grid-template-columns: 1fr; }
     .np-col { border-left: none; border-top: 1px solid rgba(0,0,0,0.15); padding: 20px 0; }
