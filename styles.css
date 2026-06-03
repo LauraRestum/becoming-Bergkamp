@@ -1405,6 +1405,30 @@
     z-index: 0;
     pointer-events: none;
   }
+  /* WHITE CURTAIN BACKDROP — hangs in the top half of the section so the scene
+     reads top-to-bottom as: oil-painting pavilion → curtain → dance floor.
+     It fades to transparent at its top (melting into the black boundary with the
+     pavilion section above) and again at its bottom, where its opaqueness lands
+     in the same dark band the dance floor fades up into — so the two "almost
+     collide" and the whole stage feels like one continuous backdrop. It sits
+     behind the floor (::before paints over it) and under the scrim (::after),
+     keeping it embedded in the back as quiet ambiance. */
+  #schedule.dark-section .floor-curtain {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 64%;
+    background-image: url(/images/curtain.png);
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    opacity: 0.5;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 20%, #000 60%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 20%, #000 60%, transparent 100%);
+    z-index: 0;
+    pointer-events: none;
+  }
   /* Soft veil + vignette: keep the words readable over the bright floor. */
   #schedule.dark-section::after {
     content: "";
@@ -1666,7 +1690,8 @@
     .dark-section .sched-row .event, .dark-section .sched-row .loc { color: #000 !important; text-shadow: none !important; }
     .dark-section .rule .line { background: #000 !important; }
     .dark-section .sched-row { border-color: rgba(0, 0, 0, 0.2) !important; }
-    #schedule.dark-section::before, #schedule.dark-section::after { display: none !important; }
+    #schedule.dark-section::before, #schedule.dark-section::after,
+    #schedule.dark-section .floor-curtain { display: none !important; }
     .ceremony-bleed .overlay, .blinds-overlay { display: none !important; }
     .reception-info { opacity: 1 !important; transform: none !important; }
     .ceremony-bleed .content, .ceremony-bleed .content-bottom { opacity: 1 !important; }
