@@ -52,18 +52,23 @@
 
   <!-- NAV -->
   <nav class="top" id="nav" aria-label="Primary">
-    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">Menu</button>
-    <div class="left">
-      <a href="/#story">Our Story</a>
-      <a href="/ceremony">The Day</a>
-      <a href="/travel">Travel</a>
-    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
+      <span class="nav-toggle-box" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
     <a href="/" class="mono" aria-label="Home">LBR &middot; WJB</a>
-    <div class="right">
-      <a href="/wedding-party">Wedding Party</a>
-      <a href="/honeymoon">Honeymoon</a>
-      <a href="/rsvp">RSVP</a>
+    <div class="nav-links" id="navLinks">
+      <div class="left">
+        <a href="/#story">Our Story</a>
+        <a href="/ceremony">The Day</a>
+        <a href="/travel">Travel</a>
+      </div>
+      <div class="right">
+        <a href="/wedding-party">Wedding Party</a>
+        <a href="/honeymoon">Honeymoon</a>
+        <a href="/rsvp">RSVP</a>
+      </div>
     </div>
+    <div class="nav-backdrop" id="navBackdrop"></div>
   </nav>
 
   <main>
@@ -154,6 +159,24 @@
         <p class="reception-when">Half past five in the evening</p>
       </div>
 
+      <!-- THE ORDER OF THE EVENING — clean panel between the reception line and attire -->
+      <div class="order-panel" id="schedule">
+        <div class="order-projection" aria-hidden="true">The&nbsp;Bergkamps</div>
+        <div class="order-panel-inner">
+          <div class="kicker">The Order of the Evening</div>
+          <h2 class="display-h">Saturday Evening</h2>
+          <div class="rule"><span class="line"></span><span class="ornament">&#10022;</span><span class="line"></span></div>
+
+          <div class="schedule">
+            <div class="sched-row"><div class="left"><span class="time">5:30 PM</span><span class="event">Cocktails received</span></div><span class="loc">The Lounge</span></div>
+            <div class="sched-row"><div class="left"><span class="time">7:00 PM</span><span class="event">Dinner is served</span></div><span class="loc">The Hall</span></div>
+            <div class="sched-row"><div class="left"><span class="time">8:30 PM</span><span class="event">First toasts</span></div><span class="loc">The Hall</span></div>
+            <div class="sched-row"><div class="left"><span class="time">9:00 PM</span><span class="event">Dancing</span></div><span class="loc">The Hall</span></div>
+            <div class="sched-row"><div class="left"><span class="time">12:00 AM</span><span class="event">A proper send off</span></div><span class="loc">Front Steps</span></div>
+          </div>
+        </div>
+      </div>
+
       <!-- COLOURS & ATTIRE -->
       <div class="attire-art-content" id="attire">
       <div class="kicker">A Note on Dress</div>
@@ -241,32 +264,11 @@
           <p>Skip loud florals, plaids &amp; busy prints. A subtle texture is always welcome.</p>
         </div>
       </div>
-    </div>
-    </div>
-  </section>
-
-  <!-- DARK ACT -->
-  <section id="schedule" class="dark-section">
-    <!-- White curtain backdrop: fades in at the top (meeting the oil-painting
-         pavilion above) and out at the bottom (colliding with the dance floor's
-         rising black) so the stage reads as one continuous scene. -->
-    <div class="floor-curtain" aria-hidden="true"></div>
-    <div class="container narrow">
-      <div class="kicker">The Order of the Evening</div>
-      <h2 class="display-h">Saturday Evening</h2>
-      <div class="rule"><span class="line"></span><span class="ornament">&#10022;</span><span class="line"></span></div>
-
-      <div class="schedule">
-        <div class="sched-row"><div class="left"><span class="time">5:30 PM</span><span class="event">Cocktails received</span></div><span class="loc">The Lounge</span></div>
-        <div class="sched-row"><div class="left"><span class="time">7:00 PM</span><span class="event">Dinner is served</span></div><span class="loc">The Hall</span></div>
-        <div class="sched-row"><div class="left"><span class="time">8:30 PM</span><span class="event">First toasts</span></div><span class="loc">The Hall</span></div>
-        <div class="sched-row"><div class="left"><span class="time">9:00 PM</span><span class="event">Dancing</span></div><span class="loc">The Hall</span></div>
-        <div class="sched-row"><div class="left"><span class="time">12:00 AM</span><span class="event">A proper send off</span></div><span class="loc">Front Steps</span></div>
-      </div>
 
       <div class="party-cta">
         <a href="/wedding-party">Meet the Wedding Party &rarr;</a>
       </div>
+    </div>
     </div>
   </section>
 
