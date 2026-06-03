@@ -30,7 +30,15 @@ frames are kept here for future use on lighter surfaces.
 
 ## How a frame is applied
 
-A frame sits on top of its photo via a CSS overlay: the photo fills the
-whole box and the frame's solid border laps over the edges, cropping it to
-the window. See `.almanac .bio-photo` in `/styles.css`. To match a
-different frame, set the box's `aspect-ratio` to that PNG's width / height.
+Each **bio card** is a framed picture hung on the wall. The ornate frame is
+drawn with `border-image` around the card (so it wraps any height of content
+without distorting the corners), over a warm matte, with a cast shadow and a
+small brass bolt at the top. Collapsed, the frame shows the person's name and a
+short bio; opened, the same frame reveals their photos as clean prints inside.
+
+The card frames alternate **colour and size** on a three-card cycle
+(gold portrait → black landscape → gold square). Each `.bio-card` sets three
+knobs — `--frame` (the PNG), `--bw` (border width) and `--slice` (the
+border-image slice, as % insets of that PNG). See `.almanac .bio-card` in
+`/styles.css`. Only the rectangular frames border-image cleanly; the oval and
+arch frames remain in the library for photo overlays elsewhere.
