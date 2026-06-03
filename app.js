@@ -210,6 +210,73 @@
     updateBlinds();
   }
 
+  // Wedding party — expandable bio cards (accessible disclosure pattern).
+  // The summary is a native <button>, so Enter/Space and focus come for free;
+  // we just toggle aria-expanded, swap the cue label, and animate the panel's
+  // height + opacity. Collapsed panels keep the `hidden` attribute (so they are
+  // hidden from assistive tech); it is removed just before opening and restored
+  // once the closing animation finishes.
+  document.querySelectorAll('[data-bio-card]').forEach(function (card) {
+    var btn = card.querySelector('.bio-summary');
+    var panel = card.querySelector('.bio-detail');
+    if (!btn || !panel) return;
+    var cueText = btn.querySelector('.bio-cue-text');
+    var closedLabel = cueText ? cueText.textContent : '';
+    var openLabel = 'Tap to close';
+
+    function setLabel(expanded) {
+      if (cueText) cueText.textContent = expanded ? openLabel : closedLabel;
+    }
+
+    function openPanel() {
+      btn.setAttribute('aria-expanded', 'true');
+      setLabel(true);
+      panel.hidden = false;
+      if (prefersReducedMotion) {
+        panel.classList.add('open');
+        panel.style.maxHeight = 'none';
+        return;
+      }
+      void panel.offsetHeight; // register the collapsed start state
+      panel.classList.add('open');
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+      panel.addEventListener('transitionend', function done(e) {
+        if (e.target !== panel || e.propertyName !== 'max-height') return;
+        panel.style.maxHeight = 'none'; // let it grow if content reflows
+        panel.removeEventListener('transitionend', done);
+      });
+    }
+
+    function closePanel() {
+      btn.setAttribute('aria-expanded', 'false');
+      setLabel(false);
+      if (prefersReducedMotion) {
+        panel.classList.remove('open');
+        panel.style.maxHeight = '';
+        panel.hidden = true;
+        return;
+      }
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+      void panel.offsetHeight; // lock in the current height before collapsing
+      panel.classList.remove('open');
+      panel.style.maxHeight = '0px';
+      panel.addEventListener('transitionend', function done(e) {
+        if (e.target !== panel || e.propertyName !== 'max-height') return;
+        panel.hidden = true;
+        panel.style.maxHeight = '';
+        panel.removeEventListener('transitionend', done);
+      });
+    }
+
+    btn.addEventListener('click', function () {
+      if (btn.getAttribute('aria-expanded') === 'true') {
+        closePanel();
+      } else {
+        openPanel();
+      }
+    });
+  });
+
   // Honeymoon amounts feedback
   var honeyNote = document.getElementById('honeymoonNote');
   document.querySelectorAll('.honeymoon-amounts .amt').forEach(function (btn) {

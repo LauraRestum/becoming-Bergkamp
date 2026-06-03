@@ -1,3 +1,19 @@
+  /* ============================================================
+     WEDDING PARTY FONTS  ·  change these in one place
+     ------------------------------------------------------------
+     --wp-heading : the elegant display / serif used for names
+                    and headings on the wedding party cards.
+     --wp-body    : the clean, readable face used for the bios,
+                    blurbs and partner lines. Swap in a sans-serif
+                    here (e.g. 'Inter', system-ui) if you prefer.
+     They default to the site's own fonts so the section matches
+     the rest of the almanac out of the box.
+     ============================================================ */
+  :root {
+    --wp-heading: 'Rosaline', serif;
+    --wp-body: 'Rosaline', serif;
+  }
+
   /* Custom fonts shipped with the repo */
   @font-face {
     font-family: 'Hijrnotes';
@@ -2056,6 +2072,162 @@
     font-family: var(--a-condensed); font-weight: 600; font-size: 12px;
     color: var(--a-ink); margin-top: 20px; letter-spacing: 0.32em;
     text-transform: uppercase; padding-left: 0.32em;
+  }
+
+  /* ============================================
+     EXPANDABLE BIO CARDS — wedding party & parents
+     ============================================ */
+  .almanac .bio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 40px;
+    align-items: start; /* so one open card never stretches its row */
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* The softly rounded, warmly lit card. */
+  .almanac .bio-card {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.42);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 22px;
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+  }
+  .almanac .bio-card:hover,
+  .almanac .bio-card:focus-within {
+    border-color: rgba(201, 168, 76, 0.55);
+    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.55);
+  }
+
+  /* Parent cards reuse the rounded treatment; drop their square frame. */
+  .almanac .parent-card.bio-card { padding: 0; border-radius: 22px; }
+  .almanac .parent-card.bio-card::before { display: none; }
+  .almanac .parent-card.bio-card .parent-portraits { margin-top: 8px; }
+
+  /* The always-visible summary is a real button (keyboard + AT friendly). */
+  .almanac .bio-summary {
+    display: block;
+    width: 100%;
+    margin: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: center;
+    cursor: pointer;
+    padding: 36px 30px 28px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .almanac .parent-card.bio-card .bio-summary { padding: 46px 32px 26px; }
+  .almanac .bio-summary:focus { outline: none; }
+  .almanac .bio-summary:focus-visible {
+    outline: 2px solid #4A90D9; outline-offset: 4px; border-radius: 14px;
+  }
+
+  .almanac .bio-card .bio-ornament {
+    font-family: var(--a-display); font-size: 20px; font-weight: 700;
+    color: var(--a-brass); line-height: 1; margin-bottom: 16px;
+  }
+
+  /* Let the heading + body fonts be driven by the variables up top. */
+  .almanac .bio-card .person-name,
+  .almanac .bio-card .parent-names { font-family: var(--wp-heading); }
+  .almanac .bio-card .person-bio,
+  .almanac .bio-card .parent-bio,
+  .almanac .bio-card .bio-blurb,
+  .almanac .bio-card .bio-partner { font-family: var(--wp-body); }
+
+  /* The "tap to read more" cue. */
+  .almanac .bio-cue {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 9px; margin-top: 22px;
+    font-family: var(--a-condensed); font-weight: 700; font-size: 10px;
+    letter-spacing: 0.34em; text-transform: uppercase;
+    color: var(--a-brass); padding-left: 0.34em;
+  }
+  .almanac .bio-chevron {
+    font-family: var(--a-condensed); font-size: 15px; line-height: 0.6;
+    transform: translateY(-1px); transition: transform 0.4s ease;
+  }
+  .almanac .bio-summary[aria-expanded="true"] .bio-chevron { transform: rotate(180deg); }
+
+  /* The collapsible detail panel — animates height + opacity. */
+  .almanac .bio-detail {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 480ms cubic-bezier(0.4, 0, 0.2, 1), opacity 380ms ease;
+  }
+  .almanac .bio-detail.open { opacity: 1; }
+  .almanac .bio-detail[hidden] { display: none; }
+  .almanac .bio-detail-inner {
+    padding: 6px 30px 34px;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    margin: 0 22px;
+  }
+  .almanac .parent-card.bio-card .bio-detail-inner { padding: 6px 32px 36px; }
+
+  /* Labelled photo placeholders, easy to swap for real photos. */
+  .almanac .bio-photos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+    gap: 12px;
+    margin: 26px 0 22px;
+  }
+  .almanac .bio-photo {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: radial-gradient(circle at 50% 35%, #1d1d1d 0%, #0c0c0c 100%);
+  }
+  .almanac .bio-photo img {
+    position: absolute; inset: 0; z-index: 1;
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(1) contrast(1.12) brightness(0.96);
+  }
+  /* The label sits behind the image, so it only shows while the file is
+     missing. Drop a real photo at the named path and it covers this box. */
+  .almanac .bio-photo figcaption {
+    position: absolute; inset: 0; z-index: 0;
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; gap: 8px; padding: 10px; text-align: center;
+  }
+  .almanac .bio-photo .ph-name {
+    font-family: var(--wp-heading); font-size: 17px; line-height: 1.1;
+    color: var(--a-ink);
+  }
+  .almanac .bio-photo .ph-file {
+    font-family: var(--a-condensed); font-size: 9px; letter-spacing: 0.16em;
+    color: var(--a-brass); word-break: break-all; opacity: 0.85;
+  }
+
+  .almanac .bio-blurb {
+    font-weight: 500; font-size: 15px; line-height: 1.78;
+    color: var(--a-ink); max-width: 460px; margin: 0 auto;
+  }
+  .almanac .bio-partner {
+    font-style: italic; font-size: 14px; letter-spacing: 0.02em;
+    color: var(--a-brass); margin-top: 20px; padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    max-width: 460px; margin-left: auto; margin-right: auto;
+  }
+
+  /* The empty groom's side placeholder note. */
+  .almanac .party-empty {
+    text-align: center; max-width: 520px; margin: 0 auto;
+    font-family: var(--a-serif-body); font-size: 16px;
+    color: var(--a-ink-soft); line-height: 1.8;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .almanac .bio-detail { transition: none; }
+    .almanac .bio-chevron { transition: none; }
   }
 
   @media (max-width: 820px) {
