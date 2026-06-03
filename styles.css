@@ -338,7 +338,9 @@
     position: absolute;
     inset: 0;
     background-image: url(/images/hero-mirror.png);
-    background-size: cover;
+    /* Show the whole mirror (names included) on every screen, never cropping
+       the sides on narrow phones. Letterbox bars take the hero's own dark tone. */
+    background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
     opacity: 0;
@@ -350,7 +352,7 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center center;
     z-index: 1;
     opacity: 0;
@@ -820,7 +822,7 @@
   /* CEREMONY */
   .ceremony-bleed {
     position: relative;
-    background: var(--paper-2);
+    background: #1a1a1a;
     padding: 0;
     overflow: hidden;
     min-height: 90vh;
@@ -831,9 +833,9 @@
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: cover;
-    object-position: 50% 30%;
-    transform-origin: 50% 30%;
+    object-fit: contain;
+    object-position: center center;
+    transform-origin: center center;
     animation: aisleWalk 18s ease-out forwards;
   }
   @keyframes aisleWalk {
@@ -974,7 +976,7 @@
   }
   .chapel-exterior-img img {
     width: 100%; height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
     mix-blend-mode: multiply;
     filter: contrast(1.05);
@@ -1401,8 +1403,9 @@
     .travel-cards { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 900px) {
-    .cover-art { background-size: cover; }
-    .cover-doors { width: 22%; height: 18%; bottom: 24%; }
+    /* Keep the splash uncropped on phones — same framing as desktop, never
+       zoomed in. The door hotspot is re-fitted to the contained image. */
+    .cover-doors { width: 42%; height: 20%; bottom: 25%; }
     .chapel-exterior-grid { grid-template-columns: 1fr; min-height: auto; }
     .chapel-exterior-img { height: 60vh; overflow: hidden; }
     .chapel-exterior-info { padding: 60px 32px; max-width: 100%; }
@@ -1523,12 +1526,11 @@
     --a-script: 'Rosaline', cursive;
 
     position: relative;
+    /* The glowing frame is painted by .almanac::after as a position:fixed
+       layer (see below). background-attachment:fixed is unreliable on mobile
+       Safari/Chrome — it renders the frame wildly zoomed and out of place — so
+       a fixed pseudo-element gives the same static glow on every device. */
     background-color: #000000;
-    background-image: url('/images/glow-frame.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
     color: var(--a-ink);
     font-family: var(--a-serif-body);
     font-weight: 500;
@@ -1548,11 +1550,14 @@
   }
   .almanac::after {
     content: "";
-    position: absolute;
+    position: fixed;
     inset: 0;
-    background: none;
+    background-image: url('/images/glow-frame.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
     pointer-events: none;
-    z-index: 1;
+    z-index: -1;
   }
   .almanac > * { position: relative; z-index: 2; }
 
