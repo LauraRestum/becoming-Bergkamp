@@ -378,12 +378,6 @@
   body.entered .hero-video {
     animation: heroEmerge 3000ms ease-out forwards, heroBreath 20s ease-in-out 3000ms infinite alternate;
   }
-  /* The motion clip is only 720p, so it softens when stretched across a desktop.
-     Above phone width, show the sharper still image (1672px) instead; phones,
-     where 720p downscales cleanly, keep the motion. */
-  @media (min-width: 801px) {
-    .hero-video { display: none; }
-  }
   body.entered .hero-bg { animation: heroEmerge 3000ms ease-out forwards, heroBreath 20s ease-in-out 3000ms infinite alternate; }
   @keyframes heroEmerge {
     0%   { opacity: 0; transform: scale(1.25); filter: brightness(0.4) blur(6px); }
