@@ -8,7 +8,7 @@ const CACHE = 'bergkamp-wedding-v1';
 // manifest, and the app icons.
 const CORE_ASSETS = [
   '/',
-  '/manifest.json',
+  '/site.webmanifest',
   '/styles.css',
   '/app.js',
   '/icons/icon-180.png',
