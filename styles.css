@@ -1499,14 +1499,14 @@
     left: 0;
     right: 0;
     top: 0;
-    height: clamp(320px, 46vh, 520px);
+    height: clamp(360px, 50vh, 560px);
     background-image: url(/images/curtain.png);
     background-size: cover;
     background-position: 8% center;
     background-repeat: no-repeat;
-    opacity: 0.8;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 68%, transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 68%, transparent 100%);
+    opacity: 0.95;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 74%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 74%, transparent 100%);
     z-index: 0;
     pointer-events: none;
   }
@@ -1516,7 +1516,7 @@
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(to bottom, rgba(10, 10, 10, 0.18), rgba(10, 10, 10, 0.40)),
+      linear-gradient(to bottom, rgba(10, 10, 10, 0.08), rgba(10, 10, 10, 0.40)),
       radial-gradient(150% 75% at 50% 95%,
         transparent 0%,
         rgba(10, 10, 10, 0.40) 70%,
