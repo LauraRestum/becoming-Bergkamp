@@ -1471,7 +1471,7 @@
   .evening-scene {
     position: relative;
     overflow: hidden;
-    padding: clamp(88px, 12vh, 120px) 24px clamp(96px, 14vh, 140px);
+    padding: clamp(56px, 8vh, 80px) 24px clamp(64px, 9vh, 96px);
   }
   /* The dance-floor photo sits at the bottom; its top falls off to black and
      the mask blends that into the section's black behind the words. */
@@ -1537,18 +1537,18 @@
   /* Compact Colours & Attire — smaller swatches, tighter spacing. */
   .evening-scene .attire-content { max-width: 760px; margin: 0 auto; text-align: center; }
   .evening-scene .display-h { font-size: clamp(28px, 4.6vw, 44px); }
-  .evening-scene .attire-lede { font-size: 16px; line-height: 1.7; max-width: 500px; margin: 0 auto 38px; }
-  .evening-scene .palette { gap: clamp(24px, 5vw, 48px); margin-bottom: 40px; }
+  .evening-scene .attire-lede { font-size: 16px; line-height: 1.7; max-width: 500px; margin: 0 auto 26px; }
+  .evening-scene .palette { gap: clamp(24px, 5vw, 48px); margin-bottom: 28px; }
   .evening-scene .swatch .chip { width: 46px; height: 46px; outline-offset: 4px; }
   .evening-scene .swatch { gap: 12px; }
-  .evening-scene .attire-suggest { padding-top: 36px; margin: 0 auto 38px; }
-  .evening-scene .eyebrow { margin-bottom: 26px; }
-  .evening-scene .suggest-grid { gap: 26px 24px; max-width: 620px; }
+  .evening-scene .attire-suggest { padding-top: 24px; margin: 0 auto 26px; }
+  .evening-scene .eyebrow { margin-bottom: 18px; }
+  .evening-scene .suggest-grid { gap: 20px 24px; max-width: 620px; }
   .evening-scene .mini-palette { margin-bottom: 12px; }
   .evening-scene .mini-palette .mini { width: 30px; height: 30px; margin-left: -8px; }
-  .evening-scene .attire-avoid { padding-top: 32px; gap: clamp(28px, 6vw, 64px); }
+  .evening-scene .attire-avoid { padding-top: 24px; gap: clamp(28px, 6vw, 64px); }
   .evening-scene .avoid-col p { font-size: 15px; }
-  .evening-scene .party-cta { margin-top: 44px; }
+  .evening-scene .party-cta { margin-top: 32px; }
 
   /* PARTY CTA */
   .party-cta {
