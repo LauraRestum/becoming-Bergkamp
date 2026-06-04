@@ -2655,10 +2655,10 @@
   body.subpage nav.top {
     opacity: 1;
     background: transparent;
-    padding: 20px 40px;
+    padding: calc(20px + var(--safe-top)) 40px 20px;
   }
   body.subpage nav.top.scrolled {
-    padding: 16px 40px;
+    padding: calc(16px + var(--safe-top)) 40px 16px;
   }
   body.subpage .page-spacer { height: 72px; }
   body.subpage .ceremony-bleed { min-height: 100vh; }
@@ -2671,7 +2671,7 @@
     display: none;
   }
   @media (max-width: 800px) {
-    body.subpage nav.top { padding: 16px 24px; }
+    body.subpage nav.top { padding: calc(16px + var(--safe-top)) 24px 16px; }
     body.subpage nav.top.menu-open .left, body.subpage nav.top.menu-open .right {
       background: rgba(10, 10, 10, 0.96);
     }
