@@ -2400,7 +2400,7 @@
   .almanac .bio-card {
     --frame: url('/images/frames/frame-gold-portrait.png');
     --ar: 471 / 720;
-    --clip: none;
+    --clip: inset(10% 13% 8% 13% round 5%);
     position: relative;
     text-align: center;
     background: none;
@@ -2491,42 +2491,44 @@
      :nth-of-type counts the <article> cards (the empty-state <p> is skipped). */
   .almanac .bio-grid > article:nth-of-type(2) .bio-summary {
     --frame: url('/images/frames/frame-black-oval.png'); --ar: 489 / 720;
-    --clip: ellipse(38% 41% at 50% 50%);
+    --clip: ellipse(36% 37% at 50% 50%);
   }
   .almanac .bio-grid > article:nth-of-type(3) .bio-summary {
     --frame: url('/images/frames/frame-gold-cartouche.png'); --ar: 473 / 720;
-    --clip: polygon(28% 6%, 72% 6%, 90% 18%, 90% 82%, 72% 94%, 28% 94%, 10% 82%, 10% 18%);
+    --clip: inset(13% 11% 10% 11% round 30% 30% 30% 30% / 18% 18% 18% 18%);
   }
   .almanac .bio-grid > article:nth-of-type(4) .bio-summary {
     --frame: url('/images/frames/frame-black-arch.png'); --ar: 449 / 720;
-    --clip: inset(10% 15% 9% 15% round 45% 45% 8% 8% / 42% 42% 7% 7%);
+    --clip: inset(9% 14% 9% 14% round 48% 48% 7% 7% / 32% 32% 5% 5%);
   }
   .almanac .bio-grid > article:nth-of-type(5) .bio-summary {
-    --frame: url('/images/frames/frame-gold-square.png'); --ar: 671 / 720; --clip: none;
+    --frame: url('/images/frames/frame-gold-square.png'); --ar: 671 / 720;
+    --clip: inset(13% 13% 13% 13% round 5%);
   }
   .almanac .bio-grid > article:nth-of-type(6) .bio-summary {
-    --frame: url('/images/frames/frame-black-landscape.png'); --ar: 720 / 546; --clip: none;
+    --frame: url('/images/frames/frame-black-landscape.png'); --ar: 720 / 546;
+    --clip: inset(9% 7% 11% 7% round 4%);
   }
   .almanac .bio-grid > article:nth-of-type(7) .bio-summary {
     --frame: url('/images/frames/frame-gold-oval-ornate.png'); --ar: 543 / 720;
-    --clip: ellipse(40% 41% at 50% 50%);
+    --clip: ellipse(35% 37% at 50% 50%);
   }
   .almanac .bio-grid > article:nth-of-type(8) .bio-summary {
     --frame: url('/images/frames/frame-black-cartouche.png'); --ar: 465 / 720;
-    --clip: polygon(28% 6%, 72% 6%, 90% 18%, 90% 82%, 72% 94%, 28% 94%, 10% 82%, 10% 18%);
+    --clip: inset(11% 13% 10% 13% round 30% 30% 30% 30% / 18% 18% 18% 18%);
   }
   .almanac .parents-grid > article:nth-of-type(1) .bio-summary {
     --frame: url('/images/frames/frame-gold-oval.png'); --ar: 525 / 720;
     /* matte sized to the oval window: fills the opening and tucks under the
        moulding (hidden behind the frame PNG), without spilling into the
        transparent corners. */
-    --clip: ellipse(37% 40% at 50% 50%);
+    --clip: ellipse(35% 36% at 50% 50%);
   }
   .almanac .parents-grid > article:nth-of-type(2) .bio-summary {
     --frame: url('/images/frames/frame-black-arch.png'); --ar: 449 / 720;
     /* inset to the arch opening (not the full box), with a domed top so the
        cream follows the arch instead of bleeding past its shoulders. */
-    --clip: inset(10% 15% 9% 15% round 45% 45% 8% 8% / 42% 42% 7% 7%);
+    --clip: inset(9% 14% 9% 14% round 48% 48% 7% 7% / 32% 32% 5% 5%);
   }
 
   /* The opened panel — a plain box on the wall (no frame), holding the bio and
