@@ -67,6 +67,9 @@
     --display: 'Rosaline', serif;
     --serif: 'Rosaline', serif;
     --sans: 'Vintage Glamour', serif;
+    /* Top safe-area inset. In a normal browser tab this is 0; standalone mode
+       (below) raises it so the nav/hero never tuck under the status-bar clock. */
+    --safe-top: env(safe-area-inset-top);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -106,7 +109,10 @@
      reads clearly instead of being tucked up under the clock. The fixed cover
      and nav are positioned to the viewport, so they're unaffected. */
   @media all and (display-mode: standalone) {
-    body { padding-top: env(safe-area-inset-top); }
+    /* On notch-less iPhones env(safe-area-inset-top) reports 0 even though a
+       ~20px status bar still covers the top, so reserve at least that much. */
+    :root { --safe-top: max(20px, env(safe-area-inset-top)); }
+    body { padding-top: var(--safe-top); }
   }
 
   /* ============================================
@@ -312,7 +318,7 @@
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between; gap: 16px;
     /* env() keeps the bar clear of the status bar / notch in the installed app */
-    padding: calc(24px + env(safe-area-inset-top)) 44px 24px;
+    padding: calc(24px + var(--safe-top)) 44px 24px;
     background: transparent;
     color: var(--paper-on-ink);
     transition: background 400ms ease, padding 400ms ease, color 400ms ease;
@@ -323,7 +329,7 @@
     background: rgba(10, 10, 10, 0.88);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    padding: calc(16px + env(safe-area-inset-top)) 44px 16px;
+    padding: calc(16px + var(--safe-top)) 44px 16px;
   }
   nav.top.light { color: var(--ink-on-paper); }
   nav.top.light.scrolled { background: rgba(255, 255, 255, 0.92); }
@@ -1499,14 +1505,14 @@
     left: 0;
     right: 0;
     top: 0;
-    height: clamp(320px, 46vh, 520px);
+    height: clamp(360px, 50vh, 560px);
     background-image: url(/images/curtain.png);
     background-size: cover;
     background-position: 8% center;
     background-repeat: no-repeat;
-    opacity: 0.8;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 68%, transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 68%, transparent 100%);
+    opacity: 0.95;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 74%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 74%, transparent 100%);
     z-index: 0;
     pointer-events: none;
   }
@@ -1516,7 +1522,7 @@
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(to bottom, rgba(10, 10, 10, 0.18), rgba(10, 10, 10, 0.40)),
+      linear-gradient(to bottom, rgba(10, 10, 10, 0.08), rgba(10, 10, 10, 0.40)),
       radial-gradient(150% 75% at 50% 95%,
         transparent 0%,
         rgba(10, 10, 10, 0.40) 70%,
@@ -1709,7 +1715,7 @@
   @media (max-width: 800px) {
     body::before { display: none; }
     /* Bar shows only the hamburger + monogram; the links live in a side drawer. */
-    nav.top { padding: calc(14px + env(safe-area-inset-top)) 22px 14px; gap: 12px; }
+    nav.top { padding: calc(14px + var(--safe-top)) 22px 14px; gap: 12px; }
     /* Logo on the left, hamburger on the right — matching the drawer's side. */
     .nav-toggle { display: inline-flex; align-items: center; order: 2; }
     nav.top.menu-open .nav-toggle { color: #f5f5f5; }
@@ -1721,7 +1727,7 @@
       display: flex; flex-direction: column; gap: 0;
       position: fixed; top: 0; right: 0; bottom: 0;
       width: min(82vw, 340px);
-      padding: calc(env(safe-area-inset-top) + 92px) 34px calc(env(safe-area-inset-bottom) + 40px);
+      padding: calc(var(--safe-top) + 92px) 34px calc(env(safe-area-inset-bottom) + 40px);
       background: rgba(12, 12, 12, 0.98);
       -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
       border-left: 1px solid rgba(184, 145, 73, 0.30);
