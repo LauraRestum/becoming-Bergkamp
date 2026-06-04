@@ -468,55 +468,261 @@
       </div>
 
       <!-- ============================================================
-           GROOM'S SIDE — empty placeholder, ready to fill in later.
+           GROOM'S SIDE — the first row of groomsmen. Each card uses the
+           same .bio-card markup as the Bride's Side, so the frame
+           variants (alternating gold/black shapes and sizes) are applied
+           automatically by :nth-of-type in styles.css.
 
-           To add a member, copy one card from the Bride's Side grid
-           above into the .bio-grid below and update:
+           To add or edit a member, copy one card below and update:
              * the heading (person-name) and id (id="name-...")
              * the role (person-role)
              * the short bio (person-bio, always visible)
              * aria-controls + the matching detail id (id="bio-...")
              * the two photo paths and labels (/photos/<name>.jpg)
              * the longer blurb (bio-blurb)
-             * the partner line (bio-partner) — remove the hidden
-               attribute once a name is added
-
-           A ready-to-use blank card template is commented out below.
            ============================================================ -->
       <div class="bio-grid">
-        <p class="party-empty">Names to be added soon.</p>
 
-        <!--
+        <!-- James -->
         <article class="person bio-card" data-bio-card>
-          <button type="button" class="bio-summary" aria-expanded="false" aria-controls="bio-NAME">
+          <button type="button" class="bio-summary" aria-expanded="false" aria-controls="bio-james">
             <div class="bio-ornament" aria-hidden="true">❦</div>
-            <h4 class="person-name" id="name-NAME">Name</h4>
-            <div class="person-role">GROOMSMAN</div>
+            <h4 class="person-name" id="name-james">James</h4>
+            <div class="person-role">BEST MAN</div>
             <div class="person-divider" aria-hidden="true">⁂</div>
-            <p class="person-bio">Short bio, one or two sentences, always visible.</p>
+            <p class="person-bio">James is William's brother and his Best Man, standing at the front of the room he has stood beside his whole life.</p>
             <span class="bio-cue">
               <span class="bio-cue-text">Tap to read more</span>
               <span class="bio-chevron" aria-hidden="true">⌄</span>
             </span>
           </button>
-          <div class="bio-detail" id="bio-NAME" role="region" aria-labelledby="name-NAME" hidden>
+          <div class="bio-detail" id="bio-james" role="region" aria-labelledby="name-james" hidden>
             <div class="bio-detail-inner">
               <div class="bio-photos">
                 <figure class="bio-photo">
-                  <img src="/photos/NAME.jpg" alt="William with Name" loading="lazy" onerror="this.style.display='none'">
-                  <figcaption><span class="ph-name">William &amp; Name</span><span class="ph-file">/photos/NAME.jpg</span></figcaption>
+                  <img src="/photos/james.jpg" alt="William with James" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">William &amp; James</span><span class="ph-file">/photos/james.jpg</span></figcaption>
                 </figure>
                 <figure class="bio-photo">
-                  <img src="/photos/NAME-2.jpg" alt="William with Name" loading="lazy" onerror="this.style.display='none'">
-                  <figcaption><span class="ph-name">William &amp; Name</span><span class="ph-file">/photos/NAME-2.jpg</span></figcaption>
+                  <img src="/photos/james-2.jpg" alt="William with James" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">William &amp; James</span><span class="ph-file">/photos/james-2.jpg</span></figcaption>
                 </figure>
               </div>
-              <p class="bio-blurb">The longer blurb goes here.</p>
-              <p class="bio-partner" hidden>Accompanied by <span class="partner-name"></span></p>
+              <p class="bio-blurb">Brother of the Groom. A fuller note about James to be added soon.</p>
             </div>
           </div>
         </article>
-        -->
+
+        <!-- Andrew -->
+        <article class="person bio-card" data-bio-card>
+          <button type="button" class="bio-summary" aria-expanded="false" aria-controls="bio-andrew">
+            <div class="bio-ornament" aria-hidden="true">❦</div>
+            <h4 class="person-name" id="name-andrew">Andrew</h4>
+            <div class="person-role">GROOMSMAN</div>
+            <div class="person-divider" aria-hidden="true">⁂</div>
+            <p class="person-bio">Andrew is William's cousin, family from the start and a groomsman by an easy choice.</p>
+            <span class="bio-cue">
+              <span class="bio-cue-text">Tap to read more</span>
+              <span class="bio-chevron" aria-hidden="true">⌄</span>
+            </span>
+          </button>
+          <div class="bio-detail" id="bio-andrew" role="region" aria-labelledby="name-andrew" hidden>
+            <div class="bio-detail-inner">
+              <div class="bio-photos">
+                <figure class="bio-photo">
+                  <img src="/photos/andrew.jpg" alt="William with Andrew" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">William &amp; Andrew</span><span class="ph-file">/photos/andrew.jpg</span></figcaption>
+                </figure>
+                <figure class="bio-photo">
+                  <img src="/photos/andrew-2.jpg" alt="William with Andrew" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">William &amp; Andrew</span><span class="ph-file">/photos/andrew-2.jpg</span></figcaption>
+                </figure>
+              </div>
+              <p class="bio-blurb">Cousin of the Groom. A fuller note about Andrew to be added soon.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Nick -->
+        <article class="person bio-card" data-bio-card>
+          <button type="button" class="bio-summary" aria-expanded="false" aria-controls="bio-nick">
+            <div class="bio-ornament" aria-hidden="true">❦</div>
+            <h4 class="person-name" id="name-nick">Nick</h4>
+            <div class="person-role">GROOMSMAN</div>
+            <div class="person-divider" aria-hidden="true">⁂</div>
+            <p class="person-bio">Nick is one of William's groomsmen, a steady friend through the long stretch of years.</p>
+            <span class="bio-cue">
+              <span class="bio-cue-text">Tap to read more</span>
+              <span class="bio-chevron" aria-hidden="true">⌄</span>
+            </span>
+          </button>
+          <div class="bio-detail" id="bio-nick" role="region" aria-labelledby="name-nick" hidden>
+            <div class="bio-detail-inner">
+              <div class="bio-photos">
+                <figure class="bio-photo">
+                  <img src="/photos/nick.jpg" alt="William with Nick" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">William &amp; Nick</span><span class="ph-file">/photos/nick.jpg</span></figcaption>
+                </figure>
+                <figure class="bio-photo">
+                  <img src="/photos/nick-2.jpg" alt="William with Nick" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">William &amp; Nick</span><span class="ph-file">/photos/nick-2.jpg</span></figcaption>
+                </figure>
+              </div>
+              <p class="bio-blurb">A fuller note about Nick to be added soon.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Tim -->
+        <article class="person bio-card" data-bio-card>
+          <button type="button" class="bio-summary" aria-expanded="false" aria-controls="bio-tim">
+            <div class="bio-ornament" aria-hidden="true">❦</div>
+            <h4 class="person-name" id="name-tim">Tim</h4>
+            <div class="person-role">GROOMSMAN</div>
+            <div class="person-divider" aria-hidden="true">⁂</div>
+            <p class="person-bio">Tim stands among William's groomsmen, good company in every season.</p>
+            <span class="bio-cue">
+              <span class="bio-cue-text">Tap to read more</span>
+              <span class="bio-chevron" aria-hidden="true">⌄</span>
+            </span>
+          </button>
+          <div class="bio-detail" id="bio-tim" role="region" aria-labelledby="name-tim" hidden>
+            <div class="bio-detail-inner">
+              <div class="bio-photos">
+                <figure class="bio-photo">
+                  <img src="/photos/tim.jpg" alt="William with Tim" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">William &amp; Tim</span><span class="ph-file">/photos/tim.jpg</span></figcaption>
+                </figure>
+                <figure class="bio-photo">
+                  <img src="/photos/tim-2.jpg" alt="William with Tim" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">William &amp; Tim</span><span class="ph-file">/photos/tim-2.jpg</span></figcaption>
+                </figure>
+              </div>
+              <p class="bio-blurb">A fuller note about Tim to be added soon.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Gabe -->
+        <article class="person bio-card" data-bio-card>
+          <button type="button" class="bio-summary" aria-expanded="false" aria-controls="bio-gabe">
+            <div class="bio-ornament" aria-hidden="true">❦</div>
+            <h4 class="person-name" id="name-gabe">Gabe</h4>
+            <div class="person-role">GROOMSMAN</div>
+            <div class="person-divider" aria-hidden="true">⁂</div>
+            <p class="person-bio">Gabe is William's cousin, family who became one of the groomsmen at his side.</p>
+            <span class="bio-cue">
+              <span class="bio-cue-text">Tap to read more</span>
+              <span class="bio-chevron" aria-hidden="true">⌄</span>
+            </span>
+          </button>
+          <div class="bio-detail" id="bio-gabe" role="region" aria-labelledby="name-gabe" hidden>
+            <div class="bio-detail-inner">
+              <div class="bio-photos">
+                <figure class="bio-photo">
+                  <img src="/photos/gabe.jpg" alt="William with Gabe" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">William &amp; Gabe</span><span class="ph-file">/photos/gabe.jpg</span></figcaption>
+                </figure>
+                <figure class="bio-photo">
+                  <img src="/photos/gabe-2.jpg" alt="William with Gabe" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">William &amp; Gabe</span><span class="ph-file">/photos/gabe-2.jpg</span></figcaption>
+                </figure>
+              </div>
+              <p class="bio-blurb">Cousin of the Groom. A fuller note about Gabe to be added soon.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Thomas -->
+        <article class="person bio-card" data-bio-card>
+          <button type="button" class="bio-summary" aria-expanded="false" aria-controls="bio-thomas">
+            <div class="bio-ornament" aria-hidden="true">❦</div>
+            <h4 class="person-name" id="name-thomas">Thomas</h4>
+            <div class="person-role">GROOMSMAN</div>
+            <div class="person-divider" aria-hidden="true">⁂</div>
+            <p class="person-bio">Thomas joins William's groomsmen, a familiar face among the first row.</p>
+            <span class="bio-cue">
+              <span class="bio-cue-text">Tap to read more</span>
+              <span class="bio-chevron" aria-hidden="true">⌄</span>
+            </span>
+          </button>
+          <div class="bio-detail" id="bio-thomas" role="region" aria-labelledby="name-thomas" hidden>
+            <div class="bio-detail-inner">
+              <div class="bio-photos">
+                <figure class="bio-photo">
+                  <img src="/photos/thomas.jpg" alt="William with Thomas" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">William &amp; Thomas</span><span class="ph-file">/photos/thomas.jpg</span></figcaption>
+                </figure>
+                <figure class="bio-photo">
+                  <img src="/photos/thomas-2.jpg" alt="William with Thomas" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">William &amp; Thomas</span><span class="ph-file">/photos/thomas-2.jpg</span></figcaption>
+                </figure>
+              </div>
+              <p class="bio-blurb">A fuller note about Thomas to be added soon.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Ethan -->
+        <article class="person bio-card" data-bio-card>
+          <button type="button" class="bio-summary" aria-expanded="false" aria-controls="bio-ethan">
+            <div class="bio-ornament" aria-hidden="true">❦</div>
+            <h4 class="person-name" id="name-ethan">Ethan</h4>
+            <div class="person-role">GROOMSMAN</div>
+            <div class="person-divider" aria-hidden="true">⁂</div>
+            <p class="person-bio">Ethan is William's cousin, family standing among the groomsmen.</p>
+            <span class="bio-cue">
+              <span class="bio-cue-text">Tap to read more</span>
+              <span class="bio-chevron" aria-hidden="true">⌄</span>
+            </span>
+          </button>
+          <div class="bio-detail" id="bio-ethan" role="region" aria-labelledby="name-ethan" hidden>
+            <div class="bio-detail-inner">
+              <div class="bio-photos">
+                <figure class="bio-photo">
+                  <img src="/photos/ethan.jpg" alt="William with Ethan" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">William &amp; Ethan</span><span class="ph-file">/photos/ethan.jpg</span></figcaption>
+                </figure>
+                <figure class="bio-photo">
+                  <img src="/photos/ethan-2.jpg" alt="William with Ethan" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">William &amp; Ethan</span><span class="ph-file">/photos/ethan-2.jpg</span></figcaption>
+                </figure>
+              </div>
+              <p class="bio-blurb">Cousin of the Groom. A fuller note about Ethan to be added soon.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Eddy -->
+        <article class="person bio-card" data-bio-card>
+          <button type="button" class="bio-summary" aria-expanded="false" aria-controls="bio-eddy">
+            <div class="bio-ornament" aria-hidden="true">❦</div>
+            <h4 class="person-name" id="name-eddy">Eddy</h4>
+            <div class="person-role">GROOMSMAN</div>
+            <div class="person-divider" aria-hidden="true">⁂</div>
+            <p class="person-bio">Eddy is William's cousin, rounding out the first row of groomsmen.</p>
+            <span class="bio-cue">
+              <span class="bio-cue-text">Tap to read more</span>
+              <span class="bio-chevron" aria-hidden="true">⌄</span>
+            </span>
+          </button>
+          <div class="bio-detail" id="bio-eddy" role="region" aria-labelledby="name-eddy" hidden>
+            <div class="bio-detail-inner">
+              <div class="bio-photos">
+                <figure class="bio-photo">
+                  <img src="/photos/eddy.jpg" alt="William with Eddy" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">William &amp; Eddy</span><span class="ph-file">/photos/eddy.jpg</span></figcaption>
+                </figure>
+                <figure class="bio-photo">
+                  <img src="/photos/eddy-2.jpg" alt="William with Eddy" loading="lazy" onerror="this.style.display='none'">
+                  <figcaption><span class="ph-name">William &amp; Eddy</span><span class="ph-file">/photos/eddy-2.jpg</span></figcaption>
+                </figure>
+              </div>
+              <p class="bio-blurb">Cousin of the Groom. A fuller note about Eddy to be added soon.</p>
+            </div>
+          </div>
+        </article>
+
       </div>
     </div>
 
