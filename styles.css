@@ -2517,11 +2517,16 @@
   }
   .almanac .parents-grid > article:nth-of-type(1) .bio-summary {
     --frame: url('/images/frames/frame-gold-oval.png'); --ar: 525 / 720;
-    --clip: ellipse(49% 49% at 50% 50%);
+    /* matte sized to the oval window: fills the opening and tucks under the
+       moulding (hidden behind the frame PNG), without spilling into the
+       transparent corners. */
+    --clip: ellipse(37% 40% at 50% 50%);
   }
   .almanac .parents-grid > article:nth-of-type(2) .bio-summary {
     --frame: url('/images/frames/frame-black-arch.png'); --ar: 449 / 720;
-    --clip: inset(0 round 47% 47% 7% 7% / 33% 33% 7% 7%);
+    /* inset to the arch opening (not the full box), with a domed top so the
+       cream follows the arch instead of bleeding past its shoulders. */
+    --clip: inset(10% 15% 9% 15% round 45% 45% 8% 8% / 42% 42% 7% 7%);
   }
 
   /* The opened panel — a plain box on the wall (no frame), holding the bio and
