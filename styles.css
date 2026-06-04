@@ -2491,15 +2491,15 @@
      :nth-of-type counts the <article> cards (the empty-state <p> is skipped). */
   .almanac .bio-grid > article:nth-of-type(2) .bio-summary {
     --frame: url('/images/frames/frame-black-oval.png'); --ar: 489 / 720;
-    --clip: ellipse(49% 49% at 50% 50%);
+    --clip: ellipse(38% 41% at 50% 50%);
   }
   .almanac .bio-grid > article:nth-of-type(3) .bio-summary {
     --frame: url('/images/frames/frame-gold-cartouche.png'); --ar: 473 / 720;
-    --clip: polygon(20% 0, 80% 0, 100% 16%, 100% 84%, 80% 100%, 20% 100%, 0 84%, 0 16%);
+    --clip: polygon(28% 6%, 72% 6%, 90% 18%, 90% 82%, 72% 94%, 28% 94%, 10% 82%, 10% 18%);
   }
   .almanac .bio-grid > article:nth-of-type(4) .bio-summary {
     --frame: url('/images/frames/frame-black-arch.png'); --ar: 449 / 720;
-    --clip: inset(0 round 47% 47% 7% 7% / 33% 33% 7% 7%);
+    --clip: inset(10% 15% 9% 15% round 45% 45% 8% 8% / 42% 42% 7% 7%);
   }
   .almanac .bio-grid > article:nth-of-type(5) .bio-summary {
     --frame: url('/images/frames/frame-gold-square.png'); --ar: 671 / 720; --clip: none;
@@ -2509,11 +2509,11 @@
   }
   .almanac .bio-grid > article:nth-of-type(7) .bio-summary {
     --frame: url('/images/frames/frame-gold-oval-ornate.png'); --ar: 543 / 720;
-    --clip: ellipse(49% 49% at 50% 50%);
+    --clip: ellipse(40% 41% at 50% 50%);
   }
   .almanac .bio-grid > article:nth-of-type(8) .bio-summary {
     --frame: url('/images/frames/frame-black-cartouche.png'); --ar: 465 / 720;
-    --clip: polygon(20% 0, 80% 0, 100% 16%, 100% 84%, 80% 100%, 20% 100%, 0 84%, 0 16%);
+    --clip: polygon(28% 6%, 72% 6%, 90% 18%, 90% 82%, 72% 94%, 28% 94%, 10% 82%, 10% 18%);
   }
   .almanac .parents-grid > article:nth-of-type(1) .bio-summary {
     --frame: url('/images/frames/frame-gold-oval.png'); --ar: 525 / 720;
