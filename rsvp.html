@@ -2,6 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+<!-- Soft gate — the full site lives behind the Save-the-Date. Guests who have
+     not entered the passcode this session are returned to it before paint. -->
+<script>
+  try {
+    if (sessionStorage.getItem('bk_unlocked') !== '1') { location.replace('/'); }
+  } catch (e) {}
+</script>
+<meta name="robots" content="noindex" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <meta name="theme-color" content="#ffffff" />
 
@@ -48,13 +56,13 @@
     <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
       <span class="nav-toggle-box" aria-hidden="true"><span></span><span></span><span></span></span>
     </button>
-    <a href="/" class="mono" aria-label="Home">
+    <a href="/home" class="mono" aria-label="Home">
       <img class="home-emblem" src="/icons/home-emblem.png" alt="" width="36" height="36" />
       LBR &middot; WJB
     </a>
     <div class="nav-links" id="navLinks">
       <div class="left">
-        <a href="/#story">Our Story</a>
+        <a href="/home#story">Our Story</a>
         <a href="/ceremony">The Day</a>
         <a href="/travel">Travel</a>
       </div>
@@ -89,7 +97,7 @@
     <span class="mono">LBR &middot; WJB</span>
     <span class="sub">Wichita &middot; Two Thousand Twenty Seven</span>
     <div class="links">
-      <a href="/#story">Story</a>
+      <a href="/home#story">Story</a>
       <a href="/ceremony">The Day</a>
       <a href="/travel">Travel</a>
       <a href="/wedding-party">Wedding Party</a>

@@ -45,7 +45,7 @@
   // subpage (no cover present) it returns home where the intro plays fresh.
   function restartCover() {
     if (!cover) {
-      window.location.href = '/';
+      window.location.href = '/home';
       return;
     }
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
