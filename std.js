@@ -60,7 +60,6 @@
   var gateNote = document.getElementById('gateNote');
   var gateClose = document.getElementById('gateClose');
   var seal = document.getElementById('seal');
-  var enterBtn = document.getElementById('enterBtn');
   var lastFocus = null;
 
   function go() { window.location.href = DESTINATION; }
@@ -107,7 +106,6 @@
   }
 
   if (seal) seal.addEventListener('click', openGate);
-  if (enterBtn) enterBtn.addEventListener('click', openGate);
   if (gateClose) gateClose.addEventListener('click', closeGate);
   if (gate) {
     gate.addEventListener('click', function (e) { if (e.target === gate) closeGate(); });
