@@ -33,6 +33,9 @@
   function openEnvelope() {
     if (opened) return;
     opened = true;
+    // The tap that opens the envelope is a real user gesture, so it's the
+    // moment we're allowed to begin the music. (See music.js.)
+    if (window.BKMusic) window.BKMusic.start();
     document.body.classList.add('opening');
     if (closedLayer) closedLayer.classList.remove('active');
     if (openLayers[0]) openLayers[0].classList.add('active');
