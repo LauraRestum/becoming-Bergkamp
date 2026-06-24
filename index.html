@@ -129,10 +129,22 @@
   .opener { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:108%; height:108%; z-index:8; cursor:pointer; }
   body.opening .opener, body.opened .opener, html:not(.js) .opener { display:none; }
 
-  /* DETAILS below the envelope */
-  .details { position:relative; z-index:2; width:min(90vw,460px); margin:clamp(18px,5vw,30px) auto 0; text-align:center;
-    opacity:0; transform:translateY(14px); transition:opacity 800ms ease 400ms, transform 800ms ease 400ms; }
-  body.opened .details, html:not(.js) .details { opacity:1; transform:translateY(0); }
+  /* DETAILS — the bottom section, on the monogram wallpaper */
+  .info {
+    position:relative; min-height:100vh; min-height:100dvh;
+    display:flex; align-items:center; justify-content:center;
+    padding: calc(40px + var(--safe-top)) 20px calc(48px + var(--safe-bottom));
+    background:
+      linear-gradient(180deg, rgba(246,241,231,0.55) 0%, rgba(244,238,226,0.42) 100%),
+      url('/images/monogram-light-mobile.jpg');
+    background-size:cover,cover; background-position:center,center; background-repeat:no-repeat,no-repeat;
+  }
+  @media (min-width:860px){
+    .info { background-image:
+      linear-gradient(180deg, rgba(246,241,231,0.52) 0%, rgba(244,238,226,0.40) 100%),
+      url('/images/monogram-light-desktop.jpg'); }
+  }
+  .details { position:relative; z-index:2; width:min(92vw,520px); margin:0 auto; text-align:center; }
   .names { font-family:var(--serif); font-size:clamp(22px,6.2vw,34px); letter-spacing:0.13em; text-indent:0.13em; text-transform:uppercase; color:var(--green); }
   .names .amp { font-style:italic; text-transform:none; color:var(--gold); padding:0 0.1em; letter-spacing:0; }
   .rule { display:flex; align-items:center; justify-content:center; gap:12px; color:var(--gold); margin:12px 0; }
@@ -228,6 +240,10 @@
       <button class="opener" id="opener" type="button" aria-label="Open the save-the-date"></button>
     </div>
 
+    <div class="open-cue" id="openCue">Click to open…</div>
+  </div>
+
+  <section class="info">
     <div class="details">
       <div class="names">Laura <span class="amp">&amp;</span> William</div>
       <div class="rule"><span class="line"></span><span class="dot">✦</span><span class="line"></span></div>
@@ -241,9 +257,7 @@
         <div class="unit"><span class="num" data-cd="seconds">—</span><span class="lbl">Seconds</span></div>
       </div>
     </div>
-
-    <div class="open-cue" id="openCue">Click to open…</div>
-  </div>
+  </section>
 
   <button class="corner-seal" id="seal" type="button" aria-label="Enter the wedding website">
     <span class="seal-label" aria-hidden="true">Enter</span>
