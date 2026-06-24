@@ -1,24 +1,10 @@
 /* Save-the-Date — envelope reveal, cycling photo frames, and the
-   soft passcode gate. The full wedding website lives at /home, behind this
-   page. Entering the passcode unlocks it for the rest of this browser session;
-   a fresh visit greets guests with the Save-the-Date again. A gentle
-   speed-bump, not a vault. */
+   "coming soon" note. The full wedding website isn't live yet; tapping the
+   wax seal simply lets guests know it's on its way. */
 (function () {
   'use strict';
 
-  /* ------------------------------------------------------------------
-     PASSCODE — to change it, replace the word below (keep it lowercase).
-     Lightly obscured (base64): btoa('yourword') in a console gives the value.
-     Current value decodes to: bergkamp
-     ------------------------------------------------------------------ */
-  var EXPECTED = atob('YmVyZ2thbXA=');
-  var UNLOCK_KEY = 'bk_unlocked';
-  var DESTINATION = '/home';
-
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  function isUnlocked() { try { return sessionStorage.getItem(UNLOCK_KEY) === '1'; } catch (e) { return false; } }
-  function setUnlocked() { try { sessionStorage.setItem(UNLOCK_KEY, '1'); } catch (e) {} }
 
   /* ------------------------- Envelope reveal ------------------------ */
   /* The envelope is a single button holding a stack of pre-composed layers:
@@ -58,52 +44,30 @@
     }, 5200);
   }
 
-  /* ------------------------------ Gate ------------------------------ */
+  /* ----------------------- "Coming soon" note ----------------------- */
+  /* Tapping the wax seal opens a small note letting guests know the full
+     wedding website is on its way. No passcode, no gate — just a message. */
   var gate = document.getElementById('gate');
-  var gateCard = document.getElementById('gateCard');
-  var gateForm = document.getElementById('gateForm');
-  var gateInput = document.getElementById('gateInput');
-  var gateNote = document.getElementById('gateNote');
   var gateClose = document.getElementById('gateClose');
   var seal = document.getElementById('seal');
   var lastFocus = null;
 
-  function go() { window.location.href = DESTINATION; }
-
   function openGate() {
-    if (isUnlocked()) { go(); return; }
     if (!gate) return;
     lastFocus = document.activeElement;
     gate.classList.add('open');
     gate.setAttribute('aria-hidden', 'false');
-    if (gateNote) { gateNote.textContent = ''; gateNote.className = 'gate-note'; }
-    setTimeout(function () { if (gateInput) gateInput.focus(); }, 380);
+    setTimeout(function () { if (gateClose) gateClose.focus(); }, 380);
   }
   function closeGate() {
     if (!gate) return;
     gate.classList.remove('open');
     gate.setAttribute('aria-hidden', 'true');
-    if (gateInput) gateInput.value = '';
     if (lastFocus && lastFocus.focus) { try { lastFocus.focus(); } catch (e) {} }
-  }
-  function reject() {
-    if (gateNote) { gateNote.textContent = "That's not quite it — try again."; gateNote.className = 'gate-note error'; }
-    if (gateCard) { gateCard.classList.remove('shake'); void gateCard.offsetWidth; gateCard.classList.add('shake'); }
-    if (gateInput) { gateInput.value = ''; gateInput.focus(); }
-  }
-  function attempt(value) {
-    var guess = (value || '').trim().toLowerCase();
-    if (!guess) { if (gateInput) gateInput.focus(); return; }
-    if (guess === EXPECTED) {
-      setUnlocked();
-      if (gateNote) { gateNote.textContent = 'Welcome — come on in.'; gateNote.className = 'gate-note'; }
-      setTimeout(go, 420);
-    } else { reject(); }
   }
 
   if (seal) seal.addEventListener('click', openGate);
   if (gateClose) gateClose.addEventListener('click', closeGate);
   if (gate) gate.addEventListener('click', function (e) { if (e.target === gate) closeGate(); });
-  if (gateForm) gateForm.addEventListener('submit', function (e) { e.preventDefault(); attempt(gateInput ? gateInput.value : ''); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && gate && gate.classList.contains('open')) closeGate(); });
 })();
