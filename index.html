@@ -190,11 +190,20 @@
   .cigar-still { position:absolute; z-index:1; pointer-events:none;
     left:-1%; bottom:21%;
     width:clamp(140px,40vw,200px); }
+  /* Layered, directional shadow gives the boxes real lift off the cloth:
+     a tight contact shadow hugs the base, a larger soft shadow casts down
+     and to the right as if lit from the upper-left. drop-shadow traces the
+     PNG silhouette, so it reads as a true cast shadow rather than a halo. */
   .cigar-still__boxes { display:block; width:100%;
     transform:rotate(2deg);
-    filter:drop-shadow(0 14px 26px rgba(60,48,30,0.34)); }
+    filter:
+      drop-shadow(3px 5px 5px rgba(60,48,30,0.32))
+      drop-shadow(20px 26px 28px rgba(43,34,20,0.42)); }
   @media (min-width:860px){
     .cigar-still { left:4%; bottom:13%; width:clamp(170px,17vw,220px); }
+    .cigar-still__boxes { filter:
+      drop-shadow(4px 6px 6px rgba(60,48,30,0.32))
+      drop-shadow(26px 32px 36px rgba(43,34,20,0.42)); }
   }
 
   .details { position:relative; z-index:1; width:min(82%,380px); padding:10px 8px; text-align:center; }
