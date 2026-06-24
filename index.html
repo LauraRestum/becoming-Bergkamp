@@ -81,10 +81,12 @@
   .composition { position:relative; z-index:2; width:min(94vw,430px); margin:0 auto; aspect-ratio:863/733; }
   @media (min-width:860px){ .composition { width:min(58vw,470px); } }
 
-  /* The fan of content that slides up out of the envelope */
-  .fan { position:absolute; inset:0; z-index:3; transform:translateY(56%); transition:transform 1100ms cubic-bezier(0.22,1,0.36,1); }
-  body.opened .fan { transform:translateY(0); }
-  html:not(.js) .fan { transform:translateY(0); }
+  /* The fan of content that slides up out of the envelope.
+     Hidden behind the closed envelope on arrival, then fades up once opened. */
+  .fan { position:absolute; inset:0; z-index:3; transform:translateY(56%); opacity:0;
+    transition:transform 1100ms cubic-bezier(0.22,1,0.36,1), opacity 800ms ease; }
+  body.opened .fan { transform:translateY(0); opacity:1; }
+  html:not(.js) .fan { transform:translateY(0); opacity:1; }
 
   /* Save-the-Date card, centre-back */
   .std-card {
@@ -113,10 +115,13 @@
   .env-date { position:absolute; left:50%; bottom:30%; transform:translateX(-50%); z-index:6;
     font-family:var(--label); font-size:clamp(13px,3.6vw,17px); letter-spacing:0.18em; text-indent:0.18em; color:var(--ink); }
 
-  /* wax seal on the front — the opener */
+  /* wax seal on the front — the opener you press to break open the envelope */
   .env-seal { position:absolute; left:50%; bottom:11%; transform:translateX(-50%); width:18%; aspect-ratio:1/1;
-    border-radius:50%; overflow:hidden; z-index:7; box-shadow:0 6px 16px rgba(53,71,47,0.42); animation:throb 3.2s ease-in-out infinite; pointer-events:none; }
+    border-radius:50%; overflow:hidden; z-index:8; box-shadow:0 6px 16px rgba(53,71,47,0.42); animation:throb 3.2s ease-in-out infinite;
+    cursor:pointer; pointer-events:auto; padding:0; transition:transform 240ms cubic-bezier(0.22,1,0.36,1); }
   .env-seal img { width:135%; height:135%; max-width:none; margin:-17.5%; object-fit:cover; }
+  .env-seal:hover, .env-seal:focus-visible { transform:translateX(-50%) scale(1.06); }
+  body.opening .env-seal, body.opened .env-seal, html:not(.js) .env-seal { animation:none; pointer-events:none; cursor:default; }
   @keyframes throb { 0%,100%{box-shadow:0 6px 16px rgba(53,71,47,0.42);} 50%{box-shadow:0 6px 26px rgba(53,71,47,0.66);} }
 
   /* florals spilling out the right */
@@ -125,14 +130,22 @@
   .floral.left { left:-13%; top:6%; width:34%; transform:scaleX(-1) rotate(6deg); }
   body.opened .floral, html:not(.js) .floral { opacity:1; }
 
-  /* opener hit area over the closed envelope */
-  .opener { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:108%; height:108%; z-index:8; cursor:pointer; }
-  body.opening .opener, body.opened .opener, html:not(.js) .opener { display:none; }
+  /* scroll cue — only after the envelope is opened, inviting the details below */
+  .scroll-cue { text-align:center; z-index:6; font-family:var(--label); font-size:clamp(11px,3vw,13px); letter-spacing:0.4em; text-indent:0.4em; text-transform:uppercase; color:var(--ink-soft); opacity:0; height:0; margin:0; pointer-events:none; }
+  .scroll-cue .arr { display:inline-block; }
+  body.opened .scroll-cue { height:auto; margin-top:18px; animation:scrollCueIn 700ms ease 1500ms forwards; }
+  .scroll-cue .arr { animation:bob 1.8s ease-in-out infinite; }
+  @keyframes scrollCueIn { from{opacity:0;transform:translateY(-6px);} to{opacity:0.85;transform:translateY(0);} }
+  @keyframes bob { 0%,100%{transform:translateY(0);} 50%{transform:translateY(4px);} }
 
-  /* DETAILS — the bottom section, on the monogram wallpaper */
+  /* DETAILS — the bottom section, on the monogram wallpaper.
+     Hidden on arrival so the gateway is a single screen; revealed once opened. */
+  .info { display:none; }
+  body.opened .info, html:not(.js) .info { display:flex; animation:infoIn 1000ms ease 200ms both; }
+  @keyframes infoIn { from{opacity:0;} to{opacity:1;} }
   .info {
     position:relative; min-height:100vh; min-height:100dvh;
-    display:flex; align-items:center; justify-content:center;
+    align-items:center; justify-content:center;
     padding: calc(40px + var(--safe-top)) 20px calc(48px + var(--safe-bottom));
     background:
       linear-gradient(180deg, rgba(246,241,231,0.55) 0%, rgba(244,238,226,0.42) 100%),
@@ -198,8 +211,9 @@
   @keyframes shake { 10%,90%{transform:translateX(-2px);} 20%,80%{transform:translateX(4px);} 30%,50%,70%{transform:translateX(-7px);} 40%,60%{transform:translateX(7px);} }
 
   @media (prefers-reduced-motion: reduce) {
-    .fan,.frame img,.floral,.details,.env-seal,.corner-seal,.mail-head,.open-cue,.gate,.gate-card { transition:none !important; animation:none !important; }
+    .fan,.frame img,.floral,.details,.env-seal,.corner-seal,.mail-head,.open-cue,.scroll-cue,.info,.gate,.gate-card { transition:none !important; animation:none !important; }
     .fan { transform:translateY(0) !important; } .floral,.details { opacity:1 !important; transform:none !important; }
+    body.opened .scroll-cue { opacity:0.85 !important; }
   }
 </style>
 </head>
@@ -208,7 +222,7 @@
   <div class="scene">
 
     <div class="mail-head" id="mailHead">
-      <div class="from">You have mail from</div>
+      <div class="from">The Wedding of</div>
       <div class="who">Laura &amp; William</div>
     </div>
 
@@ -235,12 +249,13 @@
       <div class="env-date" aria-hidden="true">03 . 20 . 2027</div>
       <img class="floral right" src="/images/bouquet-cascade.png" alt="" aria-hidden="true" />
       <img class="floral left"  src="/images/bouquet-white.png"   alt="" aria-hidden="true" />
-      <span class="env-seal" aria-hidden="true"><img src="/images/seal-wax-green.png" alt="" width="120" height="120" /></span>
-
-      <button class="opener" id="opener" type="button" aria-label="Open the save-the-date"></button>
+      <button class="env-seal" id="opener" type="button" aria-label="Press the wax seal to open the invitation">
+        <img src="/images/seal-wax-green.png" alt="" width="120" height="120" />
+      </button>
     </div>
 
-    <div class="open-cue" id="openCue">Click to open…</div>
+    <div class="open-cue" id="openCue">Press the seal to open</div>
+    <div class="scroll-cue" id="scrollCue" aria-hidden="true">Scroll for details <span class="arr">&darr;</span></div>
   </div>
 
   <section class="info">
