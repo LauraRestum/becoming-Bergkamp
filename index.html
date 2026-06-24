@@ -75,15 +75,15 @@
     .scene-bg img { object-position:center center; }
   }
 
-  /* Gramophone — a transparent looping animation pinned to the bottom-left
-     corner of the opening scene. The WebP was pre-cropped so the object's
-     base is flush with the bottom edge of the file, so bottom:0 sits the
-     gramophone exactly on the section's bottom line. Sits above the backdrop
-     and its gradient overlay, below the gateway gate/seal. */
-  .gramophone { position:absolute; left:0; bottom:0; z-index:4; pointer-events:none;
-    width:clamp(120px,30vw,230px); height:auto;
+  /* Gramophone — a transparent, seamless ping-pong animation that turns very
+     slowly. It lives in the second (details) section, pinned to the bottom-left
+     corner. The WebP is pre-cropped so the object's base is flush with the
+     bottom edge of the file, so bottom:0 sits it exactly on the section's
+     bottom line. Decorative and non-interactive. */
+  .gramophone { position:absolute; left:0; bottom:0; z-index:2; pointer-events:none;
+    width:clamp(120px,30vw,200px); height:auto;
     filter:drop-shadow(0 12px 22px rgba(60,48,30,0.32)); }
-  @media (min-width:860px){ .gramophone { width:clamp(190px,18vw,300px); } }
+  @media (min-width:860px){ .gramophone { width:clamp(150px,15vw,220px); } }
 
   /* "You have mail from" — closed state only */
   .mail-head { position:absolute; top:calc(5vh + var(--safe-top)); left:0; right:0; text-align:center; z-index:6; padding:0 24px; transition:opacity 600ms ease, transform 600ms ease; }
@@ -183,12 +183,12 @@
     filter:drop-shadow(0 20px 45px rgba(60,48,30,0.22)); pointer-events:none; }
 
   /* The Bergkamp cigar boxes — a playful aside resting on the monogram cloth
-     just below the napkin's lower-left corner. Pulled up out of the screen
-     corners so it never collides with the fixed audio toggle (bottom-left) or
-     the wax seal (bottom-right), and layered below .info-stage so the napkin
-     tucks over its top edge while the boxes peek onto the cloth below. */
+     in the lower-right. Pulled up out of the very corner so it clears the
+     fixed wax seal (bottom-right), leaving the bottom-left to the gramophone,
+     and layered below .info-stage so the napkin tucks over its top edge while
+     the boxes peek onto the cloth below. */
   .cigar-still { position:absolute; z-index:1; pointer-events:none;
-    left:-1%; bottom:21%;
+    right:-1%; bottom:21%;
     width:clamp(140px,40vw,200px); }
   /* Layered, directional shadow gives the boxes real lift off the cloth:
      a tight contact shadow hugs the base, a larger soft shadow casts down
@@ -200,28 +200,19 @@
       drop-shadow(3px 5px 5px rgba(60,48,30,0.32))
       drop-shadow(20px 26px 28px rgba(43,34,20,0.42)); }
   @media (min-width:860px){
-    .cigar-still { left:4%; bottom:13%; width:clamp(190px,19vw,250px); }
+    .cigar-still { right:4%; bottom:13%; width:clamp(190px,19vw,250px); }
     .cigar-still__boxes { filter:
       drop-shadow(4px 6px 6px rgba(60,48,30,0.32))
       drop-shadow(26px 32px 36px rgba(43,34,20,0.42)); }
   }
 
-  /* On laptops there is ample room around the napkin, so the whole intro —
-     napkin, text, and countdown — is scaled up to fill the screen more
-     generously. The stage drives the napkin (sized in %); the type/countdown
-     caps are raised so they grow past their mobile maximums. */
+  /* On laptops there is ample room around the napkin, so it is scaled up to
+     fill the screen more generously. The stage drives the napkin (sized in %).
+     The text and countdown are enlarged in a second block below, after their
+     base rules, so the desktop caps actually win the cascade. */
   @media (min-width:860px){
     .info-stage { width:min(82vw,720px); }
     .napkin { width:clamp(820px,150%,1180px); }
-    .details { width:min(80%,540px); }
-    .names { font-size:44px; }
-    .date { font-size:26px; }
-    .place { font-size:16px; margin-top:9px; }
-    .follow { font-size:36px; margin-top:9px; }
-    .countdown { gap:38px; margin-top:16px; }
-    .countdown .unit { min-width:58px; }
-    .countdown .num { font-size:44px; }
-    .countdown .lbl { font-size:13px; }
   }
 
   .details { position:relative; z-index:1; width:min(82%,380px); padding:10px 8px; text-align:center; }
@@ -236,6 +227,20 @@
   .countdown .unit { display:flex; flex-direction:column; align-items:center; gap:4px; min-width:40px; }
   .countdown .num { font-family:var(--serif); font-size:clamp(21px,5.6vw,31px); line-height:1; color:var(--green); }
   .countdown .lbl { font-family:var(--label); font-size:clamp(8px,2.2vw,10px); letter-spacing:0.3em; text-indent:0.3em; text-transform:uppercase; color:var(--ink-faint); }
+
+  /* Laptop: enlarge the intro text and countdown past their mobile caps.
+     Placed after the base rules above so these desktop sizes win the cascade. */
+  @media (min-width:860px){
+    .details { width:min(80%,540px); }
+    .names { font-size:44px; }
+    .date { font-size:26px; }
+    .place { font-size:16px; margin-top:9px; }
+    .follow { font-size:36px; margin-top:9px; }
+    .countdown { gap:38px; margin-top:16px; }
+    .countdown .unit { min-width:58px; }
+    .countdown .num { font-size:44px; }
+    .countdown .lbl { font-size:13px; }
+  }
 
   /* Click-to-open cue */
   .open-cue { margin-top:18px; text-align:center; z-index:6; font-family:var(--label); font-size:clamp(11px,3vw,13px); letter-spacing:0.4em; text-indent:0.4em; text-transform:uppercase; color:var(--ink); text-shadow:0 1px 2px rgba(246,241,231,0.95), 0 0 16px rgba(246,241,231,0.85); animation:cuePulse 2.8s ease-in-out infinite; }
@@ -310,8 +315,6 @@
 
     <div class="open-cue" id="openCue">Tap to open</div>
     <div class="scroll-cue" id="scrollCue" aria-hidden="true">Scroll for details <span class="arr">&darr;</span></div>
-
-    <img class="gramophone" src="/images/gramophone.webp" alt="" aria-hidden="true" width="360" height="542" />
   </div>
 
   <section class="info">
@@ -334,6 +337,7 @@
     <div class="cigar-still" aria-hidden="true">
       <img class="cigar-still__boxes" src="/images/cigar-boxes-bergkamp.png" alt="" />
     </div>
+    <img class="gramophone" src="/images/gramophone.webp" alt="" aria-hidden="true" width="240" height="362" />
   </section>
 
   <button class="corner-seal" id="seal" type="button" aria-label="Enter the wedding website">
