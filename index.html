@@ -42,11 +42,11 @@
   @font-face { font-family:'Hijrnotes'; src:url('/fonts/HijrnotesPersonalUseOnly01-DXOD.ttf') format('truetype'); font-weight:400; font-style:normal; font-display:swap; }
 
   :root {
-    --paper: #efe7d8; --paper-2: #f6f1e7;
-    --ink: #34322c; --ink-soft: rgba(52,50,44,0.66); --ink-faint: rgba(52,50,44,0.42);
-    --green: #35472f; --green-soft: #5b6b4d; --gold: #a98b4e; --gold-soft: #c0a063;
+    --paper:#efe7d8; --paper-2:#f6f1e7;
+    --ink:#34322c; --ink-soft:rgba(52,50,44,0.66); --ink-faint:rgba(52,50,44,0.42);
+    --green:#35472f; --green-soft:#5b6b4d; --gold:#a98b4e; --gold-soft:#c0a063;
     --serif:'Rosaline',serif; --script:'Hijrnotes',cursive; --label:'Vintage Glamour',serif;
-    --safe-top: env(safe-area-inset-top); --safe-bottom: env(safe-area-inset-bottom);
+    --safe-top:env(safe-area-inset-top); --safe-bottom:env(safe-area-inset-bottom);
   }
   * { box-sizing:border-box; margin:0; padding:0; }
   html,body { background:#d9cbb8; color:var(--ink); font-family:var(--serif); -webkit-font-smoothing:antialiased; }
@@ -57,13 +57,13 @@
 
   /* Backdrop — portrait chapel on phones, landscape on laptops */
   .scene {
-    position:relative; min-height:100vh; min-height:100dvh; overflow:hidden;
+    position:relative; min-height:100vh; min-height:100dvh; overflow-x:hidden;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
-    padding: calc(16px + var(--safe-top)) 16px calc(16px + var(--safe-bottom));
+    padding: calc(64px + var(--safe-top)) 16px calc(40px + var(--safe-bottom));
     background:
       linear-gradient(180deg, rgba(247,242,232,0.26) 0%, rgba(236,226,210,0.18) 42%, rgba(217,203,184,0.40) 100%),
       url('/images/chapel-golden-portrait.png');
-    background-size:cover,cover; background-position:center,center top; background-repeat:no-repeat,no-repeat;
+    background-size:cover,cover; background-position:center,center top; background-repeat:no-repeat,no-repeat; background-attachment:scroll,fixed;
   }
   @media (min-width:860px) {
     .scene { background-image:
@@ -77,84 +77,82 @@
   .mail-head .who { font-family:var(--script); font-size:clamp(38px,10vw,64px); color:var(--green); line-height:1; }
   body.opening .mail-head, body.opened .mail-head { opacity:0; transform:translateY(-12px); pointer-events:none; }
 
-  /* The composition: the letter in front, the envelope peeking out behind it */
-  .composition { position:relative; z-index:2; width:min(90vw,400px); margin:0 auto; }
-  @media (min-width:860px){ .composition { width:min(60vw,440px); } }
+  /* ENVELOPE COMPOSITION ------------------------------------------------ */
+  .composition { position:relative; z-index:2; width:min(94vw,430px); margin:0 auto; aspect-ratio:863/733; }
+  @media (min-width:860px){ .composition { width:min(58vw,470px); } }
 
-  /* The letter (content), in front */
-  .letter {
-    position:relative; z-index:3; width:100%;
-    background:linear-gradient(180deg, rgba(247,242,233,0.98) 0%, rgba(240,232,218,0.98) 100%);
-    border-radius:3px;
-    padding:clamp(24px,6.5vw,36px) clamp(20px,5.5vw,30px) clamp(26px,7vw,38px);
-    text-align:center;
-    box-shadow:0 16px 40px rgba(60,48,30,0.30);
-    transform:translateY(26px) scale(0.97); opacity:0;
-    transition:transform 1000ms cubic-bezier(0.22,1,0.36,1), opacity 720ms ease;
+  /* The fan of content that slides up out of the envelope */
+  .fan { position:absolute; inset:0; z-index:3; transform:translateY(56%); transition:transform 1100ms cubic-bezier(0.22,1,0.36,1); }
+  body.opened .fan { transform:translateY(0); }
+  html:not(.js) .fan { transform:translateY(0); }
+
+  /* Save-the-Date card, centre-back */
+  .std-card {
+    position:absolute; left:50%; bottom:36%; width:62%; transform:translateX(-50%) rotate(2deg);
+    z-index:2; background:#f5efe3; border:1px solid rgba(91,107,77,0.5); padding:16px 14px 18px; text-align:center;
+    box-shadow:0 8px 20px rgba(60,48,30,0.22);
   }
-  html:not(.js) .letter { transform:none; opacity:1; }
-  body.opened .letter { transform:translateY(0) scale(1); opacity:1; }
+  .std-card::before { content:""; position:absolute; left:6px; right:6px; top:6px; height:14px;
+    background:repeating-linear-gradient(90deg, var(--green-soft) 0 7px, transparent 7px 15px); opacity:0.8; }
+  .std-card .lk { display:block; font-family:var(--script); color:var(--gold); line-height:0.95; margin-top:14px; }
+  .std-card .lk .l1 { font-size:clamp(20px,6vw,30px); }
+  .std-card .lk .l2 { font-size:clamp(24px,7vw,36px); }
 
-  .lockup { display:flex; flex-direction:column; align-items:center; line-height:0.9; margin-bottom:14px; }
-  .lockup .word { font-family:var(--serif); font-size:clamp(34px,10vw,56px); letter-spacing:0.12em; text-indent:0.12em; color:var(--green); }
-  .lockup .the { font-family:var(--script); font-size:clamp(30px,9vw,48px); color:var(--gold); line-height:0.5; margin:-2px 0; transform:rotate(-4deg); }
-
-  /* Twin frames — square (rectangular) + circle (oval), each cycling */
-  .frames { position:relative; height:clamp(140px,40vw,190px); margin:4px 0 12px; }
-  .frame { position:absolute; top:0; width:clamp(112px,31vw,150px); aspect-ratio:1080/1350; filter:drop-shadow(0 9px 18px rgba(60,48,30,0.3)); }
-  .frame.rect { right:1%; transform:rotate(3deg); z-index:2; }
-  .frame.oval { left:1%; top:9%; transform:rotate(-4deg); z-index:1; }
+  /* Twin cycling frames */
+  .frame { position:absolute; aspect-ratio:1080/1350; filter:drop-shadow(0 10px 18px rgba(60,48,30,0.34)); }
+  .frame.oval { left:-4%; bottom:30%; width:52%; transform:rotate(-6deg); z-index:4; }
+  .frame.rect { right:-3%; bottom:25%; width:48%; transform:rotate(5deg); z-index:3; }
   .frame img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; opacity:0; transition:opacity 900ms ease; }
   .frame img.active { opacity:1; }
 
-  .names { font-family:var(--serif); font-size:clamp(20px,5.6vw,30px); letter-spacing:0.13em; text-indent:0.13em; text-transform:uppercase; color:var(--ink); }
-  .names .amp { font-style:italic; text-transform:none; color:var(--green-soft); padding:0 0.1em; letter-spacing:0; }
-  .rule { display:flex; align-items:center; justify-content:center; gap:12px; color:var(--gold); margin:12px 0; }
-  .rule .line { width:38px; height:1px; background:currentColor; opacity:0.6; }
-  .rule .dot { font-size:10px; }
-  .date { font-family:var(--label); font-size:clamp(14px,4vw,18px); letter-spacing:0.38em; text-indent:0.38em; text-transform:uppercase; color:var(--ink); }
-  .place { font-family:var(--label); font-size:clamp(10px,2.9vw,12px); letter-spacing:0.46em; text-indent:0.46em; text-transform:uppercase; color:var(--ink-soft); margin-top:9px; }
-  .follow { font-family:var(--script); font-size:clamp(20px,5.6vw,28px); color:var(--gold); margin-top:8px; transform:rotate(-2deg); }
-  .countdown { display:flex; justify-content:center; gap:clamp(12px,4vw,24px); margin-top:18px; }
-  .countdown .unit { display:flex; flex-direction:column; align-items:center; gap:5px; min-width:40px; }
-  .countdown .num { font-family:var(--serif); font-size:clamp(22px,6vw,32px); line-height:1; color:var(--green); }
-  .countdown .lbl { font-family:var(--label); font-size:clamp(8px,2.2vw,9px); letter-spacing:0.28em; text-indent:0.28em; text-transform:uppercase; color:var(--ink-faint); }
+  /* The envelope FRONT pocket — opaque, in front of the fan */
+  .env-front { position:absolute; inset:0; z-index:5; pointer-events:none;
+    background:url('/images/envelope-closed-cut.png') center bottom/contain no-repeat; }
 
-  /* Florals at the letter's top corners */
-  .floral { position:absolute; z-index:4; pointer-events:none; width:clamp(96px,26vw,134px); opacity:0; transition:opacity 800ms ease 500ms; }
-  .floral.right { top:-7%; right:-9%; transform:rotate(8deg); }
-  .floral.left { top:34%; left:-12%; transform:rotate(-10deg) scaleX(-1); width:clamp(74px,20vw,104px); }
-  body.opened .floral { opacity:1; }
+  /* date sitting at the envelope mouth */
+  .env-date { position:absolute; left:50%; bottom:30%; transform:translateX(-50%); z-index:6;
+    font-family:var(--label); font-size:clamp(13px,3.6vw,17px); letter-spacing:0.18em; text-indent:0.18em; color:var(--ink); }
 
-  /* The transparent envelope, behind the letter — bigger, so its flap peeks
-     above and its V peeks below, framing the letter as if it came from inside. */
-  .env { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:120%; aspect-ratio:879/1107; z-index:1; pointer-events:none; }
-  .env-face { position:absolute; inset:0; background-size:contain; background-position:center; background-repeat:no-repeat; transition:opacity 760ms ease; }
-  .env-closed { background-image:url('/images/envelope-closed-cut.png'); opacity:1; }
-  .env-open { background-image:url('/images/envelope-open-cut.png'); opacity:0; }
-  body.opening .env-closed, body.opened .env-closed { opacity:0; }
-  body.opening .env-open, body.opened .env-open { opacity:1; }
-
-  /* The wax seal on the flap — the opener */
-  .env-seal { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:17%; aspect-ratio:1/1; border-radius:50%; overflow:hidden; z-index:7; box-shadow:0 6px 16px rgba(53,71,47,0.42); animation:throb 3.2s ease-in-out infinite; pointer-events:none; }
+  /* wax seal on the front — the opener */
+  .env-seal { position:absolute; left:50%; bottom:11%; transform:translateX(-50%); width:18%; aspect-ratio:1/1;
+    border-radius:50%; overflow:hidden; z-index:7; box-shadow:0 6px 16px rgba(53,71,47,0.42); animation:throb 3.2s ease-in-out infinite; pointer-events:none; }
   .env-seal img { width:135%; height:135%; max-width:none; margin:-17.5%; object-fit:cover; }
-  body.opening .env-seal, body.opened .env-seal { opacity:0; transform:translate(-50%,-260%) rotate(-12deg) scale(0.7); animation:none; transition:opacity 500ms ease, transform 700ms cubic-bezier(0.5,-0.4,0.3,1.4); }
   @keyframes throb { 0%,100%{box-shadow:0 6px 16px rgba(53,71,47,0.42);} 50%{box-shadow:0 6px 26px rgba(53,71,47,0.66);} }
 
-  /* Click-to-open cue + clickable opener over the closed envelope */
-  .open-cue { position:absolute; bottom:calc(4vh + var(--safe-bottom)); left:0; right:0; text-align:center; z-index:6; font-family:var(--label); font-size:clamp(11px,3vw,13px); letter-spacing:0.4em; text-indent:0.4em; text-transform:uppercase; color:var(--ink-soft); animation:cuePulse 2.8s ease-in-out infinite; }
-  body.opening .open-cue, body.opened .open-cue { opacity:0; pointer-events:none; transition:opacity 300ms ease; animation:none; }
-  @keyframes cuePulse { 0%,100%{opacity:.5;} 50%{opacity:1;} }
-  .opener { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:122%; height:122%; z-index:8; cursor:pointer; }
-  body.opening .opener, body.opened .opener { display:none; }
+  /* florals spilling out the right */
+  .floral { position:absolute; z-index:6; pointer-events:none; opacity:0; transition:opacity 800ms ease 500ms; }
+  .floral.right { right:-16%; bottom:-6%; width:50%; }
+  .floral.left { left:-13%; top:6%; width:34%; transform:scaleX(-1) rotate(6deg); }
+  body.opened .floral, html:not(.js) .floral { opacity:1; }
 
-  /* No-JS fallback: show the letter plainly, hide the envelope theatre */
-  html:not(.js) .env, html:not(.js) .mail-head, html:not(.js) .open-cue, html:not(.js) .opener { display:none; }
-  html:not(.js) .corner-seal { opacity:1; transform:none; pointer-events:auto; }
+  /* opener hit area over the closed envelope */
+  .opener { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:108%; height:108%; z-index:8; cursor:pointer; }
+  body.opening .opener, body.opened .opener, html:not(.js) .opener { display:none; }
+
+  /* DETAILS below the envelope */
+  .details { position:relative; z-index:2; width:min(90vw,460px); margin:clamp(18px,5vw,30px) auto 0; text-align:center;
+    opacity:0; transform:translateY(14px); transition:opacity 800ms ease 400ms, transform 800ms ease 400ms; }
+  body.opened .details, html:not(.js) .details { opacity:1; transform:translateY(0); }
+  .names { font-family:var(--serif); font-size:clamp(22px,6.2vw,34px); letter-spacing:0.13em; text-indent:0.13em; text-transform:uppercase; color:var(--green); }
+  .names .amp { font-style:italic; text-transform:none; color:var(--gold); padding:0 0.1em; letter-spacing:0; }
+  .rule { display:flex; align-items:center; justify-content:center; gap:12px; color:var(--gold); margin:12px 0; }
+  .rule .line { width:40px; height:1px; background:currentColor; opacity:0.6; } .rule .dot { font-size:10px; }
+  .date { font-family:var(--label); font-size:clamp(15px,4.2vw,19px); letter-spacing:0.4em; text-indent:0.4em; text-transform:uppercase; color:var(--ink); }
+  .place { font-family:var(--label); font-size:clamp(10px,2.9vw,12px); letter-spacing:0.46em; text-indent:0.46em; text-transform:uppercase; color:var(--ink-soft); margin-top:9px; }
+  .follow { font-family:var(--script); font-size:clamp(22px,6vw,30px); color:var(--gold); margin-top:8px; }
+  .countdown { display:flex; justify-content:center; gap:clamp(14px,5vw,28px); margin-top:18px; }
+  .countdown .unit { display:flex; flex-direction:column; align-items:center; gap:5px; min-width:42px; }
+  .countdown .num { font-family:var(--serif); font-size:clamp(24px,6.5vw,36px); line-height:1; color:var(--green); }
+  .countdown .lbl { font-family:var(--label); font-size:clamp(8px,2.2vw,10px); letter-spacing:0.3em; text-indent:0.3em; text-transform:uppercase; color:var(--ink-faint); }
+
+  /* Click-to-open cue */
+  .open-cue { margin-top:18px; text-align:center; z-index:6; font-family:var(--label); font-size:clamp(11px,3vw,13px); letter-spacing:0.4em; text-indent:0.4em; text-transform:uppercase; color:var(--ink-soft); animation:cuePulse 2.8s ease-in-out infinite; }
+  body.opening .open-cue, body.opened .open-cue, html:not(.js) .open-cue { opacity:0; pointer-events:none; height:0; margin:0; transition:opacity 300ms ease; animation:none; }
+  @keyframes cuePulse { 0%,100%{opacity:.5;} 50%{opacity:1;} }
 
   /* Corner seal — discreet door */
   .corner-seal { position:fixed; z-index:40; right:calc(16px + env(safe-area-inset-right)); bottom:calc(16px + env(safe-area-inset-bottom)); width:clamp(50px,12vw,66px); height:clamp(50px,12vw,66px); opacity:0; transform:scale(0.9); pointer-events:none; transition:transform 400ms cubic-bezier(0.22,1,0.36,1); }
-  body.opened .corner-seal { pointer-events:auto; animation:sealIn 1100ms cubic-bezier(0.22,1,0.36,1) 1100ms forwards; }
+  body.opened .corner-seal, html:not(.js) .corner-seal { pointer-events:auto; animation:sealIn 1100ms cubic-bezier(0.22,1,0.36,1) 1100ms forwards; }
   .corner-seal .disc { position:absolute; inset:0; border-radius:50%; overflow:hidden; box-shadow:0 6px 16px rgba(53,71,47,0.4); opacity:0.92; transition:opacity 300ms ease; }
   .corner-seal .disc img { width:135%; height:135%; max-width:none; margin:-17.5%; object-fit:cover; }
   .corner-seal:hover, .corner-seal:focus-visible { transform:scale(1.08); }
@@ -180,8 +178,7 @@
   .gate-input::placeholder { color:rgba(52,50,44,0.34); letter-spacing:0.2em; }
   .gate-input:focus { outline:none; border-color:var(--green-soft); background:rgba(53,71,47,0.09); }
   .gate-submit { font-family:var(--label); font-size:11px; letter-spacing:0.4em; text-indent:0.4em; text-transform:uppercase; color:#f6f1e7; background:var(--green); border-radius:2px; padding:15px 16px; transition:background 220ms ease, transform 120ms ease; }
-  .gate-submit:hover { background:var(--green-soft); }
-  .gate-submit:active { transform:translateY(1px); }
+  .gate-submit:hover { background:var(--green-soft); } .gate-submit:active { transform:translateY(1px); }
   .gate-hint { font-family:var(--serif); font-style:italic; font-size:13px; color:var(--ink-faint); margin-top:16px; }
   .gate-note { min-height:1.2em; font-family:var(--label); font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--green-soft); }
   .gate-note.error { color:#a8543f; }
@@ -189,9 +186,8 @@
   @keyframes shake { 10%,90%{transform:translateX(-2px);} 20%,80%{transform:translateX(4px);} 30%,50%,70%{transform:translateX(-7px);} 40%,60%{transform:translateX(7px);} }
 
   @media (prefers-reduced-motion: reduce) {
-    .letter,.env-face,.env-seal,.floral,.corner-seal,.frame img,.mail-head,.open-cue,.gate,.gate-card { transition:none !important; animation:none !important; }
-    .letter { transform:none !important; opacity:1 !important; }
-    .floral { opacity:1 !important; }
+    .fan,.frame img,.floral,.details,.env-seal,.corner-seal,.mail-head,.open-cue,.gate,.gate-card { transition:none !important; animation:none !important; }
+    .fan { transform:translateY(0) !important; } .floral,.details { opacity:1 !important; transform:none !important; }
   }
 </style>
 </head>
@@ -205,51 +201,45 @@
     </div>
 
     <div class="composition">
+      <div class="fan">
+        <div class="std-card" aria-hidden="true">
+          <span class="lk"><span class="l1">Save the</span><br/><span class="l2">Date</span></span>
+        </div>
+        <div class="frame oval" id="frameOval" aria-hidden="true">
+          <img class="active" src="/images/engagement/porch-oval.png" alt="" />
+          <img src="/images/engagement/staircase-twirl-oval.png" alt="" />
+          <img src="/images/engagement/lawn-lift-oval.png" alt="" />
+          <img src="/images/engagement/walk-lakeside-oval.png" alt="" />
+        </div>
+        <div class="frame rect" id="frameRect" aria-hidden="true">
+          <img class="active" src="/images/engagement/walk-lakeside-framed.png" alt="" />
+          <img src="/images/engagement/porch-framed.png" alt="" />
+          <img src="/images/engagement/staircase-twirl-framed.png" alt="" />
+          <img src="/images/engagement/lawn-lift-framed.png" alt="" />
+        </div>
+      </div>
 
+      <div class="env-front" aria-hidden="true"></div>
+      <div class="env-date" aria-hidden="true">03 . 20 . 2027</div>
       <img class="floral right" src="/images/bouquet-cascade.png" alt="" aria-hidden="true" />
       <img class="floral left"  src="/images/bouquet-white.png"   alt="" aria-hidden="true" />
-
-      <div class="letter" id="letter">
-        <div class="lockup" aria-label="Save the Date">
-          <span class="word">Save</span><span class="the">the</span><span class="word">Date</span>
-        </div>
-
-        <div class="frames" aria-hidden="true">
-          <div class="frame oval" id="frameOval">
-            <img class="active" src="/images/engagement/porch-oval.png" alt="" />
-            <img src="/images/engagement/staircase-twirl-oval.png" alt="" />
-            <img src="/images/engagement/lawn-lift-oval.png" alt="" />
-            <img src="/images/engagement/walk-lakeside-oval.png" alt="" />
-          </div>
-          <div class="frame rect" id="frameRect">
-            <img class="active" src="/images/engagement/walk-lakeside-framed.png" alt="" />
-            <img src="/images/engagement/porch-framed.png" alt="" />
-            <img src="/images/engagement/staircase-twirl-framed.png" alt="" />
-            <img src="/images/engagement/lawn-lift-framed.png" alt="" />
-          </div>
-        </div>
-
-        <div class="names">Laura <span class="amp">&amp;</span> William</div>
-        <div class="rule"><span class="line"></span><span class="dot">✦</span><span class="line"></span></div>
-        <div class="date">03 &middot; 20 &middot; 2027</div>
-        <div class="place">Wichita, Kansas</div>
-        <div class="follow">formal invitation to follow</div>
-
-        <div class="countdown" id="countdown">
-          <div class="unit"><span class="num" data-cd="days">—</span><span class="lbl">Days</span></div>
-          <div class="unit"><span class="num" data-cd="hours">—</span><span class="lbl">Hours</span></div>
-          <div class="unit"><span class="num" data-cd="minutes">—</span><span class="lbl">Minutes</span></div>
-          <div class="unit"><span class="num" data-cd="seconds">—</span><span class="lbl">Seconds</span></div>
-        </div>
-      </div>
-
-      <div class="env" id="env">
-        <span class="env-face env-open" aria-hidden="true"></span>
-        <span class="env-face env-closed" aria-hidden="true"></span>
-        <span class="env-seal" aria-hidden="true"><img src="/images/seal-wax-green.png" alt="" width="120" height="120" /></span>
-      </div>
+      <span class="env-seal" aria-hidden="true"><img src="/images/seal-wax-green.png" alt="" width="120" height="120" /></span>
 
       <button class="opener" id="opener" type="button" aria-label="Open the save-the-date"></button>
+    </div>
+
+    <div class="details">
+      <div class="names">Laura <span class="amp">&amp;</span> William</div>
+      <div class="rule"><span class="line"></span><span class="dot">✦</span><span class="line"></span></div>
+      <div class="date">03 &middot; 20 &middot; 2027</div>
+      <div class="place">Wichita, Kansas</div>
+      <div class="follow">formal invitation to follow</div>
+      <div class="countdown" id="countdown">
+        <div class="unit"><span class="num" data-cd="days">—</span><span class="lbl">Days</span></div>
+        <div class="unit"><span class="num" data-cd="hours">—</span><span class="lbl">Hours</span></div>
+        <div class="unit"><span class="num" data-cd="minutes">—</span><span class="lbl">Minutes</span></div>
+        <div class="unit"><span class="num" data-cd="seconds">—</span><span class="lbl">Seconds</span></div>
+      </div>
     </div>
 
     <div class="open-cue" id="openCue">Click to open…</div>
