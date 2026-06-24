@@ -55,20 +55,24 @@
   button { font:inherit; color:inherit; background:none; border:none; cursor:pointer; }
   :focus-visible { outline:1.5px solid var(--green-soft); outline-offset:4px; }
 
-  /* Backdrop — portrait chapel on phones, landscape on laptops */
+  /* Backdrop — portrait chapel on phones, landscape on laptops.
+     The chapel is a real <img> (object-fit:cover) rather than a CSS
+     background: background-attachment/size are sized to the document on iOS,
+     which made the chapel drift and show only its gable. An <img> renders
+     identically everywhere. A gradient overlay sits above it, content above that. */
   .scene {
-    position:relative; min-height:100vh; min-height:100dvh; overflow-x:hidden;
+    position:relative; min-height:100vh; min-height:100dvh; overflow:hidden;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
     padding: calc(64px + var(--safe-top)) 16px calc(40px + var(--safe-bottom));
-    background:
-      linear-gradient(180deg, rgba(247,242,232,0.26) 0%, rgba(236,226,210,0.18) 42%, rgba(217,203,184,0.40) 100%),
-      url('/images/chapel-golden-portrait.png');
-    background-size:cover,cover; background-position:center,center top; background-repeat:no-repeat,no-repeat; background-attachment:scroll,scroll;
+    background:#e9dcc6;
   }
+  .scene-bg { position:absolute; inset:0; z-index:0; pointer-events:none; }
+  .scene-bg img { width:100%; height:100%; object-fit:cover; object-position:center 32%; display:block; }
+  .scene::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:linear-gradient(180deg, rgba(247,242,232,0.26) 0%, rgba(236,226,210,0.18) 42%, rgba(217,203,184,0.40) 100%); }
   @media (min-width:860px) {
-    .scene { background-image:
-      linear-gradient(180deg, rgba(247,242,232,0.30) 0%, rgba(236,226,210,0.22) 42%, rgba(217,203,184,0.40) 100%),
-      url('/images/chapel-golden-landscape.jpg'); }
+    .scene::after { background:linear-gradient(180deg, rgba(247,242,232,0.30) 0%, rgba(236,226,210,0.22) 42%, rgba(217,203,184,0.40) 100%); }
+    .scene-bg img { object-position:center center; }
   }
 
   /* "You have mail from" — closed state only */
@@ -236,6 +240,11 @@
 <body>
 
   <div class="scene">
+
+    <picture class="scene-bg" aria-hidden="true">
+      <source media="(min-width:860px)" srcset="/images/chapel-golden-landscape.jpg" />
+      <img src="/images/chapel-golden-portrait.png" alt="" width="853" height="1844" />
+    </picture>
 
     <div class="mail-head" id="mailHead">
       <div class="from">The Wedding of</div>
