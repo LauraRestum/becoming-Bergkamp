@@ -78,57 +78,40 @@
   body.opening .mail-head, body.opened .mail-head { opacity:0; transform:translateY(-12px); pointer-events:none; }
 
   /* ENVELOPE COMPOSITION ------------------------------------------------ */
-  .composition { position:relative; z-index:2; width:min(94vw,430px); margin:0 auto; aspect-ratio:863/733; }
-  @media (min-width:860px){ .composition { width:min(58vw,470px); } }
-
-  /* The fan of content that slides up out of the envelope.
-     Hidden behind the closed envelope on arrival, then fades up once opened. */
-  .fan { position:absolute; inset:0; z-index:3; transform:translateY(56%); opacity:0;
-    transition:transform 1100ms cubic-bezier(0.22,1,0.36,1), opacity 800ms ease; }
-  body.opened .fan { transform:translateY(0); opacity:1; }
-  html:not(.js) .fan { transform:translateY(0); opacity:1; }
-
-  /* Save-the-Date card, centre-back */
-  .std-card {
-    position:absolute; left:50%; bottom:36%; width:62%; transform:translateX(-50%) rotate(2deg);
-    z-index:2; background:#f5efe3; border:1px solid rgba(91,107,77,0.5); padding:16px 14px 18px; text-align:center;
-    box-shadow:0 8px 20px rgba(60,48,30,0.22);
+  /* A stack of pre-composed, transparent layers that share one 1920×1080
+     canvas, so they register perfectly when cross-faded. The whole thing is
+     one big button: tap anywhere on the envelope to open it. */
+  .composition {
+    position:relative; z-index:2; display:block; width:min(96vw,720px); margin:0 auto;
+    aspect-ratio:1920/1080; padding:0; background:none; border:0;
+    cursor:pointer; -webkit-tap-highlight-color:transparent;
+    transition:transform 260ms cubic-bezier(0.22,1,0.36,1);
   }
-  .std-card::before { content:""; position:absolute; left:6px; right:6px; top:6px; height:14px;
-    background:repeating-linear-gradient(90deg, var(--green-soft) 0 7px, transparent 7px 15px); opacity:0.8; }
-  .std-card .lk { display:block; font-family:var(--script); color:var(--gold); line-height:0.95; margin-top:14px; }
-  .std-card .lk .l1 { font-size:clamp(20px,6vw,30px); }
-  .std-card .lk .l2 { font-size:clamp(24px,7vw,36px); }
+  @media (min-width:860px){ .composition { width:min(64vw,760px); } }
 
-  /* Twin cycling frames */
-  .frame { position:absolute; aspect-ratio:1080/1350; filter:drop-shadow(0 10px 18px rgba(60,48,30,0.34)); }
-  .frame.oval { left:-4%; bottom:30%; width:52%; transform:rotate(-6deg); z-index:4; }
-  .frame.rect { right:-3%; bottom:25%; width:48%; transform:rotate(5deg); z-index:3; }
-  .frame img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; opacity:0; transition:opacity 900ms ease; }
-  .frame img.active { opacity:1; }
+  .env-layer { position:absolute; inset:0; width:100%; height:100%; object-fit:contain;
+    opacity:0; transition:opacity 750ms ease; pointer-events:none;
+    filter:drop-shadow(0 14px 30px rgba(60,48,30,0.28)); }
+  .env-layer.active { opacity:1; }
 
-  /* The envelope FRONT pocket — opaque, in front of the fan */
-  .env-front { position:absolute; inset:0; z-index:5; pointer-events:none;
-    background:url('/images/envelope-closed-cut.png') center bottom/contain no-repeat; }
+  /* Closed state: only the sealed envelope shows, and it breathes gently. */
+  .env-layer.closed { opacity:1; }
+  body:not(.opening):not(.opened) .composition:hover .env-layer.closed,
+  body:not(.opening):not(.opened) .composition:focus-visible .env-layer.closed { transform:none; }
+  body:not(.opening):not(.opened) .composition:hover,
+  body:not(.opening):not(.opened) .composition:focus-visible { transform:scale(1.02); }
+  body:not(.opening):not(.opened) .env-layer.closed { animation:breathe 3.4s ease-in-out infinite; }
+  @keyframes breathe { 0%,100%{ filter:drop-shadow(0 14px 30px rgba(60,48,30,0.26)); }
+                       50%{ filter:drop-shadow(0 18px 40px rgba(53,71,47,0.40)); } }
 
-  /* date sitting at the envelope mouth */
-  .env-date { position:absolute; left:50%; bottom:30%; transform:translateX(-50%); z-index:6;
-    font-family:var(--label); font-size:clamp(13px,3.6vw,17px); letter-spacing:0.18em; text-indent:0.18em; color:var(--ink); }
-
-  /* wax seal on the front — the opener you press to break open the envelope */
-  .env-seal { position:absolute; left:50%; bottom:11%; transform:translateX(-50%); width:18%; aspect-ratio:1/1;
-    border-radius:50%; overflow:hidden; z-index:8; box-shadow:0 6px 16px rgba(53,71,47,0.42); animation:throb 3.2s ease-in-out infinite;
-    cursor:pointer; pointer-events:auto; padding:0; transition:transform 240ms cubic-bezier(0.22,1,0.36,1); }
-  .env-seal img { width:135%; height:135%; max-width:none; margin:-17.5%; object-fit:cover; }
-  .env-seal:hover, .env-seal:focus-visible { transform:translateX(-50%) scale(1.06); }
-  body.opening .env-seal, body.opened .env-seal, html:not(.js) .env-seal { animation:none; pointer-events:none; cursor:default; }
-  @keyframes throb { 0%,100%{box-shadow:0 6px 16px rgba(53,71,47,0.42);} 50%{box-shadow:0 6px 26px rgba(53,71,47,0.66);} }
-
-  /* florals spilling out the right */
-  .floral { position:absolute; z-index:6; pointer-events:none; opacity:0; transition:opacity 800ms ease 500ms; }
-  .floral.right { right:-16%; bottom:-6%; width:50%; }
-  .floral.left { left:-13%; top:6%; width:34%; transform:scaleX(-1) rotate(6deg); }
-  body.opened .floral, html:not(.js) .floral { opacity:1; }
+  /* Opened state: the closed envelope fades away, the filled composition
+     fades in and rises a touch, as if lifting out of the envelope. */
+  body.opening .composition, body.opened .composition { cursor:default; }
+  body.opening .env-layer.closed, body.opened .env-layer.closed { opacity:0; animation:none; }
+  .env-layer.open { transform:translateY(3%) scale(0.985); transition:opacity 750ms ease, transform 900ms cubic-bezier(0.22,1,0.36,1); }
+  .env-layer.open.active { transform:translateY(0) scale(1); }
+  html:not(.js) .env-layer.closed { opacity:0; }
+  html:not(.js) .env-layer.open.first { opacity:1; transform:none; }
 
   /* scroll cue — only after the envelope is opened, inviting the details below */
   .scroll-cue { text-align:center; z-index:6; font-family:var(--label); font-size:clamp(11px,3vw,13px); letter-spacing:0.4em; text-indent:0.4em; text-transform:uppercase; color:var(--ink-soft); opacity:0; height:0; margin:0; pointer-events:none; }
@@ -157,7 +140,19 @@
       linear-gradient(180deg, rgba(246,241,231,0.52) 0%, rgba(244,238,226,0.40) 100%),
       url('/images/monogram-light-desktop.jpg'); }
   }
-  .details { position:relative; z-index:2; width:min(92vw,520px); margin:0 auto; text-align:center; }
+  /* The intro sits on a lace-edged linen napkin; cigar boxes are a fun aside. */
+  .info-stage { position:relative; z-index:2; width:min(92vw,520px); margin:0 auto;
+    display:flex; align-items:center; justify-content:center; }
+  .napkin { position:absolute; left:50%; top:50%; z-index:0;
+    width:clamp(480px,168%,760px); max-width:none; height:auto;
+    transform:translate(-50%,-50%) rotate(-1.6deg);
+    filter:drop-shadow(0 20px 45px rgba(60,48,30,0.22)); pointer-events:none; }
+  .cigar-fun { position:absolute; z-index:1; width:clamp(118px,26vw,200px); right:-3%;
+    bottom:calc(16px + var(--safe-bottom)); transform:rotate(5deg);
+    filter:drop-shadow(0 14px 24px rgba(60,48,30,0.32)); pointer-events:none; }
+  @media (min-width:860px){ .cigar-fun{ right:4%; bottom:6%; } }
+
+  .details { position:relative; z-index:1; width:min(80%,360px); padding:18px 8px; text-align:center; }
   .names { font-family:var(--serif); font-size:clamp(22px,6.2vw,34px); letter-spacing:0.13em; text-indent:0.13em; text-transform:uppercase; color:var(--green); }
   .names .amp { font-style:italic; text-transform:none; color:var(--gold); padding:0 0.1em; letter-spacing:0; }
   .rule { display:flex; align-items:center; justify-content:center; gap:12px; color:var(--gold); margin:12px 0; }
@@ -211,8 +206,9 @@
   @keyframes shake { 10%,90%{transform:translateX(-2px);} 20%,80%{transform:translateX(4px);} 30%,50%,70%{transform:translateX(-7px);} 40%,60%{transform:translateX(7px);} }
 
   @media (prefers-reduced-motion: reduce) {
-    .fan,.frame img,.floral,.details,.env-seal,.corner-seal,.mail-head,.open-cue,.scroll-cue,.info,.gate,.gate-card { transition:none !important; animation:none !important; }
-    .fan { transform:translateY(0) !important; } .floral,.details { opacity:1 !important; transform:none !important; }
+    .composition,.env-layer,.details,.corner-seal,.mail-head,.open-cue,.scroll-cue,.info,.gate,.gate-card { transition:none !important; animation:none !important; }
+    .env-layer.open.active { transform:none !important; }
+    .details { opacity:1 !important; transform:none !important; }
     body.opened .scroll-cue { opacity:0.85 !important; }
   }
 </style>
@@ -226,40 +222,23 @@
       <div class="who">Laura &amp; William</div>
     </div>
 
-    <div class="composition">
-      <div class="fan">
-        <div class="std-card" aria-hidden="true">
-          <span class="lk"><span class="l1">Save the</span><br/><span class="l2">Date</span></span>
-        </div>
-        <div class="frame oval" id="frameOval" aria-hidden="true">
-          <img class="active" src="/images/engagement/porch-oval.png" alt="" />
-          <img src="/images/engagement/staircase-twirl-oval.png" alt="" />
-          <img src="/images/engagement/lawn-lift-oval.png" alt="" />
-          <img src="/images/engagement/walk-lakeside-oval.png" alt="" />
-        </div>
-        <div class="frame rect" id="frameRect" aria-hidden="true">
-          <img class="active" src="/images/engagement/walk-lakeside-framed.png" alt="" />
-          <img src="/images/engagement/porch-framed.png" alt="" />
-          <img src="/images/engagement/staircase-twirl-framed.png" alt="" />
-          <img src="/images/engagement/lawn-lift-framed.png" alt="" />
-        </div>
-      </div>
+    <button class="composition" id="opener" type="button" aria-label="Tap to open the save the date">
+      <img class="env-layer closed active" src="/images/envelope-lace-closed.png" alt="A lace-trimmed envelope from Laura &amp; William" width="1920" height="1080" />
+      <img class="env-layer open first" src="/images/std-compose-1.png" alt="Laura &amp; William — Save the Date, 3.20.27" width="1920" height="1080" aria-hidden="true" />
+      <img class="env-layer open" src="/images/std-compose-2.png" alt="" width="1920" height="1080" aria-hidden="true" />
+      <img class="env-layer open" src="/images/std-compose-3.png" alt="" width="1920" height="1080" aria-hidden="true" />
+      <img class="env-layer open" src="/images/std-compose-4.png" alt="" width="1920" height="1080" aria-hidden="true" />
+    </button>
 
-      <div class="env-front" aria-hidden="true"></div>
-      <div class="env-date" aria-hidden="true">03 . 20 . 2027</div>
-      <img class="floral right" src="/images/bouquet-cascade.png" alt="" aria-hidden="true" />
-      <img class="floral left"  src="/images/bouquet-white.png"   alt="" aria-hidden="true" />
-      <button class="env-seal" id="opener" type="button" aria-label="Press the wax seal to open the invitation">
-        <img src="/images/seal-wax-green.png" alt="" width="120" height="120" />
-      </button>
-    </div>
-
-    <div class="open-cue" id="openCue">Press the seal to open</div>
+    <div class="open-cue" id="openCue">Tap to open</div>
     <div class="scroll-cue" id="scrollCue" aria-hidden="true">Scroll for details <span class="arr">&darr;</span></div>
   </div>
 
   <section class="info">
-    <div class="details">
+    <img class="cigar-fun" src="/images/cigar-boxes-bergkamp.png" alt="" aria-hidden="true" />
+    <div class="info-stage">
+      <img class="napkin" src="/images/napkin-lace.png" alt="" aria-hidden="true" />
+      <div class="details">
       <div class="names">Laura <span class="amp">&amp;</span> William</div>
       <div class="rule"><span class="line"></span><span class="dot">✦</span><span class="line"></span></div>
       <div class="date">03 &middot; 20 &middot; 2027</div>
@@ -270,6 +249,7 @@
         <div class="unit"><span class="num" data-cd="hours">—</span><span class="lbl">Hours</span></div>
         <div class="unit"><span class="num" data-cd="minutes">—</span><span class="lbl">Minutes</span></div>
         <div class="unit"><span class="num" data-cd="seconds">—</span><span class="lbl">Seconds</span></div>
+      </div>
       </div>
     </div>
   </section>

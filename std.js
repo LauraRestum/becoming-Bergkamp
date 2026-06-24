@@ -21,39 +21,38 @@
   function setUnlocked() { try { sessionStorage.setItem(UNLOCK_KEY, '1'); } catch (e) {} }
 
   /* ------------------------- Envelope reveal ------------------------ */
+  /* The envelope is a single button holding a stack of pre-composed layers:
+     one closed envelope, then the filled "save the date" compositions. Tap
+     anywhere on it to cross-fade from the closed envelope to the open
+     composition, then gently cycle through the photo variants. */
   var opener = document.getElementById('opener');
+  var closedLayer = document.querySelector('.env-layer.closed');
+  var openLayers = Array.prototype.slice.call(document.querySelectorAll('.env-layer.open'));
   var opened = false;
 
   function openEnvelope() {
     if (opened) return;
     opened = true;
     document.body.classList.add('opening');
+    if (closedLayer) closedLayer.classList.remove('active');
+    if (openLayers[0]) openLayers[0].classList.add('active');
     if (reduce) { document.body.classList.add('opened'); startFrames(); return; }
     setTimeout(function () { document.body.classList.add('opened'); startFrames(); }, 700);
   }
   if (opener) opener.addEventListener('click', openEnvelope);
 
-  /* ------------------- Cycling photo frames ------------------------- */
-  function cycler(el, interval, delay) {
-    if (!el) return;
-    var imgs = Array.prototype.slice.call(el.querySelectorAll('img'));
-    if (imgs.length < 2) return;
-    var i = 0;
-    setTimeout(function () {
-      setInterval(function () {
-        imgs[i].classList.remove('active');
-        i = (i + 1) % imgs.length;
-        imgs[i].classList.add('active');
-      }, interval);
-    }, delay);
-  }
+  /* --------------- Cycling save-the-date compositions --------------- */
   var framesStarted = false;
   function startFrames() {
     if (framesStarted) return;
     framesStarted = true;
-    // Offset the two frames so they change at different moments.
-    cycler(document.getElementById('frameOval'), 3600, 0);
-    cycler(document.getElementById('frameRect'), 3600, 1800);
+    if (openLayers.length < 2) return;
+    var i = 0;
+    setInterval(function () {
+      openLayers[i].classList.remove('active');
+      i = (i + 1) % openLayers.length;
+      openLayers[i].classList.add('active');
+    }, 4200);
   }
 
   /* ---------------------------- Countdown --------------------------- */
