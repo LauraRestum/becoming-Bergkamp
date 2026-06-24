@@ -83,7 +83,7 @@
   .gramophone { position:absolute; left:0; bottom:0; z-index:2; pointer-events:none;
     width:clamp(120px,30vw,200px); height:auto;
     filter:drop-shadow(0 12px 22px rgba(60,48,30,0.32)); }
-  @media (min-width:860px){ .gramophone { width:clamp(150px,15vw,220px); } }
+  @media (min-width:860px){ .gramophone { width:clamp(200px,16vw,240px); } }
 
   /* "You have mail from" — closed state only */
   .mail-head { position:absolute; top:calc(5vh + var(--safe-top)); left:0; right:0; text-align:center; z-index:6; padding:0 24px; transition:opacity 600ms ease, transform 600ms ease; }
@@ -200,7 +200,13 @@
       drop-shadow(3px 5px 5px rgba(60,48,30,0.32))
       drop-shadow(20px 26px 28px rgba(43,34,20,0.42)); }
   @media (min-width:860px){
-    .cigar-still { right:4%; bottom:13%; width:clamp(190px,19vw,250px); }
+    /* Desktop: the napkin renders at a fixed ~1080px (150% of the 720px stage),
+       centred via top:50%, so the cigar boxes are anchored to its lower-left
+       corner — offsets measured out from the centre. Anchoring with top (not
+       bottom) keeps them pinned to the napkin on short viewports too. The napkin
+       (.info-stage, z-index 2) tucks over the boxes' top edge. */
+    .cigar-still { right:auto; bottom:auto; left:calc(50% - 560px); top:calc(50% + 233px);
+      width:300px; }
     .cigar-still__boxes { filter:
       drop-shadow(4px 6px 6px rgba(60,48,30,0.32))
       drop-shadow(26px 32px 36px rgba(43,34,20,0.42)); }
@@ -216,7 +222,7 @@
   }
 
   .details { position:relative; z-index:1; width:min(82%,380px); padding:10px 8px; text-align:center; }
-  .names { font-family:var(--serif); font-size:clamp(21px,5.8vw,32px); letter-spacing:0.13em; text-indent:0.13em; text-transform:uppercase; color:var(--green); line-height:1.1; }
+  .names { font-family:var(--serif); font-size:clamp(21px,5.8vw,32px); letter-spacing:0.13em; text-indent:0.13em; text-transform:uppercase; color:var(--ink); line-height:1.1; }
   .names .amp { font-style:italic; text-transform:none; color:var(--gold); padding:0 0.1em; letter-spacing:0; }
   .rule { display:flex; align-items:center; justify-content:center; gap:12px; color:var(--gold); margin:8px 0; }
   .rule .line { width:40px; height:1px; background:currentColor; opacity:0.6; } .rule .dot { font-size:10px; }
@@ -225,11 +231,13 @@
   .follow { font-family:var(--script); font-size:clamp(18px,5vw,26px); line-height:1.15; color:var(--gold); margin-top:6px; }
   .countdown { display:flex; justify-content:center; gap:clamp(12px,4.4vw,26px); margin-top:11px; }
   .countdown .unit { display:flex; flex-direction:column; align-items:center; gap:4px; min-width:40px; }
-  .countdown .num { font-family:var(--serif); font-size:clamp(21px,5.6vw,31px); line-height:1; color:var(--green); }
+  .countdown .num { font-family:var(--serif); font-size:clamp(21px,5.6vw,31px); line-height:1; color:var(--ink); }
   .countdown .lbl { font-family:var(--label); font-size:clamp(8px,2.2vw,10px); letter-spacing:0.3em; text-indent:0.3em; text-transform:uppercase; color:var(--ink-faint); }
 
   /* Laptop: enlarge the intro text and countdown past their mobile caps.
-     Placed after the base rules above so these desktop sizes win the cascade. */
+     Placed after the base rules above so these desktop sizes win the cascade.
+     Colour is inherited from the base rules, which are now inked (near-black);
+     only the ampersand, hairline rule and script line stay gold. */
   @media (min-width:860px){
     .details { width:min(80%,540px); }
     .names { font-size:44px; }
