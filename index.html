@@ -183,12 +183,12 @@
     filter:drop-shadow(0 20px 45px rgba(60,48,30,0.22)); pointer-events:none; }
 
   /* The Bergkamp cigar boxes — a playful aside resting on the monogram cloth
-     in the lower-right. Pulled up out of the very corner so it clears the
-     fixed wax seal (bottom-right), leaving the bottom-left to the gramophone,
-     and layered below .info-stage so the napkin tucks over its top edge while
-     the boxes peek onto the cloth below. */
+     in the lower-right. Dropped low so they sit below the invitation line and
+     countdown (which now hang on the cloth just under the napkin), leaving the
+     bottom-left to the gramophone, and layered below .info-stage so the napkin
+     tucks over its top edge while the boxes peek onto the cloth below. */
   .cigar-still { position:absolute; z-index:1; pointer-events:none;
-    right:-1%; bottom:21%;
+    right:-1%; bottom:6%;
     width:clamp(140px,40vw,200px); }
   /* Layered, directional shadow gives the boxes real lift off the cloth:
      a tight contact shadow hugs the base, a larger soft shadow casts down
@@ -229,11 +229,11 @@
   .napkin-area { position:absolute; left:50%; top:50%; z-index:1;
     transform:translate(-50%,-50%);
     width:clamp(580px,168%,800px); aspect-ratio:1920/1080; pointer-events:none; }
-  .details { position:absolute; left:50%; bottom:6%; transform:translateX(-50%);
-    width:min(88%,340px); text-align:center; pointer-events:auto; }
+  .details { position:absolute; left:50%; top:100%; transform:translateX(-50%);
+    width:min(88%,340px); text-align:center; pointer-events:auto; margin-top:4px; }
   .follow { font-family:var(--script); font-size:clamp(16px,4.6vw,24px); line-height:1.15; color:var(--gold); }
-  /* The countdown width is capped so its fixed 25%-aspect height stays inside
-     the napkin's lower satin band, clear of the inscription above. */
+  /* The countdown width is capped so its fixed 25%-aspect height stays compact
+     on the cloth below the napkin. */
   .countdown { width:min(100%,210px); margin:7px auto 0; }
   .countdown .unit { display:flex; flex-direction:column; align-items:center; gap:4px; min-width:40px; }
   .countdown .num { font-family:var(--serif); font-size:clamp(21px,5.6vw,31px); line-height:1; color:var(--ink); }
@@ -244,7 +244,7 @@
      Placed after the base rules above so these desktop sizes win the cascade. */
   @media (min-width:860px){
     .napkin-area { width:clamp(820px,150%,1180px); }
-    .details { width:min(80%,460px); bottom:8%; }
+    .details { width:min(80%,460px); top:96%; }
     .follow { font-size:34px; }
     .countdown { width:min(100%,300px); margin-top:12px; }
     .countdown .unit { min-width:58px; }
@@ -295,7 +295,7 @@
   @media (prefers-reduced-motion: reduce) {
     .composition,.env-layer,.details,.corner-seal,.mail-head,.open-cue,.scroll-cue,.info,.gate,.gate-card { transition:none !important; animation:none !important; }
     .env-layer.open.active { transform:none !important; }
-    .details { opacity:1 !important; transform:none !important; }
+    .details { opacity:1 !important; transform:translateX(-50%) !important; }
     body.opened .scroll-cue { opacity:0.85 !important; }
   }
 </style>
