@@ -52,7 +52,7 @@
       openLayers[i].classList.remove('active');
       i = (i + 1) % openLayers.length;
       openLayers[i].classList.add('active');
-    }, 4200);
+    }, 5200);
   }
 
   /* ---------------------------- Countdown --------------------------- */
