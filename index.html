@@ -75,6 +75,16 @@
     .scene-bg img { object-position:center center; }
   }
 
+  /* Gramophone — a transparent looping animation pinned to the bottom-left
+     corner of the opening scene. The WebP was pre-cropped so the object's
+     base is flush with the bottom edge of the file, so bottom:0 sits the
+     gramophone exactly on the section's bottom line. Sits above the backdrop
+     and its gradient overlay, below the gateway gate/seal. */
+  .gramophone { position:absolute; left:0; bottom:0; z-index:4; pointer-events:none;
+    width:clamp(120px,30vw,230px); height:auto;
+    filter:drop-shadow(0 12px 22px rgba(60,48,30,0.32)); }
+  @media (min-width:860px){ .gramophone { width:clamp(190px,18vw,300px); } }
+
   /* "You have mail from" — closed state only */
   .mail-head { position:absolute; top:calc(5vh + var(--safe-top)); left:0; right:0; text-align:center; z-index:6; padding:0 24px; transition:opacity 600ms ease, transform 600ms ease; }
   .mail-head .from { font-family:var(--label); font-size:clamp(10px,2.8vw,12px); letter-spacing:0.4em; text-indent:0.4em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:10px; }
@@ -278,6 +288,8 @@
 
     <div class="open-cue" id="openCue">Tap to open</div>
     <div class="scroll-cue" id="scrollCue" aria-hidden="true">Scroll for details <span class="arr">&darr;</span></div>
+
+    <img class="gramophone" src="/images/gramophone.webp" alt="" aria-hidden="true" width="360" height="542" />
   </div>
 
   <section class="info">
