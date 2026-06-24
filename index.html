@@ -63,7 +63,7 @@
     background:
       linear-gradient(180deg, rgba(247,242,232,0.26) 0%, rgba(236,226,210,0.18) 42%, rgba(217,203,184,0.40) 100%),
       url('/images/chapel-golden-portrait.png');
-    background-size:cover,cover; background-position:center,center top; background-repeat:no-repeat,no-repeat; background-attachment:scroll,fixed;
+    background-size:cover,cover; background-position:center,center top; background-repeat:no-repeat,no-repeat; background-attachment:scroll,scroll;
   }
   @media (min-width:860px) {
     .scene { background-image:
@@ -81,18 +81,33 @@
   /* A stack of pre-composed, transparent layers that share one 1920×1080
      canvas, so they register perfectly when cross-faded. The whole thing is
      one big button: tap anywhere on the envelope to open it. */
+  /* The envelope art only occupies the centre ~55% of its 1920x1080 canvas.
+     On phones we crop those empty margins away with object-fit:cover and a
+     squarer box, so the envelope reads large and centred without the box
+     overflowing the viewport (an oversized box pins left and clips the art).
+     Laptops keep the full 16:9 contain framing, where there is room to spare. */
   .composition {
-    position:relative; z-index:2; display:block; width:min(96vw,720px); margin:0 auto;
-    aspect-ratio:1920/1080; padding:0; background:none; border:0;
+    position:relative; z-index:2; display:block; width:min(96vw,540px); margin:0 auto;
+    aspect-ratio:1.08; padding:0; background:none; border:0;
     cursor:pointer; -webkit-tap-highlight-color:transparent;
     transition:transform 260ms cubic-bezier(0.22,1,0.36,1);
   }
-  @media (min-width:860px){ .composition { width:min(72vw,1000px); } }
+  @media (min-width:860px){ .composition { width:min(72vw,1000px); aspect-ratio:1920/1080; } }
 
-  .env-layer { position:absolute; inset:0; width:100%; height:100%; object-fit:contain;
+  .env-layer { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:48% 50%;
     opacity:0; transition:opacity 1200ms ease-in-out; pointer-events:none;
     filter:drop-shadow(0 14px 30px rgba(60,48,30,0.28)); }
+  @media (min-width:860px){ .env-layer { object-fit:contain; object-position:center; } }
   .env-layer.active { opacity:1; }
+
+  /* Green wax seal pressed onto the closed envelope's flap. Lives above the
+     envelope layer, fades away the moment the envelope opens, and never
+     intercepts the tap (the whole composition is the button). */
+  .env-seal { position:absolute; left:50.5%; top:61%; width:13%; aspect-ratio:1/1; transform:translate(-50%,-50%);
+    z-index:3; pointer-events:none; opacity:1; transition:opacity 600ms ease;
+    border-radius:50%; overflow:hidden; filter:drop-shadow(0 5px 11px rgba(35,42,28,0.5)); }
+  .env-seal img { width:135%; height:135%; max-width:none; margin:-17.5%; object-fit:cover; display:block; }
+  body.opening .env-seal, body.opened .env-seal, html:not(.js) .env-seal { opacity:0; }
 
   /* Closed state: only the sealed envelope shows, and it breathes gently. */
   .env-layer.closed { opacity:1; }
@@ -229,6 +244,7 @@
 
     <button class="composition" id="opener" type="button" aria-label="Tap to open the save the date">
       <img class="env-layer closed active" src="/images/envelope-lace-closed.png" alt="A lace-trimmed envelope from Laura &amp; William" width="1920" height="1080" />
+      <span class="env-seal" aria-hidden="true"><img src="/images/seal-wax-green.png" alt="" width="300" height="300" /></span>
       <img class="env-layer open first" src="/images/std-compose-1.png" alt="Laura &amp; William — Save the Date, 3.20.27" width="1920" height="1080" aria-hidden="true" />
       <img class="env-layer open" src="/images/std-compose-2.png" alt="" width="1920" height="1080" aria-hidden="true" />
       <img class="env-layer open" src="/images/std-compose-3.png" alt="" width="1920" height="1080" aria-hidden="true" />
