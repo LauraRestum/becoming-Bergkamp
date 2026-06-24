@@ -30,14 +30,17 @@
 <meta property="og:title" content="Save the Date — Laura &amp; William · 20 March 2027" />
 <meta property="og:description" content="Laura &amp; William are getting married in Wichita, Kansas. A formal invitation to follow." />
 <meta property="og:url" content="https://becoming-bergkamp.vercel.app/" />
-<meta property="og:image" content="https://becoming-bergkamp.vercel.app/images/seal.png" />
+<meta property="og:image" content="https://becoming-bergkamp.vercel.app/images/envelope-closed.png" />
 <meta property="og:locale" content="en_US" />
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Save the Date — Laura &amp; William · 20 March 2027" />
 <meta name="twitter:description" content="Laura &amp; William are getting married in Wichita, Kansas. A formal invitation to follow." />
-<meta name="twitter:image" content="https://becoming-bergkamp.vercel.app/images/seal.png" />
+<meta name="twitter:image" content="https://becoming-bergkamp.vercel.app/images/envelope-closed.png" />
+
+<!-- Mark that JS is available, so the envelope intro only shows when it can work. -->
+<script>document.documentElement.className += ' js';</script>
 
 <style>
   /* Fonts shipped with the repo (same faces the full site uses) */
@@ -69,7 +72,9 @@
     --paper-faint: rgba(240, 240, 240, 0.42);
     --gold: #b89149;
     --gold-soft: #cdab68;
-    --sage: #8d9170;
+    --green: #35472f;
+    --green-soft: #5b6b4d;
+    --taupe: #c0b0a3;
     --serif: 'Rosaline', serif;
     --script: 'Hijrnotes', cursive;
     --label: 'Vintage Glamour', serif;
@@ -93,7 +98,7 @@
   body::before {
     content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
     background:
-      radial-gradient(130% 100% at 50% 18%, rgba(141, 145, 112, 0.10) 0%, transparent 45%),
+      radial-gradient(130% 100% at 50% 18%, rgba(91, 107, 77, 0.12) 0%, transparent 45%),
       radial-gradient(120% 90% at 50% 100%, rgba(184, 145, 73, 0.10) 0%, transparent 55%),
       radial-gradient(120% 120% at 50% 40%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%);
   }
@@ -103,104 +108,105 @@
   }
 
   /* ============================================================
-     SAVE THE DATE — single elegant panel
+     ENVELOPE INTRO — press the seal to open
+     ============================================================ */
+  .reveal {
+    position: fixed; inset: 0; z-index: 60;
+    display: none;                 /* shown only when JS is present (html.js) */
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: clamp(20px, 4vh, 36px);
+    padding: calc(28px + var(--safe-top)) 22px calc(28px + var(--safe-bottom));
+    background:
+      radial-gradient(120% 100% at 50% 40%, #cabbae 0%, var(--taupe) 55%, #b09e90 100%);
+    transition: opacity 900ms ease;
+  }
+  html.js .reveal { display: flex; }
+  body.opened .reveal { opacity: 0; pointer-events: none; }
+  .reveal.gone { display: none; }
+
+  .envelope {
+    position: relative;
+    width: min(82vw, 60vh, 480px);
+    aspect-ratio: 1 / 1;
+    border-radius: 4px;
+    transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .env-face {
+    position: absolute; inset: 0;
+    background-size: contain; background-position: center; background-repeat: no-repeat;
+    transition: opacity 760ms ease;
+  }
+  .env-closed { background-image: url('/images/envelope-closed.png'); opacity: 1; }
+  .env-open   { background-image: url('/images/envelope-open-chapel.png'); opacity: 0; }
+  body.opening .env-closed { opacity: 0; }
+  body.opening .env-open   { opacity: 1; }
+  body.opening .envelope   { transform: translateY(-2%) scale(1.03); }
+
+  /* Green wax seal sitting on the flap — circular crop hides the white margin */
+  .env-seal {
+    position: absolute; top: 49%; left: 50%;
+    width: 26%; aspect-ratio: 1 / 1;
+    transform: translate(-50%, -50%);
+    border-radius: 50%; overflow: hidden;
+    box-shadow: 0 6px 16px rgba(53, 71, 47, 0.4);
+    transition: transform 620ms cubic-bezier(0.5, -0.4, 0.3, 1.4), opacity 520ms ease;
+    animation: sealThrob 3.4s ease-in-out infinite;
+  }
+  .env-seal img { width: 135%; height: 135%; max-width: none; margin: -17.5%; object-fit: cover; }
+  body.opening .env-seal { opacity: 0; transform: translate(-50%, -160%) rotate(-12deg) scale(0.7); animation: none; }
+  @keyframes sealThrob {
+    0%, 100% { box-shadow: 0 6px 16px rgba(53,71,47,0.4); }
+    50% { box-shadow: 0 6px 26px rgba(53,71,47,0.62); }
+  }
+
+  .env-cue {
+    font-family: var(--label); font-size: clamp(9px, 2.6vw, 11px);
+    letter-spacing: 0.42em; text-indent: 0.42em; text-transform: uppercase;
+    color: #6f5f51;
+    animation: cuePulse 2.8s ease-in-out infinite;
+  }
+  body.opening .env-cue { opacity: 0; transition: opacity 300ms ease; animation: none; }
+  @keyframes cuePulse { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+
+  /* ============================================================
+     SAVE THE DATE — the card behind the envelope
      ============================================================ */
   .std {
     position: relative; z-index: 1;
     min-height: 100vh; min-height: 100dvh;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     text-align: center;
-    padding: calc(40px + var(--safe-top)) 24px calc(34px + var(--safe-bottom));
+    padding: calc(44px + var(--safe-top)) 24px calc(40px + var(--safe-bottom));
     gap: clamp(18px, 3.4vh, 30px);
   }
 
-  /* The gold "B" seal — tucked discreetly in the corner as the secret door. */
-  .corner-seal {
-    position: fixed; z-index: 40;
-    right: calc(18px + env(safe-area-inset-right));
-    bottom: calc(18px + env(safe-area-inset-bottom));
-    display: inline-flex; align-items: center; justify-content: center;
-    width: clamp(54px, 13vw, 72px); height: clamp(54px, 13vw, 72px);
-    border-radius: 50%;
-    opacity: 0; transform: scale(0.9);
-    animation: sealIn 1400ms cubic-bezier(0.22, 1, 0.36, 1) 1700ms forwards;
-    transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .corner-seal::before {
-    content: ""; position: absolute; inset: -22%;
-    border-radius: 50%; pointer-events: none;
-    background: radial-gradient(circle at 50% 46%, rgba(184, 145, 73, 0.30) 0%, rgba(184, 145, 73, 0.10) 42%, transparent 70%);
-    filter: blur(5px); opacity: 0;
-    animation: sealGlow 4.6s ease-in-out 2400ms infinite alternate;
-  }
-  .corner-seal img {
-    position: relative; width: 100%; height: 100%; object-fit: contain;
-    opacity: 0.82;
-    filter: drop-shadow(0 6px 16px rgba(0,0,0,0.55));
-    transition: opacity 320ms ease;
-  }
-  .corner-seal:hover, .corner-seal:focus-visible { transform: scale(1.08); }
-  .corner-seal:hover img, .corner-seal:focus-visible img { opacity: 1; }
-  .corner-seal:hover::before, .corner-seal:focus-visible::before { animation-duration: 2.6s; }
-  /* A whisper of a label, revealed only on hover/focus. */
-  .corner-seal .seal-label {
-    position: absolute; right: calc(100% + 12px); top: 50%;
-    transform: translateY(-50%) translateX(6px);
-    font-family: var(--label); font-size: 9px; letter-spacing: 0.4em; text-indent: 0.4em;
-    text-transform: uppercase; color: var(--gold-soft); white-space: nowrap;
-    opacity: 0; pointer-events: none;
-    transition: opacity 280ms ease, transform 280ms ease;
-  }
-  .corner-seal:hover .seal-label, .corner-seal:focus-visible .seal-label {
-    opacity: 1; transform: translateY(-50%) translateX(0);
-  }
-  @keyframes sealGlow { 0% { opacity: 0.45; } 100% { opacity: 0.95; } }
-  @keyframes sealIn { to { opacity: 1; transform: scale(1); } }
-
-  /* SAVE / the / DATE lockup */
-  .std-lockup {
-    display: flex; flex-direction: column; align-items: center; line-height: 0.92;
-    opacity: 0; animation: riseIn 1200ms ease-out 700ms forwards;
-  }
+  .std-lockup { display: flex; flex-direction: column; align-items: center; line-height: 0.92; }
   .std-lockup .word {
     font-family: var(--serif); font-weight: 400;
     font-size: clamp(54px, 15vw, 116px);
-    letter-spacing: 0.10em;
-    text-indent: 0.10em;
-    color: var(--paper);
-    text-shadow: 0 2px 30px rgba(0,0,0,0.6);
+    letter-spacing: 0.10em; text-indent: 0.10em;
+    color: var(--paper); text-shadow: 0 2px 30px rgba(0,0,0,0.6);
   }
   .std-lockup .the {
     font-family: var(--script); font-weight: 400;
     font-size: clamp(46px, 13vw, 96px);
-    color: var(--gold-soft);
-    line-height: 0.6;
-    margin: clamp(-10px, -1.4vw, -4px) 0;
-    transform: rotate(-4deg);
+    color: var(--gold-soft); line-height: 0.6;
+    margin: clamp(-10px, -1.4vw, -4px) 0; transform: rotate(-4deg);
     text-shadow: 0 2px 22px rgba(184, 145, 73, 0.28);
   }
 
-  .std-rule {
-    display: flex; align-items: center; gap: 14px;
-    color: var(--gold); opacity: 0;
-    animation: riseIn 1200ms ease-out 950ms forwards;
-  }
+  .std-rule { display: flex; align-items: center; gap: 14px; color: var(--gold); }
   .std-rule .line { width: clamp(34px, 9vw, 64px); height: 1px; background: currentColor; opacity: 0.6; }
   .std-rule .dot { font-size: 11px; letter-spacing: 0.2em; }
 
-  .std-details {
-    display: flex; flex-direction: column; align-items: center; gap: 12px;
-    opacity: 0; animation: riseIn 1200ms ease-out 1050ms forwards;
-  }
+  .std-details { display: flex; flex-direction: column; align-items: center; gap: 12px; }
   .std-date {
     font-family: var(--label); font-size: clamp(15px, 4vw, 19px);
-    letter-spacing: 0.46em; text-indent: 0.46em; text-transform: uppercase;
-    color: var(--paper);
+    letter-spacing: 0.46em; text-indent: 0.46em; text-transform: uppercase; color: var(--paper);
   }
   .std-names {
     font-family: var(--serif); font-size: clamp(22px, 6.4vw, 36px);
-    letter-spacing: 0.16em; text-indent: 0.16em; text-transform: uppercase;
-    color: var(--paper);
+    letter-spacing: 0.16em; text-indent: 0.16em; text-transform: uppercase; color: var(--paper);
   }
   .std-names .amp {
     font-family: var(--serif); font-style: italic; text-transform: none;
@@ -208,19 +214,14 @@
   }
   .std-place {
     font-family: var(--label); font-size: clamp(10px, 2.9vw, 12px);
-    letter-spacing: 0.52em; text-indent: 0.52em; text-transform: uppercase;
-    color: var(--paper-soft);
+    letter-spacing: 0.52em; text-indent: 0.52em; text-transform: uppercase; color: var(--paper-soft);
   }
   .std-follow {
     font-family: var(--script); font-size: clamp(22px, 6vw, 30px);
     color: var(--gold-soft); margin-top: 4px; transform: rotate(-2deg);
   }
 
-  /* Countdown */
-  .std-countdown {
-    display: flex; gap: clamp(16px, 5vw, 34px); align-items: flex-start;
-    opacity: 0; animation: riseIn 1200ms ease-out 1200ms forwards;
-  }
+  .std-countdown { display: flex; gap: clamp(16px, 5vw, 34px); align-items: flex-start; }
   .std-countdown .unit { display: flex; flex-direction: column; align-items: center; gap: 7px; min-width: 44px; }
   .std-countdown .num {
     font-family: var(--serif); font-size: clamp(26px, 7vw, 40px);
@@ -228,33 +229,78 @@
   }
   .std-countdown .lbl {
     font-family: var(--label); font-size: clamp(8px, 2.4vw, 10px);
-    letter-spacing: 0.34em; text-indent: 0.34em; text-transform: uppercase;
-    color: var(--paper-faint);
+    letter-spacing: 0.34em; text-indent: 0.34em; text-transform: uppercase; color: var(--paper-faint);
   }
 
-  @keyframes riseIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  /* Card elements wait, then rise in once the envelope is opened.
+     Without JS (no html.js) they are simply visible from the start. */
+  html.js .std > * { opacity: 0; }
+  body.opened .std-lockup   { animation: riseIn 1100ms ease-out 120ms forwards; }
+  body.opened .std-rule     { animation: riseIn 1100ms ease-out 320ms forwards; }
+  body.opened .std-details  { animation: riseIn 1100ms ease-out 460ms forwards; }
+  body.opened .std-countdown{ animation: riseIn 1100ms ease-out 640ms forwards; }
+  @keyframes riseIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ============================================================
+     CORNER SEAL — the discreet green-wax door to the full site
+     ============================================================ */
+  .corner-seal {
+    position: fixed; z-index: 40;
+    right: calc(18px + env(safe-area-inset-right));
+    bottom: calc(18px + env(safe-area-inset-bottom));
+    width: clamp(54px, 13vw, 72px); height: clamp(54px, 13vw, 72px);
+    border-radius: 50%; overflow: visible;
+    opacity: 0; transform: scale(0.9); pointer-events: none;
+    transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  body.opened .corner-seal {
+    pointer-events: auto;
+    animation: sealIn 1200ms cubic-bezier(0.22, 1, 0.36, 1) 900ms forwards;
+  }
+  .corner-seal .disc {
+    position: absolute; inset: 0; border-radius: 50%; overflow: hidden;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+    opacity: 0.9; transition: opacity 320ms ease;
+  }
+  .corner-seal .disc img { width: 135%; height: 135%; max-width: none; margin: -17.5%; object-fit: cover; }
+  .corner-seal::before {
+    content: ""; position: absolute; inset: -24%; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(circle, rgba(91,107,77,0.36) 0%, rgba(91,107,77,0.12) 45%, transparent 72%);
+    filter: blur(5px); opacity: 0;
+    animation: sealGlow 4.6s ease-in-out 2400ms infinite alternate;
+  }
+  .corner-seal:hover, .corner-seal:focus-visible { transform: scale(1.08); }
+  .corner-seal:hover .disc, .corner-seal:focus-visible .disc { opacity: 1; }
+  .corner-seal:hover::before, .corner-seal:focus-visible::before { animation-duration: 2.6s; }
+  .corner-seal .seal-label {
+    position: absolute; right: calc(100% + 12px); top: 50%;
+    transform: translateY(-50%) translateX(6px);
+    font-family: var(--label); font-size: 9px; letter-spacing: 0.4em; text-indent: 0.4em;
+    text-transform: uppercase; color: var(--green-soft); white-space: nowrap;
+    opacity: 0; pointer-events: none; transition: opacity 280ms ease, transform 280ms ease;
+  }
+  .corner-seal:hover .seal-label, .corner-seal:focus-visible .seal-label {
+    opacity: 1; transform: translateY(-50%) translateX(0);
+  }
+  @keyframes sealGlow { 0% { opacity: 0.4; } 100% { opacity: 0.9; } }
+  @keyframes sealIn { to { opacity: 1; transform: scale(1); } }
 
   /* ============================================================
      PASSCODE — the door behind the seal
      ============================================================ */
   .gate {
-    position: fixed; inset: 0; z-index: 50;
-    display: flex; align-items: center; justify-content: center;
-    padding: 24px;
-    background: rgba(6, 6, 6, 0.72);
+    position: fixed; inset: 0; z-index: 80;
+    display: flex; align-items: center; justify-content: center; padding: 24px;
+    background: rgba(6, 6, 6, 0.74);
     backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px);
-    opacity: 0; visibility: hidden;
-    transition: opacity 360ms ease, visibility 360ms ease;
+    opacity: 0; visibility: hidden; transition: opacity 360ms ease, visibility 360ms ease;
   }
   .gate.open { opacity: 1; visibility: visible; }
   .gate-card {
-    position: relative;
-    width: min(420px, 100%);
+    position: relative; width: min(420px, 100%);
     background: linear-gradient(180deg, #121211 0%, #0c0c0b 100%);
-    border: 1px solid rgba(184, 145, 73, 0.34);
-    border-radius: 3px;
-    padding: 40px 32px 34px;
-    text-align: center;
+    border: 1px solid rgba(91, 107, 77, 0.42);
+    border-radius: 3px; padding: 40px 32px 34px; text-align: center;
     box-shadow: 0 30px 80px rgba(0,0,0,0.6);
     transform: translateY(16px) scale(0.98);
     transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
@@ -266,16 +312,13 @@
     line-height: 1; padding: 6px 8px; transition: color 200ms ease;
   }
   .gate-close:hover { color: var(--paper); }
-  .gate-emblem { width: 56px; height: 56px; margin: 0 auto 18px; }
-  .gate-emblem img { width: 100%; height: 100%; object-fit: contain; }
+  .gate-emblem { width: 58px; height: 58px; margin: 0 auto 18px; border-radius: 50%; overflow: hidden; }
+  .gate-emblem img { width: 135%; height: 135%; max-width: none; margin: -17.5%; object-fit: cover; }
   .gate-kicker {
     font-family: var(--label); font-size: 10px; letter-spacing: 0.42em; text-indent: 0.42em;
-    text-transform: uppercase; color: var(--gold); margin-bottom: 14px;
+    text-transform: uppercase; color: var(--green-soft); margin-bottom: 14px;
   }
-  .gate-title {
-    font-family: var(--serif); font-size: 25px; letter-spacing: 0.06em;
-    color: var(--paper); margin-bottom: 12px;
-  }
+  .gate-title { font-family: var(--serif); font-size: 25px; letter-spacing: 0.06em; color: var(--paper); margin-bottom: 12px; }
   .gate-copy {
     font-family: var(--serif); font-style: italic; font-size: 15px; line-height: 1.6;
     color: var(--paper-soft); margin-bottom: 22px;
@@ -283,52 +326,51 @@
   .gate-form { display: flex; flex-direction: column; gap: 14px; }
   .gate-input {
     width: 100%; text-align: center;
-    font-family: var(--serif); font-size: 18px; letter-spacing: 0.22em;
-    color: var(--paper); background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(240,240,240,0.18); border-radius: 2px;
-    padding: 14px 16px;
-    transition: border-color 220ms ease, background 220ms ease;
+    font-family: var(--serif); font-size: 18px; letter-spacing: 0.22em; color: var(--paper);
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(240,240,240,0.18); border-radius: 2px;
+    padding: 14px 16px; transition: border-color 220ms ease, background 220ms ease;
   }
   .gate-input::placeholder { color: rgba(240,240,240,0.3); letter-spacing: 0.2em; }
-  .gate-input:focus { outline: none; border-color: var(--gold); background: rgba(184,145,73,0.06); }
+  .gate-input:focus { outline: none; border-color: var(--green-soft); background: rgba(91,107,77,0.08); }
   .gate-submit {
     font-family: var(--label); font-size: 11px; letter-spacing: 0.4em; text-indent: 0.4em;
-    text-transform: uppercase; color: var(--ink);
-    background: var(--gold); border-radius: 2px;
-    padding: 15px 16px;
+    text-transform: uppercase; color: var(--paper);
+    background: var(--green); border-radius: 2px; padding: 15px 16px;
     transition: background 220ms ease, transform 120ms ease;
   }
-  .gate-submit:hover { background: var(--gold-soft); }
+  .gate-submit:hover { background: var(--green-soft); }
   .gate-submit:active { transform: translateY(1px); }
-  .gate-hint {
-    font-family: var(--serif); font-style: italic; font-size: 13px;
-    color: var(--paper-faint); margin-top: 16px;
-  }
+  .gate-hint { font-family: var(--serif); font-style: italic; font-size: 13px; color: var(--paper-faint); margin-top: 16px; }
   .gate-note { min-height: 1.2em; font-family: var(--label); font-size: 10px;
-    letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-soft); }
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--green-soft); }
   .gate-note.error { color: #c98b7a; }
   .gate-card.shake { animation: shake 420ms ease; }
   @keyframes shake {
-    10%, 90% { transform: translateX(-2px); }
-    20%, 80% { transform: translateX(4px); }
-    30%, 50%, 70% { transform: translateX(-7px); }
-    40%, 60% { transform: translateX(7px); }
+    10%, 90% { transform: translateX(-2px); } 20%, 80% { transform: translateX(4px); }
+    30%, 50%, 70% { transform: translateX(-7px); } 40%, 60% { transform: translateX(7px); }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .corner-seal, .std-lockup, .std-rule, .std-details, .std-countdown {
-      animation: none !important; opacity: 1 !important; transform: none !important;
-    }
-    .corner-seal::before { animation: none; }
-    .gate, .gate-card { transition: opacity 200ms ease, visibility 200ms ease; }
-    .gate-card.shake { animation: none; }
+    .reveal, .envelope, .env-face, .env-seal, .env-cue,
+    .corner-seal, .std > *, .gate, .gate-card { transition: none !important; animation: none !important; }
+    html.js .std > * { opacity: 1 !important; }
   }
 </style>
 </head>
 <body>
 
-  <main class="std">
+  <!-- ENVELOPE INTRO -->
+  <div class="reveal" id="reveal">
+    <button class="envelope" id="envelopeBtn" type="button" aria-label="Open the save-the-date">
+      <span class="env-face env-closed" aria-hidden="true"></span>
+      <span class="env-face env-open" aria-hidden="true"></span>
+      <span class="env-seal" aria-hidden="true"><img src="/images/seal-wax-green.png" alt="" width="120" height="120" /></span>
+    </button>
+    <p class="env-cue" id="envCue">Press the seal to open</p>
+  </div>
 
+  <!-- SAVE THE DATE -->
+  <main class="std">
     <div class="std-lockup" aria-label="Save the Date">
       <span class="word">Save</span>
       <span class="the">the</span>
@@ -350,20 +392,19 @@
       <div class="unit"><span class="num" data-cd="minutes">—</span><span class="lbl">Minutes</span></div>
       <div class="unit"><span class="num" data-cd="seconds">—</span><span class="lbl">Seconds</span></div>
     </div>
-
   </main>
 
-  <!-- The wax seal, tucked discreetly in the corner — the door to the full site. -->
+  <!-- The green wax seal, tucked in the corner — the door to the full site. -->
   <button class="corner-seal" id="seal" type="button" aria-label="Enter the wedding website">
     <span class="seal-label" aria-hidden="true">Enter</span>
-    <img src="/images/seal.png" alt="The Bergkamp wedding seal — a gold letter B, 2027" width="76" height="76" />
+    <span class="disc"><img src="/images/seal-wax-green.png" alt="The Bergkamp green wax seal, letter B" width="72" height="72" /></span>
   </button>
 
   <!-- Passcode gate -->
   <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle" aria-hidden="true">
     <div class="gate-card" id="gateCard">
       <button class="gate-close" id="gateClose" type="button" aria-label="Close">&times;</button>
-      <div class="gate-emblem"><img src="/icons/home-emblem.png" alt="" width="56" height="56" /></div>
+      <div class="gate-emblem"><img src="/images/seal-wax-green.png" alt="" width="58" height="58" /></div>
       <div class="gate-kicker">By Invitation</div>
       <h2 class="gate-title" id="gateTitle">Welcome, dear guest</h2>
       <p class="gate-copy">Our full wedding website is just behind the seal. Enter the passcode from your save-the-date to step inside.</p>

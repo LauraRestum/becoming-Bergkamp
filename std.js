@@ -1,4 +1,4 @@
-/* Save-the-Date — countdown + the soft passcode gate.
+/* Save-the-Date — envelope reveal, countdown, and the soft passcode gate.
    The full wedding website lives at /home, behind this page. Entering the
    passcode unlocks it for the rest of this browser session, so guests can roam
    freely once they are in; a fresh visit greets them with the Save-the-Date
@@ -16,6 +16,9 @@
   var UNLOCK_KEY = 'bk_unlocked';
   var DESTINATION = '/home';
 
+  var prefersReducedMotion = window.matchMedia
+    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   function isUnlocked() {
     try { return sessionStorage.getItem(UNLOCK_KEY) === '1'; } catch (e) { return false; }
   }
@@ -23,14 +26,42 @@
     try { sessionStorage.setItem(UNLOCK_KEY, '1'); } catch (e) {}
   }
 
+  /* ------------------------- Envelope reveal ------------------------ */
+  var reveal = document.getElementById('reveal');
+  var envelopeBtn = document.getElementById('envelopeBtn');
+  var opened = false;
+
+  function openEnvelope() {
+    if (opened) return;
+    opened = true;
+    document.body.classList.add('opening');
+    if (prefersReducedMotion) {
+      document.body.classList.add('opened');
+      if (reveal) reveal.classList.add('gone');
+      return;
+    }
+    // Let the flap open, then bring the card up and clear the envelope away.
+    setTimeout(function () { document.body.classList.add('opened'); }, 720);
+    setTimeout(function () { if (reveal) reveal.classList.add('gone'); }, 1700);
+  }
+
+  if (envelopeBtn) {
+    envelopeBtn.addEventListener('click', openEnvelope);
+  }
+  // No envelope on the page (or JS-less fallback already showed the card):
+  // make sure the card and its corner seal are visible.
+  if (!reveal) {
+    document.body.classList.add('opened');
+  }
+
   /* ---------------------------- Countdown --------------------------- */
-  var target = new Date('2027-03-20T16:00:00-05:00').getTime();
   var fields = {
     days: document.querySelector('[data-cd="days"]'),
     hours: document.querySelector('[data-cd="hours"]'),
     minutes: document.querySelector('[data-cd="minutes"]'),
     seconds: document.querySelector('[data-cd="seconds"]')
   };
+  var target = new Date('2027-03-20T16:00:00-05:00').getTime();
   function pad(n) { return n < 10 ? '0' + n : '' + n; }
   function tick() {
     var diff = target - Date.now();
