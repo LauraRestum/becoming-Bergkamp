@@ -75,15 +75,15 @@
     .scene-bg img { object-position:center center; }
   }
 
-  /* Gramophone — a transparent looping animation pinned to the bottom-left
-     corner of the opening scene. The WebP was pre-cropped so the object's
-     base is flush with the bottom edge of the file, so bottom:0 sits the
-     gramophone exactly on the section's bottom line. Sits above the backdrop
-     and its gradient overlay, below the gateway gate/seal. */
-  .gramophone { position:absolute; left:0; bottom:0; z-index:4; pointer-events:none;
-    width:clamp(120px,30vw,230px); height:auto;
+  /* Gramophone — a transparent, seamless ping-pong animation that turns very
+     slowly. It lives in the second (details) section, pinned to the bottom-left
+     corner. The WebP is pre-cropped so the object's base is flush with the
+     bottom edge of the file, so bottom:0 sits it exactly on the section's
+     bottom line. Decorative and non-interactive. */
+  .gramophone { position:absolute; left:0; bottom:0; z-index:2; pointer-events:none;
+    width:clamp(120px,30vw,200px); height:auto;
     filter:drop-shadow(0 12px 22px rgba(60,48,30,0.32)); }
-  @media (min-width:860px){ .gramophone { width:clamp(190px,18vw,300px); } }
+  @media (min-width:860px){ .gramophone { width:clamp(150px,15vw,220px); } }
 
   /* "You have mail from" — closed state only */
   .mail-head { position:absolute; top:calc(5vh + var(--safe-top)); left:0; right:0; text-align:center; z-index:6; padding:0 24px; transition:opacity 600ms ease, transform 600ms ease; }
@@ -292,8 +292,6 @@
 
     <div class="open-cue" id="openCue">Tap to open</div>
     <div class="scroll-cue" id="scrollCue" aria-hidden="true">Scroll for details <span class="arr">&darr;</span></div>
-
-    <img class="gramophone" src="/images/gramophone.webp" alt="" aria-hidden="true" width="360" height="542" />
   </div>
 
   <section class="info">
@@ -316,6 +314,7 @@
     <div class="cigar-still" aria-hidden="true">
       <img class="cigar-still__boxes" src="/images/cigar-boxes-bergkamp.png" alt="" />
     </div>
+    <img class="gramophone" src="/images/gramophone.webp" alt="" aria-hidden="true" width="240" height="362" />
   </section>
 
   <button class="corner-seal" id="seal" type="button" aria-label="Enter the wedding website">
