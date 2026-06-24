@@ -1,57 +1,59 @@
-/* Save-the-Date — envelope reveal, countdown, and the soft passcode gate.
-   The full wedding website lives at /home, behind this page. Entering the
-   passcode unlocks it for the rest of this browser session, so guests can roam
-   freely once they are in; a fresh visit greets them with the Save-the-Date
-   again. This is a gentle speed-bump, not a vault. */
+/* Save-the-Date — envelope reveal, cycling photo frames, countdown, and the
+   soft passcode gate. The full wedding website lives at /home, behind this
+   page. Entering the passcode unlocks it for the rest of this browser session;
+   a fresh visit greets guests with the Save-the-Date again. A gentle
+   speed-bump, not a vault. */
 (function () {
   'use strict';
 
   /* ------------------------------------------------------------------
      PASSCODE — to change it, replace the word below (keep it lowercase).
-     It is lightly obscured (base64) so it isn't sitting in plain sight;
-     btoa('yourword') in any browser console gives you the new value.
+     Lightly obscured (base64): btoa('yourword') in a console gives the value.
      Current value decodes to: bergkamp
      ------------------------------------------------------------------ */
   var EXPECTED = atob('YmVyZ2thbXA=');
   var UNLOCK_KEY = 'bk_unlocked';
   var DESTINATION = '/home';
 
-  var prefersReducedMotion = window.matchMedia
-    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function isUnlocked() {
-    try { return sessionStorage.getItem(UNLOCK_KEY) === '1'; } catch (e) { return false; }
-  }
-  function setUnlocked() {
-    try { sessionStorage.setItem(UNLOCK_KEY, '1'); } catch (e) {}
-  }
+  function isUnlocked() { try { return sessionStorage.getItem(UNLOCK_KEY) === '1'; } catch (e) { return false; } }
+  function setUnlocked() { try { sessionStorage.setItem(UNLOCK_KEY, '1'); } catch (e) {} }
 
   /* ------------------------- Envelope reveal ------------------------ */
-  var reveal = document.getElementById('reveal');
-  var envelopeBtn = document.getElementById('envelopeBtn');
+  var opener = document.getElementById('opener');
   var opened = false;
 
   function openEnvelope() {
     if (opened) return;
     opened = true;
     document.body.classList.add('opening');
-    if (prefersReducedMotion) {
-      document.body.classList.add('opened');
-      if (reveal) reveal.classList.add('gone');
-      return;
-    }
-    // Let the flap open, then bring the card up and clear the envelope away.
-    setTimeout(function () { document.body.classList.add('opened'); }, 720);
-    setTimeout(function () { if (reveal) reveal.classList.add('gone'); }, 1700);
+    if (reduce) { document.body.classList.add('opened'); startFrames(); return; }
+    setTimeout(function () { document.body.classList.add('opened'); startFrames(); }, 700);
   }
+  if (opener) opener.addEventListener('click', openEnvelope);
 
-  if (envelopeBtn) {
-    envelopeBtn.addEventListener('click', openEnvelope);
+  /* ------------------- Cycling photo frames ------------------------- */
+  function cycler(el, interval, delay) {
+    if (!el) return;
+    var imgs = Array.prototype.slice.call(el.querySelectorAll('img'));
+    if (imgs.length < 2) return;
+    var i = 0;
+    setTimeout(function () {
+      setInterval(function () {
+        imgs[i].classList.remove('active');
+        i = (i + 1) % imgs.length;
+        imgs[i].classList.add('active');
+      }, interval);
+    }, delay);
   }
-  // No envelope on the page (or JS-less fallback already showed the card):
-  // make sure the card and its corner seal are visible.
-  if (!reveal) {
-    document.body.classList.add('opened');
+  var framesStarted = false;
+  function startFrames() {
+    if (framesStarted) return;
+    framesStarted = true;
+    // Offset the two frames so they change at different moments.
+    cycler(document.getElementById('frameOval'), 3600, 0);
+    cycler(document.getElementById('frameRect'), 3600, 1800);
   }
 
   /* ---------------------------- Countdown --------------------------- */
@@ -78,10 +80,7 @@
     if (fields.minutes) fields.minutes.textContent = pad(Math.floor((s % 3600) / 60));
     if (fields.seconds) fields.seconds.textContent = pad(s % 60);
   }
-  if (fields.days || fields.hours || fields.minutes || fields.seconds) {
-    tick();
-    setInterval(tick, 1000);
-  }
+  if (fields.days || fields.hours || fields.minutes || fields.seconds) { tick(); setInterval(tick, 1000); }
 
   /* ------------------------------ Gate ------------------------------ */
   var gate = document.getElementById('gate');
@@ -96,16 +95,14 @@
   function go() { window.location.href = DESTINATION; }
 
   function openGate() {
-    // Already unlocked this session? Skip the passcode and walk straight in.
     if (isUnlocked()) { go(); return; }
-    if (!gate) { return; }
+    if (!gate) return;
     lastFocus = document.activeElement;
     gate.classList.add('open');
     gate.setAttribute('aria-hidden', 'false');
     if (gateNote) { gateNote.textContent = ''; gateNote.className = 'gate-note'; }
     setTimeout(function () { if (gateInput) gateInput.focus(); }, 380);
   }
-
   function closeGate() {
     if (!gate) return;
     gate.classList.remove('open');
@@ -113,17 +110,11 @@
     if (gateInput) gateInput.value = '';
     if (lastFocus && lastFocus.focus) { try { lastFocus.focus(); } catch (e) {} }
   }
-
   function reject() {
     if (gateNote) { gateNote.textContent = "That's not quite it — try again."; gateNote.className = 'gate-note error'; }
-    if (gateCard) {
-      gateCard.classList.remove('shake');
-      void gateCard.offsetWidth; // restart the animation
-      gateCard.classList.add('shake');
-    }
+    if (gateCard) { gateCard.classList.remove('shake'); void gateCard.offsetWidth; gateCard.classList.add('shake'); }
     if (gateInput) { gateInput.value = ''; gateInput.focus(); }
   }
-
   function attempt(value) {
     var guess = (value || '').trim().toLowerCase();
     if (!guess) { if (gateInput) gateInput.focus(); return; }
@@ -131,20 +122,12 @@
       setUnlocked();
       if (gateNote) { gateNote.textContent = 'Welcome — come on in.'; gateNote.className = 'gate-note'; }
       setTimeout(go, 420);
-    } else {
-      reject();
-    }
+    } else { reject(); }
   }
 
   if (seal) seal.addEventListener('click', openGate);
   if (gateClose) gateClose.addEventListener('click', closeGate);
-  if (gate) {
-    gate.addEventListener('click', function (e) { if (e.target === gate) closeGate(); });
-  }
-  if (gateForm) {
-    gateForm.addEventListener('submit', function (e) { e.preventDefault(); attempt(gateInput ? gateInput.value : ''); });
-  }
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && gate && gate.classList.contains('open')) closeGate();
-  });
+  if (gate) gate.addEventListener('click', function (e) { if (e.target === gate) closeGate(); });
+  if (gateForm) gateForm.addEventListener('submit', function (e) { e.preventDefault(); attempt(gateInput ? gateInput.value : ''); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && gate && gate.classList.contains('open')) closeGate(); });
 })();

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<meta name="theme-color" content="#0a0a0a" />
+<meta name="theme-color" content="#efe7d8" />
 
 <title>Save the Date — Laura &amp; William · 20 March 2027 · Wichita, Kansas</title>
 <meta name="description" content="Laura &amp; William are getting married — Saturday, the twentieth of March, two thousand twenty-seven, in Wichita, Kansas. A formal invitation to follow." />
@@ -18,62 +18,40 @@
 <link rel="apple-touch-icon" href="/icons/icon-180.png" />
 <link rel="manifest" href="/site.webmanifest" />
 
-<!-- PWA / installable web app -->
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Bergkamp Wedding" />
 <script src="/sw-register.js" defer></script>
 <script src="/pwa.js" defer></script>
 
-<!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Save the Date — Laura &amp; William · 20 March 2027" />
 <meta property="og:description" content="Laura &amp; William are getting married in Wichita, Kansas. A formal invitation to follow." />
 <meta property="og:url" content="https://becoming-bergkamp.vercel.app/" />
 <meta property="og:image" content="https://becoming-bergkamp.vercel.app/images/envelope-closed.png" />
 <meta property="og:locale" content="en_US" />
-
-<!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Save the Date — Laura &amp; William · 20 March 2027" />
-<meta name="twitter:description" content="Laura &amp; William are getting married in Wichita, Kansas. A formal invitation to follow." />
 <meta name="twitter:image" content="https://becoming-bergkamp.vercel.app/images/envelope-closed.png" />
 
-<!-- Mark that JS is available, so the envelope intro only shows when it can work. -->
 <script>document.documentElement.className += ' js';</script>
 
 <style>
-  /* Fonts shipped with the repo (same faces the full site uses) */
-  @font-face {
-    font-family: 'Rosaline';
-    src: url('/fonts/RosalineRegular-9MErB.otf') format('opentype');
-    font-weight: 400; font-style: normal; font-display: swap;
-  }
-  @font-face {
-    font-family: 'Vintage Glamour';
-    src: url('/fonts/VintageGlamourRegular-ALX27.ttf') format('truetype');
-    font-weight: 400; font-style: normal; font-display: swap;
-  }
-  @font-face {
-    font-family: 'Vintage Glamour';
-    src: url('/fonts/VintageGlamourItalic-DO471.ttf') format('truetype');
-    font-weight: 400; font-style: italic; font-display: swap;
-  }
-  @font-face {
-    font-family: 'Hijrnotes';
-    src: url('/fonts/HijrnotesPersonalUseOnly01-DXOD.ttf') format('truetype');
-    font-weight: 400; font-style: normal; font-display: swap;
-  }
+  @font-face { font-family:'Rosaline'; src:url('/fonts/RosalineRegular-9MErB.otf') format('opentype'); font-weight:400; font-style:normal; font-display:swap; }
+  @font-face { font-family:'Vintage Glamour'; src:url('/fonts/VintageGlamourRegular-ALX27.ttf') format('truetype'); font-weight:400; font-style:normal; font-display:swap; }
+  @font-face { font-family:'Vintage Glamour'; src:url('/fonts/VintageGlamourItalic-DO471.ttf') format('truetype'); font-weight:400; font-style:italic; font-display:swap; }
+  @font-face { font-family:'Hijrnotes'; src:url('/fonts/HijrnotesPersonalUseOnly01-DXOD.ttf') format('truetype'); font-weight:400; font-style:normal; font-display:swap; }
 
   :root {
-    --ink: #0a0a0a;
-    --paper: #f0f0f0;
-    --paper-soft: rgba(240, 240, 240, 0.74);
-    --paper-faint: rgba(240, 240, 240, 0.42);
-    --gold: #b89149;
-    --gold-soft: #cdab68;
-    --green: #35472f;
+    --paper: #efe7d8;          /* warm ivory letter */
+    --paper-2: #f6f1e7;
+    --ink: #34322c;            /* warm charcoal text */
+    --ink-soft: rgba(52,50,44,0.66);
+    --ink-faint: rgba(52,50,44,0.42);
+    --green: #35472f;          /* wax / sage */
     --green-soft: #5b6b4d;
+    --gold: #a98b4e;
+    --gold-soft: #c0a063;
     --taupe: #c0b0a3;
     --serif: 'Rosaline', serif;
     --script: 'Hijrnotes', cursive;
@@ -81,323 +59,250 @@
     --safe-top: env(safe-area-inset-top);
     --safe-bottom: env(safe-area-inset-bottom);
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body {
-    background: var(--ink);
-    color: var(--paper);
-    font-family: var(--serif);
-    -webkit-font-smoothing: antialiased;
-  }
+  html, body { background: var(--paper); color: var(--ink); font-family: var(--serif); -webkit-font-smoothing: antialiased; }
   body { min-height: 100vh; min-height: 100dvh; overflow-x: hidden; }
   img { display: block; max-width: 100%; height: auto; }
   button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
-  :focus-visible { outline: 1.5px solid var(--gold); outline-offset: 5px; }
+  :focus-visible { outline: 1.5px solid var(--green-soft); outline-offset: 4px; }
 
-  /* Film-grain texture over a soft vignette, matching the full site */
-  body::before {
-    content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  /* Soft painterly backdrop */
+  .scene {
+    position: relative; min-height: 100vh; min-height: 100dvh; overflow: hidden;
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+    /* The golden chapel painting as the backdrop, softened so the envelope and
+       lettering read clearly over it. */
     background:
-      radial-gradient(130% 100% at 50% 18%, rgba(91, 107, 77, 0.12) 0%, transparent 45%),
-      radial-gradient(120% 90% at 50% 100%, rgba(184, 145, 73, 0.10) 0%, transparent 55%),
-      radial-gradient(120% 120% at 50% 40%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%);
+      linear-gradient(180deg, rgba(247,242,232,0.30) 0%, rgba(236,226,210,0.22) 40%, rgba(217,203,184,0.42) 100%),
+      url('/images/chapel-golden-portrait.png');
+    background-size: cover, cover;
+    background-position: center top, center top;
+    background-repeat: no-repeat, no-repeat;
   }
-  body::after {
-    content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.4;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='2'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.03 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  .scene::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0.35;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   }
 
-  /* ============================================================
-     ENVELOPE INTRO — press the seal to open
-     ============================================================ */
-  .reveal {
-    position: fixed; inset: 0; z-index: 60;
-    display: none;                 /* shown only when JS is present (html.js) */
-    flex-direction: column; align-items: center; justify-content: center;
-    gap: clamp(20px, 4vh, 36px);
-    padding: calc(28px + var(--safe-top)) 22px calc(28px + var(--safe-bottom));
-    background:
-      radial-gradient(120% 100% at 50% 40%, #cabbae 0%, var(--taupe) 55%, #b09e90 100%);
-    transition: opacity 900ms ease;
+  /* ---------- "You have mail from" header (closed state) ---------- */
+  .mail-head {
+    position: absolute; top: calc(8vh + var(--safe-top)); left: 0; right: 0;
+    text-align: center; z-index: 6; padding: 0 24px;
+    transition: opacity 600ms ease, transform 600ms ease;
   }
-  html.js .reveal { display: flex; }
-  body.opened .reveal { opacity: 0; pointer-events: none; }
-  .reveal.gone { display: none; }
+  .mail-head .from { font-family: var(--label); font-size: clamp(10px,2.8vw,12px); letter-spacing: 0.4em; text-indent: 0.4em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 12px; }
+  .mail-head .who { font-family: var(--script); font-size: clamp(40px,11vw,68px); color: var(--green); line-height: 1; }
+  body.opening .mail-head, body.opened .mail-head { opacity: 0; transform: translateY(-12px); pointer-events: none; }
 
-  .envelope {
-    position: relative;
-    width: min(82vw, 60vh, 480px);
-    aspect-ratio: 1 / 1;
-    border-radius: 4px;
-    transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  /* ---------- The composed letter area ---------- */
+  .stage {
+    position: relative; width: min(94vw, 460px);
+    margin: 0 auto; z-index: 2;
+    /* leaves room for the header up top and the cue below */
+    padding-bottom: clamp(8px, 3vh, 26px);
   }
-  .env-face {
-    position: absolute; inset: 0;
-    background-size: contain; background-position: center; background-repeat: no-repeat;
-    transition: opacity 760ms ease;
+
+  /* Card that rises out of the envelope */
+  .card {
+    position: relative; z-index: 3;
+    margin: 0 auto; width: 100%;
+    background: linear-gradient(180deg, var(--paper-2) 0%, var(--paper) 100%);
+    border: 1px solid rgba(169,139,78,0.35);
+    border-radius: 3px;
+    padding: clamp(26px,7vw,40px) clamp(20px,6vw,32px) clamp(30px,8vw,44px);
+    text-align: center;
+    box-shadow: 0 26px 60px rgba(60,48,30,0.22);
+    /* Start tucked down inside the envelope, hidden */
+    transform: translateY(58%) scale(0.96);
+    opacity: 0;
+    transition: transform 1100ms cubic-bezier(0.22,1,0.36,1), opacity 700ms ease;
   }
+  html:not(.js) .card { transform: none; opacity: 1; }
+  body.opened .card { transform: translateY(0) scale(1); opacity: 1; }
+
+  .card-lockup { display: flex; flex-direction: column; align-items: center; line-height: 0.92; margin-bottom: 16px; }
+  .card-lockup .word { font-family: var(--serif); font-size: clamp(34px,10vw,58px); letter-spacing: 0.12em; text-indent: 0.12em; color: var(--green); }
+  .card-lockup .the { font-family: var(--script); font-size: clamp(30px,9vw,50px); color: var(--gold); line-height: 0.5; margin: -2px 0; transform: rotate(-4deg); }
+
+  /* Twin frames — the square (rectangular) + the circle (oval), each cycling */
+  .frames { position: relative; height: clamp(150px,42vw,210px); margin: 6px 0 14px; }
+  .frame { position: absolute; top: 0; width: clamp(118px,33vw,160px); aspect-ratio: 1080/1350; filter: drop-shadow(0 10px 20px rgba(60,48,30,0.28)); }
+  .frame.rect { right: 2%; transform: rotate(3deg); z-index: 2; }
+  .frame.oval { left: 2%; transform: rotate(-4deg); top: 8%; z-index: 1; }
+  .frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity 900ms ease; }
+  .frame img.active { opacity: 1; }
+
+  .card-names { font-family: var(--serif); font-size: clamp(20px,5.6vw,30px); letter-spacing: 0.14em; text-indent: 0.14em; text-transform: uppercase; color: var(--ink); }
+  .card-names .amp { font-style: italic; text-transform: none; color: var(--green-soft); padding: 0 0.12em; letter-spacing: 0; }
+  .card-rule { display:flex; align-items:center; justify-content:center; gap:12px; color: var(--gold); margin: 14px 0; }
+  .card-rule .line { width: 40px; height: 1px; background: currentColor; opacity: 0.6; }
+  .card-rule .dot { font-size: 10px; }
+  .card-date { font-family: var(--label); font-size: clamp(14px,4vw,18px); letter-spacing: 0.4em; text-indent: 0.4em; text-transform: uppercase; color: var(--ink); }
+  .card-place { font-family: var(--label); font-size: clamp(10px,2.9vw,12px); letter-spacing: 0.48em; text-indent: 0.48em; text-transform: uppercase; color: var(--ink-soft); margin-top: 10px; }
+  .card-follow { font-family: var(--script); font-size: clamp(20px,5.6vw,28px); color: var(--gold); margin-top: 8px; transform: rotate(-2deg); }
+
+  .card-countdown { display: flex; justify-content: center; gap: clamp(12px,4vw,24px); margin-top: 20px; }
+  .card-countdown .unit { display:flex; flex-direction:column; align-items:center; gap:5px; min-width: 40px; }
+  .card-countdown .num { font-family: var(--serif); font-size: clamp(22px,6vw,32px); line-height:1; color: var(--green); }
+  .card-countdown .lbl { font-family: var(--label); font-size: clamp(8px,2.2vw,9px); letter-spacing: 0.3em; text-indent: 0.3em; text-transform: uppercase; color: var(--ink-faint); }
+
+  /* Florals tucked at the card's top corners */
+  .floral { position: absolute; z-index: 4; pointer-events: none; width: clamp(108px,30vw,150px); opacity: 0; transition: opacity 800ms ease 500ms, transform 1000ms ease 400ms; }
+  .floral.right { top: -6%; right: -10%; transform: translateY(10px) rotate(8deg); }
+  .floral.left  { top: 30%;  left: -13%; transform: translateY(10px) rotate(-10deg) scaleX(-1); width: clamp(84px,22vw,116px); }
+  body.opened .floral { opacity: 1; transform: rotate(8deg); }
+  body.opened .floral.left { transform: rotate(-10deg) scaleX(-1); }
+
+  /* The envelope graphic, anchored at the bottom */
+  .env {
+    position: relative; z-index: 5; width: min(96vw, 480px); margin: -12% auto 0;
+    aspect-ratio: 1/1;
+  }
+  .env-face { position: absolute; inset: 0; background-size: contain; background-position: center bottom; background-repeat: no-repeat; transition: opacity 760ms ease; }
   .env-closed { background-image: url('/images/envelope-closed.png'); opacity: 1; }
   .env-open   { background-image: url('/images/envelope-open-chapel.png'); opacity: 0; }
-  body.opening .env-closed { opacity: 0; }
-  body.opening .env-open   { opacity: 1; }
-  body.opening .envelope   { transform: translateY(-2%) scale(1.03); }
+  body.opening .env-closed, body.opened .env-closed { opacity: 0; }
+  body.opening .env-open, body.opened .env-open { opacity: 1; }
 
-  /* Green wax seal sitting on the flap — circular crop hides the white margin */
+  /* The wax seal on the flap — the opener */
   .env-seal {
-    position: absolute; top: 49%; left: 50%;
-    width: 26%; aspect-ratio: 1 / 1;
-    transform: translate(-50%, -50%);
-    border-radius: 50%; overflow: hidden;
-    box-shadow: 0 6px 16px rgba(53, 71, 47, 0.4);
-    transition: transform 620ms cubic-bezier(0.5, -0.4, 0.3, 1.4), opacity 520ms ease;
-    animation: sealThrob 3.4s ease-in-out infinite;
+    position: absolute; top: 51%; left: 50%; transform: translate(-50%,-50%);
+    width: 22%; aspect-ratio: 1/1; border-radius: 50%; overflow: hidden; z-index: 7;
+    box-shadow: 0 6px 16px rgba(53,71,47,0.42);
+    animation: throb 3.2s ease-in-out infinite;
   }
   .env-seal img { width: 135%; height: 135%; max-width: none; margin: -17.5%; object-fit: cover; }
-  body.opening .env-seal { opacity: 0; transform: translate(-50%, -160%) rotate(-12deg) scale(0.7); animation: none; }
-  @keyframes sealThrob {
-    0%, 100% { box-shadow: 0 6px 16px rgba(53,71,47,0.4); }
-    50% { box-shadow: 0 6px 26px rgba(53,71,47,0.62); }
-  }
+  body.opening .env-seal, body.opened .env-seal { opacity: 0; transform: translate(-50%,-220%) rotate(-12deg) scale(0.7); animation: none; transition: opacity 500ms ease, transform 700ms cubic-bezier(0.5,-0.4,0.3,1.4); pointer-events: none; }
+  @keyframes throb { 0%,100%{ box-shadow:0 6px 16px rgba(53,71,47,0.42);} 50%{ box-shadow:0 6px 26px rgba(53,71,47,0.66);} }
 
-  .env-cue {
-    font-family: var(--label); font-size: clamp(9px, 2.6vw, 11px);
-    letter-spacing: 0.42em; text-indent: 0.42em; text-transform: uppercase;
-    color: #6f5f51;
+  /* Click-to-open cue */
+  .open-cue {
+    position: absolute; bottom: calc(4vh + var(--safe-bottom)); left: 0; right: 0; text-align: center; z-index: 6;
+    font-family: var(--label); font-size: clamp(11px,3vw,13px); letter-spacing: 0.4em; text-indent: 0.4em; text-transform: uppercase; color: var(--ink-soft);
     animation: cuePulse 2.8s ease-in-out infinite;
   }
-  body.opening .env-cue { opacity: 0; transition: opacity 300ms ease; animation: none; }
-  @keyframes cuePulse { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+  body.opening .open-cue, body.opened .open-cue { opacity: 0; pointer-events: none; transition: opacity 300ms ease; animation: none; }
+  @keyframes cuePulse { 0%,100%{opacity:.5;} 50%{opacity:1;} }
 
-  /* ============================================================
-     SAVE THE DATE — the card behind the envelope
-     ============================================================ */
-  .std {
-    position: relative; z-index: 1;
-    min-height: 100vh; min-height: 100dvh;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-align: center;
-    padding: calc(44px + var(--safe-top)) 24px calc(40px + var(--safe-bottom));
-    gap: clamp(18px, 3.4vh, 30px);
-  }
+  /* Whole closed envelope is clickable */
+  .opener { position: absolute; inset: 0; z-index: 8; cursor: pointer; }
+  body.opening .opener, body.opened .opener { display: none; }
 
-  .std-lockup { display: flex; flex-direction: column; align-items: center; line-height: 0.92; }
-  .std-lockup .word {
-    font-family: var(--serif); font-weight: 400;
-    font-size: clamp(54px, 15vw, 116px);
-    letter-spacing: 0.10em; text-indent: 0.10em;
-    color: var(--paper); text-shadow: 0 2px 30px rgba(0,0,0,0.6);
-  }
-  .std-lockup .the {
-    font-family: var(--script); font-weight: 400;
-    font-size: clamp(46px, 13vw, 96px);
-    color: var(--gold-soft); line-height: 0.6;
-    margin: clamp(-10px, -1.4vw, -4px) 0; transform: rotate(-4deg);
-    text-shadow: 0 2px 22px rgba(184, 145, 73, 0.28);
-  }
-
-  .std-rule { display: flex; align-items: center; gap: 14px; color: var(--gold); }
-  .std-rule .line { width: clamp(34px, 9vw, 64px); height: 1px; background: currentColor; opacity: 0.6; }
-  .std-rule .dot { font-size: 11px; letter-spacing: 0.2em; }
-
-  .std-details { display: flex; flex-direction: column; align-items: center; gap: 12px; }
-  .std-date {
-    font-family: var(--label); font-size: clamp(15px, 4vw, 19px);
-    letter-spacing: 0.46em; text-indent: 0.46em; text-transform: uppercase; color: var(--paper);
-  }
-  .std-names {
-    font-family: var(--serif); font-size: clamp(22px, 6.4vw, 36px);
-    letter-spacing: 0.16em; text-indent: 0.16em; text-transform: uppercase; color: var(--paper);
-  }
-  .std-names .amp {
-    font-family: var(--serif); font-style: italic; text-transform: none;
-    color: var(--gold-soft); padding: 0 0.14em; letter-spacing: 0;
-  }
-  .std-place {
-    font-family: var(--label); font-size: clamp(10px, 2.9vw, 12px);
-    letter-spacing: 0.52em; text-indent: 0.52em; text-transform: uppercase; color: var(--paper-soft);
-  }
-  .std-follow {
-    font-family: var(--script); font-size: clamp(22px, 6vw, 30px);
-    color: var(--gold-soft); margin-top: 4px; transform: rotate(-2deg);
-  }
-
-  .std-countdown { display: flex; gap: clamp(16px, 5vw, 34px); align-items: flex-start; }
-  .std-countdown .unit { display: flex; flex-direction: column; align-items: center; gap: 7px; min-width: 44px; }
-  .std-countdown .num {
-    font-family: var(--serif); font-size: clamp(26px, 7vw, 40px);
-    line-height: 1; color: var(--paper); letter-spacing: 0.02em;
-  }
-  .std-countdown .lbl {
-    font-family: var(--label); font-size: clamp(8px, 2.4vw, 10px);
-    letter-spacing: 0.34em; text-indent: 0.34em; text-transform: uppercase; color: var(--paper-faint);
-  }
-
-  /* Card elements wait, then rise in once the envelope is opened.
-     Without JS (no html.js) they are simply visible from the start. */
-  html.js .std > * { opacity: 0; }
-  body.opened .std-lockup   { animation: riseIn 1100ms ease-out 120ms forwards; }
-  body.opened .std-rule     { animation: riseIn 1100ms ease-out 320ms forwards; }
-  body.opened .std-details  { animation: riseIn 1100ms ease-out 460ms forwards; }
-  body.opened .std-countdown{ animation: riseIn 1100ms ease-out 640ms forwards; }
-  @keyframes riseIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-
-  /* ============================================================
-     CORNER SEAL — the discreet green-wax door to the full site
-     ============================================================ */
+  /* ---------- Corner seal: the discreet door ---------- */
   .corner-seal {
     position: fixed; z-index: 40;
-    right: calc(18px + env(safe-area-inset-right));
-    bottom: calc(18px + env(safe-area-inset-bottom));
-    width: clamp(54px, 13vw, 72px); height: clamp(54px, 13vw, 72px);
-    border-radius: 50%; overflow: visible;
-    opacity: 0; transform: scale(0.9); pointer-events: none;
-    transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    right: calc(16px + env(safe-area-inset-right)); bottom: calc(16px + env(safe-area-inset-bottom));
+    width: clamp(50px,12vw,66px); height: clamp(50px,12vw,66px);
+    opacity: 0; transform: scale(0.9); pointer-events: none; transition: transform 400ms cubic-bezier(0.22,1,0.36,1);
   }
-  body.opened .corner-seal {
-    pointer-events: auto;
-    animation: sealIn 1200ms cubic-bezier(0.22, 1, 0.36, 1) 900ms forwards;
-  }
-  .corner-seal .disc {
-    position: absolute; inset: 0; border-radius: 50%; overflow: hidden;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.5);
-    opacity: 0.9; transition: opacity 320ms ease;
-  }
-  .corner-seal .disc img { width: 135%; height: 135%; max-width: none; margin: -17.5%; object-fit: cover; }
-  .corner-seal::before {
-    content: ""; position: absolute; inset: -24%; border-radius: 50%; pointer-events: none;
-    background: radial-gradient(circle, rgba(91,107,77,0.36) 0%, rgba(91,107,77,0.12) 45%, transparent 72%);
-    filter: blur(5px); opacity: 0;
-    animation: sealGlow 4.6s ease-in-out 2400ms infinite alternate;
-  }
+  body.opened .corner-seal { pointer-events: auto; animation: sealIn 1100ms cubic-bezier(0.22,1,0.36,1) 1100ms forwards; }
+  .corner-seal .disc { position:absolute; inset:0; border-radius:50%; overflow:hidden; box-shadow:0 6px 16px rgba(53,71,47,0.4); opacity:0.92; transition:opacity 300ms ease; }
+  .corner-seal .disc img { width:135%; height:135%; max-width:none; margin:-17.5%; object-fit:cover; }
   .corner-seal:hover, .corner-seal:focus-visible { transform: scale(1.08); }
   .corner-seal:hover .disc, .corner-seal:focus-visible .disc { opacity: 1; }
-  .corner-seal:hover::before, .corner-seal:focus-visible::before { animation-duration: 2.6s; }
-  .corner-seal .seal-label {
-    position: absolute; right: calc(100% + 12px); top: 50%;
-    transform: translateY(-50%) translateX(6px);
-    font-family: var(--label); font-size: 9px; letter-spacing: 0.4em; text-indent: 0.4em;
-    text-transform: uppercase; color: var(--green-soft); white-space: nowrap;
-    opacity: 0; pointer-events: none; transition: opacity 280ms ease, transform 280ms ease;
-  }
-  .corner-seal:hover .seal-label, .corner-seal:focus-visible .seal-label {
-    opacity: 1; transform: translateY(-50%) translateX(0);
-  }
-  @keyframes sealGlow { 0% { opacity: 0.4; } 100% { opacity: 0.9; } }
-  @keyframes sealIn { to { opacity: 1; transform: scale(1); } }
+  .corner-seal .seal-label { position:absolute; right:calc(100% + 10px); top:50%; transform:translateY(-50%) translateX(6px); font-family:var(--label); font-size:9px; letter-spacing:0.4em; text-indent:0.4em; text-transform:uppercase; color:var(--green-soft); white-space:nowrap; opacity:0; transition:opacity 260ms ease, transform 260ms ease; }
+  .corner-seal:hover .seal-label, .corner-seal:focus-visible .seal-label { opacity:1; transform:translateY(-50%) translateX(0); }
+  @keyframes sealIn { to { opacity:1; transform:scale(1);} }
 
-  /* ============================================================
-     PASSCODE — the door behind the seal
-     ============================================================ */
-  .gate {
-    position: fixed; inset: 0; z-index: 80;
-    display: flex; align-items: center; justify-content: center; padding: 24px;
-    background: rgba(6, 6, 6, 0.74);
-    backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px);
-    opacity: 0; visibility: hidden; transition: opacity 360ms ease, visibility 360ms ease;
-  }
-  .gate.open { opacity: 1; visibility: visible; }
-  .gate-card {
-    position: relative; width: min(420px, 100%);
-    background: linear-gradient(180deg, #121211 0%, #0c0c0b 100%);
-    border: 1px solid rgba(91, 107, 77, 0.42);
-    border-radius: 3px; padding: 40px 32px 34px; text-align: center;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
-    transform: translateY(16px) scale(0.98);
-    transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .gate.open .gate-card { transform: translateY(0) scale(1); }
-  .gate-close {
-    position: absolute; top: 10px; right: 14px;
-    font-family: var(--label); font-size: 18px; color: var(--paper-faint);
-    line-height: 1; padding: 6px 8px; transition: color 200ms ease;
-  }
-  .gate-close:hover { color: var(--paper); }
-  .gate-emblem { width: 58px; height: 58px; margin: 0 auto 18px; border-radius: 50%; overflow: hidden; }
-  .gate-emblem img { width: 135%; height: 135%; max-width: none; margin: -17.5%; object-fit: cover; }
-  .gate-kicker {
-    font-family: var(--label); font-size: 10px; letter-spacing: 0.42em; text-indent: 0.42em;
-    text-transform: uppercase; color: var(--green-soft); margin-bottom: 14px;
-  }
-  .gate-title { font-family: var(--serif); font-size: 25px; letter-spacing: 0.06em; color: var(--paper); margin-bottom: 12px; }
-  .gate-copy {
-    font-family: var(--serif); font-style: italic; font-size: 15px; line-height: 1.6;
-    color: var(--paper-soft); margin-bottom: 22px;
-  }
-  .gate-form { display: flex; flex-direction: column; gap: 14px; }
-  .gate-input {
-    width: 100%; text-align: center;
-    font-family: var(--serif); font-size: 18px; letter-spacing: 0.22em; color: var(--paper);
-    background: rgba(255,255,255,0.04); border: 1px solid rgba(240,240,240,0.18); border-radius: 2px;
-    padding: 14px 16px; transition: border-color 220ms ease, background 220ms ease;
-  }
-  .gate-input::placeholder { color: rgba(240,240,240,0.3); letter-spacing: 0.2em; }
-  .gate-input:focus { outline: none; border-color: var(--green-soft); background: rgba(91,107,77,0.08); }
-  .gate-submit {
-    font-family: var(--label); font-size: 11px; letter-spacing: 0.4em; text-indent: 0.4em;
-    text-transform: uppercase; color: var(--paper);
-    background: var(--green); border-radius: 2px; padding: 15px 16px;
-    transition: background 220ms ease, transform 120ms ease;
-  }
-  .gate-submit:hover { background: var(--green-soft); }
-  .gate-submit:active { transform: translateY(1px); }
-  .gate-hint { font-family: var(--serif); font-style: italic; font-size: 13px; color: var(--paper-faint); margin-top: 16px; }
-  .gate-note { min-height: 1.2em; font-family: var(--label); font-size: 10px;
-    letter-spacing: 0.18em; text-transform: uppercase; color: var(--green-soft); }
-  .gate-note.error { color: #c98b7a; }
+  /* ---------- Passcode gate ---------- */
+  .gate { position: fixed; inset: 0; z-index: 80; display:flex; align-items:center; justify-content:center; padding:24px; background:rgba(28,24,18,0.6); backdrop-filter:blur(7px); -webkit-backdrop-filter:blur(7px); opacity:0; visibility:hidden; transition:opacity 360ms ease, visibility 360ms ease; }
+  .gate.open { opacity:1; visibility:visible; }
+  .gate-card { position:relative; width:min(420px,100%); background:linear-gradient(180deg,#f6f1e7 0%,#efe7d8 100%); border:1px solid rgba(53,71,47,0.4); border-radius:3px; padding:40px 32px 34px; text-align:center; box-shadow:0 30px 80px rgba(40,32,18,0.4); transform:translateY(16px) scale(0.98); transition:transform 380ms cubic-bezier(0.22,1,0.36,1); }
+  .gate.open .gate-card { transform:translateY(0) scale(1); }
+  .gate-close { position:absolute; top:10px; right:14px; font-family:var(--label); font-size:18px; color:var(--ink-faint); line-height:1; padding:6px 8px; transition:color 200ms ease; }
+  .gate-close:hover { color:var(--ink); }
+  .gate-emblem { width:58px; height:58px; margin:0 auto 18px; border-radius:50%; overflow:hidden; }
+  .gate-emblem img { width:135%; height:135%; max-width:none; margin:-17.5%; object-fit:cover; }
+  .gate-kicker { font-family:var(--label); font-size:10px; letter-spacing:0.42em; text-indent:0.42em; text-transform:uppercase; color:var(--green-soft); margin-bottom:14px; }
+  .gate-title { font-family:var(--serif); font-size:25px; letter-spacing:0.05em; color:var(--green); margin-bottom:12px; }
+  .gate-copy { font-family:var(--serif); font-style:italic; font-size:15px; line-height:1.6; color:var(--ink-soft); margin-bottom:22px; }
+  .gate-form { display:flex; flex-direction:column; gap:14px; }
+  .gate-input { width:100%; text-align:center; font-family:var(--serif); font-size:18px; letter-spacing:0.22em; color:var(--ink); background:rgba(53,71,47,0.05); border:1px solid rgba(52,50,44,0.22); border-radius:2px; padding:14px 16px; transition:border-color 220ms ease, background 220ms ease; }
+  .gate-input::placeholder { color:rgba(52,50,44,0.34); letter-spacing:0.2em; }
+  .gate-input:focus { outline:none; border-color:var(--green-soft); background:rgba(53,71,47,0.09); }
+  .gate-submit { font-family:var(--label); font-size:11px; letter-spacing:0.4em; text-indent:0.4em; text-transform:uppercase; color:#f6f1e7; background:var(--green); border-radius:2px; padding:15px 16px; transition:background 220ms ease, transform 120ms ease; }
+  .gate-submit:hover { background:var(--green-soft); }
+  .gate-submit:active { transform:translateY(1px); }
+  .gate-hint { font-family:var(--serif); font-style:italic; font-size:13px; color:var(--ink-faint); margin-top:16px; }
+  .gate-note { min-height:1.2em; font-family:var(--label); font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--green-soft); }
+  .gate-note.error { color:#a8543f; }
   .gate-card.shake { animation: shake 420ms ease; }
-  @keyframes shake {
-    10%, 90% { transform: translateX(-2px); } 20%, 80% { transform: translateX(4px); }
-    30%, 50%, 70% { transform: translateX(-7px); } 40%, 60% { transform: translateX(7px); }
-  }
+  @keyframes shake { 10%,90%{transform:translateX(-2px);} 20%,80%{transform:translateX(4px);} 30%,50%,70%{transform:translateX(-7px);} 40%,60%{transform:translateX(7px);} }
 
   @media (prefers-reduced-motion: reduce) {
-    .reveal, .envelope, .env-face, .env-seal, .env-cue,
-    .corner-seal, .std > *, .gate, .gate-card { transition: none !important; animation: none !important; }
-    html.js .std > * { opacity: 1 !important; }
+    .card, .env-face, .env-seal, .floral, .corner-seal, .frame img, .mail-head, .open-cue, .gate, .gate-card { transition:none !important; animation:none !important; }
+    .card { transform:none !important; opacity:1 !important; }
+    .floral { opacity:1 !important; }
   }
 </style>
 </head>
 <body>
 
-  <!-- ENVELOPE INTRO -->
-  <div class="reveal" id="reveal">
-    <button class="envelope" id="envelopeBtn" type="button" aria-label="Open the save-the-date">
-      <span class="env-face env-closed" aria-hidden="true"></span>
-      <span class="env-face env-open" aria-hidden="true"></span>
-      <span class="env-seal" aria-hidden="true"><img src="/images/seal-wax-green.png" alt="" width="120" height="120" /></span>
-    </button>
-    <p class="env-cue" id="envCue">Press the seal to open</p>
+  <div class="scene">
+
+    <!-- Closed-state header -->
+    <div class="mail-head" id="mailHead">
+      <div class="from">You have mail from</div>
+      <div class="who">Laura &amp; William</div>
+    </div>
+
+    <!-- Composed letter -->
+    <div class="stage">
+
+      <img class="floral right" src="/images/bouquet-cascade.png" alt="" aria-hidden="true" />
+      <img class="floral left"  src="/images/bouquet-white.png"   alt="" aria-hidden="true" />
+
+      <div class="card" id="card">
+        <div class="card-lockup" aria-label="Save the Date">
+          <span class="word">Save</span><span class="the">the</span><span class="word">Date</span>
+        </div>
+
+        <div class="frames" aria-hidden="true">
+          <div class="frame oval" id="frameOval">
+            <img data-i="0" class="active" src="/images/engagement/porch-oval.png" alt="" />
+            <img data-i="1" src="/images/engagement/staircase-twirl-oval.png" alt="" />
+            <img data-i="2" src="/images/engagement/lawn-lift-oval.png" alt="" />
+            <img data-i="3" src="/images/engagement/walk-lakeside-oval.png" alt="" />
+          </div>
+          <div class="frame rect" id="frameRect">
+            <img data-i="0" class="active" src="/images/engagement/walk-lakeside-framed.png" alt="" />
+            <img data-i="1" src="/images/engagement/porch-framed.png" alt="" />
+            <img data-i="2" src="/images/engagement/staircase-twirl-framed.png" alt="" />
+            <img data-i="3" src="/images/engagement/lawn-lift-framed.png" alt="" />
+          </div>
+        </div>
+
+        <div class="card-names">Laura <span class="amp">&amp;</span> William</div>
+        <div class="card-rule"><span class="line"></span><span class="dot">✦</span><span class="line"></span></div>
+        <div class="card-date">03 &middot; 20 &middot; 2027</div>
+        <div class="card-place">Wichita, Kansas</div>
+        <div class="card-follow">formal invitation to follow</div>
+
+        <div class="card-countdown" id="countdown">
+          <div class="unit"><span class="num" data-cd="days">—</span><span class="lbl">Days</span></div>
+          <div class="unit"><span class="num" data-cd="hours">—</span><span class="lbl">Hours</span></div>
+          <div class="unit"><span class="num" data-cd="minutes">—</span><span class="lbl">Minutes</span></div>
+          <div class="unit"><span class="num" data-cd="seconds">—</span><span class="lbl">Seconds</span></div>
+        </div>
+      </div>
+
+      <!-- Envelope graphic -->
+      <div class="env" id="env">
+        <span class="env-face env-closed" aria-hidden="true"></span>
+        <span class="env-face env-open" aria-hidden="true"></span>
+        <span class="env-seal" aria-hidden="true"><img src="/images/seal-wax-green.png" alt="" width="120" height="120" /></span>
+      </div>
+
+      <button class="opener" id="opener" type="button" aria-label="Open the save-the-date"></button>
+    </div>
+
+    <div class="open-cue" id="openCue">Click to open…</div>
   </div>
 
-  <!-- SAVE THE DATE -->
-  <main class="std">
-    <div class="std-lockup" aria-label="Save the Date">
-      <span class="word">Save</span>
-      <span class="the">the</span>
-      <span class="word">Date</span>
-    </div>
-
-    <div class="std-rule"><span class="line"></span><span class="dot">✦</span><span class="line"></span></div>
-
-    <div class="std-details">
-      <div class="std-date">03 &middot; 20 &middot; 2027</div>
-      <div class="std-names">Laura <span class="amp">&amp;</span> William</div>
-      <div class="std-place">Wichita, Kansas</div>
-      <div class="std-follow">formal invitation to follow</div>
-    </div>
-
-    <div class="std-countdown" id="countdown" aria-live="off">
-      <div class="unit"><span class="num" data-cd="days">—</span><span class="lbl">Days</span></div>
-      <div class="unit"><span class="num" data-cd="hours">—</span><span class="lbl">Hours</span></div>
-      <div class="unit"><span class="num" data-cd="minutes">—</span><span class="lbl">Minutes</span></div>
-      <div class="unit"><span class="num" data-cd="seconds">—</span><span class="lbl">Seconds</span></div>
-    </div>
-  </main>
-
-  <!-- The green wax seal, tucked in the corner — the door to the full site. -->
+  <!-- Corner door -->
   <button class="corner-seal" id="seal" type="button" aria-label="Enter the wedding website">
     <span class="seal-label" aria-hidden="true">Enter</span>
-    <span class="disc"><img src="/images/seal-wax-green.png" alt="The Bergkamp green wax seal, letter B" width="72" height="72" /></span>
+    <span class="disc"><img src="/images/seal-wax-green.png" alt="The Bergkamp green wax seal" width="66" height="66" /></span>
   </button>
 
   <!-- Passcode gate -->
@@ -409,9 +314,7 @@
       <h2 class="gate-title" id="gateTitle">Welcome, dear guest</h2>
       <p class="gate-copy">Our full wedding website is just behind the seal. Enter the passcode from your save-the-date to step inside.</p>
       <form class="gate-form" id="gateForm" autocomplete="off" novalidate>
-        <input class="gate-input" id="gateInput" type="text" name="passcode"
-               placeholder="Passcode" aria-label="Passcode"
-               autocapitalize="none" autocorrect="off" spellcheck="false" />
+        <input class="gate-input" id="gateInput" type="text" name="passcode" placeholder="Passcode" aria-label="Passcode" autocapitalize="none" autocorrect="off" spellcheck="false" />
         <button class="gate-submit" type="submit">Enter &rsaquo;</button>
         <div class="gate-note" id="gateNote" role="status" aria-live="polite"></div>
       </form>
