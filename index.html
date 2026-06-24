@@ -120,11 +120,20 @@
   /* Green wax seal pressed onto the closed envelope's flap. Lives above the
      envelope layer, fades away the moment the envelope opens, and never
      intercepts the tap (the whole composition is the button). */
-  .env-seal { position:absolute; left:50.5%; top:61%; width:13%; aspect-ratio:1/1; transform:translate(-50%,-50%);
+  .env-seal { position:absolute; left:50.5%; top:61%; width:18%; aspect-ratio:1/1; transform:translate(-50%,-50%);
     z-index:3; pointer-events:none; opacity:1; transition:opacity 600ms ease;
-    border-radius:50%; overflow:hidden; filter:drop-shadow(0 5px 11px rgba(35,42,28,0.5)); }
+    border-radius:50%; overflow:hidden; filter:drop-shadow(0 7px 15px rgba(35,42,28,0.55)); }
   .env-seal img { width:135%; height:135%; max-width:none; margin:-17.5%; object-fit:cover; display:block; }
-  body.opening .env-seal, body.opened .env-seal, html:not(.js) .env-seal { opacity:0; }
+  /* On open, the seal gives a little hop — it springs up off the broken flap
+     with a twist, settles for a beat, then leaps away and fades. */
+  body.opening .env-seal { animation:sealJump 760ms cubic-bezier(0.22,1,0.36,1) both; }
+  body.opened .env-seal, html:not(.js) .env-seal { opacity:0; }
+  @keyframes sealJump {
+    0%   { transform:translate(-50%,-50%)  scale(1)    rotate(0deg);   opacity:1; }
+    28%  { transform:translate(-50%,-92%)  scale(1.18) rotate(-8deg);  opacity:1; }
+    52%  { transform:translate(-50%,-66%)  scale(1.05) rotate(5deg);   opacity:1; }
+    100% { transform:translate(-50%,-156%) scale(0.6)  rotate(-14deg); opacity:0; }
+  }
 
   /* Closed state: only the sealed envelope shows, and it breathes gently. */
   .env-layer.closed { opacity:1; }
@@ -165,7 +174,7 @@
   @keyframes infoIn { from{opacity:0;} to{opacity:1;} }
   .info {
     position:relative; min-height:100vh; min-height:100dvh;
-    align-items:center; justify-content:center;
+    flex-direction:column; align-items:center; justify-content:center;
     padding: calc(40px + var(--safe-top)) 20px calc(48px + var(--safe-bottom));
     background:
       linear-gradient(180deg, rgba(246,241,231,0.55) 0%, rgba(244,238,226,0.42) 100%),
@@ -178,20 +187,18 @@
       url('/images/monogram-light-desktop.jpg'); }
   }
   /* The intro rests on a lace-edged linen napkin set on the monogram cloth. */
-  .info-stage { position:relative; z-index:2; width:min(92vw,520px); margin:0 auto;
+  .info-stage { position:relative; z-index:2; width:min(94vw,560px); margin:0 auto;
     display:flex; align-items:center; justify-content:center; }
-  .napkin { position:absolute; left:50%; top:50%; z-index:0;
-    width:clamp(580px,168%,800px); max-width:none; height:auto;
-    transform:translate(-50%,-50%) rotate(-1.6deg);
+  .napkin { position:relative; z-index:0; display:block;
+    width:100%; max-width:none; height:auto;
+    transform:rotate(-1.6deg);
     filter:drop-shadow(0 20px 45px rgba(60,48,30,0.22)); pointer-events:none; }
 
-  /* The Bergkamp cigar boxes — a playful aside resting on the monogram cloth
-     in the lower-right. Pulled up out of the very corner so it clears the
-     fixed wax seal (bottom-right), leaving the bottom-left to the gramophone,
-     and layered below .info-stage so the napkin tucks over its top edge while
-     the boxes peek onto the cloth below. */
-  .cigar-still { position:absolute; z-index:1; pointer-events:none;
-    right:-1%; bottom:21%;
+  /* The Bergkamp cigar boxes — a playful aside resting on the monogram cloth,
+     tucked into the very bottom-right corner of the details section. The
+     gramophone keeps the bottom-left. */
+  .cigar-still { position:absolute; z-index:3; pointer-events:none;
+    right:0; bottom:calc(var(--safe-bottom));
     width:clamp(140px,40vw,200px); }
   /* Layered, directional shadow gives the boxes real lift off the cloth:
      a tight contact shadow hugs the base, a larger soft shadow casts down
@@ -203,12 +210,8 @@
       drop-shadow(3px 5px 5px rgba(60,48,30,0.32))
       drop-shadow(20px 26px 28px rgba(43,34,20,0.42)); }
   @media (min-width:860px){
-    /* Desktop: the napkin renders at a fixed ~1080px (150% of the 720px stage),
-       centred via top:50%, so the cigar boxes are anchored to its lower-left
-       corner — offsets measured out from the centre. Anchoring with top (not
-       bottom) keeps them pinned to the napkin on short viewports too. The napkin
-       (.info-stage, z-index 2) tucks over the boxes' top edge. */
-    .cigar-still { right:auto; bottom:auto; left:calc(50% - 560px); top:calc(50% + 233px);
+    /* Desktop: larger boxes, still anchored to the bottom-right corner. */
+    .cigar-still { left:auto; top:auto; right:0; bottom:0;
       width:300px; }
     .cigar-still__boxes { filter:
       drop-shadow(4px 6px 6px rgba(60,48,30,0.32))
@@ -220,36 +223,26 @@
      The text and countdown are enlarged in a second block below, after their
      base rules, so the desktop caps actually win the cascade. */
   @media (min-width:860px){
-    .info-stage { width:min(82vw,720px); }
-    .napkin { width:clamp(820px,150%,1180px); }
+    .info-stage { width:min(72vw,660px); }
   }
 
-  /* The names, date and place are now inscribed on the napkin itself, so the
-     only copy left to overlay is the script line and countdown. The
-     napkin-area mirrors the napkin's rendered box (same width + 16:9 aspect,
-     centred over it) so that copy can be anchored to the blank satin band
-     below the inscription instead of landing on top of it. */
-  .napkin-area { position:absolute; left:50%; top:50%; z-index:1;
-    transform:translate(-50%,-50%);
-    width:clamp(580px,168%,800px); aspect-ratio:1920/1080; pointer-events:none; }
-  .details { position:absolute; left:50%; bottom:6%; transform:translateX(-50%);
-    width:min(88%,340px); text-align:center; pointer-events:auto; }
+  /* The names, date and place are inscribed on the napkin itself. The script
+     line and countdown now sit below the napkin, in normal flow, on the open
+     monogram cloth — clear of the inscription on the satin. */
+  .details { position:relative; z-index:2; margin:24px auto 0;
+    width:min(92%,340px); text-align:center; pointer-events:auto; }
   .follow { font-family:var(--script); font-size:clamp(16px,4.6vw,24px); line-height:1.15; color:var(--gold); }
-  /* The countdown width is capped so its fixed 25%-aspect height stays inside
-     the napkin's lower satin band, clear of the inscription above. */
   .countdown { width:min(100%,210px); margin:7px auto 0; }
   .countdown .unit { display:flex; flex-direction:column; align-items:center; gap:4px; min-width:40px; }
   .countdown .num { font-family:var(--serif); font-size:clamp(21px,5.6vw,31px); line-height:1; color:var(--ink); }
   .countdown .lbl { font-family:var(--label); font-size:clamp(8px,2.2vw,10px); letter-spacing:0.3em; text-indent:0.3em; text-transform:uppercase; color:var(--ink-faint); }
 
-  /* Laptop: enlarge the script line and countdown past their mobile caps, and
-     drop the details a touch lower into the larger napkin's satin band.
+  /* Laptop: enlarge the script line and countdown past their mobile caps.
      Placed after the base rules above so these desktop sizes win the cascade. */
   @media (min-width:860px){
-    .napkin-area { width:clamp(820px,150%,1180px); }
-    .details { width:min(80%,460px); bottom:8%; }
+    .details { width:min(80%,460px); margin-top:30px; }
     .follow { font-size:34px; }
-    .countdown { width:min(100%,300px); margin-top:12px; }
+    .countdown { width:min(100%,300px); margin-top:14px; }
     .countdown .unit { min-width:58px; }
     .countdown .num { font-size:44px; }
     .countdown .lbl { font-size:13px; }
@@ -333,13 +326,11 @@
   <section class="info">
     <div class="info-stage">
       <img class="napkin" src="/images/napkin-lace-inscribed.png" alt="Laura &amp; William — 03.20.2027 — Wichita, Kansas" />
-      <div class="napkin-area">
-      <div class="details">
+    </div>
+    <div class="details">
       <div class="follow">formal invitation to follow</div>
       <div class="countdown" id="countdown">
         <div style="left:0; width:100%; height:0; position:relative; padding-bottom:25%; margin:0 auto"><iframe src="https://www.tickcounter.com/widget/countdown/10679048" style="top:0; left:0; width:100%; height:100%; position:absolute; border:0; overflow:hidden" title="My countdown"></iframe></div>
-      </div>
-      </div>
       </div>
     </div>
     <div class="cigar-still" aria-hidden="true">
