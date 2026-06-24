@@ -153,24 +153,19 @@
     transform:translate(-50%,-50%) rotate(-1.6deg);
     filter:drop-shadow(0 20px 45px rgba(60,48,30,0.22)); pointer-events:none; }
 
-  /* The Bergkamp cigar boxes — a playful aside styled as a corner still-life.
-     Anchored to the table's lower-left so they balance the wax seal opposite,
-     framing the save-the-date instead of crowding it. A single cigar leans on
-     the stack so the prop reads as a composed vignette. It sits behind the
-     details (z below .info-stage) so the text always stays clear. */
+  /* The Bergkamp cigar boxes — a playful aside resting on the monogram cloth
+     just below the napkin's lower-left corner. Pulled up out of the screen
+     corners so it never collides with the fixed audio toggle (bottom-left) or
+     the wax seal (bottom-right), and layered below .info-stage so the napkin
+     tucks over its top edge while the boxes peek onto the cloth below. */
   .cigar-still { position:absolute; z-index:1; pointer-events:none;
-    left:calc(8px + env(safe-area-inset-left));
-    bottom:calc(10px + var(--safe-bottom));
-    width:clamp(150px,40vw,250px); }
-  .cigar-still__boxes { position:relative; z-index:1; width:100%;
-    transform:rotate(2.5deg);
-    filter:drop-shadow(0 16px 26px rgba(60,48,30,0.36)); }
-  .cigar-still__cigar { position:absolute; z-index:2; width:52%;
-    right:-12%; bottom:22%; transform:rotate(34deg);
-    filter:drop-shadow(0 12px 20px rgba(60,48,30,0.30)); }
+    left:-1%; bottom:21%;
+    width:clamp(140px,40vw,200px); }
+  .cigar-still__boxes { display:block; width:100%;
+    transform:rotate(2deg);
+    filter:drop-shadow(0 14px 26px rgba(60,48,30,0.34)); }
   @media (min-width:860px){
-    .cigar-still { left:calc(30px + env(safe-area-inset-left));
-      bottom:calc(28px + var(--safe-bottom)); width:clamp(200px,22vw,260px); }
+    .cigar-still { left:4%; bottom:13%; width:clamp(170px,17vw,220px); }
   }
 
   .details { position:relative; z-index:1; width:min(82%,380px); padding:10px 8px; text-align:center; }
@@ -274,7 +269,6 @@
     </div>
     <div class="cigar-still" aria-hidden="true">
       <img class="cigar-still__boxes" src="/images/cigar-boxes-bergkamp.png" alt="" />
-      <img class="cigar-still__cigar" src="/images/cigar-bergkamp.png" alt="" />
     </div>
   </section>
 
