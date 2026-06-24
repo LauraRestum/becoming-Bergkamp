@@ -216,7 +216,7 @@
   }
 
   .details { position:relative; z-index:1; width:min(82%,380px); padding:10px 8px; text-align:center; }
-  .names { font-family:var(--serif); font-size:clamp(21px,5.8vw,32px); letter-spacing:0.13em; text-indent:0.13em; text-transform:uppercase; color:var(--green); line-height:1.1; }
+  .names { font-family:var(--serif); font-size:clamp(21px,5.8vw,32px); letter-spacing:0.13em; text-indent:0.13em; text-transform:uppercase; color:var(--ink); line-height:1.1; }
   .names .amp { font-style:italic; text-transform:none; color:var(--gold); padding:0 0.1em; letter-spacing:0; }
   .rule { display:flex; align-items:center; justify-content:center; gap:12px; color:var(--gold); margin:8px 0; }
   .rule .line { width:40px; height:1px; background:currentColor; opacity:0.6; } .rule .dot { font-size:10px; }
@@ -225,20 +225,20 @@
   .follow { font-family:var(--script); font-size:clamp(18px,5vw,26px); line-height:1.15; color:var(--gold); margin-top:6px; }
   .countdown { display:flex; justify-content:center; gap:clamp(12px,4.4vw,26px); margin-top:11px; }
   .countdown .unit { display:flex; flex-direction:column; align-items:center; gap:4px; min-width:40px; }
-  .countdown .num { font-family:var(--serif); font-size:clamp(21px,5.6vw,31px); line-height:1; color:var(--green); }
+  .countdown .num { font-family:var(--serif); font-size:clamp(21px,5.6vw,31px); line-height:1; color:var(--ink); }
   .countdown .lbl { font-family:var(--label); font-size:clamp(8px,2.2vw,10px); letter-spacing:0.3em; text-indent:0.3em; text-transform:uppercase; color:var(--ink-faint); }
 
-  /* Desktop: a larger details block, set primarily in ink (near-black) on the
-     napkin — only the ampersand, hairline rule and the script line stay gold. */
+  /* Desktop: a larger details block. The napkin type is inked (near-black)
+     globally; only the ampersand, hairline rule and script line stay gold. */
   @media (min-width:860px){
     .info-stage { width:600px; }
     .details { width:min(88%,480px); }
-    .names { font-size:40px; color:var(--ink); }
+    .names { font-size:40px; }
     .date { font-size:24px; }
     .place { font-size:14px; }
     .follow { font-size:34px; }
     .countdown { gap:30px; margin-top:14px; }
-    .countdown .num { font-size:40px; color:var(--ink); }
+    .countdown .num { font-size:40px; }
     .countdown .lbl { font-size:12px; }
   }
 
