@@ -106,7 +106,7 @@
     cursor:pointer; -webkit-tap-highlight-color:transparent;
     transition:transform 260ms cubic-bezier(0.22,1,0.36,1);
   }
-  @media (min-width:860px){ .composition { width:min(72vw,1000px); aspect-ratio:1920/1080; } }
+  @media (min-width:860px){ .composition { width:min(90vw,1340px); aspect-ratio:1920/1080; } }
 
   .env-layer { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:48% 50%;
     opacity:0; transition:opacity 1200ms ease-in-out; pointer-events:none;
@@ -181,9 +181,6 @@
     width:clamp(580px,168%,800px); max-width:none; height:auto;
     transform:translate(-50%,-50%) rotate(-1.6deg);
     filter:drop-shadow(0 20px 45px rgba(60,48,30,0.22)); pointer-events:none; }
-  /* On desktop the napkin sits at a fixed, larger size so the rest of the
-     composition can be anchored to it deterministically. */
-  @media (min-width:860px){ .napkin { width:940px; } }
 
   /* The Bergkamp cigar boxes — a playful aside resting on the monogram cloth
      in the lower-right. Pulled up out of the very corner so it clears the
@@ -203,16 +200,25 @@
       drop-shadow(3px 5px 5px rgba(60,48,30,0.32))
       drop-shadow(20px 26px 28px rgba(43,34,20,0.42)); }
   @media (min-width:860px){
-    /* Desktop: the napkin renders at a fixed 940px and is centred via top:50%,
-       so the boxes are anchored to its lower-left corner the same way — offsets
-       measured out from the centre. Anchoring with top (not bottom) keeps the
-       boxes pinned to the napkin on short viewports too. The napkin
+    /* Desktop: the napkin renders at a fixed ~1080px (150% of the 720px stage),
+       centred via top:50%, so the cigar boxes are anchored to its lower-left
+       corner — offsets measured out from the centre. Anchoring with top (not
+       bottom) keeps them pinned to the napkin on short viewports too. The napkin
        (.info-stage, z-index 2) tucks over the boxes' top edge. */
-    .cigar-still { right:auto; bottom:auto; left:calc(50% - 516px); top:calc(50% + 198px);
+    .cigar-still { right:auto; bottom:auto; left:calc(50% - 560px); top:calc(50% + 233px);
       width:300px; }
     .cigar-still__boxes { filter:
       drop-shadow(4px 6px 6px rgba(60,48,30,0.32))
       drop-shadow(26px 32px 36px rgba(43,34,20,0.42)); }
+  }
+
+  /* On laptops there is ample room around the napkin, so it is scaled up to
+     fill the screen more generously. The stage drives the napkin (sized in %).
+     The text and countdown are enlarged in a second block below, after their
+     base rules, so the desktop caps actually win the cascade. */
+  @media (min-width:860px){
+    .info-stage { width:min(82vw,720px); }
+    .napkin { width:clamp(820px,150%,1180px); }
   }
 
   .details { position:relative; z-index:1; width:min(82%,380px); padding:10px 8px; text-align:center; }
@@ -228,18 +234,20 @@
   .countdown .num { font-family:var(--serif); font-size:clamp(21px,5.6vw,31px); line-height:1; color:var(--ink); }
   .countdown .lbl { font-family:var(--label); font-size:clamp(8px,2.2vw,10px); letter-spacing:0.3em; text-indent:0.3em; text-transform:uppercase; color:var(--ink-faint); }
 
-  /* Desktop: a larger details block. The napkin type is inked (near-black)
-     globally; only the ampersand, hairline rule and script line stay gold. */
+  /* Laptop: enlarge the intro text and countdown past their mobile caps.
+     Placed after the base rules above so these desktop sizes win the cascade.
+     Colour is inherited from the base rules, which are now inked (near-black);
+     only the ampersand, hairline rule and script line stay gold. */
   @media (min-width:860px){
-    .info-stage { width:600px; }
-    .details { width:min(88%,480px); }
-    .names { font-size:40px; }
-    .date { font-size:24px; }
-    .place { font-size:14px; }
-    .follow { font-size:34px; }
-    .countdown { gap:30px; margin-top:14px; }
-    .countdown .num { font-size:40px; }
-    .countdown .lbl { font-size:12px; }
+    .details { width:min(80%,540px); }
+    .names { font-size:44px; }
+    .date { font-size:26px; }
+    .place { font-size:16px; margin-top:9px; }
+    .follow { font-size:36px; margin-top:9px; }
+    .countdown { gap:38px; margin-top:16px; }
+    .countdown .unit { min-width:58px; }
+    .countdown .num { font-size:44px; }
+    .countdown .lbl { font-size:13px; }
   }
 
   /* Click-to-open cue */
