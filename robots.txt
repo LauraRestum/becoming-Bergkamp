@@ -1,4 +1,13 @@
 User-agent: *
-Allow: /
+Allow: /$
+
+# The full wedding website lives behind the Save-the-Date. Keep it out of search.
+Disallow: /home
+Disallow: /ceremony
+Disallow: /travel
+Disallow: /wedding-party
+Disallow: /honeymoon
+Disallow: /rsvp
+Disallow: /schedule
 
 Sitemap: https://becoming-bergkamp.vercel.app/sitemap.xml

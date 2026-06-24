@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<!-- Soft gate — the full site lives behind the Save-the-Date. Guests who have
+     not entered the passcode this session are returned to it before paint. -->
+<script>
+  try {
+    if (sessionStorage.getItem('bk_unlocked') !== '1') { location.replace('/'); }
+  } catch (e) {}
+</script>
+<meta name="robots" content="noindex" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#0a0a0a" />
+
+<title>Laura &amp; William — 20 March 2027 · Wichita, Kansas</title>
+<meta name="description" content="The wedding of Laura Beth Restum and William James Bergkamp — Saturday, the twentieth of March, two thousand twenty seven · Wichita, Kansas." />
+
+<link rel="canonical" href="https://becoming-bergkamp.vercel.app/home" />
+
+<link rel="icon" href="/favicon.ico" sizes="48x48" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="apple-touch-icon" href="/icons/icon-180.png" />
+<link rel="manifest" href="/site.webmanifest" />
+
+<!-- PWA / installable web app -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Bergkamp Wedding" />
+<script src="/sw-register.js" defer></script>
+<script src="/pwa.js" defer></script>
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Laura &amp; William — 20 March 2027" />
+<meta property="og:description" content="A wedding celebration in Wichita, Kansas." />
+<meta property="og:url" content="https://becoming-bergkamp.vercel.app/home" />
+<meta property="og:image" content="https://becoming-bergkamp.vercel.app/images/main-2.png" />
+<meta property="og:locale" content="en_US" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Laura &amp; William — 20 March 2027" />
+<meta name="twitter:description" content="A wedding celebration in Wichita, Kansas." />
+<meta name="twitter:image" content="https://becoming-bergkamp.vercel.app/images/main-2.png" />
+
+
+
+<!-- Schema.org Event -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Laura Restum & William Bergkamp — Wedding",
+  "startDate": "2027-03-20T16:00:00-05:00",
+  "endDate": "2027-03-21T00:00:00-05:00",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "location": {
+    "@type": "Place",
+    "name": "Central Community Church Chapel",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "6100 W Maple Street",
+      "addressLocality": "Wichita",
+      "addressRegion": "KS",
+      "addressCountry": "US"
+    }
+  },
+  "organizer": [
+    { "@type": "Person", "name": "Laura Beth Restum" },
+    { "@type": "Person", "name": "William James Bergkamp" }
+  ]
+}
+</script>
+
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body class="cover-open">
+
+  <!-- COVER -->
+  <div class="cover" id="cover">
+    <div class="cover-art"></div>
+
+    <div class="cover-mono">
+      <div class="mono-letters">L<span class="mono-amp">&amp;</span>W</div>
+    </div>
+
+    <div class="cover-doors" id="coverDoors" role="button" aria-label="Enter the chapel" tabindex="0"></div>
+
+    <div class="cover-verse">
+      <p class="quote">I have found the one whom my soul loves.</p>
+      <p class="citation">Song of Solomon 3 &middot; 4</p>
+    </div>
+
+    <div class="cover-cue">— Press the doors to enter —</div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="top" id="nav" aria-label="Primary">
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Menu">
+      <span class="nav-toggle-box" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+    <a href="#top" class="mono" aria-label="Home">
+      <img class="home-emblem" src="/icons/home-emblem.png" alt="" width="36" height="36" />
+      LBR &middot; WJB
+    </a>
+    <div class="nav-links" id="navLinks">
+      <div class="left">
+        <a href="#story">Our Story</a>
+        <a href="/ceremony">The Day</a>
+        <a href="/travel">Travel</a>
+      </div>
+      <div class="right">
+        <a href="/wedding-party">Wedding Party</a>
+        <a href="/honeymoon">Honeymoon</a>
+        <a href="/rsvp">RSVP</a>
+      </div>
+    </div>
+    <div class="nav-backdrop" id="navBackdrop"></div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero" id="top">
+    <video class="hero-video" id="heroVideo" muted loop playsinline preload="auto"
+           poster="/images/hero-mirror.png" aria-hidden="true" tabindex="-1">
+      <source src="/images/hero.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <div class="eyebrow">A Wedding Celebration</div>
+      <h1 class="names">
+        Laura Beth
+        <span class="amp">&amp;</span>
+        William James
+      </h1>
+      <div class="meta">
+        Twentieth of March &middot; Two Thousand Twenty Seven
+        <span class="place">Wichita, Kansas</span>
+      </div>
+    </div>
+    <div class="hero-scroll" aria-hidden="true">Scroll ↓</div>
+  </div>
+
+  <!-- COUNTDOWN -->
+  <div class="countdown" id="countdown" aria-live="polite">
+    <div class="label">Until We Are Wed</div>
+    <div class="units">
+      <div class="unit"><span class="num" data-cd="days">—</span><span class="lbl">Days</span></div>
+      <div class="unit"><span class="num" data-cd="hours">—</span><span class="lbl">Hours</span></div>
+      <div class="unit"><span class="num" data-cd="minutes">—</span><span class="lbl">Minutes</span></div>
+      <div class="unit"><span class="num" data-cd="seconds">—</span><span class="lbl">Seconds</span></div>
+    </div>
+  </div>
+
+  <!-- SECTION STRIP — skinny one-row nav -->
+  <nav class="section-strip" aria-label="Jump to section">
+    <a href="#story">Our Story</a>
+    <a href="/ceremony">The Day</a>
+    <a href="/travel">Travel</a>
+    <a href="/wedding-party">Wedding Party</a>
+    <a href="/honeymoon">Honeymoon</a>
+    <a href="/rsvp">RSVP</a>
+  </nav>
+
+  <!-- STORY — Newspaper Layout -->
+  <section id="story" class="light-section">
+    <div class="newspaper">
+
+      <header class="np-masthead">
+        <div class="np-rule-top"></div>
+        <div class="np-dateline-row">
+          <span class="np-vol">Vol. I &middot; No. 1</span>
+          <span class="np-dateline">Wichita, Kansas &middot; Saturday, the Twentieth of March, 2027</span>
+          <span class="np-price">Complimentary</span>
+        </div>
+        <div class="np-rule-thin"></div>
+        <h1 class="np-title">Becoming Bergkamp</h1>
+        <div class="np-subtitle">The Official Gazette of the Restum &ndash; Bergkamp Wedding</div>
+        <div class="np-rule-thick"></div>
+        <div class="np-motto">&ldquo;I have found the one whom my soul loves.&rdquo; &mdash; Song of Solomon 3:4</div>
+        <div class="np-rule-thin"></div>
+      </header>
+
+      <div class="np-headline-row">
+        <h2 class="np-headline">How We Found Each Other</h2>
+        <p class="np-subhead">Three days, told twice. The same hours, remembered from two sides of the room.</p>
+      </div>
+
+      <div class="np-body">
+
+        <!-- LEFT COLUMN -->
+        <div class="np-col np-col-left">
+          <article class="np-article">
+            <h3 class="np-article-hed">The First Encounter</h3>
+            <p class="np-article-dek">The day we noticed each other</p>
+            <div class="np-byline">As She Tells It</div>
+            <p class="np-dropcap">I wasn't looking for him. I was looking for my keys, or my coffee, or some small thing that had gone missing — and then there he was, mid-sentence with someone else, and I lost the thread of whatever I'd been doing.</p>
+            <p>I told myself I didn't care if he looked over. He looked over.</p>
+          </article>
+
+          <div class="np-img-placeholder">
+            <div class="np-img-inner">
+              <span class="np-img-icon">&#9633;</span>
+              <span class="np-img-label">Photo of Laura &amp; William</span>
+            </div>
+            <p class="np-caption">The happy couple, pictured at the scene of the first encounter.</p>
+          </div>
+
+          <article class="np-article">
+            <h3 class="np-article-hed">The Proposal</h3>
+            <p class="np-article-dek">A porch in Colorado, the slow hour before dinner</p>
+            <div class="np-byline">As She Tells It</div>
+            <p class="np-dropcap">He had been quiet all afternoon, which is not like him, and I had decided he was hungry. The light on the porch was that gold that only happens for about eleven minutes a day, and then he was on one knee, and my hands forgot what they were for.</p>
+            <p>The answer had been yes for a long time. I just got to finally say it out loud.</p>
+          </article>
+        </div>
+
+        <!-- CENTER COLUMN -->
+        <div class="np-col np-col-center">
+          <article class="np-article">
+            <div class="np-byline">As He Tells It</div>
+            <p class="np-dropcap">I saw her across the room and forgot what I was saying. Whoever I was talking to deserves an apology — I have no memory of the rest of that conversation.</p>
+            <p>I went home that night and told a friend I had met the woman I was going to marry. He laughed. I didn't.</p>
+          </article>
+
+          <div class="np-rule-ornament"><span>&#10022;</span></div>
+
+          <article class="np-article">
+            <h3 class="np-article-hed">The First Date</h3>
+            <p class="np-article-dek">A long dinner, and a longer walk after</p>
+            <div class="np-byline">As She Tells It</div>
+            <p class="np-dropcap">I changed three times before I left the house and arrived five minutes late on purpose. He was already there, of course, reading the menu like it was a test he intended to pass.</p>
+            <p>We closed the restaurant. Then we walked, and walked, and walked. I remember the sound of the city more than anything either of us said.</p>
+          </article>
+
+          <div class="np-img-placeholder">
+            <div class="np-img-inner">
+              <span class="np-img-icon">&#9633;</span>
+              <span class="np-img-label">Photo of the First Date</span>
+            </div>
+            <p class="np-caption">An evening that began with dinner and ended with the streetlights.</p>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="np-col np-col-right">
+          <div class="np-img-placeholder np-img-tall">
+            <div class="np-img-inner">
+              <span class="np-img-icon">&#9633;</span>
+              <span class="np-img-label">Portrait Photo</span>
+            </div>
+            <p class="np-caption">A portrait of the bride and groom to be.</p>
+          </div>
+
+          <article class="np-article">
+            <div class="np-byline">As He Tells It</div>
+            <p class="np-dropcap">I got there twenty minutes early and pretended I'd just arrived. I rehearsed three things to say and used none of them.</p>
+            <p>She laughed at something I didn't mean to be funny, and that was the end of any plan I had. We walked until the streetlights started going out.</p>
+          </article>
+
+          <div class="np-rule-ornament"><span>&#10022;</span></div>
+
+          <article class="np-article">
+            <div class="np-byline">As He Tells It</div>
+            <p class="np-dropcap">I had the ring in my pocket for three days, waiting for a moment that felt right. I kept moving it from one pocket to another like that would help.</p>
+            <p>The porch, the light, her — I stopped waiting. I asked. She said yes before I'd quite finished the question, which is the kindest thing anyone has ever done for me.</p>
+          </article>
+
+          <div class="np-img-placeholder">
+            <div class="np-img-inner">
+              <span class="np-img-icon">&#9633;</span>
+              <span class="np-img-label">Photo of the Proposal</span>
+            </div>
+            <p class="np-caption">Colorado, golden hour — the moment everything changed.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <footer class="np-footer">
+        <div class="np-rule-thin"></div>
+        <p class="np-footer-text">Continued in person &middot; 20 March 2027 &middot; Wichita, Kansas</p>
+      </footer>
+
+    </div>
+  </section>
+
+  <!-- SECTION PORTALS — bigger, clear section cards (end of main scroll) -->
+  <section class="section-portals" aria-label="Continue exploring">
+    <div class="container">
+      <div class="kicker">Continue Exploring</div>
+      <h2 class="display-h">The Day, In Parts</h2>
+      <div class="rule"><span class="line"></span><span class="ornament">✦</span><span class="line"></span></div>
+      <p class="lede">Five chapters of the weekend. Step into whichever calls you first.</p>
+
+      <div class="portal-grid">
+        <a href="/ceremony" class="portal-card">
+          <div class="portal-numeral">Chapter I</div>
+          <h3>The Wedding Day</h3>
+          <p>Ceremony at four o'clock, reception to follow — from the chapel to cocktails, dinner, and dancing by candlelight.</p>
+          <span class="portal-arrow">View &rarr;</span>
+        </a>
+
+        <a href="/travel" class="portal-card">
+          <div class="portal-numeral">Chapter II</div>
+          <h3>Travel &amp; Stay</h3>
+          <p>Flights into Wichita, the hotel block at The Ambassador, and the shuttle to the reception.</p>
+          <span class="portal-arrow">View &rarr;</span>
+        </a>
+
+        <a href="/wedding-party" class="portal-card">
+          <div class="portal-numeral">Chapter III</div>
+          <h3>The Wedding Party</h3>
+          <p>The Bergkamp Almanac — the parents, the standing party, the family, and the menagerie.</p>
+          <span class="portal-arrow">View &rarr;</span>
+        </a>
+
+        <a href="/honeymoon" class="portal-card">
+          <div class="portal-numeral">Chapter IV</div>
+          <h3>The Honeymoon</h3>
+          <p>In lieu of a gift — a contribution to the coastline that awaits us after the vow.</p>
+          <span class="portal-arrow">View &rarr;</span>
+        </a>
+
+        <a href="/rsvp" class="portal-card">
+          <div class="portal-numeral">Chapter V</div>
+          <h3>RSVP</h3>
+          <p>The honor of a reply, kindly requested by the first of February, two thousand twenty seven.</p>
+          <span class="portal-arrow">View &rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="mono">LBR &middot; WJB</span>
+    <span class="sub">Wichita &middot; Two Thousand Twenty Seven</span>
+    <div class="links">
+      <a href="#story">Story</a>
+      <a href="/ceremony">The Day</a>
+      <a href="/travel">Travel</a>
+      <a href="/wedding-party">Wedding Party</a>
+      <a href="/honeymoon">Honeymoon</a>
+      <a href="/rsvp">RSVP</a>
+    </div>
+    <div class="credit">With all our love · 03 · 20 · 2027</div>
+  </footer>
+
+<script src="/app.js"></script>
+
+</body>
+</html>
