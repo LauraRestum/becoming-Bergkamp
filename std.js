@@ -1,4 +1,4 @@
-/* Save-the-Date — envelope reveal, cycling photo frames, countdown, and the
+/* Save-the-Date — envelope reveal, cycling photo frames, and the
    soft passcode gate. The full wedding website lives at /home, behind this
    page. Entering the passcode unlocks it for the rest of this browser session;
    a fresh visit greets guests with the Save-the-Date again. A gentle
@@ -57,32 +57,6 @@
       openLayers[i].classList.add('active');
     }, 5200);
   }
-
-  /* ---------------------------- Countdown --------------------------- */
-  var fields = {
-    days: document.querySelector('[data-cd="days"]'),
-    hours: document.querySelector('[data-cd="hours"]'),
-    minutes: document.querySelector('[data-cd="minutes"]'),
-    seconds: document.querySelector('[data-cd="seconds"]')
-  };
-  var target = new Date('2027-03-20T16:00:00-05:00').getTime();
-  function pad(n) { return n < 10 ? '0' + n : '' + n; }
-  function tick() {
-    var diff = target - Date.now();
-    if (diff <= 0) {
-      if (fields.days) fields.days.textContent = '0';
-      if (fields.hours) fields.hours.textContent = '00';
-      if (fields.minutes) fields.minutes.textContent = '00';
-      if (fields.seconds) fields.seconds.textContent = '00';
-      return;
-    }
-    var s = Math.floor(diff / 1000);
-    if (fields.days) fields.days.textContent = Math.floor(s / 86400);
-    if (fields.hours) fields.hours.textContent = pad(Math.floor((s % 86400) / 3600));
-    if (fields.minutes) fields.minutes.textContent = pad(Math.floor((s % 3600) / 60));
-    if (fields.seconds) fields.seconds.textContent = pad(s % 60);
-  }
-  if (fields.days || fields.hours || fields.minutes || fields.seconds) { tick(); setInterval(tick, 1000); }
 
   /* ------------------------------ Gate ------------------------------ */
   var gate = document.getElementById('gate');
