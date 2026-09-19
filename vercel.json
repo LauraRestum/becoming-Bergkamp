@@ -46,6 +46,7 @@
     }
   ],
   "redirects": [
+    { "source": "/", "destination": "/home", "permanent": false },
     { "source": "/party", "destination": "/wedding-party", "permanent": true },
     { "source": "/almanac", "destination": "/wedding-party", "permanent": true }
   ]
