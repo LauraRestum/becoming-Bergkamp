@@ -3,7 +3,7 @@
   "short_name": "Bergkamp Wedding",
   "description": "Laura & William - March 2027",
   "display": "standalone",
-  "start_url": "/",
+  "start_url": "/home",
   "scope": "/",
   "theme_color": "#0a0a0a",
   "background_color": "#0a0a0a",

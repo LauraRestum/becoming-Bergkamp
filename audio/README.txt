@@ -3,8 +3,8 @@ Drop your music file here as:
     theme.mp3
 
 That's the path the site looks for (see SRC in /music.js). A soft, looping
-instrumental works best. The music starts the moment a guest opens the
-envelope on the Save-the-Date, and carries across the rest of the site.
+instrumental works best. The music starts on a guest's first tap or click
+anywhere on the site, and carries across the rest of the pages.
 
 Tips:
 - mp3 is the safest, most widely supported format.

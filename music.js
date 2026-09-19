@@ -2,8 +2,8 @@
    ------------------------------------------------------------------
    Browsers refuse to play sound until the visitor has interacted with
    the page, so we never "autoplay" in the literal sense — playback is
-   *started* from a gesture the guest already makes: opening the envelope
-   on the Save-the-Date (see std.js), or the first tap on any later page.
+   *started* from a gesture the guest already makes: the first tap or
+   click on any page.
    To the guest it feels automatic; to the browser it's a blessed gesture.
 
    The site is multi-page (every nav link reloads), so this module also
@@ -134,16 +134,30 @@
     btn.classList.toggle('muted', !on);
     btn.setAttribute('aria-pressed', on ? 'true' : 'false');
     btn.title = on ? 'Pause music' : 'Play music';
-    // Show the control once music is in play, so the pristine Save-the-Date
-    // screen stays clean until the envelope is opened.
+    // Show the control once music is in play. The root path check is kept
+    // for safety even though "/" now redirects to /home.
     var isStart = location.pathname === '/' || location.pathname === '/index.html';
     if (hasStarted() || !isStart) btn.classList.add('show');
+  }
+
+  // With the save-the-date retired there is no envelope tap to start the
+  // music, so a brand-new guest's very first gesture on any page starts it.
+  // Once the guest has engaged at all (playing or muted) this stands down.
+  function startOnFirstGesture() {
+    if (hasStarted()) return;
+    var events = ['pointerdown', 'touchstart', 'keydown'];
+    function go() {
+      events.forEach(function (ev) { document.removeEventListener(ev, go, true); });
+      if (!hasStarted()) window.BKMusic.start();
+    }
+    events.forEach(function (ev) { document.addEventListener(ev, go, true); });
   }
 
   /* --------------------------- lifecycle -------------------------- */
   function init() {
     buildToggle();
     if (wantsOn()) play(true); // resume across a page navigation
+    else startOnFirstGesture(); // new guest: begin on their first tap
   }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
@@ -151,8 +165,8 @@
     init();
   }
 
-  // Public hook — std.js calls this from the envelope-open tap (a real
-  // user gesture), which is what lets the sound actually begin.
+  // Public hook, called from a real user gesture (the first-tap starter
+  // above), which is what lets the sound actually begin.
   window.BKMusic = {
     start: function () {
       if (read(ON_KEY) === '0') return; // guest muted on purpose; respect it
