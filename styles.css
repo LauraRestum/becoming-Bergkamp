@@ -1010,7 +1010,7 @@
 
   /* COLOURS & ATTIRE — the shared reception photo spans the whole section and
      fades in as the blinds finish assembling, so the colours/attire copy lands
-     on the same image as the "Brick & Mortar" line. */
+     on the same image as the "Crestview Country Club" line. */
   .attire-art-bg {
     position: absolute; inset: 0;
     background: url('/images/reception-pavilion.png') center/cover no-repeat;
@@ -1133,7 +1133,7 @@
   }
 
   /* THE ORDER OF THE EVENING — the series of events, sitting on the same
-     oil-painting reveal as the Brick & Mortar line, below it. */
+     oil-painting reveal as the Crestview Country Club line, below it. */
   .reception-order {
     position: relative;
     margin-top: clamp(40px, 7vh, 80px);
