@@ -958,14 +958,14 @@
     animation: ceremonyFadeIn 1.6s ease-out 0.3s forwards;
   }
   /* The projected name, lifted off the curtain and set above the title.
-     The image carries its own feathered alpha; screen blend melts the
-     leftover curtain texture into the scene. */
+     Only the light survives in the image's alpha channel, so it lands on
+     the curtain behind like a projection rather than a pasted panel. */
   .ceremony-bleed .hero-projection {
     display: block;
     width: min(520px, 84%);
     height: auto;
     margin: 0 auto 2px;
-    mix-blend-mode: screen;
+    filter: drop-shadow(0 0 26px rgba(227, 207, 156, 0.28));
   }
   .ceremony-bleed .content .kicker {
     color: rgba(255, 255, 255, 0.88);
