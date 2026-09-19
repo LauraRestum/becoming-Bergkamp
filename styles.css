@@ -1472,31 +1472,26 @@
     color: var(--paper-faint-on-ink);
   }
 
-  /* THE CLUB — the Crestview paintings as a hairline framed editorial walk:
-     the two portraits share a row, the two landscapes each run full width. */
-  .club-gallery .club-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: clamp(24px, 4vw, 48px);
-    max-width: 980px; margin: 72px auto 0;
+  /* CRESTVIEW IN OIL — the club paintings run edge to edge as one continuous
+     band: the two portraits share a row, the two landscapes run full width,
+     separated only by hairlines of the black ground. Long gradients at the top
+     and bottom feather the band into the dark sections around it. */
+  .club-blend {
+    position: relative;
+    background: var(--ink);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
   }
-  .club-fig { margin: 0; }
-  .club-fig.wide { grid-column: 1 / -1; }
-  .club-fig img {
-    display: block; width: 100%;
-    object-fit: cover;
-    border: 0.5px solid rgba(255, 255, 255, 0.22);
+  .club-blend img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .club-blend img.tall { aspect-ratio: 3 / 4; }
+  .club-blend img.wide { grid-column: 1 / -1; aspect-ratio: 21 / 10; }
+  .club-blend::before, .club-blend::after {
+    content: ''; position: absolute; left: 0; right: 0; z-index: 1;
+    height: clamp(90px, 16vh, 180px); pointer-events: none;
   }
-  .club-fig.tall img { aspect-ratio: 3 / 4; }
-  .club-fig.wide img { aspect-ratio: 16 / 11; }
-  .club-fig figcaption {
-    margin-top: 14px;
-    font-family: var(--sans); font-size: 11px;
-    letter-spacing: 0.32em; text-transform: uppercase; text-align: center;
-    color: var(--paper-faint-on-ink);
-  }
-  @media (max-width: 720px) {
-    .club-gallery .club-grid { grid-template-columns: 1fr; gap: 40px; }
-  }
+  .club-blend::before { top: 0; background: linear-gradient(180deg, var(--ink), transparent); }
+  .club-blend::after { bottom: 0; background: linear-gradient(0deg, var(--ink), transparent); }
 
   /* EVENING SCENE — the Bergkamp curtain (with its projected name) at the top
      flowing down into the checkered dance floor at the bottom. Colours & Attire
