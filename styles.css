@@ -1496,26 +1496,39 @@
     color: var(--paper-faint-on-ink);
   }
 
-  /* CRESTVIEW IN OIL · the club paintings run edge to edge as one continuous
-     band: the two portraits share a row, the two landscapes run full width,
-     separated only by hairlines of the black ground. Long gradients at the top
-     and bottom feather the band into the dark sections around it. */
-  .club-blend {
+  /* CRESTVIEW GROUNDS · each painting fills the viewport as a scrimmed scene
+     the page scrolls through, vignetted at the sides and feathered into the
+     black on both ends, so the art reads as ground rather than photograph.
+     On laptops the painting holds still while the page slides over it. */
+  #club { background: var(--ink); }
+  .club-scene {
     position: relative;
-    background: var(--ink);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
+    min-height: 92vh;
+    background-image: var(--scene);
+    background-size: cover;
+    background-position: center;
   }
-  .club-blend img { display: block; width: 100%; height: 100%; object-fit: cover; }
-  .club-blend img.tall { aspect-ratio: 3 / 4; }
-  .club-blend img.wide { grid-column: 1 / -1; aspect-ratio: 21 / 10; }
-  .club-blend::before, .club-blend::after {
-    content: ''; position: absolute; left: 0; right: 0; z-index: 1;
-    height: clamp(90px, 16vh, 180px); pointer-events: none;
+  @media (min-width: 860px) {
+    .club-scene { background-attachment: fixed; }
   }
-  .club-blend::before { top: 0; background: linear-gradient(180deg, var(--ink), transparent); }
-  .club-blend::after { bottom: 0; background: linear-gradient(0deg, var(--ink), transparent); }
+  .club-scene::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(120% 90% at 50% 50%, transparent 42%, rgba(0, 0, 0, 0.5) 100%),
+      linear-gradient(180deg, var(--ink) 0%, transparent 26%, transparent 74%, var(--ink) 100%);
+  }
+
+  /* A painting as the footer's ground: the ceremony page sets the foyer's
+     checkered floor under the sign off, scrimmed well past legibility. */
+  footer.footer-scene {
+    position: relative;
+    background: var(--scene) center 72% / cover no-repeat;
+  }
+  footer.footer-scene::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, var(--ink) 0%, rgba(10, 10, 10, 0.86) 34%, rgba(10, 10, 10, 0.8) 100%);
+  }
+  footer.footer-scene > * { position: relative; z-index: 1; }
 
   /* EVENING SCENE · the Bergkamp curtain (with its projected name) at the top
      flowing down into the checkered dance floor at the bottom. Colours & Attire

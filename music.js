@@ -1,7 +1,7 @@
 /* Ambient music for the wedding site.
    ------------------------------------------------------------------
    Browsers refuse to play sound until the visitor has interacted with
-   the page, so we never "autoplay" in the literal sense — playback is
+   the page, so we never "autoplay" in the literal sense · playback is
    *started* from a gesture the guest already makes: the first tap or
    click on any page.
    To the guest it feels automatic; to the browser it's a blessed gesture.

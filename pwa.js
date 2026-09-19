@@ -1,4 +1,4 @@
-/* Bergkamp Wedding — "Download our app" pop-up.
+/* Bergkamp Wedding · "Download our app" pop-up.
    Most visitors arrive by scanning a QR code on their phone, so this shows a
    centred, mobile-first pop-up inviting them to download our app (add the site
    to their home screen for a full-screen, app-like experience).
@@ -160,7 +160,7 @@
       '<p class="pwa-kicker">Keep us close</p>' +
       '<h2 class="pwa-title">Download the Bergkamp Wedding app</h2>' +
       '<p class="pwa-text">Add our wedding to your home screen for the ' +
-      'full-screen, app-like experience — no app store needed.</p>' +
+      'full-screen, app-like experience, no app store needed.</p>' +
       '<div class="pwa-actions">' +
       '<button class="pwa-btn pwa-download" type="button">Download the app</button>' +
       '<button class="pwa-later" type="button">Continue on the web version</button></div>'
@@ -172,7 +172,7 @@
   function whenReady(fn) { setTimeout(fn, SHOW_DELAY); }
 
   if (isIOS) {
-    // iPhone/iPad Safari: Apple does not allow programmatic install — so
+    // iPhone/iPad Safari: Apple does not allow programmatic install · so
     // "Download the app" reveals the Add to Home Screen step.
     whenReady(function () {
       showInvite(showIOSInstructions);

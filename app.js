@@ -36,7 +36,7 @@
   if (cover && window.location.hash && window.location.hash !== '#top') {
     enter();
   }
-  // Subpages have no cover — render entered immediately so nav and content show.
+  // Subpages have no cover · render entered immediately so nav and content show.
   if (!cover) {
     document.body.classList.add('entered');
   }
@@ -76,7 +76,7 @@
     replay.addEventListener('click', restartCover);
   }
 
-  // nav scroll behavior — switches to dark-on-light over any paper section
+  // nav scroll behavior · switches to dark-on-light over any paper section
   var nav = document.getElementById('nav');
   var lightZones = Array.from(document.querySelectorAll(
     '.light-section, .chapel-exterior, .countdown, .section-strip, .section-portals, .almanac'
@@ -96,7 +96,7 @@
   window.addEventListener('resize', updateNav, { passive: true });
   updateNav();
 
-  // Mobile menu — hamburger opens a side drawer with a dimmed backdrop.
+  // Mobile menu · hamburger opens a side drawer with a dimmed backdrop.
   var navToggle = document.getElementById('navToggle');
   var navBackdrop = document.getElementById('navBackdrop');
   if (navToggle && nav) {
@@ -123,7 +123,7 @@
     });
   }
 
-  // RSVP form — graceful fallback if Formspree id isn't set
+  // RSVP form · graceful fallback if Formspree id isn't set
   var rsvpForm = document.getElementById('rsvpForm');
   var rsvpNote = document.getElementById('rsvpNote');
   if (rsvpForm) {
@@ -168,7 +168,7 @@
     });
   }
 
-  // Blinds reveal — scroll-driven progress, text fades in when assembled
+  // Blinds reveal · scroll-driven progress, text fades in when assembled
   var blinds = document.getElementById('blindsReveal');
   if (blinds) {
     // The section now also holds the colours/attire copy, so measure the
@@ -192,7 +192,7 @@
     updateBlinds();
   }
 
-  // Wedding party — expandable bio cards (accessible disclosure pattern).
+  // Wedding party · expandable bio cards (accessible disclosure pattern).
   // The summary is a native <button>, so Enter/Space and focus come for free;
   // we just toggle aria-expanded, swap the cue label, and animate the panel's
   // height + opacity. Collapsed panels keep the `hidden` attribute (so they are
@@ -267,7 +267,7 @@
       if (honeyNote) {
         honeyNote.textContent = amt === 'other'
           ? 'Thank you. A note from us is on its way with the contribution link.'
-          : 'Thank you. $' + amt + ' — a note from us is on its way with the contribution link.';
+          : 'Thank you. $' + amt + '. A note from us is on its way with the contribution link.';
         honeyNote.className = 'portal-feedback success';
       }
     });
