@@ -1055,6 +1055,26 @@
     0% { opacity: 0; transform: translateY(16px); }
     100% { opacity: 1; transform: translateY(0); }
   }
+  /* Corner labels on the hero, after the save the date card. */
+  .hero-corners .hc {
+    position: absolute;
+    z-index: 2;
+    font-family: var(--sans); font-size: 9px;
+    letter-spacing: 0.32em; text-transform: uppercase;
+    line-height: 1.9;
+    color: rgba(255, 255, 255, 0.55);
+    opacity: 0;
+    animation: ceremonySlideUp 1.2s ease-out 1s forwards;
+  }
+  .hero-corners .tl { top: 92px; left: 40px; text-align: left; }
+  .hero-corners .tr { top: 92px; right: 40px; text-align: right; }
+  .hero-corners .bl { bottom: 36px; left: 96px; text-align: left; }
+  .hero-corners .br { bottom: 36px; right: 40px; text-align: right; }
+  .hero-corners .bc { bottom: 36px; left: 50%; transform: translateX(-50%); }
+  @media (max-width: 860px) {
+    .hero-corners .tl, .hero-corners .tr, .hero-corners .br { display: none; }
+    .hero-corners .bl { display: none; }
+  }
   @keyframes ceremonySlideUp {
     0% { opacity: 0; transform: translateY(24px); }
     100% { opacity: 1; transform: translateY(0); }
@@ -1300,6 +1320,36 @@
   @media (min-width: 861px) {
     .venue-script { white-space: nowrap; }
   }
+  /* The oval house badge and the est flanks, after the club mark. */
+  .venue-the {
+    display: inline-block;
+    font-family: var(--sans); font-size: 10px;
+    letter-spacing: 0.35em; text-transform: uppercase;
+    padding: 7px 22px 5px 26px;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    opacity: 0.8;
+    margin-bottom: 16px;
+  }
+  .venue-name.has-flanks { position: relative; }
+  .venue-flank {
+    position: absolute;
+    top: 58%;
+    font-family: var(--serif); font-style: italic;
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    opacity: 0.7;
+  }
+  .venue-flank.fl { left: 0; }
+  .venue-flank.fr { right: 0; }
+  /* Tulip divider: a hand drawn white tulip between hairlines. */
+  .tulip-rule { margin: 0 auto 34px; }
+  .tulip-rule .tulip { width: 20px; height: auto; opacity: 0.75; display: block; }
+  .tulip-rule .line { width: 56px; }
+  .chapel-exterior-info .tulip-rule { color: var(--ink-on-paper); }
+  .chapel-exterior-info .tulip-rule .line { background: var(--rule-light); }
+  .reception-exterior .tulip-rule { color: var(--paper-on-ink); }
+  .reception-exterior .tulip-rule .line { background: rgba(255, 255, 255, 0.3); }
   .detail-row {
     display: flex; gap: 18px; align-items: baseline;
     padding: 16px 0;
@@ -1329,8 +1379,21 @@
   }
 
   /* Reception panel · the Crestview entrance in white ink on the dark
-     ground, mirrored: image in the left column, info on the right. */
+     ground, mirrored: image in the left column, info on the right. The
+     club's lawn sits behind in black and white, barely there. */
   .reception-exterior { background: #0d0d0d; }
+  .reception-exterior::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('/images/crestview-clubhouse-lawn.png') center 72% / cover no-repeat;
+    filter: grayscale(1) brightness(0.55) contrast(0.9);
+    opacity: 0.3;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+    pointer-events: none;
+  }
+  .reception-exterior .chapel-exterior-grid { position: relative; z-index: 1; }
   .reception-exterior::after { display: none; }
   .reception-exterior .chapel-exterior-img { background: #0d0d0d; }
   .reception-exterior .chapel-exterior-img img {
