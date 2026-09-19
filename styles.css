@@ -915,6 +915,9 @@
     padding: 0;
     overflow: hidden;
     min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   .ceremony-bleed .art-bg {
     position: absolute;
@@ -923,8 +926,7 @@
     height: 100%;
     display: block;
     object-fit: cover;
-    /* Keeps the projected name on the curtain in view, up and to the left. */
-    object-position: 18% 32%;
+    object-position: center 45%;
     transform-origin: center center;
     animation: aisleWalk 18s ease-out forwards;
   }
@@ -946,14 +948,24 @@
     pointer-events: none;
   }
   .ceremony-bleed .content {
-    position: absolute;
-    top: 50%; left: 50%; transform: translate(-50%, -55%);
+    position: relative;
     width: 90%; max-width: 720px;
+    margin: 0 auto;
     text-align: center;
     z-index: 2;
-    padding: 0;
+    padding: 110px 0 0;
     opacity: 0;
     animation: ceremonyFadeIn 1.6s ease-out 0.3s forwards;
+  }
+  /* The projected name, lifted off the curtain and set above the title.
+     The image carries its own feathered alpha; screen blend melts the
+     leftover curtain texture into the scene. */
+  .ceremony-bleed .hero-projection {
+    display: block;
+    width: min(520px, 84%);
+    height: auto;
+    margin: 0 auto 2px;
+    mix-blend-mode: screen;
   }
   .ceremony-bleed .content .kicker {
     color: rgba(255, 255, 255, 0.88);
@@ -977,37 +989,43 @@
   }
   .ceremony-bleed .content .rule { margin-bottom: 0; }
   .ceremony-bleed .content-bottom {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
+    position: relative;
     z-index: 2;
-    padding: 56px 40px 48px;
-    background: linear-gradient(to top,
-      rgba(0,0,0,0.6) 0%,
-      rgba(0,0,0,0.38) 55%,
-      rgba(0,0,0,0) 100%);
+    margin-top: clamp(20px, 4vh, 44px);
+    padding: 0 40px 56px;
     opacity: 0;
     animation: ceremonySlideUp 1.2s ease-out 0.7s forwards;
   }
   .ceremony-details {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 0;
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px;
     max-width: 760px;
     margin: 0 auto;
   }
   .ceremony-details > div,
   .ceremony-details > a.ceremony-detail-link {
-    padding: 34px 24px;
+    padding: 30px 24px 26px;
     text-align: center;
-    border-right: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(0, 0, 0, 0.22);
     text-decoration: none;
     color: inherit;
     display: block;
-    transition: background 0.25s ease;
+    cursor: pointer;
+    transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
   }
-  .ceremony-details > a.ceremony-detail-link:hover {
-    background: rgba(255, 255, 255, 0.08);
+  .ceremony-details > a.ceremony-detail-link:hover,
+  .ceremony-details > a.ceremony-detail-link:focus-visible {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--gold);
+    transform: translateY(-2px);
   }
-  .ceremony-details > div:last-child,
-  .ceremony-details > a.ceremony-detail-link:last-child { border-right: none; }
+  .ceremony-detail-link .go {
+    display: inline-block;
+    margin-top: 16px;
+    font-family: var(--sans); font-size: 10px;
+    letter-spacing: 0.38em; text-transform: uppercase;
+    color: var(--gold-bright);
+  }
   .ceremony-details .lbl {
     font-family: var(--sans); font-size: 11px; letter-spacing: 0.42em; text-transform: uppercase;
     color: rgba(255, 255, 255, 0.85); margin-bottom: 14px;
@@ -1025,8 +1043,8 @@
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7), 0 1px 10px rgba(0, 0, 0, 0.5);
   }
   @keyframes ceremonyFadeIn {
-    0% { opacity: 0; transform: translate(-50%, -50%); }
-    100% { opacity: 1; transform: translate(-50%, -55%); }
+    0% { opacity: 0; transform: translateY(16px); }
+    100% { opacity: 1; transform: translateY(0); }
   }
   @keyframes ceremonySlideUp {
     0% { opacity: 0; transform: translateY(24px); }
@@ -1802,11 +1820,7 @@
       transition: opacity 320ms ease;
     }
     .light-section, .dark-section { padding: 88px 24px; }
-    .ceremony-details { grid-template-columns: 1fr; }
-    .ceremony-details > div,
-    .ceremony-details > a.ceremony-detail-link { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
-    .ceremony-details > div:last-child,
-    .ceremony-details > a.ceremony-detail-link:last-child { border-bottom: none; }
+    .ceremony-details { grid-template-columns: 1fr; gap: 14px; }
     .blinds-backdrop { height: 80vh; }
     .blinds-track { width: calc(90% + var(--blinds-progress) * 10%); gap: calc((1 - var(--blinds-progress)) * 6px); }
     .portal { padding: 56px 28px; }
