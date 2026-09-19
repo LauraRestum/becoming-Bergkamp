@@ -71,9 +71,9 @@
 
   <main>
 
-  <!-- CEREMONY -->
+  <!-- CEREMONY · the projected name on the curtain opens the page -->
   <section id="ceremony" class="ceremony-bleed">
-    <img class="art-bg" src="/images/main-3.jpg" alt="Chapel interior with stained glass window" decoding="async" />
+    <img class="art-bg" src="/images/curtain.png" alt="An ivory curtain with The Bergkamps projected in golden light" decoding="async" />
     <div class="overlay"></div>
 
     <div class="content">
@@ -89,7 +89,7 @@
           <div class="val">Four O&rsquo;Clock</div>
           <div class="sub">Central Community Church<br/>6100 W Maple Street<br/>Wichita, Kansas</div>
         </a>
-        <a href="#blindsReveal" class="ceremony-detail-link">
+        <a href="#receptionDetails" class="ceremony-detail-link">
           <div class="lbl">The Reception</div>
           <div class="val">Half Past Five</div>
           <div class="sub">Crestview Country Club<br/>Cocktails, Dinner &amp; Dancing</div>
@@ -98,12 +98,9 @@
     </div>
   </section>
 
-  <!-- CHAPEL EXTERIOR · ceremony details -->
-  <section id="ceremonyDetails" class="chapel-exterior">
+  <!-- THE CEREMONY · info on the left, the chapel sketch on the right -->
+  <section id="ceremonyDetails" class="chapel-exterior flip">
     <div class="chapel-exterior-grid">
-      <div class="chapel-exterior-img">
-        <img src="/images/main-4.jpg" alt="Chapel exterior at sunset with lattice windows" loading="lazy" decoding="async" />
-      </div>
       <div class="chapel-exterior-info">
         <div class="kicker">The Ceremony</div>
         <h3>Central Community Church</h3>
@@ -124,6 +121,39 @@
           <span class="detail-value">Black tie, formal welcomed and encouraged</span>
         </div>
         <p class="chapel-note">A quiet service in the chapel. Please be seated by a quarter to four.</p>
+      </div>
+      <div class="chapel-exterior-img">
+        <img src="/images/chapel-sketch.png" alt="Architectural sketch of the Central Community Church chapel with lattice windows" loading="lazy" decoding="async" />
+      </div>
+    </div>
+  </section>
+
+  <!-- THE RECEPTION · the Crestview sketch on the left, info on the right -->
+  <section id="receptionDetails" class="chapel-exterior reception-exterior">
+    <div class="chapel-exterior-grid">
+      <div class="chapel-exterior-img">
+        <img src="/images/crestview-entrance-sketch.png" alt="Architectural sketch of the Crestview Country Club entrance" loading="lazy" decoding="async" />
+      </div>
+      <div class="chapel-exterior-info">
+        <div class="kicker">The Reception</div>
+        <h3>Crestview Country Club</h3>
+        <div class="detail-row">
+          <span class="detail-label">Time</span>
+          <span class="detail-value">Half past five in the evening</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Shuttle</span>
+          <span class="detail-value">Departs The Ambassador at five o&rsquo;clock</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Address</span>
+          <span class="detail-value">Wichita, Kansas</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Evening</span>
+          <span class="detail-value">Cocktails, dinner &amp; dancing by candlelight</span>
+        </div>
+        <p class="chapel-note">The order of the evening follows below.</p>
       </div>
     </div>
   </section>
@@ -146,18 +176,11 @@
     </div>
     <div class="attire-art-bg" aria-hidden="true"></div>
     <div class="attire-art-scrim" aria-hidden="true"></div>
-    <noscript><style>.reception-info { opacity: 1 !important; transform: none !important; } .attire-art-bg, .attire-art-scrim { opacity: 1 !important; }</style></noscript>
+    <noscript><style>.attire-art-bg, .attire-art-scrim { opacity: 1 !important; }</style></noscript>
 
-    <!-- The full-screen reception reveal: Crestview Country Club, the time and the address -->
+    <!-- The reception details now live in their own panel above; the painting
+         stays as a quiet ground under the order of the evening. -->
     <div class="reception-attire-panel">
-      <div class="reception-info">
-        <div class="kicker">The Reception</div>
-        <h2 class="display-h">Crestview Country Club</h2>
-        <div class="rule"><span class="line"></span><span class="ornament">&#10022;</span><span class="line"></span></div>
-        <p class="reception-when">Half past five in the evening</p>
-        <p class="reception-where">Wichita, Kansas</p>
-      </div>
-
       <!-- THE ORDER OF THE EVENING · the series of events, on the same oil-painting reveal -->
       <div class="reception-order" id="schedule">
         <div class="kicker">The Order of the Evening</div>
@@ -185,7 +208,6 @@
 
   <!-- COLOURS & ATTIRE · compact, on the Bergkamp curtain + checkered dance floor -->
   <section id="attire" class="dark-section evening-scene">
-    <div class="floor-curtain" aria-hidden="true"></div>
     <div class="container attire-content">
       <div class="kicker">A Note on Dress</div>
       <h2 class="display-h">Colours &amp; Attire</h2>

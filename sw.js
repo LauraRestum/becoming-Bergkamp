@@ -1,9 +1,9 @@
-/* Bergkamp Wedding — network-first service worker.
+/* Bergkamp Wedding · network-first service worker.
    Always grabs the freshest version from the network when online, updating the
    offline cache as it goes. When the network is unreachable it falls back to
    the cached copy so the app still opens and works offline. */
 
-const VERSION = 'v9';
+const VERSION = 'v10';
 const CACHE = 'bergkamp-wedding-' + VERSION;
 
 // Pre-cache the homepage, the things it needs to render, the manifest, and the
@@ -23,7 +23,7 @@ const CORE_ASSETS = [
 
 // Install: pre-cache the core assets. We deliberately do NOT skipWaiting here.
 // A freshly built worker stays in "waiting" until the page tells us to take
-// over — that pause is what powers the "update available" prompt, so visitors
+// over · that pause is what powers the "update available" prompt, so visitors
 // are never yanked onto a new version mid-read.
 self.addEventListener('install', (event) => {
   event.waitUntil(

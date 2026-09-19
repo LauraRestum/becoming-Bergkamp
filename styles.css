@@ -923,7 +923,8 @@
     height: 100%;
     display: block;
     object-fit: cover;
-    object-position: center center;
+    /* Keeps the projected name on the curtain in view, up and to the left. */
+    object-position: 18% 32%;
     transform-origin: center center;
     animation: aisleWalk 18s ease-out forwards;
   }
@@ -1272,6 +1273,38 @@
     line-height: 1.7;
   }
 
+  /* Flipped panel · info in the left column, the sketch on the right. */
+  .chapel-exterior.flip .chapel-exterior-info {
+    padding: 80px 60px 80px 80px;
+    justify-self: end;
+  }
+  .chapel-exterior.flip .chapel-exterior-img::after {
+    right: auto; left: 0;
+    background: linear-gradient(270deg, transparent, var(--paper));
+  }
+
+  /* Reception panel · the Crestview sketch on its own dark ground, mirrored:
+     image in the left column, info on the right. */
+  .reception-exterior { background: #0d0d0d; }
+  .reception-exterior::after { display: none; }
+  .reception-exterior .chapel-exterior-img { background: #0d0d0d; }
+  .reception-exterior .chapel-exterior-img img {
+    mix-blend-mode: lighten;
+    filter: contrast(1.05) brightness(0.96);
+  }
+  .reception-exterior .chapel-exterior-img::after {
+    background: linear-gradient(90deg, transparent, #0d0d0d);
+  }
+  .reception-exterior .chapel-exterior-info,
+  .reception-exterior .chapel-exterior-info h3 { color: var(--paper-on-ink); }
+  .reception-exterior .detail-row { border-bottom-color: rgba(255, 255, 255, 0.14); }
+  .reception-exterior .detail-label { color: rgba(255, 255, 255, 0.55); }
+  .reception-exterior .detail-value { color: rgba(255, 255, 255, 0.85); }
+  .reception-exterior .chapel-note {
+    color: var(--gold-bright);
+    border-top-color: rgba(255, 255, 255, 0.14);
+  }
+
   /* BLINDS REVEAL */
   .blinds-section {
     --blinds-progress: 0;
@@ -1357,51 +1390,17 @@
     position: absolute;
     inset: 0;
     z-index: 2;
+    /* A heavier scrim keeps the ballroom painting subtle under the schedule. */
     background: linear-gradient(180deg,
-      rgba(0,0,0,0.45) 0%,
-      rgba(0,0,0,0.15) 30%,
-      rgba(0,0,0,0.1) 50%,
-      rgba(0,0,0,0.25) 70%,
-      rgba(0,0,0,0.6) 90%,
-      rgba(0,0,0,0.8) 100%);
+      rgba(0,0,0,0.68) 0%,
+      rgba(0,0,0,0.48) 30%,
+      rgba(0,0,0,0.44) 50%,
+      rgba(0,0,0,0.55) 70%,
+      rgba(0,0,0,0.78) 90%,
+      rgba(0,0,0,0.9) 100%);
     pointer-events: none;
     opacity: var(--blinds-progress);
   }
-  .blinds-section .reception-info {
-    position: relative;
-    z-index: 3;
-    text-align: center;
-    width: 100%;
-    max-width: 620px;
-    margin: 0 auto;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 1.6s ease-out, transform 1.6s ease-out;
-    pointer-events: none;
-  }
-  .blinds-section.blinds-complete .reception-info {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-  .reception-when {
-    font-family: var(--serif);
-    font-size: 17px;
-    color: rgba(255,255,255,0.8);
-    text-shadow: 0 1px 8px rgba(0,0,0,0.5);
-    margin-top: 16px;
-    letter-spacing: 0.02em;
-  }
-  .reception-where {
-    font-family: var(--sans);
-    font-size: 11px;
-    letter-spacing: 0.34em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.66);
-    text-shadow: 0 1px 8px rgba(0,0,0,0.55);
-    margin-top: 10px;
-  }
-
   /* TRAVEL */
   .travel-cards {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
@@ -1451,24 +1450,9 @@
     border-bottom: 0.5px solid var(--gold);
   }
 
-  /* (quote-section, act-break, reception-venue, reception-intro removed · merged into blinds reveal) */
+  /* (quote-section, act-break, reception-venue, reception-intro removed · merged into blinds reveal;
+     the reception info itself now lives in the mirrored sketch panel above the blinds) */
 
-  .reception-info .kicker {
-    color: rgba(255, 255, 255, 0.75);
-    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.7);
-  }
-  .reception-info .display-h {
-    color: #fff;
-    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.6), 0 4px 48px rgba(0, 0, 0, 0.3);
-    font-size: clamp(36px, 6vw, 64px);
-  }
-  .reception-info .rule .line {
-    background: rgba(255, 255, 255, 0.3);
-  }
-  .reception-info .rule .ornament {
-    color: rgba(255, 255, 255, 0.45);
-    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
-  }
   /* DARK ACT */
   .dark-section {
     background: var(--ink);
@@ -1536,9 +1520,9 @@
   .evening-scene {
     position: relative;
     overflow: hidden;
-    /* Top padding drops the heading below the "The Bergkamps" projection on
-       the curtain; bottom is tightened to keep the section compact. */
-    padding: clamp(200px, 32vh, 360px) 24px clamp(40px, 6vh, 64px);
+    /* The curtain projection now opens the page, so the section sits on the
+       dance floor alone with a normal heading height. */
+    padding: clamp(96px, 16vh, 180px) 24px clamp(40px, 6vh, 64px);
   }
   /* The dance-floor photo sits at the bottom; its top falls off to black and
      the mask blends that into the section's black behind the words. */
@@ -1556,24 +1540,6 @@
     opacity: 0.72;
     -webkit-mask-image: linear-gradient(to top, #000 30%, transparent 92%);
     mask-image: linear-gradient(to top, #000 30%, transparent 92%);
-    z-index: 0;
-    pointer-events: none;
-  }
-  /* The curtain hangs across the top, with "The Bergkamps" projection shifted
-     into view and centred; fades in at the top and out toward the floor. */
-  .evening-scene .floor-curtain {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: clamp(360px, 50vh, 560px);
-    background-image: url(/images/curtain.png);
-    background-size: cover;
-    background-position: 8% center;
-    background-repeat: no-repeat;
-    opacity: 0.95;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 74%, transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 74%, transparent 100%);
     z-index: 0;
     pointer-events: none;
   }
@@ -1761,6 +1727,10 @@
     .chapel-exterior-grid { grid-template-columns: 1fr; min-height: auto; }
     .chapel-exterior-img { height: 60vh; overflow: hidden; }
     .chapel-exterior-info { padding: 60px 32px 220px; max-width: 100%; }
+    /* Stacked variants: the image follows the info, so the bottom fade never
+       sits over the text and the deep padding is not needed. */
+    .chapel-exterior.flip .chapel-exterior-info { padding: 60px 32px 48px; }
+    .reception-exterior .chapel-exterior-info { padding: 48px 32px 72px; }
     .reception-attire-panel { padding: clamp(96px, 18vh, 160px) 22px 80px; }
     .attire-art-content { margin-top: 44px; padding-top: 40px; }
     .attire-avoid { gap: 32px; padding-top: 36px; }
@@ -1776,7 +1746,6 @@
     .ceremony-bleed .content { position: relative; top: auto; left: auto; transform: none; padding: 100px 24px 32px; width: 100%; animation: ceremonyFadeInMobile 1s ease-out 0.3s forwards; opacity: 0; }
     .ceremony-bleed .content-bottom { position: relative; bottom: auto; left: auto; right: auto; transform: none; padding: 0 24px 60px; width: 100%; animation: ceremonyFadeInMobile 1s ease-out 0.6s forwards; opacity: 0; }
     @keyframes ceremonyFadeInMobile { 0% { opacity: 0; transform: translateY(18px); } 100% { opacity: 1; transform: translateY(0); } }
-    .blinds-section .reception-info { width: 95%; padding: 0 16px; }
     .blinds-track { width: calc(80% + var(--blinds-progress) * 20%); }
     .travel-cards { grid-template-columns: 1fr; gap: 20px; }
   }
@@ -1888,8 +1857,7 @@
     .dark-section .sched-row .event, .dark-section .sched-row .loc { color: #000 !important; text-shadow: none !important; }
     .dark-section .rule .line { background: #000 !important; }
     .dark-section .sched-row { border-color: rgba(0, 0, 0, 0.2) !important; }
-    .evening-scene::before, .evening-scene::after,
-    .evening-scene .floor-curtain { display: none !important; }
+    .evening-scene::before, .evening-scene::after { display: none !important; }
     .evening-scene .display-h, .evening-scene .kicker, .evening-scene .attire-lede,
     .evening-scene .eyebrow, .evening-scene .suggest-name, .evening-scene .chip-name,
     .evening-scene .avoid-col p, .evening-scene .avoid-label {
@@ -1904,7 +1872,6 @@
     .reception-attire-panel * { color: #000 !important; text-shadow: none !important; }
     .reception-attire-panel .sched-row { border-color: rgba(0, 0, 0, 0.2) !important; }
     .ceremony-bleed .overlay, .blinds-overlay { display: none !important; }
-    .reception-info { opacity: 1 !important; transform: none !important; }
     .ceremony-bleed .content, .ceremony-bleed .content-bottom { opacity: 1 !important; }
     footer { background: #fff !important; border-top-color: #ccc !important; }
     footer .mono, footer .links a, footer .sub, footer .credit { color: #000 !important; }
