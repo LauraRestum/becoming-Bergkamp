@@ -1206,7 +1206,9 @@
   .reception-order .sched-row .event,
   .reception-order .sched-row .loc { text-shadow: 0 1px 12px rgba(0, 0, 0, 0.7); }
 
-  /* CHAPEL EXTERIOR */
+  /* VENUE PANELS · the venues as inked cards, after the invitation suite:
+     tall serif caps with the script sweeping under, the building drawn in
+     ink. The ceremony keeps the paper ground, the reception the black. */
   .chapel-exterior {
     background: var(--paper);
     padding: 0;
@@ -1240,22 +1242,18 @@
     height: 100%;
     overflow: hidden;
     background: var(--paper);
+    display: flex;
+    align-items: center;
   }
   .chapel-exterior-img img {
     width: 100%; height: 100%;
+    max-height: 78vh;
     object-fit: contain;
     object-position: center;
     mix-blend-mode: multiply;
     filter: contrast(1.05);
-  }
-  .chapel-exterior-img::after {
-    content: "";
-    position: absolute;
-    top: 0; right: 0; bottom: 0;
-    width: 80px;
-    background: linear-gradient(90deg, transparent, var(--paper));
-    pointer-events: none;
-    z-index: 1;
+    padding: clamp(20px, 3vw, 48px);
+    box-sizing: border-box;
   }
   .chapel-exterior-info {
     padding: 80px 80px 80px 60px;
@@ -1263,11 +1261,35 @@
     color: var(--ink-on-paper);
   }
   .chapel-exterior-info .kicker { text-align: left; }
-  .chapel-exterior-info h3 {
-    font-family: var(--display); font-weight: 500; font-size: clamp(24px, 2.8vw, 36px);
-    letter-spacing: 0.12em; text-transform: uppercase;
-    margin-bottom: 36px;
+  /* Venue name lockup, after the invitation suite: centered serif caps
+     alternating with script lines that sweep across and interlock. */
+  .venue-name {
+    margin-bottom: 40px;
     color: var(--ink-on-paper);
+    text-align: center;
+  }
+  .venue-caps {
+    display: block;
+    font-family: var(--display); font-weight: 500;
+    font-size: clamp(30px, 3.4vw, 48px);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    line-height: 1;
+    color: inherit;
+  }
+  .venue-script {
+    display: block;
+    position: relative;
+    z-index: 1;
+    font-family: 'Hijrnotes', var(--serif);
+    font-size: clamp(36px, 4vw, 56px);
+    line-height: 0.85;
+    margin: -0.38em 0 -0.1em;
+    color: inherit;
+    text-transform: none;
+  }
+  .venue-script + .venue-caps { margin-top: -0.06em; }
+  @media (min-width: 861px) {
+    .venue-script { white-space: nowrap; }
   }
   .detail-row {
     display: flex; gap: 18px; align-items: baseline;
@@ -1296,13 +1318,9 @@
     padding: 80px 60px 80px 80px;
     justify-self: end;
   }
-  .chapel-exterior.flip .chapel-exterior-img::after {
-    right: auto; left: 0;
-    background: linear-gradient(270deg, transparent, var(--paper));
-  }
 
-  /* Reception panel · the Crestview sketch on its own dark ground, mirrored:
-     image in the left column, info on the right. */
+  /* Reception panel · the Crestview entrance in white ink on the dark
+     ground, mirrored: image in the left column, info on the right. */
   .reception-exterior { background: #0d0d0d; }
   .reception-exterior::after { display: none; }
   .reception-exterior .chapel-exterior-img { background: #0d0d0d; }
@@ -1310,11 +1328,8 @@
     mix-blend-mode: lighten;
     filter: contrast(1.05) brightness(0.96);
   }
-  .reception-exterior .chapel-exterior-img::after {
-    background: linear-gradient(90deg, transparent, #0d0d0d);
-  }
   .reception-exterior .chapel-exterior-info,
-  .reception-exterior .chapel-exterior-info h3 { color: var(--paper-on-ink); }
+  .reception-exterior .venue-name { color: var(--paper-on-ink); }
   .reception-exterior .detail-row { border-bottom-color: rgba(255, 255, 255, 0.14); }
   .reception-exterior .detail-label { color: rgba(255, 255, 255, 0.55); }
   .reception-exterior .detail-value { color: rgba(255, 255, 255, 0.85); }
