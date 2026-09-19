@@ -168,20 +168,20 @@
           <div class="sched-row"><div class="left"><span class="time">7:00 PM</span><span class="event">Dinner is served</span></div><span class="loc">The Hall</span></div>
           <div class="sched-row"><div class="left"><span class="time">8:30 PM</span><span class="event">First toasts</span></div><span class="loc">The Hall</span></div>
           <div class="sched-row"><div class="left"><span class="time">9:00 PM</span><span class="event">Dancing</span></div><span class="loc">The Hall</span></div>
-          <div class="sched-row"><div class="left"><span class="time">12:00 AM</span><span class="event">A proper send off</span></div><span class="loc">Front Steps</span></div>
+          <div class="sched-row"><div class="left"><span class="time">11:00 PM</span><span class="event">A proper send off</span></div><span class="loc">Front Steps</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CRESTVIEW IN OIL — the club paintings pass by as one quiet art break,
-       no headings or frames, feathered into the black ground on both ends -->
-  <section id="club" class="club-blend" aria-label="Crestview Country Club, painted">
-    <img class="tall" src="/images/crestview-entrance.png" alt="The Crestview Country Club entrance in oil, the gold crest on white brick beside glowing doors" loading="lazy" decoding="async" />
-    <img class="tall" src="/images/crestview-foyer.png" alt="The foyer in oil, a black and white checkered floor under brass chandeliers" loading="lazy" decoding="async" />
-    <img class="wide" src="/images/crestview-lobby.png" alt="The lobby in oil, curved built-in seating before tall windows onto the course" loading="lazy" decoding="async" />
-    <img class="wide" src="/images/crestview-clubhouse-lawn.png" alt="The clubhouse in oil, dark roofs and lit windows across a wide lawn under a painted sky" loading="lazy" decoding="async" />
-  </section>
+  <!-- CRESTVIEW GROUNDS — the club paintings are grounds the page scrolls
+       through: full scenes, scrimmed and feathered into the black on both
+       ends, arrival to lobby to the wide lawn. No frames, no captions. -->
+  <div id="club" aria-label="Crestview Country Club, painted">
+    <div class="club-scene" role="img" aria-label="The Crestview Country Club entrance in oil, the gold crest on white brick beside glowing doors" style="--scene:url('/images/crestview-entrance.png')"></div>
+    <div class="club-scene" role="img" aria-label="The lobby in oil, curved built-in seating before tall windows onto the course" style="--scene:url('/images/crestview-lobby.png')"></div>
+    <div class="club-scene" role="img" aria-label="The clubhouse in oil, dark roofs and lit windows across a wide lawn under a painted sky" style="--scene:url('/images/crestview-clubhouse-lawn.png')"></div>
+  </div>
 
   <!-- COLOURS & ATTIRE — compact, on the Bergkamp curtain + checkered dance floor -->
   <section id="attire" class="dark-section evening-scene">
@@ -281,7 +281,7 @@
 
   </main>
 
-  <footer>
+  <footer class="footer-scene" style="--scene:url('/images/crestview-foyer.png')">
     <span class="mono">LBR &middot; WJB</span>
     <span class="sub">Wichita &middot; Two Thousand Twenty Seven</span>
     <div class="links">
