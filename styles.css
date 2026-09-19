@@ -927,9 +927,18 @@
     display: block;
     object-fit: cover;
     object-position: center 45%;
+    /* Soft focus: the curtain reads as depth behind the projection and the
+       enlarged slice never shows its grain. Scale hides the blur's edges. */
+    filter: blur(9px) saturate(1.05);
+    transform: scale(1.06);
     transform-origin: center center;
     animation: aisleWalk 18s ease-out forwards;
   }
+  @keyframes aisleWalkSoft {
+    0%   { transform: scale(1.06); }
+    100% { transform: scale(1.16); }
+  }
+  .ceremony-bleed .art-bg { animation-name: aisleWalkSoft; }
   @keyframes aisleWalk {
     0%   { transform: scale(1); }
     100% { transform: scale(1.12); }
