@@ -926,34 +926,34 @@
     height: 100%;
     display: block;
     object-fit: cover;
-    object-position: center 45%;
-    /* Soft focus: the curtain reads as depth behind the projection and the
-       enlarged slice never shows its grain. Scale hides the blur's edges. */
-    filter: blur(9px) saturate(1.05);
-    transform: scale(1.06);
-    transform-origin: center center;
-    animation: aisleWalk 18s ease-out forwards;
+    object-position: center 40%;
+    /* The course at the last of the light: kept sharp, graded quiet so the
+       long shadows read and the type stays the brightest thing on screen. */
+    filter: saturate(0.78) brightness(0.82) contrast(1.06);
+    transform: scale(1.04);
+    transform-origin: center 70%;
+    animation: fairwayDrift 46s ease-in-out infinite alternate;
   }
-  @keyframes aisleWalkSoft {
-    0%   { transform: scale(1.06); }
-    100% { transform: scale(1.16); }
-  }
-  .ceremony-bleed .art-bg { animation-name: aisleWalkSoft; }
-  @keyframes aisleWalk {
-    0%   { transform: scale(1); }
-    100% { transform: scale(1.12); }
+  @keyframes fairwayDrift {
+    0%   { transform: scale(1.04) translate3d(-0.8%, 0, 0); }
+    100% { transform: scale(1.14) translate3d(0.8%, -1%, 0); }
   }
   .ceremony-bleed .overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg,
-      rgba(0,0,0,0.72) 0%,
-      rgba(0,0,0,0.6) 15%,
-      rgba(0,0,0,0.52) 35%,
-      rgba(0,0,0,0.55) 50%,
-      rgba(0,0,0,0.66) 65%,
-      rgba(0,0,0,0.82) 80%,
-      rgba(0,0,0,0.92) 100%);
+    background:
+      radial-gradient(90% 55% at 50% 40%,
+        rgba(227, 207, 156, 0.1) 0%,
+        rgba(227, 207, 156, 0.04) 45%,
+        transparent 70%),
+      linear-gradient(180deg,
+      rgba(0,0,0,0.8) 0%,
+      rgba(0,0,0,0.62) 15%,
+      rgba(0,0,0,0.46) 35%,
+      rgba(0,0,0,0.5) 50%,
+      rgba(0,0,0,0.62) 65%,
+      rgba(0,0,0,0.8) 80%,
+      rgba(0,0,0,0.93) 100%);
     pointer-events: none;
   }
   .ceremony-bleed .content {
@@ -966,15 +966,42 @@
     opacity: 0;
     animation: ceremonyFadeIn 1.6s ease-out 0.3s forwards;
   }
-  /* The projected name, lifted off the curtain and set above the title.
-     Only the light survives in the image's alpha channel, so it lands on
-     the curtain behind like a projection rather than a pasted panel. */
-  .ceremony-bleed .hero-projection {
-    display: block;
-    width: min(520px, 84%);
-    height: auto;
-    margin: 0 auto 2px;
-    filter: drop-shadow(0 0 26px rgba(227, 207, 156, 0.28));
+  /* The family name, set live in the house script and lit like low sun on
+     brass rather than a projector. A slow sheen crosses the letters once in
+     a while, the one moving light on the page title. */
+  .ceremony-bleed .hero-name {
+    font-family: 'Hijrnotes', var(--serif);
+    font-size: clamp(56px, 9vw, 104px);
+    line-height: 1.04;
+    margin: 10px auto 4px;
+    padding: 0 0.35em 0.12em;
+    background: linear-gradient(100deg,
+      #efe4c8 0%,
+      #d9bd85 26%,
+      #fdf6e2 46%,
+      #d3b478 66%,
+      #f2e7cb 100%);
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 22px rgba(227, 207, 156, 0.22)) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.55));
+    animation: heroNameSheen 11s ease-in-out infinite alternate;
+  }
+  @keyframes heroNameSheen {
+    0%   { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+  }
+  @supports not (background-clip: text) {
+    .ceremony-bleed .hero-name { color: #e9d8ac; background: none; }
+  }
+  @media (min-width: 861px) {
+    /* One unbroken line of script on wide screens, sized to sit under the
+       date and hand the room to the serif title below. */
+    .ceremony-bleed .hero-name {
+      white-space: nowrap;
+      font-size: clamp(56px, 6.4vw, 88px);
+    }
   }
   .ceremony-bleed .content .kicker {
     color: rgba(255, 255, 255, 0.88);
@@ -1378,30 +1405,55 @@
     justify-self: end;
   }
 
-  /* Reception panel · the Crestview entrance in white ink on the dark
-     ground, mirrored: image in the left column, info on the right. The
-     club's lawn sits behind in black and white, barely there. */
-  .reception-exterior { background: #0d0d0d; }
+  /* Reception panel · the Crestview entrance in white ink, drawn straight
+     onto the course. The grass at golden hour floods the left side, held in
+     an oval of light that dissolves into the black on every edge, and drifts
+     slowly so the scene breathes. The drawing blends into it as pure light. */
+  .reception-exterior {
+    background: #0d0d0d;
+    isolation: isolate;
+    /* Clip the drifting grass so it never leaks into the panels around it. */
+    overflow: hidden;
+  }
   .reception-exterior::before {
     content: "";
     position: absolute;
-    inset: 0;
-    background: url('/images/crestview-clubhouse-lawn.png') center 72% / cover no-repeat;
-    filter: grayscale(1) brightness(0.55) contrast(0.9);
-    opacity: 0.3;
-    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
-    mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+    inset: -4%;
+    background: url('/images/course-grass.jpg') 30% 60% / cover no-repeat;
+    filter: saturate(0.85) brightness(0.68) contrast(1.06);
+    opacity: 0.85;
+    -webkit-mask-image: radial-gradient(115% 125% at 20% 50%,
+      #000 0%, #000 34%, rgba(0, 0, 0, 0.55) 56%, transparent 80%);
+    mask-image: radial-gradient(115% 125% at 20% 50%,
+      #000 0%, #000 34%, rgba(0, 0, 0, 0.55) 56%, transparent 80%);
+    animation: fairwayBreathe 44s ease-in-out infinite alternate;
     pointer-events: none;
   }
-  .reception-exterior .chapel-exterior-grid { position: relative; z-index: 1; }
+  @keyframes fairwayBreathe {
+    0%   { transform: scale(1) translate3d(0, 0, 0); }
+    100% { transform: scale(1.07) translate3d(1.2%, -1%, 0); }
+  }
+  /* The grid stays z-auto on purpose: a z-index here would open a stacking
+     context and cut the drawing's lighten blend off from the grass below. */
+  .reception-exterior .chapel-exterior-grid { position: relative; }
   .reception-exterior::after { display: none; }
-  .reception-exterior .chapel-exterior-img { background: #0d0d0d; }
+  .reception-exterior .chapel-exterior-img { background: transparent; }
   .reception-exterior .chapel-exterior-img img {
     mix-blend-mode: lighten;
-    filter: contrast(1.05) brightness(0.96);
+    filter: contrast(1.08) brightness(1.02);
+    padding: 0;
+    max-height: 88vh;
+    -webkit-mask-image: radial-gradient(102% 102% at 50% 50%,
+      #000 56%, rgba(0, 0, 0, 0.6) 78%, transparent 97%);
+    mask-image: radial-gradient(102% 102% at 50% 50%,
+      #000 56%, rgba(0, 0, 0, 0.6) 78%, transparent 97%);
   }
   .reception-exterior .chapel-exterior-info,
   .reception-exterior .venue-name { color: var(--paper-on-ink); }
+  .reception-exterior .kicker {
+    color: rgba(255, 255, 255, 0.62);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+  }
   .reception-exterior .detail-row { border-bottom-color: rgba(255, 255, 255, 0.14); }
   .reception-exterior .detail-label { color: rgba(255, 255, 255, 0.55); }
   .reception-exterior .detail-value { color: rgba(255, 255, 255, 0.85); }
@@ -1619,14 +1671,14 @@
   }
   footer.footer-scene > * { position: relative; z-index: 1; }
 
-  /* EVENING SCENE · the Bergkamp curtain (with its projected name) at the top
-     flowing down into the checkered dance floor at the bottom. Colours & Attire
-     sits on this scene. Uses the supplied images as-is, never stretched. */
+  /* EVENING SCENE · the checkered dance floor rising out of the black.
+     Colours & Attire sits on this scene. Uses the supplied images as-is,
+     never stretched. */
   .evening-scene {
     position: relative;
     overflow: hidden;
-    /* The curtain projection now opens the page, so the section sits on the
-       dance floor alone with a normal heading height. */
+    /* The family name opens the page in live type, so the section sits on
+       the dance floor alone with a normal heading height. */
     padding: clamp(96px, 16vh, 180px) 24px clamp(40px, 6vh, 64px);
   }
   /* The dance-floor photo sits at the bottom; its top falls off to black and
@@ -1836,6 +1888,16 @@
        sits over the text and the deep padding is not needed. */
     .chapel-exterior.flip .chapel-exterior-info { padding: 60px 32px 48px; }
     .reception-exterior .chapel-exterior-info { padding: 48px 32px 72px; }
+    /* Stacked: the drawing sits on top, so the pool of grass light moves up
+       behind it and fades out before the details below. */
+    .reception-exterior::before {
+      -webkit-mask-image: radial-gradient(140% 95% at 50% 24%,
+        #000 0%, #000 36%, rgba(0, 0, 0, 0.55) 58%, transparent 82%);
+      mask-image: radial-gradient(140% 95% at 50% 24%,
+        #000 0%, #000 36%, rgba(0, 0, 0, 0.55) 58%, transparent 82%);
+    }
+    .reception-exterior .chapel-exterior-img { height: 46vh; }
+    .reception-exterior .chapel-exterior-img img { max-height: 44vh; }
     .reception-attire-panel { padding: clamp(96px, 18vh, 160px) 22px 80px; }
     .attire-art-content { margin-top: 44px; padding-top: 40px; }
     .attire-avoid { gap: 32px; padding-top: 36px; }
