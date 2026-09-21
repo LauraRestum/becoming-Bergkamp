@@ -45,12 +45,12 @@ var ATTEND_LABEL = {
 
 var GUEST_HEADERS = [
   'Received', 'Reply ID', 'Party Email', 'Guest', 'Attending',
-  'Ceremony', 'Reception', '8 or Under', 'Plates', 'Motorcoach', 'Seats',
+  'Ceremony', 'Reception', '8 or Under', 'Plates',
   'Songs', 'Note', 'Current'
 ];
 var REPLY_HEADERS = [
   'Received', 'Reply ID', 'Party Email', 'Guests', 'Ceremony', 'Reception',
-  '8 or Under', 'Plates', 'Motorcoach', 'Seats', 'Songs', 'Note', 'Current'
+  '8 or Under', 'Plates', 'Songs', 'Note', 'Current'
 ];
 
 /* ---------- Web app entry points ---------- */
@@ -109,8 +109,6 @@ function normalize(data) {
   }).filter(function (g) { return g.name; });
 
   var receptionCount = guests.filter(function (g) { return g.reception; }).length;
-  var transport = receptionCount > 0 ? (data.transport === 'yes' ? 'Yes' : (data.transport === 'no' ? 'No' : '')) : '';
-  var seats = transport === 'Yes' ? receptionCount : 0;
 
   return {
     id: String(data.id || ('R-' + Date.now().toString(36).toUpperCase())),
@@ -121,8 +119,6 @@ function normalize(data) {
     receptionCount: receptionCount,
     childCount: guests.filter(function (g) { return g.reception && g.child; }).length,
     plates: guests.reduce(function (n, g) { return n + g.plates; }, 0),
-    transport: transport,
-    seats: seats,
     songs: (data.songs || []).map(function (s) { return String(s).trim(); }).filter(Boolean),
     note: String(data.note || '').trim()
   };
@@ -167,8 +163,6 @@ function writeReply(ss, r) {
       g.reception ? 'Yes' : 'No',
       g.child ? 'Yes' : 'No',
       g.plates,
-      g.reception ? r.transport : '',
-      g.reception && r.transport === 'Yes' ? 1 : 0,
       i === 0 ? songs : '',
       i === 0 ? r.note : '',
       'Yes'
@@ -183,7 +177,7 @@ function writeReply(ss, r) {
     r.received, r.id, r.email,
     r.guests.map(function (g) { return g.name; }).join(', '),
     r.ceremonyCount, r.receptionCount, r.childCount, r.plates,
-    r.transport, r.seats, songs, r.note, 'Yes'
+    songs, r.note, 'Yes'
   ]);
 }
 
@@ -205,7 +199,6 @@ function notifyCouple(r) {
     + '<p style="margin:22px 0 4px;">Ceremony: <strong>' + r.ceremonyCount + '</strong> &nbsp;·&nbsp; Reception: <strong>' + r.receptionCount + '</strong>'
     + (r.childCount ? ' &nbsp;·&nbsp; Eight or under: <strong>' + r.childCount + '</strong>' : '')
     + ' &nbsp;·&nbsp; Plates: <strong>' + r.plates + '</strong></p>'
-    + (r.receptionCount ? '<p style="margin:4px 0;">Motorcoach: <strong>' + (r.transport || 'not answered') + '</strong>' + (r.seats ? ' (' + r.seats + ' seat' + (r.seats === 1 ? '' : 's') + ')' : '') + '</p>' : '')
     + (r.songs.length ? '<p style="margin:14px 0 4px;">Songs: ' + esc(r.songs.join(' · ')) + '</p>' : '')
     + (r.note ? '<p style="margin:14px 0 4px;padding:12px 16px;border-left:2px solid #b89149;background:#faf7f0;">' + esc(r.note).replace(/\n/g, '<br>') + '</p>' : '')
     + '<p style="margin:22px 0 0;color:#777;font-size:14px;">From ' + esc(r.email) + ' &nbsp;·&nbsp; <a href="' + SpreadsheetApp.getActiveSpreadsheet().getUrl() + '" style="color:#b89149;">Open the Sheet</a></p>'
@@ -230,20 +223,18 @@ function confirmGuest(r) {
       + '<td style="padding:6px 0;color:#555;">' + g.label + '</td></tr>';
   }).join('');
 
-  var transportLine = '';
-  if (r.receptionCount && r.transport === 'Yes') {
-    transportLine = '<p style="margin:18px 0 0;">' + (r.seats === 1 ? 'One seat is held' : r.seats + ' seats are held')
-      + ' for you on the motorcoach from Central Community Church to Crestview Country Club after the ceremony. '
-      + '<strong>It travels one way only; there is no return service</strong>, so please plan your ride home from Crestview.</p>';
-  } else if (r.receptionCount && r.transport === 'No') {
-    transportLine = '<p style="margin:18px 0 0;">You have told us you will make your own way to Crestview Country Club. Safe travels.</p>';
+  var whereLine = '';
+  if (r.receptionCount) {
+    whereLine = '<p style="margin:18px 0 0;">We will see you at Crestview Country Club. Cocktails are received at half past five.</p>';
+  } else if (r.ceremonyCount) {
+    whereLine = '<p style="margin:18px 0 0;">We will see you at Central Community Church at four o&rsquo;clock.</p>';
   }
 
   var html = wrap(
     '<p style="margin:0 0 18px;font-size:13px;letter-spacing:0.3em;text-transform:uppercase;color:#888;">The honor of a reply</p>'
     + '<p style="margin:0 0 18px;font-size:18px;">' + (attending ? 'Thank you, ' + esc(firsts) + '. We have your reply and we cannot wait to see you.' : 'Thank you, ' + esc(firsts) + '. We are sorry you cannot join us, and grateful you let us know.') + '</p>'
     + '<table style="border-collapse:collapse;font-size:16px;">' + lines + '</table>'
-    + transportLine
+    + whereLine
     + (r.songs.length ? '<p style="margin:18px 0 0;">Noted for the playlist: ' + esc(r.songs.join(' · ')) + '</p>' : '')
     + '<p style="margin:22px 0 0;color:#666;font-size:14px;">Plans change? Reply again at <a href="' + SITE + '/rsvp" style="color:#b89149;">' + SITE.replace('https://', '') + '/rsvp</a> from this same email address and we will keep your latest. Replies close on the first of February.</p>'
     + '<p style="margin:22px 0 0;">With all our love,<br>Laura &amp; William</p>'
@@ -295,8 +286,8 @@ function setup() {
     guests.setColumnWidth(1, 150);
     guests.setColumnWidth(4, 200);
     guests.setColumnWidth(5, 170);
-    guests.setColumnWidth(12, 220);
-    guests.setColumnWidth(13, 260);
+    guests.setColumnWidth(10, 220);
+    guests.setColumnWidth(11, 260);
     guests.getRange('A2:A').setNumberFormat('mmm d, yyyy h:mm am/pm');
   }
 
@@ -306,8 +297,8 @@ function setup() {
     styleHeader(replies, REPLY_HEADERS.length);
     replies.setColumnWidth(1, 150);
     replies.setColumnWidth(4, 260);
-    replies.setColumnWidth(11, 220);
-    replies.setColumnWidth(12, 260);
+    replies.setColumnWidth(9, 220);
+    replies.setColumnWidth(10, 260);
     replies.getRange('A2:A').setNumberFormat('mmm d, yyyy h:mm am/pm');
   }
 
@@ -317,23 +308,22 @@ function setup() {
       ['Becoming Bergkamp · RSVP Summary', ''],
       ['Counts only the current reply from each household.', ''],
       ['', ''],
-      ['Households replied', '=COUNTIF(Replies!M:M,"Yes")'],
-      ['Guests replied', '=COUNTIF(Guests!N:N,"Yes")'],
-      ['Attending the ceremony', '=COUNTIFS(Guests!F:F,"Yes",Guests!N:N,"Yes")'],
-      ['Attending the reception', '=COUNTIFS(Guests!G:G,"Yes",Guests!N:N,"Yes")'],
-      ['Reception guests 8 or under', '=COUNTIFS(Guests!G:G,"Yes",Guests!H:H,"Yes",Guests!N:N,"Yes")'],
-      ['Catering plates (8 and under at half)', '=SUMIFS(Guests!I:I,Guests!N:N,"Yes")'],
-      ['Motorcoach seats', '=SUMIFS(Guests!K:K,Guests!N:N,"Yes")'],
-      ['Regrets', '=COUNTIFS(Guests!E:E,"Regretfully unable",Guests!N:N,"Yes")'],
+      ['Households replied', '=COUNTIF(Replies!K:K,"Yes")'],
+      ['Guests replied', '=COUNTIF(Guests!L:L,"Yes")'],
+      ['Attending the ceremony', '=COUNTIFS(Guests!F:F,"Yes",Guests!L:L,"Yes")'],
+      ['Attending the reception', '=COUNTIFS(Guests!G:G,"Yes",Guests!L:L,"Yes")'],
+      ['Reception guests 8 or under', '=COUNTIFS(Guests!G:G,"Yes",Guests!H:H,"Yes",Guests!L:L,"Yes")'],
+      ['Catering plates (8 and under at half)', '=SUMIFS(Guests!I:I,Guests!L:L,"Yes")'],
+      ['Regrets', '=COUNTIFS(Guests!E:E,"Regretfully unable",Guests!L:L,"Yes")'],
       ['', ''],
-      ['Songs suggested', '=COUNTIFS(Guests!L:L,"<>",Guests!N:N,"Yes")'],
+      ['Songs suggested', '=COUNTIFS(Guests!J:J,"<>",Guests!L:L,"Yes")'],
       ['Last reply received', '=IF(COUNTA(Replies!A:A)>1,MAX(Replies!A:A),"")']
     ];
     summary.getRange(1, 1, rows.length, 2).setValues(rows);
     summary.getRange('A1').setFontSize(14).setFontWeight('bold');
     summary.getRange('A2').setFontStyle('italic').setFontColor('#666666');
-    summary.getRange('B4:B13').setHorizontalAlignment('right').setFontWeight('bold');
-    summary.getRange('B14').setNumberFormat('mmm d, yyyy h:mm am/pm').setHorizontalAlignment('right');
+    summary.getRange('B4:B12').setHorizontalAlignment('right').setFontWeight('bold');
+    summary.getRange('B13').setNumberFormat('mmm d, yyyy h:mm am/pm').setHorizontalAlignment('right');
     summary.setColumnWidth(1, 300);
     summary.setColumnWidth(2, 140);
   }
@@ -346,6 +336,21 @@ function styleHeader(sheet, cols) {
   var h = sheet.getRange(1, 1, 1, cols);
   h.setFontWeight('bold').setBackground('#111111').setFontColor('#ffffff');
   sheet.setFrozenRows(1);
+}
+
+// Clears every reply and rebuilds the three tabs from scratch. Run once after
+// testing, before the invitations go out. It also removes the blank Sheet1.
+function resetForLaunch() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  [SHEET_GUESTS, SHEET_REPLIES, SHEET_SUMMARY].forEach(function (name) {
+    var sh = ss.getSheetByName(name);
+    if (sh) ss.deleteSheet(sh);
+  });
+  SpreadsheetApp.flush();
+  Utilities.sleep(1500);            // let the deletes settle before rebuilding
+  setup();
+  var blank = ss.getSheetByName('Sheet1');
+  if (blank && ss.getSheets().length > 1 && blank.getLastRow() === 0) ss.deleteSheet(blank);
 }
 
 // Drops a sample reply in and sends both emails, so you can check the plumbing
@@ -363,7 +368,6 @@ function testReply() {
           { name: 'Test Partner', attend: 'reception', child: false },
           { name: 'Test Little One', attend: 'both', child: true }
         ],
-        transport: 'yes',
         songs: ['September, Earth Wind & Fire'],
         note: 'This is a test reply from the Apps Script editor.'
       })
