@@ -1,22 +1,23 @@
 /* ============================================================
    RSVP · Chapter V · The Honor of a Reply
    ------------------------------------------------------------
-   Page styles for /rsvp. Set on the course at the last of the
-   light, like The Day: the grass art-bg and overlay from
-   .ceremony-bleed, the house script in brass for the title line,
-   white type for everything a guest has to read. Gold stays on the
-   script and the numerals only, never on small text.
+   Page styles for /rsvp. The hero sits on the course at the last
+   of the light, like The Day (grass art-bg, overlay, corner labels,
+   the house script in brass). The reply itself is a white card laid
+   on the grass: black type on white, gold only on the numerals.
    ============================================================ */
 
 .rsvp-bleed {
-  --rsvp-paper: #f4efe2;              /* cream · selected chips, the button */
-  --rsvp-ink: #16200f;                /* deep green-black · type on cream */
-  --rsvp-white: #ffffff;
-  --rsvp-white-soft: rgba(255, 255, 255, 0.86);
-  --rsvp-line: rgba(255, 255, 255, 0.32);
-  --rsvp-line-strong: rgba(255, 255, 255, 0.55);
-  --rsvp-alert: #f3d59a;              /* warm cream-gold · errors on the green */
-  --rsvp-shadow: 0 1px 4px rgba(0, 0, 0, 0.7), 0 1px 12px rgba(0, 0, 0, 0.45);
+  --card: #ffffff;
+  --card-ink: #0a0a0a;
+  --card-ink-soft: rgba(0, 0, 0, 0.74);
+  --card-rule: rgba(0, 0, 0, 0.16);
+  --card-rule-strong: rgba(0, 0, 0, 0.45);
+  --card-alert: #8f2b2b;
+  --card-gold: #b89149;
+  --hero-white: #ffffff;
+  --hero-white-soft: rgba(255, 255, 255, 0.86);
+  --hero-shadow: 0 1px 4px rgba(0, 0, 0, 0.7), 0 1px 12px rgba(0, 0, 0, 0.45);
   min-height: 100vh;
   justify-content: flex-start;
 }
@@ -38,28 +39,32 @@
       rgba(0, 0, 0, 0.82) 100%);
 }
 
+/* ---------- Hero ---------- */
 .rsvp-bleed .content { padding-top: 120px; max-width: 900px; }
 .rsvp-bleed .hero-name { font-size: clamp(40px, 7vw, 72px); }
 @media (min-width: 861px) {
   /* Sized so "The Honor of a Reply" stays one unbroken line inside the content box. */
   .rsvp-bleed .hero-name { font-size: clamp(44px, 4.6vw, 60px); }
 }
-.rsvp-bleed .content .display-h { font-size: clamp(40px, 6.4vw, 68px); letter-spacing: 0.22em; }
+.rsvp-bleed .content .display-h { font-size: clamp(40px, 6.4vw, 68px); letter-spacing: 0.22em; margin-bottom: 18px; }
 .rsvp-bleed .content .lede {
-  margin-top: 26px;
+  margin-top: 8px;
   font-style: italic; font-size: 18px;
-  color: var(--rsvp-white-soft);
+  color: var(--hero-white-soft);
 }
 
-/* ---------- The panel ---------- */
-.rsvp-bleed .rsvp-wrap { padding: 0 24px 72px; margin-top: clamp(24px, 4vh, 40px); }
+/* ---------- The card ---------- */
+.rsvp-bleed .rsvp-wrap { padding: 0 24px 80px; margin-top: clamp(28px, 5vh, 48px); }
 .rsvp-panel {
   max-width: 720px; margin: 0 auto;
-  padding: 44px 48px 40px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  background: rgba(0, 0, 0, 0.34);
-  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
-  color: var(--rsvp-white);
+  padding: 48px 52px 44px;
+  background: var(--card);
+  color: var(--card-ink);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.12),
+    0 30px 80px rgba(0, 0, 0, 0.5),
+    0 8px 24px rgba(0, 0, 0, 0.35);
   text-align: center;
 }
 
@@ -73,16 +78,15 @@
 /* Returning-guest banner */
 .rsvp-returning {
   max-width: 520px; margin: 0 auto 30px;
-  border: 1px solid rgba(217, 189, 133, 0.55);
-  background: rgba(217, 189, 133, 0.10);
+  border: 1px solid var(--card-gold);
+  background: rgba(184, 145, 73, 0.08);
   padding: 14px 20px;
   font-family: var(--serif); font-style: italic; font-size: 15px; line-height: 1.6;
-  color: var(--rsvp-white);
-  text-shadow: var(--rsvp-shadow);
+  color: var(--card-ink);
 }
 
 /* ---------- Form skeleton ---------- */
-.rsvp-form { text-align: left; }
+.rsvp-form { text-align: left; color: var(--card-ink); }
 
 .rsvp-block {
   border: 0; padding: 0; margin: 0; min-width: 0;
@@ -91,7 +95,7 @@
 }
 .rsvp-block::before {
   content: ""; position: absolute; top: 0; left: 0; right: 0;
-  height: 1px; background: rgba(255, 255, 255, 0.16);
+  height: 1px; background: var(--card-rule);
 }
 .rsvp-block:first-of-type { margin-top: 0; padding-top: 0; }
 .rsvp-block:first-of-type::before { display: none; }
@@ -99,19 +103,18 @@
   float: left; width: 100%;           /* renders as a normal block, so the rule above it stays intact */
   padding: 0; margin: 0 0 12px;
   font-family: var(--sans); font-size: 11px; letter-spacing: 0.42em; text-transform: uppercase;
-  color: var(--rsvp-white); text-shadow: var(--rsvp-shadow);
+  color: var(--card-ink);
   display: flex; align-items: baseline; gap: 14px;
 }
 .rsvp-block > legend .rsvp-numeral {
   font-family: var(--display); font-size: 24px; letter-spacing: 0.1em;
-  color: #e3cf9c; line-height: 1;
+  color: var(--card-gold); line-height: 1;
 }
 .rsvp-block > *:not(legend) { clear: both; }
 
 .rsvp-help {
   font-family: var(--serif); font-size: 17px; line-height: 1.7;
-  color: var(--rsvp-white-soft); margin: 0 0 22px;
-  text-shadow: var(--rsvp-shadow);
+  color: var(--card-ink-soft); margin: 0 0 22px;
 }
 .rsvp-help.small { font-size: 15px; font-style: italic; margin: 12px 0 0; }
 
@@ -120,17 +123,17 @@
 .rsvp-field label {
   display: block; margin-bottom: 6px;
   font-family: var(--sans); font-size: 10px; letter-spacing: 0.36em; text-transform: uppercase;
-  color: var(--rsvp-white); text-shadow: var(--rsvp-shadow);
+  color: var(--card-ink);
 }
 .rsvp-field label .rsvp-optional {
-  margin-left: 10px; letter-spacing: 0.2em; color: var(--rsvp-white-soft);
+  margin-left: 10px; letter-spacing: 0.2em; color: var(--card-ink-soft);
 }
 .rsvp-field input,
 .rsvp-field textarea {
   display: block; width: 100%; min-width: 0;
   background: transparent; border: 0; border-radius: 0;
-  border-bottom: 1px solid var(--rsvp-line-strong);
-  color: var(--rsvp-white);
+  border-bottom: 1px solid var(--card-rule-strong);
+  color: var(--card-ink);
   font-family: var(--serif); font-size: 19px; line-height: 1.4;
   padding: 10px 0 11px;
   transition: border-color 200ms ease;
@@ -138,33 +141,27 @@
 }
 .rsvp-field textarea { resize: vertical; min-height: 88px; line-height: 1.6; }
 .rsvp-field input::placeholder,
-.rsvp-field textarea::placeholder { color: rgba(255, 255, 255, 0.5); font-style: italic; }
+.rsvp-field textarea::placeholder { color: rgba(0, 0, 0, 0.42); font-style: italic; }
 .rsvp-field input:focus,
-.rsvp-field textarea:focus { border-bottom-color: var(--rsvp-white); outline: none; }
+.rsvp-field textarea:focus { border-bottom-color: var(--card-ink); outline: none; }
 .rsvp-field input:focus-visible,
-.rsvp-field textarea:focus-visible { outline: 2px solid #9cc7ff; outline-offset: 4px; }
-.rsvp-field.has-error input { border-bottom-color: var(--rsvp-alert); }
-.rsvp-field input:-webkit-autofill,
-.rsvp-field textarea:-webkit-autofill {
-  -webkit-text-fill-color: var(--rsvp-white);
-  -webkit-box-shadow: 0 0 0 1000px #1c2415 inset;
-  transition: background-color 9999s ease-out 0s;
-}
+.rsvp-field textarea:focus-visible { outline: 2px solid #4A90D9; outline-offset: 4px; }
+.rsvp-field.has-error input { border-bottom-color: var(--card-alert); }
 
 .rsvp-field-error,
 .rsvp-error {
   margin: 10px 0 0;
   font-family: var(--serif); font-style: italic; font-size: 15px; line-height: 1.5;
-  color: var(--rsvp-alert); text-shadow: var(--rsvp-shadow);
+  color: var(--card-alert);
 }
 .rsvp-error { margin-top: 20px; text-align: center; font-size: 16px; }
-.rsvp-error a { color: var(--rsvp-white); border-bottom: 1px solid rgba(255, 255, 255, 0.5); }
+.rsvp-error a { color: var(--card-ink); border-bottom: 1px solid var(--card-gold); }
 
 /* ---------- Guest rows ---------- */
 .guest-list { display: flex; flex-direction: column; gap: 14px; }
 .guest-row {
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid var(--card-rule);
+  background: var(--card);
   padding: 22px 24px 20px;
   animation: guestIn 320ms ease both;
 }
@@ -176,22 +173,22 @@
 .guest-index {
   flex: 0 0 auto; width: 26px; padding-bottom: 12px;
   font-family: var(--display); font-size: 22px; letter-spacing: 0.06em;
-  color: #e3cf9c; text-align: center; line-height: 1;
+  color: var(--card-gold); text-align: center; line-height: 1;
 }
 .guest-head .rsvp-field { flex: 1 1 auto; margin: 0; }
 .guest-remove {
   flex: 0 0 auto;
   width: 40px; height: 40px; margin-bottom: 2px;
   display: inline-flex; align-items: center; justify-content: center;
-  border: 1px solid var(--rsvp-line); border-radius: 50%;
-  background: transparent; color: var(--rsvp-white);
+  border: 1px solid var(--card-rule-strong); border-radius: 50%;
+  background: transparent; color: var(--card-ink);
   font-family: var(--serif); font-size: 22px; line-height: 1; cursor: pointer;
   transition: border-color 200ms ease, background 200ms ease, color 200ms ease;
 }
-.guest-remove:hover, .guest-remove:focus-visible { background: var(--rsvp-paper); border-color: var(--rsvp-paper); color: var(--rsvp-ink); }
+.guest-remove:hover, .guest-remove:focus-visible { background: var(--card-ink); border-color: var(--card-ink); color: var(--card); }
 .guest-row.is-only .guest-remove { visibility: hidden; }
 
-/* Pills · radio buttons dressed as chips · selected = cream card */
+/* Pills · radio buttons dressed as chips · selected = solid ink */
 .rsvp-pill-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
 .rsvp-pill { position: relative; display: block; }
 .rsvp-pill input {
@@ -201,51 +198,47 @@
 .rsvp-pill span {
   display: inline-flex; align-items: center; justify-content: center;
   min-height: 46px; padding: 10px 18px;
-  border: 1px solid var(--rsvp-line-strong);
+  border: 1px solid var(--card-rule-strong);
   font-family: var(--sans); font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase;
   line-height: 1.35; text-align: center;
-  color: var(--rsvp-white); background: rgba(0, 0, 0, 0.16); cursor: pointer; user-select: none;
-  text-shadow: var(--rsvp-shadow);
+  color: var(--card-ink); background: var(--card); cursor: pointer; user-select: none;
   transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
 }
-.rsvp-pill:hover span { border-color: var(--rsvp-white); background: rgba(255, 255, 255, 0.08); }
+.rsvp-pill:hover span { border-color: var(--card-ink); }
 .rsvp-pill input:checked + span {
-  background: var(--rsvp-paper); color: var(--rsvp-ink); border-color: var(--rsvp-paper);
-  text-shadow: none;
+  background: var(--card-ink); color: var(--card); border-color: var(--card-ink);
 }
 .rsvp-pill.decline input:checked + span {
-  background: rgba(255, 255, 255, 0.22); color: var(--rsvp-white); border-color: rgba(255, 255, 255, 0.6);
-  text-shadow: var(--rsvp-shadow);
+  background: #5a5a5a; color: var(--card); border-color: #5a5a5a;
 }
-.rsvp-pill input:focus-visible + span { outline: 2px solid #9cc7ff; outline-offset: 3px; }
+.rsvp-pill input:focus-visible + span { outline: 2px solid #4A90D9; outline-offset: 3px; }
 .guest-attend { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 .guest-attend .rsvp-pill span { width: 100%; }
-.guest-attend.has-error .rsvp-pill span { border-color: var(--rsvp-alert); }
+.guest-attend.has-error .rsvp-pill span { border-color: var(--card-alert); }
 
 /* Checkbox · eight or under */
 .rsvp-check {
   display: inline-flex; align-items: center; gap: 12px;
   margin-top: 14px; min-height: 44px; cursor: pointer;
-  font-family: var(--serif); font-size: 16px; color: var(--rsvp-white);
-  text-shadow: var(--rsvp-shadow);
+  font-family: var(--serif); font-size: 16px; color: var(--card-ink);
 }
 .rsvp-check input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
 .rsvp-check-box {
   position: relative; flex: 0 0 auto; width: 20px; height: 20px;
-  border: 1px solid var(--rsvp-line-strong); background: rgba(0, 0, 0, 0.16);
+  border: 1px solid var(--card-rule-strong); background: var(--card);
   transition: background 200ms ease, border-color 200ms ease;
 }
-.rsvp-check:hover .rsvp-check-box { border-color: var(--rsvp-white); }
+.rsvp-check:hover .rsvp-check-box { border-color: var(--card-ink); }
 .rsvp-check-box::after {
   content: ""; position: absolute; left: 6px; top: 2px;
   width: 5px; height: 10px;
-  border: solid var(--rsvp-ink); border-width: 0 2px 2px 0;
+  border: solid var(--card); border-width: 0 2px 2px 0;
   transform: rotate(45deg) scale(0); opacity: 0;
   transition: transform 160ms ease, opacity 160ms ease;
 }
-.rsvp-check input:checked ~ .rsvp-check-box { background: var(--rsvp-paper); border-color: var(--rsvp-paper); }
+.rsvp-check input:checked ~ .rsvp-check-box { background: var(--card-ink); border-color: var(--card-ink); }
 .rsvp-check input:checked ~ .rsvp-check-box::after { transform: rotate(45deg) scale(1); opacity: 1; }
-.rsvp-check input:focus-visible ~ .rsvp-check-box { outline: 2px solid #9cc7ff; outline-offset: 3px; }
+.rsvp-check input:focus-visible ~ .rsvp-check-box { outline: 2px solid #4A90D9; outline-offset: 3px; }
 .guest-row.is-declined .guest-child { opacity: 0.4; pointer-events: none; }
 
 /* Add-another buttons */
@@ -254,16 +247,15 @@
   margin-top: 16px; padding: 10px 0; min-height: 44px;
   background: transparent; border: 0; cursor: pointer;
   font-family: var(--sans); font-size: 10.5px; letter-spacing: 0.34em; text-transform: uppercase;
-  color: var(--rsvp-white); text-shadow: var(--rsvp-shadow);
+  color: var(--card-ink);
   transition: opacity 200ms ease;
 }
-.rsvp-add:hover, .rsvp-add:focus-visible { opacity: 0.75; }
+.rsvp-add:hover, .rsvp-add:focus-visible { opacity: 0.7; }
 .rsvp-add-mark {
   display: inline-flex; align-items: center; justify-content: center;
   width: 28px; height: 28px; border-radius: 50%;
-  border: 1px solid rgba(227, 207, 156, 0.7);
-  font-family: var(--serif); font-size: 19px; line-height: 1; color: #e3cf9c;
-  text-shadow: none;
+  border: 1px solid var(--card-gold); background: rgba(184, 145, 73, 0.12);
+  font-family: var(--serif); font-size: 19px; line-height: 1; color: var(--card-ink);
 }
 
 /* Songs */
@@ -276,23 +268,23 @@
 /* Live summary and submit */
 .rsvp-summary {
   margin-top: 40px; padding-top: 22px;
-  border-top: 1px dotted rgba(255, 255, 255, 0.35);
+  border-top: 1px dotted var(--card-rule-strong);
   text-align: center; min-height: 1.6em;
   font-family: var(--serif); font-style: italic; font-size: 17px; line-height: 1.7;
-  color: var(--rsvp-white-soft); text-shadow: var(--rsvp-shadow);
+  color: var(--card-ink-soft);
 }
-.rsvp-summary .dot { margin: 0 10px; color: #e3cf9c; font-style: normal; }
-.rsvp-summary .n { color: var(--rsvp-white); font-style: normal; font-size: 19px; }
+.rsvp-summary .dot { margin: 0 10px; color: var(--card-gold); font-style: normal; }
+.rsvp-summary .n { color: var(--card-ink); font-style: normal; font-size: 19px; }
 
 .rsvp-submit {
   position: relative; display: block; width: 100%;
   margin-top: 24px; padding: 21px 24px;
-  background: var(--rsvp-paper); color: var(--rsvp-ink);
-  border: 1px solid var(--rsvp-paper); cursor: pointer;
+  background: var(--card-ink); color: var(--card);
+  border: 1px solid var(--card-ink); cursor: pointer;
   font-family: var(--sans); font-size: 11px; letter-spacing: 0.42em; text-transform: uppercase;
   transition: background 200ms ease, border-color 200ms ease, color 200ms ease, opacity 200ms ease;
 }
-.rsvp-submit:hover, .rsvp-submit:focus-visible { background: var(--rsvp-white); border-color: var(--rsvp-white); }
+.rsvp-submit:hover, .rsvp-submit:focus-visible { background: #2a2a2a; border-color: #2a2a2a; }
 .rsvp-submit .rsvp-submit-wait { display: none; }
 .rsvp-submit.is-sending { opacity: 0.7; cursor: progress; }
 .rsvp-submit.is-sending .rsvp-submit-label { display: none; }
@@ -303,52 +295,49 @@
 .rsvp-foot {
   margin: 26px auto 0; max-width: 520px;
   font-family: var(--serif); font-style: italic; font-size: 14px; line-height: 1.65;
-  color: var(--rsvp-white-soft); text-shadow: var(--rsvp-shadow);
+  color: var(--card-ink-soft);
 }
-.rsvp-foot a { color: var(--rsvp-white); border-bottom: 1px solid rgba(227, 207, 156, 0.6); }
-.rsvp-foot a:hover { border-bottom-color: var(--rsvp-white); }
+.rsvp-foot a { color: var(--card-ink); border-bottom: 1px solid var(--card-gold); }
+.rsvp-foot a:hover { border-bottom-color: var(--card-ink); }
 
 /* ---------- Confirmation and closed states ---------- */
-.rsvp-done { padding-top: 6px; outline: none; color: var(--rsvp-white); }
+.rsvp-done { padding-top: 6px; outline: none; color: var(--card-ink); }
 .rsvp-done-kicker {
   font-family: var(--sans); font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase;
-  color: var(--rsvp-white-soft); margin-bottom: 16px; text-shadow: var(--rsvp-shadow);
+  color: var(--card-ink-soft); margin-bottom: 16px;
 }
 .rsvp-done-title {
   font-family: var(--display); font-weight: 500;
   font-size: clamp(24px, 3.4vw, 34px); letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--rsvp-white); margin-bottom: 14px; line-height: 1.25;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7), 0 2px 24px rgba(0, 0, 0, 0.55);
+  color: var(--card-ink); margin-bottom: 14px; line-height: 1.25;
 }
 .rsvp-done-sub {
   font-family: var(--serif); font-style: italic; font-size: 18px; line-height: 1.7;
-  color: var(--rsvp-white-soft); max-width: 460px; margin: 0 auto 28px;
-  text-shadow: var(--rsvp-shadow);
+  color: var(--card-ink-soft); max-width: 460px; margin: 0 auto 28px;
 }
-.rsvp-done-sub a { color: var(--rsvp-white); border-bottom: 1px solid rgba(227, 207, 156, 0.6); }
+.rsvp-done-sub a { color: var(--card-ink); border-bottom: 1px solid var(--card-gold); }
 .rsvp-done-list {
   list-style: none; margin: 0 auto 8px; padding: 0; max-width: 440px; text-align: left;
 }
 .rsvp-done-list li {
   display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
-  padding: 13px 0; border-bottom: 1px dotted rgba(255, 255, 255, 0.35);
-  font-family: var(--serif); font-size: 18px; color: var(--rsvp-white);
-  text-shadow: var(--rsvp-shadow);
+  padding: 13px 0; border-bottom: 1px dotted var(--card-rule-strong);
+  font-family: var(--serif); font-size: 18px; color: var(--card-ink);
 }
 .rsvp-done-list li .status {
   flex: 0 0 auto; text-align: right;
   font-family: var(--sans); font-size: 9.5px; letter-spacing: 0.28em; text-transform: uppercase;
-  color: var(--rsvp-white-soft);
+  color: var(--card-ink-soft);
 }
-.rsvp-done-list li .status.in { color: #e3cf9c; }
+.rsvp-done-list li .status.in { color: var(--card-ink); }
 .rsvp-done-list li .little {
-  font-family: var(--serif); font-style: italic; font-size: 15px; color: var(--rsvp-white-soft);
+  font-family: var(--serif); font-style: italic; font-size: 15px; color: var(--card-ink-soft);
   margin-left: 8px;
 }
 .rsvp-done-extra {
   max-width: 440px; margin: 18px auto 0;
   font-family: var(--serif); font-style: italic; font-size: 16px; line-height: 1.65;
-  color: var(--rsvp-white-soft); text-shadow: var(--rsvp-shadow);
+  color: var(--card-ink-soft);
 }
 .rsvp-done .rsvp-add { margin-top: 28px; }
 
@@ -356,7 +345,7 @@
 @media (max-width: 860px) {
   .rsvp-bleed .content { padding: 110px 24px 0; }
   .rsvp-bleed .content-bottom.rsvp-wrap { padding: 0 16px 56px; }
-  .rsvp-panel { padding: 30px 20px 28px; }
+  .rsvp-panel { padding: 32px 22px 30px; }
   .rsvp-block { padding-top: 30px; margin-top: 26px; }
   .guest-row { padding: 18px 14px 16px; }
   .guest-head { gap: 12px; }
@@ -365,7 +354,6 @@
   .guest-attend .rsvp-pill span { padding: 10px 10px; font-size: 10px; letter-spacing: 0.18em; }
   .rsvp-field input, .rsvp-field textarea { font-size: 18px; }
   .rsvp-done-list li { font-size: 17px; }
-  .rsvp-panel { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(0, 0, 0, 0.42); }
 }
 @media (max-width: 420px) {
   .guest-attend { grid-template-columns: 1fr; }
@@ -380,6 +368,6 @@
 @media print {
   .rsvp-bleed .art-bg, .rsvp-bleed .overlay { display: none !important; }
   .rsvp-bleed { background: #fff !important; }
-  .rsvp-panel { background: #fff !important; border-color: #000 !important; color: #000 !important; }
+  .rsvp-panel { box-shadow: none !important; border-color: #000 !important; }
   .rsvp-submit, .rsvp-add, .guest-remove { display: none !important; }
 }
