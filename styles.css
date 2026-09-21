@@ -1358,6 +1358,14 @@
     font-family: var(--serif); font-size: 17px; line-height: 1.6;
     color: var(--ink-soft);
   }
+  .detail-value .addr-link {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.35);
+    padding-bottom: 1px;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .detail-value .addr-link:hover { color: var(--gold-deep); border-bottom-color: currentColor; }
   .chapel-note {
     font-family: var(--serif); font-style: italic; font-size: 17px;
     color: var(--gold-deep); margin-top: 32px;
@@ -1432,6 +1440,8 @@
   .reception-exterior .detail-row { border-bottom-color: rgba(255, 255, 255, 0.14); }
   .reception-exterior .detail-label { color: rgba(255, 255, 255, 0.55); }
   .reception-exterior .detail-value { color: rgba(255, 255, 255, 0.85); }
+  .reception-exterior .detail-value .addr-link { border-bottom-color: rgba(255, 255, 255, 0.35); }
+  .reception-exterior .detail-value .addr-link:hover { color: var(--gold-bright); }
   .reception-exterior .chapel-note {
     color: var(--gold-bright);
     border-top-color: rgba(255, 255, 255, 0.14);
