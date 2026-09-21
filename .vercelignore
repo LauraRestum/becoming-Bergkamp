@@ -3,5 +3,6 @@
 node_modules
 README.md
 _archive/
+apps-script/
 ChatGPT*
 gemini_generated_video_*.mov

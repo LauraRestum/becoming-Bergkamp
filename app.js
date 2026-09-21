@@ -123,50 +123,7 @@
     });
   }
 
-  // RSVP form · graceful fallback if Formspree id isn't set
-  var rsvpForm = document.getElementById('rsvpForm');
-  var rsvpNote = document.getElementById('rsvpNote');
-  if (rsvpForm) {
-    rsvpForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var name = (rsvpForm.elements['name'].value || '').trim();
-      if (!name) {
-        if (rsvpNote) {
-          rsvpNote.textContent = 'Please enter your name as printed on the card.';
-          rsvpNote.className = 'portal-feedback error';
-        }
-        return;
-      }
-      var action = rsvpForm.getAttribute('action') || '';
-      if (action.indexOf('your-id') !== -1 || !action) {
-        if (rsvpNote) {
-          rsvpNote.textContent = 'Thank you, ' + name + '. Your reply will be received once the form is connected.';
-          rsvpNote.className = 'portal-feedback success';
-        }
-        return;
-      }
-      fetch(action, {
-        method: 'POST',
-        headers: { Accept: 'application/json' },
-        body: new FormData(rsvpForm)
-      }).then(function (r) {
-        if (r.ok) {
-          if (rsvpNote) {
-            rsvpNote.textContent = 'Thank you, ' + name + '. We have your reply.';
-            rsvpNote.className = 'portal-feedback success';
-          }
-          rsvpForm.reset();
-        } else {
-          throw new Error('failed');
-        }
-      }).catch(function () {
-        if (rsvpNote) {
-          rsvpNote.textContent = 'Something prevented your reply from sending. Please try again or write to us.';
-          rsvpNote.className = 'portal-feedback error';
-        }
-      });
-    });
-  }
+  // RSVP · the form on /rsvp is run by rsvp.js and posts to /api/rsvp
 
   // Blinds reveal · scroll-driven progress, text fades in when assembled
   var blinds = document.getElementById('blindsReveal');
