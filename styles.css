@@ -393,6 +393,10 @@
     position: relative;
     width: 100%;
     aspect-ratio: 1672 / 941;
+    /* Cap the hero on large screens so the countdown and quick links
+       peek above the fold instead of a full screen of dark space. */
+    max-height: 78vh;
+    max-height: 78svh;
     background: #1a1610;
     overflow: hidden;
     display: flex;
@@ -591,20 +595,21 @@
   .section-strip a:hover { color: var(--gold-deep); background: rgba(0, 0, 0, 0.03); }
 
   /* ============================================
-     SECTION PORTALS · bigger, clear section cards at end of main scroll
+     SECTION PORTALS · compact quick-link cards right under the countdown
      ============================================ */
   .section-portals {
     background: var(--paper-2);
     color: var(--ink-on-paper);
-    padding: 140px 40px;
+    padding: 72px 40px 84px;
     position: relative;
     border-top: 0.5px solid var(--rule-light);
+    border-bottom: 0.5px solid var(--rule-light);
   }
   .section-portals .portal-grid {
-    margin-top: 72px;
+    margin-top: 40px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 22px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -615,8 +620,7 @@
     justify-content: flex-start;
     background: var(--paper);
     border: 0.5px solid var(--rule-light);
-    padding: 48px 36px 36px;
-    min-height: 260px;
+    padding: 28px 24px 20px;
     text-decoration: none;
     color: var(--ink-on-paper);
     transition: transform 280ms ease, box-shadow 280ms ease, background 280ms ease;
@@ -629,21 +633,21 @@
   }
   .section-portals .portal-numeral {
     font-family: var(--serif);
-    font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase;
+    font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
     color: var(--gold-deep);
-    margin-bottom: 18px;
+    margin-bottom: 12px;
   }
   .section-portals .portal-card h3 {
     font-family: var(--display); font-weight: 500;
-    font-size: 26px; letter-spacing: 0.08em; text-transform: uppercase;
-    margin-bottom: 14px;
+    font-size: 19px; letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 10px;
     line-height: 1.15;
   }
   .section-portals .portal-card p {
     font-family: var(--serif);
-    font-size: 16px; line-height: 1.6;
+    font-size: 14px; line-height: 1.55;
     color: var(--ink-soft);
-    margin-bottom: 28px;
+    margin-bottom: 20px;
     flex: 1;
   }
   .section-portals .portal-arrow {
@@ -652,8 +656,11 @@
     color: var(--gold-deep);
     align-self: flex-start;
     border-top: 0.5px solid var(--rule-light);
-    padding-top: 18px;
+    padding-top: 14px;
     width: 100%;
+  }
+  @media (max-width: 1180px) {
+    .section-portals .portal-grid { grid-template-columns: repeat(3, 1fr); }
   }
 
   /* ============================================
@@ -1855,10 +1862,10 @@
     /* The hamburger drawer covers navigation on phones, so the horizontal
        tab strip is redundant here · hide it. */
     .section-strip { display: none; }
-    .section-portals { padding: 88px 24px; }
-    .section-portals .portal-grid { grid-template-columns: 1fr; gap: 14px; margin-top: 56px; }
-    .section-portals .portal-card { min-height: 0; padding: 36px 28px 28px; }
-    .section-portals .portal-card h3 { font-size: 22px; }
+    .section-portals { padding: 56px 24px 64px; }
+    .section-portals .portal-grid { grid-template-columns: 1fr; gap: 12px; margin-top: 32px; }
+    .section-portals .portal-card { min-height: 0; padding: 24px 22px 18px; }
+    .section-portals .portal-card h3 { font-size: 19px; }
   }
   @media (max-width: 1100px) and (min-width: 801px) {
     .section-portals .portal-grid { grid-template-columns: repeat(2, 1fr); }

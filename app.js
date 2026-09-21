@@ -76,6 +76,26 @@
     replay.addEventListener('click', restartCover);
   }
 
+  // Countdown · native ticker, sized by the site's own styles
+  var cdUnits = document.getElementById('countdownUnits');
+  if (cdUnits) {
+    var cdTarget = new Date('2027-03-20T16:00:00-05:00').getTime();
+    var cdDays = document.getElementById('cdDays');
+    var cdHours = document.getElementById('cdHours');
+    var cdMins = document.getElementById('cdMins');
+    var cdSecs = document.getElementById('cdSecs');
+    var pad2 = function (n) { return n < 10 ? '0' + n : String(n); };
+    var cdTick = function () {
+      var diff = Math.max(0, cdTarget - Date.now());
+      if (cdDays) cdDays.textContent = String(Math.floor(diff / 86400000));
+      if (cdHours) cdHours.textContent = pad2(Math.floor(diff / 3600000) % 24);
+      if (cdMins) cdMins.textContent = pad2(Math.floor(diff / 60000) % 60);
+      if (cdSecs) cdSecs.textContent = pad2(Math.floor(diff / 1000) % 60);
+    };
+    cdTick();
+    setInterval(cdTick, 1000);
+  }
+
   // nav scroll behavior · switches to dark-on-light over any paper section
   var nav = document.getElementById('nav');
   var lightZones = Array.from(document.querySelectorAll(
