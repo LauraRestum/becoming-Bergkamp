@@ -13,7 +13,6 @@
    ============================================================ */
 
 const ATTEND = new Set(['both', 'ceremony', 'reception', 'none']);
-const TRANSPORT = new Set(['yes', 'no', '']);
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 const LIMITS = { guests: 12, name: 80, songs: 6, song: 120, note: 600, email: 254 };
@@ -110,11 +109,8 @@ function clean(body) {
     guests.push({ name, attend, child: attend !== 'none' && g.child === true });
   }
 
-  const goingToReception = guests.some(g => g.attend === 'both' || g.attend === 'reception');
-  let transport = str(body.transport, 10);
-  if (!TRANSPORT.has(transport)) return { error: 'bad-transport' };
-  if (!goingToReception) transport = '';
-  else if (!transport) return { error: 'transport-required' };
+  // Transportation is not offered; the field is accepted for compatibility and always stored blank.
+  const transport = '';
 
   const songs = Array.isArray(body.songs)
     ? body.songs.map(s => str(s, LIMITS.song)).filter(Boolean).slice(0, LIMITS.songs)

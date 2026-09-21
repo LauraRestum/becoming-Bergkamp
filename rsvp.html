@@ -39,6 +39,7 @@
 <meta name="twitter:image" content="https://becoming-bergkamp.vercel.app/images/main-2.png" />
 
 
+<link rel="preload" as="image" href="/images/course-grass.jpg" />
 <link rel="stylesheet" href="/styles.css" />
 <link rel="stylesheet" href="/rsvp.css" />
 </head>
@@ -72,13 +73,28 @@
 
   <main>
 
-  <section id="rsvp" class="light-section alt rsvp-section">
-    <div class="container narrow">
-      <div class="portal rsvp-portal">
-        <div class="seal" aria-hidden="true">R</div>
-        <div class="kicker" style="margin-bottom: 14px;">Chapter V &middot; The Honor of a Reply</div>
-        <h2>RSVP</h2>
-        <p class="sub" id="rsvpIntro">Kindly respond by the first of February, two thousand twenty seven. One reply covers your household.</p>
+  <section id="rsvp" class="ceremony-bleed rsvp-bleed">
+    <img class="art-bg" src="/images/course-grass.jpg" alt="" aria-hidden="true" decoding="async" />
+    <div class="overlay"></div>
+
+    <div class="hero-corners" aria-hidden="true">
+      <span class="hc tl">Laura<br/>Restum</span>
+      <span class="hc tr">William<br/>Bergkamp</span>
+      <span class="hc bl">Wichita<br/>Kansas</span>
+      <span class="hc br">Kindly reply by<br/>the first of February</span>
+      <span class="hc bc">20 &middot; 03 &middot; 27</span>
+    </div>
+
+    <div class="content">
+      <div class="kicker">Chapter V &middot; Saturday, 20th March 2027</div>
+      <div class="hero-name">The Honor of a Reply</div>
+      <h1 class="display-h">RSVP</h1>
+      <div class="rule"><span class="line"></span><span class="ornament">&#10022;</span><span class="line"></span></div>
+      <p class="lede" id="rsvpIntro">Kindly respond by the first of February, two thousand twenty seven. One reply covers your household.</p>
+    </div>
+
+    <div class="content-bottom rsvp-wrap">
+      <div class="rsvp-panel">
 
         <!-- Returning guest · shown only when this browser has already sent a reply -->
         <div class="rsvp-returning" id="rsvpReturning" hidden>
@@ -103,29 +119,9 @@
             </button>
           </fieldset>
 
-          <!-- II · THE MOTORCOACH · appears once someone is headed to the reception -->
-          <fieldset class="rsvp-block" id="transportBlock" hidden>
-            <legend><span class="rsvp-numeral">II</span> The Motorcoach</legend>
-            <p class="rsvp-help">A coach will carry guests from Central Community Church to Crestview Country Club after the ceremony. It travels in one direction only.</p>
-            <p class="rsvp-notice"><strong>There is no return service.</strong> Please arrange your own ride home from Crestview at the end of the evening.</p>
-            <div class="rsvp-pill-row" role="radiogroup" aria-labelledby="transportLegend">
-              <span id="transportLegend" class="visually-hidden">Will you ride the motorcoach?</span>
-              <label class="rsvp-pill">
-                <input type="radio" name="transport" value="yes" />
-                <span>Yes, hold our seats</span>
-              </label>
-              <label class="rsvp-pill">
-                <input type="radio" name="transport" value="no" />
-                <span>No, we will drive</span>
-              </label>
-            </div>
-            <p class="rsvp-help small" id="transportSeats" aria-live="polite"></p>
-            <p class="rsvp-field-error" id="transportError" hidden></p>
-          </fieldset>
-
-          <!-- III · THE PLAYLIST -->
+          <!-- II · THE PLAYLIST -->
           <fieldset class="rsvp-block">
-            <legend><span class="rsvp-numeral">III</span> The Playlist</legend>
+            <legend><span class="rsvp-numeral">II</span> The Playlist</legend>
             <p class="rsvp-help">A song that will get you to the floor. Optional, but warmly encouraged.</p>
             <div id="songList" class="song-list"></div>
             <button type="button" class="rsvp-add" id="addSong">
@@ -133,9 +129,9 @@
             </button>
           </fieldset>
 
-          <!-- IV · WHERE TO REACH YOU -->
+          <!-- III · WHERE TO REACH YOU -->
           <fieldset class="rsvp-block">
-            <legend><span class="rsvp-numeral">IV</span> Where to Reach You</legend>
+            <legend><span class="rsvp-numeral">III</span> Where to Reach You</legend>
             <div class="rsvp-field">
               <label for="rsvpEmail">Email</label>
               <input id="rsvpEmail" name="email" type="email" required autocomplete="email" inputmode="email" spellcheck="false" placeholder="you@example.com" aria-describedby="emailHelp emailError" />
@@ -161,24 +157,24 @@
         <!-- Confirmation · replaces the form on success -->
         <div id="rsvpDone" class="rsvp-done" hidden tabindex="-1">
           <p class="rsvp-done-kicker">Received with gratitude</p>
-          <h3 class="rsvp-done-title" id="doneTitle">Thank you</h3>
-          <p class="sub">A confirmation is on its way to <span id="doneEmail"></span>.</p>
+          <h2 class="rsvp-done-title" id="doneTitle">Thank you</h2>
+          <p class="rsvp-done-sub">A confirmation is on its way to <span id="doneEmail"></span>.</p>
           <ul class="rsvp-done-list" id="doneList"></ul>
-          <p class="rsvp-done-extra" id="doneTransport" hidden></p>
+          <p class="rsvp-done-extra" id="doneExtra" hidden></p>
           <button type="button" class="rsvp-add" id="editReply">Edit this reply</button>
         </div>
 
         <!-- Closed · shown after the first of February -->
         <div id="rsvpClosed" class="rsvp-done" hidden>
           <p class="rsvp-done-kicker">The book is closed</p>
-          <h3 class="rsvp-done-title">Replies closed on the first of February</h3>
-          <p class="sub">If you still need to reach us, write to <a href="mailto:laurarestumm@gmail.com?subject=RSVP">laurarestumm@gmail.com</a> and we will take care of it personally.</p>
+          <h2 class="rsvp-done-title">Replies closed on the first of February</h2>
+          <p class="rsvp-done-sub">If you still need to reach us, write to <a href="mailto:laurarestumm@gmail.com?subject=RSVP">laurarestumm@gmail.com</a> and we will take care of it personally.</p>
         </div>
 
-        <p class="portal-feedback">
+        <p class="rsvp-foot">
           Misplaced your card, or have a question about the weekend? Write to us at <a href="mailto:laurarestumm@gmail.com?subject=RSVP">laurarestumm@gmail.com</a> and we will take care of it.
         </p>
-        <p class="portal-feedback">
+        <p class="rsvp-foot">
           Traveling in? Rooms at The Ambassador are held under <em>Restum &amp; Bergkamp</em> until February the tenth. <a href="/travel">Travel &amp; Stay &rarr;</a>
         </p>
       </div>

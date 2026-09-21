@@ -56,13 +56,12 @@ Script attached to a Google Sheet. The Sheet holds every reply and the script
 emails Laura and William on each one, plus a confirmation to the guest.
 
 What the form collects: a row per guest (name, ceremony and reception or only
-one, eight or under), whether the household wants seats on the one-way
-motorcoach from Central Community Church to Crestview (asked only when someone
-is headed to the reception, with the no-return-service note), song suggestions,
-an email for the confirmation, and an optional note. Replies close at the end of
-1 February 2027 (Central); after that the page shows a closed notice and the
-function refuses submissions. Add `?open=1` to the URL to preview the form
-past the deadline (the function still enforces it).
+one, eight or under), song suggestions, an email for the confirmation, and an
+optional note. The page is set on the course like The Day (grass art-bg, house
+script, white type). Replies close at the end of 1 February 2027 (Central);
+after that the page shows a closed notice and the function refuses submissions.
+Add `?open=1` to the URL to preview the form past the deadline (the function
+still enforces it).
 
 Catering: the Sheet's **Summary** tab counts plates with guests eight and under
 at one half. Only reception attendance counts toward plates.
@@ -77,7 +76,7 @@ Wiring it up (once):
    `RSVP_WEBHOOK_URL` (that URL) and `RSVP_SECRET` (the same secret), then
    redeploy.
 4. Run `testReply` in the Apps Script editor to check the Sheet and the emails,
-   and delete the sample rows.
+   then `resetForLaunch` to wipe the test rows before invitations go out.
 
 If a guest replies twice from the same email, the earlier rows are marked
 `Current = No` and the Summary only counts the latest. Drafts are kept in the
