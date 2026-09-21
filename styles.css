@@ -928,7 +928,19 @@
     .np-album-grid .np-photo:last-child { grid-column: 1 / -1; }
   }
 
-  /* Honeymoon · photograph beneath the contribution card */
+  /* Honeymoon · photographs beneath the contribution card */
+  .honeymoon-album {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+    max-width: 720px;
+    margin: 44px auto 0;
+  }
+  .honeymoon-album .honeymoon-photo { max-width: none; margin: 0; }
+  @media (max-width: 700px) {
+    .honeymoon-album { grid-template-columns: 1fr; max-width: 420px; }
+  }
   .honeymoon-photo {
     max-width: 420px;
     margin: 40px auto 0;
@@ -2305,6 +2317,79 @@
   .almanac .person-bio {
     font-family: var(--a-serif-body); font-weight: 500; font-size: 15px;
     line-height: 1.7; color: var(--a-ink); max-width: 280px; margin: 0 auto;
+  }
+
+  /* FRAMED PORTRAITS · simple party cards: the photo sits inside one of the
+     ornate wall frames (same set as the old expandable cards), with the name,
+     role and a few words below. The matte is clipped to the frame's window
+     so the photo never bleeds past the moulding. */
+  .almanac .party-grid .person::before {
+    /* brass nail · each frame reads as hung on the wall */
+    content: ""; position: absolute; top: -14px; left: 50%; z-index: 6;
+    width: 11px; height: 11px; border-radius: 50%; transform: translateX(-50%);
+    background: radial-gradient(circle at 35% 28%, #f7eab4 0%, #bd9740 55%, #6c5320 100%);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.75), inset 0 -1px 1px rgba(0, 0, 0, 0.45);
+  }
+  .almanac .framed-portrait {
+    --frame: url('/images/frames/frame-gold-portrait.png');
+    --ar: 471 / 720;
+    --clip: inset(10% 13% 8% 13% round 5%);
+    position: relative;
+    width: 100%;
+    max-width: 235px;
+    margin: 0 auto 24px;
+    aspect-ratio: var(--ar);
+  }
+  /* cream matte behind the photo · doubles as the placeholder when no photo
+     file exists yet (the ornament shows through) */
+  .almanac .framed-portrait::before {
+    content: "❦";
+    position: absolute; inset: 0; z-index: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 30px; font-weight: 700; color: rgba(58, 51, 38, 0.4);
+    background: radial-gradient(125% 112% at 50% 18%, #fffdf7 0%, #f1e8d4 60%, #e1d4b6 100%);
+    clip-path: var(--clip);
+  }
+  .almanac .framed-portrait img {
+    position: absolute; inset: 0; z-index: 1;
+    width: 100%; height: 100%; object-fit: cover;
+    clip-path: var(--clip);
+    filter: grayscale(1) contrast(1.12) brightness(0.97);
+  }
+  .almanac .framed-portrait::after {
+    content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background: var(--frame) center / 100% 100% no-repeat;
+    filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.45))
+            drop-shadow(0 15px 15px rgba(0, 0, 0, 0.5));
+  }
+  /* Rotate through the frame shapes, the same wall-of-frames set as before. */
+  .almanac .party-grid > article:nth-of-type(8n+2) .framed-portrait {
+    --frame: url('/images/frames/frame-black-oval.png'); --ar: 489 / 720;
+    --clip: ellipse(36% 37% at 50% 50%);
+  }
+  .almanac .party-grid > article:nth-of-type(8n+3) .framed-portrait {
+    --frame: url('/images/frames/frame-gold-cartouche.png'); --ar: 473 / 720;
+    --clip: inset(13% 11% 10% 11% round 30% 30% 30% 30% / 18% 18% 18% 18%);
+  }
+  .almanac .party-grid > article:nth-of-type(8n+4) .framed-portrait {
+    --frame: url('/images/frames/frame-black-arch.png'); --ar: 449 / 720;
+    --clip: inset(9% 14% 9% 14% round 48% 48% 7% 7% / 32% 32% 5% 5%);
+  }
+  .almanac .party-grid > article:nth-of-type(8n+5) .framed-portrait {
+    --frame: url('/images/frames/frame-gold-square.png'); --ar: 671 / 720;
+    --clip: inset(13% 13% 13% 13% round 5%);
+  }
+  .almanac .party-grid > article:nth-of-type(8n+6) .framed-portrait {
+    --frame: url('/images/frames/frame-black-landscape.png'); --ar: 720 / 546;
+    --clip: inset(9% 7% 11% 7% round 4%);
+  }
+  .almanac .party-grid > article:nth-of-type(8n+7) .framed-portrait {
+    --frame: url('/images/frames/frame-gold-oval-ornate.png'); --ar: 543 / 720;
+    --clip: ellipse(35% 37% at 50% 50%);
+  }
+  .almanac .party-grid > article:nth-of-type(8n) .framed-portrait {
+    --frame: url('/images/frames/frame-black-cartouche.png'); --ar: 465 / 720;
+    --clip: inset(11% 13% 10% 13% round 30% 30% 30% 30% / 18% 18% 18% 18%);
   }
 
   /* HOUSEHOLDS */
