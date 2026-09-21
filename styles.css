@@ -1602,6 +1602,11 @@
   .evening-scene .palette { gap: clamp(24px, 5vw, 48px); margin-bottom: 18px; }
   .evening-scene .swatch .chip { width: 44px; height: 44px; outline-offset: 4px; }
   .evening-scene .swatch { gap: 10px; }
+  /* Black and white lead the palette; the greenery and gold stay accents. */
+  .evening-scene .palette-main { align-items: flex-end; }
+  .evening-scene .swatch-lead .chip { width: 78px; height: 78px; }
+  .evening-scene .swatch-accent .chip { width: 28px; height: 28px; outline-offset: 3px; }
+  .evening-scene .swatch-accent .chip-name { font-size: 10px; color: rgba(255, 255, 255, 0.62); }
   .evening-scene .attire-suggest { padding-top: 16px; margin: 0 auto 18px; }
   .evening-scene .eyebrow { margin-bottom: 12px; }
   .evening-scene .suggest-grid { gap: 14px 24px; max-width: 620px; }
