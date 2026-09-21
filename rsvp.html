@@ -39,6 +39,7 @@
 <meta name="twitter:image" content="https://becoming-bergkamp.vercel.app/images/main-2.png" />
 
 
+<link rel="preload" as="image" href="/images/course-grass.jpg" />
 <link rel="stylesheet" href="/styles.css" />
 <link rel="stylesheet" href="/rsvp.css" />
 </head>
@@ -72,13 +73,28 @@
 
   <main>
 
-  <section id="rsvp" class="light-section alt rsvp-section">
-    <div class="container narrow">
-      <div class="portal rsvp-portal">
-        <div class="seal" aria-hidden="true">R</div>
-        <div class="kicker" style="margin-bottom: 14px;">Chapter V &middot; The Honor of a Reply</div>
-        <h2>RSVP</h2>
-        <p class="sub" id="rsvpIntro">Kindly respond by the first of February, two thousand twenty seven. One reply covers your household.</p>
+  <section id="rsvp" class="ceremony-bleed rsvp-bleed">
+    <img class="art-bg" src="/images/course-grass.jpg" alt="" aria-hidden="true" decoding="async" />
+    <div class="overlay"></div>
+
+    <div class="hero-corners" aria-hidden="true">
+      <span class="hc tl">Laura<br/>Restum</span>
+      <span class="hc tr">William<br/>Bergkamp</span>
+      <span class="hc bl">Wichita<br/>Kansas</span>
+      <span class="hc br">Kindly reply by<br/>the first of February</span>
+      <span class="hc bc">20 &middot; 03 &middot; 27</span>
+    </div>
+
+    <div class="content">
+      <div class="kicker">Chapter V &middot; Saturday, 20th March 2027</div>
+      <div class="hero-name">The Honor of a Reply</div>
+      <h1 class="display-h">RSVP</h1>
+      <div class="rule"><span class="line"></span><span class="ornament">&#10022;</span><span class="line"></span></div>
+      <p class="lede" id="rsvpIntro">Kindly respond by the first of February, two thousand twenty seven. One reply covers your household.</p>
+    </div>
+
+    <div class="content-bottom rsvp-wrap">
+      <div class="rsvp-panel">
 
         <!-- Returning guest · shown only when this browser has already sent a reply -->
         <div class="rsvp-returning" id="rsvpReturning" hidden>
@@ -141,23 +157,24 @@
         <!-- Confirmation · replaces the form on success -->
         <div id="rsvpDone" class="rsvp-done" hidden tabindex="-1">
           <p class="rsvp-done-kicker">Received with gratitude</p>
-          <h3 class="rsvp-done-title" id="doneTitle">Thank you</h3>
-          <p class="sub">A confirmation is on its way to <span id="doneEmail"></span>.</p>
+          <h2 class="rsvp-done-title" id="doneTitle">Thank you</h2>
+          <p class="rsvp-done-sub">A confirmation is on its way to <span id="doneEmail"></span>.</p>
           <ul class="rsvp-done-list" id="doneList"></ul>
+          <p class="rsvp-done-extra" id="doneExtra" hidden></p>
           <button type="button" class="rsvp-add" id="editReply">Edit this reply</button>
         </div>
 
         <!-- Closed · shown after the first of February -->
         <div id="rsvpClosed" class="rsvp-done" hidden>
           <p class="rsvp-done-kicker">The book is closed</p>
-          <h3 class="rsvp-done-title">Replies closed on the first of February</h3>
-          <p class="sub">If you still need to reach us, write to <a href="mailto:laurarestumm@gmail.com?subject=RSVP">laurarestumm@gmail.com</a> and we will take care of it personally.</p>
+          <h2 class="rsvp-done-title">Replies closed on the first of February</h2>
+          <p class="rsvp-done-sub">If you still need to reach us, write to <a href="mailto:laurarestumm@gmail.com?subject=RSVP">laurarestumm@gmail.com</a> and we will take care of it personally.</p>
         </div>
 
-        <p class="portal-feedback">
+        <p class="rsvp-foot">
           Misplaced your card, or have a question about the weekend? Write to us at <a href="mailto:laurarestumm@gmail.com?subject=RSVP">laurarestumm@gmail.com</a> and we will take care of it.
         </p>
-        <p class="portal-feedback">
+        <p class="rsvp-foot">
           Traveling in? Rooms at The Ambassador are held under <em>Restum &amp; Bergkamp</em> until February the tenth. <a href="/travel">Travel &amp; Stay &rarr;</a>
         </p>
       </div>

@@ -3,7 +3,6 @@
    ------------------------------------------------------------
    Runs the form on /rsvp:
      · one row per guest (name · ceremony/reception pick · eight or under)
-     · the motorcoach question appears only when someone is headed to the reception
      · song suggestions, email for the confirmation, an optional note
      · a live tally, a draft that survives a refresh, and a closed state
        after the first of February
@@ -213,13 +212,13 @@
     saveDraft();
   }
 
+
   /* ---------- Draft ---------- */
   var draftTimer = null;
   function currentPayload() {
     var guests = readGuests().map(function (g) { return { name: g.name, attend: g.attend, child: g.child }; });
     return {
       guests: guests,
-      transport: '',
       songs: readSongs(),
       email: emailInput.value.trim(),
       note: noteInput.value.trim()
@@ -319,7 +318,6 @@
       email: emailInput.value.trim(),
       note: noteInput.value.trim(),
       guests: v.guests.map(function (g) { return { name: g.name, attend: g.attend, child: g.child && g.attend !== 'none' }; }),
-      transport: '',
       songs: readSongs(),
       website: form.elements['website'] ? form.elements['website'].value : '',
       sentAt: new Date().toISOString()
@@ -390,10 +388,24 @@
       list.appendChild(li);
     }
 
+    var extra = $('doneExtra');
+    var t = tally(payload.guests);
+    if (t.reception > 0) {
+      extra.textContent = 'We will see you at Crestview Country Club. Cocktails at half past five.';
+      extra.hidden = false;
+    } else if (t.ceremony > 0) {
+      extra.textContent = 'We will see you at Central Community Church at four o\u2019clock.';
+      extra.hidden = false;
+    } else {
+      extra.textContent = 'You will be missed. Thank you for letting us know.';
+      extra.hidden = false;
+    }
+
     doneBox.hidden = false;
     doneBox.focus();
     try { doneBox.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) {}
   }
+
 
   function showClosed() {
     form.hidden = true;
