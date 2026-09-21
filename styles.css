@@ -2215,27 +2215,67 @@
   }
   .almanac .party-grid.single-feature { max-width: 360px; margin: 0 auto; }
   .almanac .person { text-align: center; position: relative; }
+  /* A brass nail above each portrait, so it reads as hung on the wall. */
+  .almanac .person::before {
+    content: ""; position: absolute; top: -3px; left: 50%; z-index: 6;
+    width: 11px; height: 11px; border-radius: 50%; transform: translateX(-50%);
+    background: radial-gradient(circle at 35% 28%, #f7eab4 0%, #bd9740 55%, #6c5320 100%);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.75), inset 0 -1px 1px rgba(0, 0, 0, 0.45);
+  }
+  /* Each portrait hangs in a gilt frame, the same way the bio cards do: the
+     frame PNG is laid over a matte, and both the matte and the photo are
+     clipped to the frame's window shape so nothing bleeds past the moulding.
+     The frames are set by height (not width) so every name still lines up,
+     and only the photo is toned - never the gilding. */
   .almanac .person-portrait {
-    width: 170px; height: 170px; margin: 0 auto 20px;
-    border-radius: 50%; overflow: hidden; position: relative;
-    background: var(--a-paper-deep);
-    box-shadow:
-      0 0 0 2px rgba(255, 255, 255, 0.6),
-      0 0 0 6px rgba(0, 0, 0, 0.8),
-      0 0 0 8px rgba(255, 255, 255, 0.4);
-    filter: grayscale(1) contrast(1.15) brightness(0.95);
+    --frame: url('/images/frames/frame-gold-portrait.png');
+    --ar: 471 / 720;
+    --clip: inset(10% 13% 8% 13% round 5%);
+    display: inline-block; position: relative; vertical-align: top;
+    height: 260px; width: auto; aspect-ratio: var(--ar);
+    margin: 0 auto 20px;
     transition: transform 0.5s ease;
   }
   .almanac .person:hover .person-portrait { transform: scale(1.04); }
-  .almanac .person-portrait img { width: 100%; height: 100%; object-fit: cover; }
-  .almanac .person-portrait.placeholder::after {
-    content: ""; position: absolute; inset: 0;
-    background: radial-gradient(circle at 50% 38%, #1a1a1a 0%, #0a0a0a 100%);
-  }
-  .almanac .person-portrait.placeholder::before {
-    content: "❦"; position: absolute; inset: 0;
+  /* the matte, with the ornament that shows until a photo exists */
+  .almanac .person-portrait::before {
+    content: "❦"; position: absolute; inset: 0; z-index: 0;
     display: flex; align-items: center; justify-content: center;
-    font-size: 30px; color: var(--a-ink); opacity: 0.5; z-index: 1; font-weight: 700;
+    font-size: 30px; font-weight: 700; color: #9a7c33;
+    background: radial-gradient(125% 112% at 50% 18%, #fffdf7 0%, #f1e8d4 60%, #e1d4b6 100%);
+    clip-path: var(--clip);
+  }
+  .almanac .person-portrait img {
+    position: absolute; inset: 0; z-index: 1;
+    width: 100%; height: 100%; object-fit: cover;
+    clip-path: var(--clip);
+    filter: grayscale(1) contrast(1.15) brightness(0.95);
+  }
+  /* the frame, with a cast shadow that follows its alpha */
+  .almanac .person-portrait::after {
+    content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background: var(--frame) center / 100% 100% no-repeat;
+    filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.45))
+            drop-shadow(0 15px 15px rgba(0, 0, 0, 0.5));
+  }
+  /* Frame variants, rotated across each row so the grid reads as a gallery
+     wall rather than a set of matching prints. Gold only: the black frames
+     disappear against the dark almanac paper. */
+  .almanac .party-grid > .person:nth-of-type(5n+2) .person-portrait {
+    --frame: url('/images/frames/frame-gold-oval.png'); --ar: 525 / 720;
+    --clip: ellipse(35% 36% at 50% 50%);
+  }
+  .almanac .party-grid > .person:nth-of-type(5n+3) .person-portrait {
+    --frame: url('/images/frames/frame-gold-square.png'); --ar: 671 / 720;
+    --clip: inset(13% 13% 13% 13% round 5%);
+  }
+  .almanac .party-grid > .person:nth-of-type(5n+4) .person-portrait {
+    --frame: url('/images/frames/frame-gold-cartouche.png'); --ar: 473 / 720;
+    --clip: inset(13% 11% 10% 11% round 30% 30% 30% 30% / 18% 18% 18% 18%);
+  }
+  .almanac .party-grid > .person:nth-of-type(5n+5) .person-portrait {
+    --frame: url('/images/frames/frame-gold-oval-ornate.png'); --ar: 543 / 720;
+    --clip: ellipse(35% 37% at 50% 50%);
   }
   .almanac .person-name {
     font-family: var(--a-serif-body); font-size: 34px; line-height: 1;
@@ -2631,31 +2671,54 @@
   }
 
   /* The photo placeholder(s) inside the opened panel. */
+  /* Stacked one to a row so each photo is big enough to carry a frame. */
   .almanac .bio-photos {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 12px; margin: 2px 0 18px;
+    display: grid; grid-template-columns: 1fr; justify-items: center;
+    gap: 22px; margin: 2px 0 18px;
   }
+  /* Framed the same way as the portraits above. */
   .almanac .bio-photo {
-    position: relative; aspect-ratio: 4 / 5; border-radius: 6px; overflow: hidden;
-    border: 1px solid rgba(201, 168, 76, 0.4);
-    background: radial-gradient(circle at 50% 35%, #1c1c1c 0%, #0b0b0b 100%);
+    --frame: url('/images/frames/frame-gold-portrait.png');
+    --ar: 471 / 720;
+    --clip: inset(10% 13% 8% 13% round 5%);
+    position: relative; margin: 0;
+    height: 270px; width: auto; aspect-ratio: var(--ar);
+  }
+  .almanac .bio-photos > .bio-photo:nth-of-type(2) {
+    --frame: url('/images/frames/frame-gold-oval.png'); --ar: 525 / 720;
+    --clip: ellipse(35% 36% at 50% 50%);
+  }
+  /* the matte, behind both the photo and the placeholder caption */
+  .almanac .bio-photo::before {
+    content: ""; position: absolute; inset: 0; z-index: 0;
+    background: radial-gradient(125% 112% at 50% 18%, #fffdf7 0%, #f1e8d4 60%, #e1d4b6 100%);
+    clip-path: var(--clip);
   }
   .almanac .bio-photo img {
-    position: absolute; inset: 0; z-index: 1;
+    position: absolute; inset: 0; z-index: 2;
     width: 100%; height: 100%; object-fit: cover;
+    clip-path: var(--clip);
     filter: grayscale(1) contrast(1.1) brightness(0.96);
   }
+  /* the frame, with a cast shadow that follows its alpha */
+  .almanac .bio-photo::after {
+    content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+    background: var(--frame) center / 100% 100% no-repeat;
+    filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.45))
+            drop-shadow(0 12px 12px rgba(0, 0, 0, 0.5));
+  }
+  /* the "add a photo here" note, visible on the matte until an image loads */
   .almanac .bio-photo figcaption {
-    position: absolute; inset: 0; z-index: 0;
+    position: absolute; inset: 0; z-index: 1;
     display: flex; flex-direction: column; align-items: center;
-    justify-content: center; gap: 6px; padding: 8px; text-align: center;
+    justify-content: center; gap: 6px; padding: 18% 20%; text-align: center;
   }
   .almanac .bio-photo .ph-name {
-    font-family: var(--wp-heading); font-size: 14px; line-height: 1.1; color: var(--a-ink);
+    font-family: var(--wp-heading); font-size: 14px; line-height: 1.1; color: #241f18;
   }
   .almanac .bio-photo .ph-file {
     font-family: var(--a-condensed); font-size: 8px; letter-spacing: 0.14em;
-    color: var(--a-brass); word-break: break-all; opacity: 0.85;
+    color: #8a6d2b; word-break: break-all; opacity: 0.9;
   }
 
   .almanac .bio-blurb {
@@ -2723,6 +2786,9 @@
     .almanac .parent-portrait { width: 92px; height: 92px; }
     .almanac .parent-portrait:first-child { margin-right: -12px; }
     .almanac .parent-portrait:last-child { margin-left: -12px; }
+    /* frames shrink by height, so the grid keeps its single column tidy */
+    .almanac .person-portrait { height: 220px; }
+    .almanac .bio-photo { height: 230px; }
     .almanac .parent-names { font-size: 44px; }
     .almanac .toc-list .toc-numeral { flex: 0 0 36px; }
     .almanac .toc-list .toc-name { font-size: 11px; letter-spacing: 0.12em; }

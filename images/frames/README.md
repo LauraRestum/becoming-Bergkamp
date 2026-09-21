@@ -43,3 +43,16 @@ each setting `--frame` (the PNG), `--ar` (its width / height, so it isn't
 stretched) and `--clip` (the matte shape: `none` for rectangles,
 `ellipse(...)` for ovals, a rounded `inset(...)` for arches, a `polygon(...)`
 for cartouches). See `.almanac .bio-summary` in `/styles.css`.
+
+The same three variables drive the other two framed things on the page:
+
+- **Wedding party portraits** (`.almanac .person-portrait`) — the photo is
+  clipped to `--clip` and sits under the frame PNG, so each person hangs on
+  the wall instead of sitting in a plain circle. The five gold frames rotate
+  every five cards (`:nth-of-type(5n+…)`); the black ones are skipped here
+  because they vanish against the dark almanac paper. Frames are sized by
+  **height**, not width, so the names underneath still line up even though
+  an oval and a square are different shapes.
+- **Parents' photos** (`.almanac .bio-photo`) — the two pictures inside an
+  opened bio panel, stacked one per row so each is big enough to carry a
+  frame.
