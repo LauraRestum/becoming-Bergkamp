@@ -1190,45 +1190,23 @@
     text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
   }
 
-  /* THE ORDER OF THE EVENING · the schedule column standing beside the
-     Crestview details, one panel on the same grass-lit black. */
-  .reception-order {
-    position: relative;
-    align-self: center;
-    padding: 80px 60px 80px 0;
-    text-align: center;
-    color: var(--paper-on-ink);
-  }
-  .reception-order .kicker {
-    color: rgba(255, 255, 255, 0.80);
-    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
-  }
-  .reception-order .display-h {
-    color: #fff;
-    font-size: clamp(24px, 2.4vw, 34px);
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.55), 0 4px 48px rgba(0, 0, 0, 0.3);
-  }
-  .reception-order .rule .line { background: rgba(255, 255, 255, 0.35); }
-  .reception-order .rule .ornament { color: var(--gold-ring); }
-  .reception-order .schedule {
-    margin: clamp(24px, 4vh, 40px) auto 0;
-    max-width: 460px;
-    text-align: left;
-  }
-  .reception-order .sched-row {
+  /* THE ORDER OF THE EVENING · the schedule now stands inside the Crestview
+     column itself, in place of the old detail rows. */
+  .reception-exterior .order-kicker { margin-bottom: 6px; }
+  .reception-exterior .chapel-exterior-info .schedule { margin: 0; max-width: none; }
+  .reception-exterior .chapel-exterior-info .sched-row {
     border-bottom: 0.5px solid rgba(255, 255, 255, 0.18);
     padding: 18px 0;
     gap: 20px;
   }
-  .reception-order .sched-row:last-child { border-bottom: none; }
-  .reception-order .sched-row .left { gap: 14px; }
-  .reception-order .sched-row .time { font-size: 16px; min-width: 84px; }
-  .reception-order .sched-row .event { font-size: 16px; }
-  .reception-order .sched-row .loc { font-size: 10px; letter-spacing: 0.26em; }
-  .reception-order .sched-row .time,
-  .reception-order .sched-row .event,
-  .reception-order .sched-row .loc { text-shadow: 0 1px 12px rgba(0, 0, 0, 0.7); }
-
+  .reception-exterior .chapel-exterior-info .sched-row:last-child { border-bottom: none; }
+  .reception-exterior .chapel-exterior-info .sched-row .left { gap: 14px; }
+  .reception-exterior .chapel-exterior-info .sched-row .time { font-size: 16px; min-width: 84px; }
+  .reception-exterior .chapel-exterior-info .sched-row .event { font-size: 16px; }
+  .reception-exterior .chapel-exterior-info .sched-row .loc { font-size: 10px; letter-spacing: 0.26em; }
+  .reception-exterior .chapel-exterior-info .sched-row .time,
+  .reception-exterior .chapel-exterior-info .sched-row .event,
+  .reception-exterior .chapel-exterior-info .sched-row .loc { text-shadow: 0 1px 12px rgba(0, 0, 0, 0.7); }
   /* VENUE PANELS · the venues as inked cards, after the invitation suite:
      tall serif caps with the script sweeping under, the building drawn in
      ink. The ceremony keeps the paper ground, the reception the black. */
@@ -1358,14 +1336,14 @@
     font-family: var(--serif); font-size: 17px; line-height: 1.6;
     color: var(--ink-soft);
   }
-  .detail-value .addr-link {
+  .addr-link {
     color: inherit;
     text-decoration: none;
     border-bottom: 0.5px solid rgba(0, 0, 0, 0.35);
     padding-bottom: 1px;
     transition: color 0.2s ease, border-color 0.2s ease;
   }
-  .detail-value .addr-link:hover { color: var(--gold-deep); border-bottom-color: currentColor; }
+  .addr-link:hover { color: var(--gold-deep); border-bottom-color: currentColor; }
   .chapel-note {
     font-family: var(--serif); font-style: italic; font-size: 17px;
     color: var(--gold-deep); margin-top: 32px;
@@ -1410,10 +1388,9 @@
   }
   /* The grid stays z-auto on purpose: a z-index here would open a stacking
      context and cut the drawing's lighten blend off from the grass below.
-     Three columns: the sketch, the details, the order of the evening. */
+     Two columns: the sketch, then the details with the order of the evening. */
   .reception-exterior .chapel-exterior-grid {
     position: relative;
-    grid-template-columns: 0.9fr 1.05fr 1.05fr;
   }
   .reception-exterior .chapel-exterior-info {
     padding: 80px 40px;
@@ -1440,8 +1417,8 @@
   .reception-exterior .detail-row { border-bottom-color: rgba(255, 255, 255, 0.14); }
   .reception-exterior .detail-label { color: rgba(255, 255, 255, 0.55); }
   .reception-exterior .detail-value { color: rgba(255, 255, 255, 0.85); }
-  .reception-exterior .detail-value .addr-link { border-bottom-color: rgba(255, 255, 255, 0.35); }
-  .reception-exterior .detail-value .addr-link:hover { color: var(--gold-bright); }
+  .reception-exterior .addr-link { border-bottom-color: rgba(255, 255, 255, 0.35); }
+  .reception-exterior .addr-link:hover { color: var(--gold-bright); }
   .reception-exterior .chapel-note {
     color: var(--gold-bright);
     border-top-color: rgba(255, 255, 255, 0.14);
@@ -1778,9 +1755,7 @@
        sits over the text and the deep padding is not needed. */
     .chapel-exterior.flip .chapel-exterior-info { padding: 60px 32px 48px; }
     .reception-exterior .chapel-exterior-grid { grid-template-columns: 1fr; }
-    .reception-exterior .chapel-exterior-info { padding: 48px 32px 12px; }
-    /* Stacked: the order of the evening follows the details. */
-    .reception-order { padding: 36px 32px 72px; }
+    .reception-exterior .chapel-exterior-info { padding: 48px 32px 72px; }
     /* Stacked: the drawing sits on top, so the pool of grass light moves up
        behind it and fades out before the details below. */
     .reception-exterior::before {
@@ -1918,9 +1893,8 @@
        screen; flatten them to black-on-white so they print legibly. */
     .reception-exterior { background: #fff !important; }
     .reception-exterior::before { display: none !important; }
-    .reception-exterior .chapel-exterior-info *,
-    .reception-order * { color: #000 !important; text-shadow: none !important; }
-    .reception-order .sched-row { border-color: rgba(0, 0, 0, 0.2) !important; }
+    .reception-exterior .chapel-exterior-info * { color: #000 !important; text-shadow: none !important; }
+    .reception-exterior .sched-row { border-color: rgba(0, 0, 0, 0.2) !important; }
     .ceremony-bleed .overlay { display: none !important; }
     .ceremony-bleed .content, .ceremony-bleed .content-bottom { opacity: 1 !important; }
     footer { background: #fff !important; border-top-color: #ccc !important; }
