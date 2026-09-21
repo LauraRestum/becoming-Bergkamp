@@ -103,29 +103,9 @@
             </button>
           </fieldset>
 
-          <!-- II · THE MOTORCOACH · appears once someone is headed to the reception -->
-          <fieldset class="rsvp-block" id="transportBlock" hidden>
-            <legend><span class="rsvp-numeral">II</span> The Motorcoach</legend>
-            <p class="rsvp-help">A coach will carry guests from Central Community Church to Crestview Country Club after the ceremony. It travels in one direction only.</p>
-            <p class="rsvp-notice"><strong>There is no return service.</strong> Please arrange your own ride home from Crestview at the end of the evening.</p>
-            <div class="rsvp-pill-row" role="radiogroup" aria-labelledby="transportLegend">
-              <span id="transportLegend" class="visually-hidden">Will you ride the motorcoach?</span>
-              <label class="rsvp-pill">
-                <input type="radio" name="transport" value="yes" />
-                <span>Yes, hold our seats</span>
-              </label>
-              <label class="rsvp-pill">
-                <input type="radio" name="transport" value="no" />
-                <span>No, we will drive</span>
-              </label>
-            </div>
-            <p class="rsvp-help small" id="transportSeats" aria-live="polite"></p>
-            <p class="rsvp-field-error" id="transportError" hidden></p>
-          </fieldset>
-
-          <!-- III · THE PLAYLIST -->
+          <!-- II · THE PLAYLIST -->
           <fieldset class="rsvp-block">
-            <legend><span class="rsvp-numeral">III</span> The Playlist</legend>
+            <legend><span class="rsvp-numeral">II</span> The Playlist</legend>
             <p class="rsvp-help">A song that will get you to the floor. Optional, but warmly encouraged.</p>
             <div id="songList" class="song-list"></div>
             <button type="button" class="rsvp-add" id="addSong">
@@ -133,9 +113,9 @@
             </button>
           </fieldset>
 
-          <!-- IV · WHERE TO REACH YOU -->
+          <!-- III · WHERE TO REACH YOU -->
           <fieldset class="rsvp-block">
-            <legend><span class="rsvp-numeral">IV</span> Where to Reach You</legend>
+            <legend><span class="rsvp-numeral">III</span> Where to Reach You</legend>
             <div class="rsvp-field">
               <label for="rsvpEmail">Email</label>
               <input id="rsvpEmail" name="email" type="email" required autocomplete="email" inputmode="email" spellcheck="false" placeholder="you@example.com" aria-describedby="emailHelp emailError" />
@@ -164,7 +144,6 @@
           <h3 class="rsvp-done-title" id="doneTitle">Thank you</h3>
           <p class="sub">A confirmation is on its way to <span id="doneEmail"></span>.</p>
           <ul class="rsvp-done-list" id="doneList"></ul>
-          <p class="rsvp-done-extra" id="doneTransport" hidden></p>
           <button type="button" class="rsvp-add" id="editReply">Edit this reply</button>
         </div>
 

@@ -205,7 +205,6 @@ function notifyCouple(r) {
     + '<p style="margin:22px 0 4px;">Ceremony: <strong>' + r.ceremonyCount + '</strong> &nbsp;·&nbsp; Reception: <strong>' + r.receptionCount + '</strong>'
     + (r.childCount ? ' &nbsp;·&nbsp; Eight or under: <strong>' + r.childCount + '</strong>' : '')
     + ' &nbsp;·&nbsp; Plates: <strong>' + r.plates + '</strong></p>'
-    + (r.receptionCount ? '<p style="margin:4px 0;">Motorcoach: <strong>' + (r.transport || 'not answered') + '</strong>' + (r.seats ? ' (' + r.seats + ' seat' + (r.seats === 1 ? '' : 's') + ')' : '') + '</p>' : '')
     + (r.songs.length ? '<p style="margin:14px 0 4px;">Songs: ' + esc(r.songs.join(' · ')) + '</p>' : '')
     + (r.note ? '<p style="margin:14px 0 4px;padding:12px 16px;border-left:2px solid #b89149;background:#faf7f0;">' + esc(r.note).replace(/\n/g, '<br>') + '</p>' : '')
     + '<p style="margin:22px 0 0;color:#777;font-size:14px;">From ' + esc(r.email) + ' &nbsp;·&nbsp; <a href="' + SpreadsheetApp.getActiveSpreadsheet().getUrl() + '" style="color:#b89149;">Open the Sheet</a></p>'
@@ -230,20 +229,10 @@ function confirmGuest(r) {
       + '<td style="padding:6px 0;color:#555;">' + g.label + '</td></tr>';
   }).join('');
 
-  var transportLine = '';
-  if (r.receptionCount && r.transport === 'Yes') {
-    transportLine = '<p style="margin:18px 0 0;">' + (r.seats === 1 ? 'One seat is held' : r.seats + ' seats are held')
-      + ' for you on the motorcoach from Central Community Church to Crestview Country Club after the ceremony. '
-      + '<strong>It travels one way only; there is no return service</strong>, so please plan your ride home from Crestview.</p>';
-  } else if (r.receptionCount && r.transport === 'No') {
-    transportLine = '<p style="margin:18px 0 0;">You have told us you will make your own way to Crestview Country Club. Safe travels.</p>';
-  }
-
   var html = wrap(
     '<p style="margin:0 0 18px;font-size:13px;letter-spacing:0.3em;text-transform:uppercase;color:#888;">The honor of a reply</p>'
     + '<p style="margin:0 0 18px;font-size:18px;">' + (attending ? 'Thank you, ' + esc(firsts) + '. We have your reply and we cannot wait to see you.' : 'Thank you, ' + esc(firsts) + '. We are sorry you cannot join us, and grateful you let us know.') + '</p>'
     + '<table style="border-collapse:collapse;font-size:16px;">' + lines + '</table>'
-    + transportLine
     + (r.songs.length ? '<p style="margin:18px 0 0;">Noted for the playlist: ' + esc(r.songs.join(' · ')) + '</p>' : '')
     + '<p style="margin:22px 0 0;color:#666;font-size:14px;">Plans change? Reply again at <a href="' + SITE + '/rsvp" style="color:#b89149;">' + SITE.replace('https://', '') + '/rsvp</a> from this same email address and we will keep your latest. Replies close on the first of February.</p>'
     + '<p style="margin:22px 0 0;">With all our love,<br>Laura &amp; William</p>'

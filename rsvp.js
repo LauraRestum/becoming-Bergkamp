@@ -40,8 +40,6 @@
   var songTpl = $('songRowTpl');
   var addGuestBtn = $('addGuest');
   var addSongBtn = $('addSong');
-  var transportBlock = $('transportBlock');
-  var transportSeats = $('transportSeats');
   var liveSummary = $('liveSummary');
   var formError = $('formError');
   var submitBtn = $('submitBtn');
@@ -185,7 +183,7 @@
     return out;
   }
 
-  /* ---------- Tally · transport · summary ---------- */
+  /* ---------- Tally · summary ---------- */
   function tally(guests) {
     var t = { ceremony: 0, reception: 0, little: 0, declined: 0, named: 0 };
     for (var i = 0; i < guests.length; i++) {
@@ -200,26 +198,9 @@
     return t;
   }
 
-  function transportValue() {
-    var r = form.querySelector('input[name="transport"]:checked');
-    return r ? r.value : '';
-  }
-
   function refresh() {
     var guests = readGuests();
     var t = tally(guests);
-
-    // Motorcoach question only matters if someone is headed to Crestview.
-    var needsTransport = t.reception > 0;
-    if (transportBlock.hidden === needsTransport) {
-      transportBlock.hidden = !needsTransport;
-    }
-    if (needsTransport) {
-      var tv = transportValue();
-      transportSeats.textContent = tv === 'yes'
-        ? (t.reception === 1 ? 'We will hold one seat.' : 'We will hold ' + words(t.reception) + ' seats.')
-        : (tv === 'no' ? 'Understood. We will not hold seats for you.' : '');
-    }
 
     // Live tally beneath the form
     var parts = [];
@@ -232,18 +213,13 @@
     saveDraft();
   }
 
-  function words(n) {
-    var w = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
-    return w[n] || String(n);
-  }
-
   /* ---------- Draft ---------- */
   var draftTimer = null;
   function currentPayload() {
     var guests = readGuests().map(function (g) { return { name: g.name, attend: g.attend, child: g.child }; });
     return {
       guests: guests,
-      transport: transportBlock.hidden ? '' : transportValue(),
+      transport: '',
       songs: readSongs(),
       email: emailInput.value.trim(),
       note: noteInput.value.trim()
@@ -262,10 +238,6 @@
     for (var j = 0; j < songs.length; j++) addSong(songs[j], { silent: true });
     emailInput.value = (data && data.email) || '';
     noteInput.value = (data && data.note) || '';
-    if (data && data.transport) {
-      var r = form.querySelector('input[name="transport"][value="' + data.transport + '"]');
-      if (r) r.checked = true;
-    }
     refresh();
   }
 
@@ -309,14 +281,6 @@
     }
     setFieldError($('guestsError'), guestsError);
 
-    var t = tally(guests);
-    var transportError = '';
-    if (t.reception > 0 && !transportValue()) {
-      transportError = 'Please let us know whether you will ride the motorcoach.';
-      if (!firstBad) firstBad = transportBlock.querySelector('input[name="transport"]');
-    }
-    setFieldError($('transportError'), transportError);
-
     var email = emailInput.value.trim();
     var emailError = '';
     var emailField = emailInput.closest('.rsvp-field');
@@ -355,7 +319,7 @@
       email: emailInput.value.trim(),
       note: noteInput.value.trim(),
       guests: v.guests.map(function (g) { return { name: g.name, attend: g.attend, child: g.child && g.attend !== 'none' }; }),
-      transport: transportBlock.hidden ? '' : transportValue(),
+      transport: '',
       songs: readSongs(),
       website: form.elements['website'] ? form.elements['website'].value : '',
       sentAt: new Date().toISOString()
@@ -426,25 +390,10 @@
       list.appendChild(li);
     }
 
-    var extra = $('doneTransport');
-    var t = tally(payload.guests);
-    if (t.reception > 0 && payload.transport === 'yes') {
-      extra.textContent = (t.reception === 1 ? 'One seat is held' : capitalize(words(t.reception)) + ' seats are held')
-        + ' on the motorcoach from Central Community Church to Crestview. Remember, there is no return service.';
-      extra.hidden = false;
-    } else if (t.reception > 0 && payload.transport === 'no') {
-      extra.textContent = 'You will make your own way to Crestview. Safe travels.';
-      extra.hidden = false;
-    } else {
-      extra.hidden = true;
-    }
-
     doneBox.hidden = false;
     doneBox.focus();
     try { doneBox.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) {}
   }
-
-  function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
 
   function showClosed() {
     form.hidden = true;
