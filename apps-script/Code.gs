@@ -46,11 +46,12 @@ var ATTEND_LABEL = {
 var GUEST_HEADERS = [
   'Received', 'Reply ID', 'Party Email', 'Guest', 'Attending',
   'Ceremony', 'Reception', '8 or Under', 'Plates',
+  'Dietary', 'Dietary Detail',
   'Songs', 'Note', 'Current'
 ];
 var REPLY_HEADERS = [
   'Received', 'Reply ID', 'Party Email', 'Guests', 'Ceremony', 'Reception',
-  '8 or Under', 'Plates', 'Songs', 'Note', 'Current'
+  '8 or Under', 'Plates', 'Dietary', 'Songs', 'Note', 'Current'
 ];
 
 /* ---------- Web app entry points ---------- */
@@ -97,6 +98,13 @@ function normalize(data) {
     var ceremony = attend === 'both' || attend === 'ceremony';
     var reception = attend === 'both' || attend === 'reception';
     var child = attend !== 'none' && g.child === true;
+    var diet = null;
+    if (g.diet && attend !== 'none' && (g.diet.kind || g.diet.detail)) {
+      diet = {
+        kind: g.diet.kind === 'allergy' ? 'Allergy' : 'Intolerance',
+        detail: String(g.diet.detail || '').trim()
+      };
+    }
     return {
       name: String(g.name || '').trim(),
       attend: attend,
@@ -104,6 +112,7 @@ function normalize(data) {
       ceremony: ceremony,
       reception: reception,
       child: child,
+      diet: diet,
       plates: reception ? (child ? 0.5 : 1) : 0
     };
   }).filter(function (g) { return g.name; });
@@ -119,6 +128,9 @@ function normalize(data) {
     receptionCount: receptionCount,
     childCount: guests.filter(function (g) { return g.reception && g.child; }).length,
     plates: guests.reduce(function (n, g) { return n + g.plates; }, 0),
+    dietary: guests.filter(function (g) { return g.diet; }).map(function (g) {
+      return g.name + ': ' + g.diet.kind.toLowerCase() + (g.diet.detail ? ', ' + g.diet.detail : '');
+    }).join(' · '),
     songs: (data.songs || []).map(function (s) { return String(s).trim(); }).filter(Boolean),
     note: String(data.note || '').trim()
   };
@@ -163,6 +175,8 @@ function writeReply(ss, r) {
       g.reception ? 'Yes' : 'No',
       g.child ? 'Yes' : 'No',
       g.plates,
+      g.diet ? g.diet.kind : '',
+      g.diet ? g.diet.detail : '',
       i === 0 ? songs : '',
       i === 0 ? r.note : '',
       'Yes'
@@ -177,7 +191,7 @@ function writeReply(ss, r) {
     r.received, r.id, r.email,
     r.guests.map(function (g) { return g.name; }).join(', '),
     r.ceremonyCount, r.receptionCount, r.childCount, r.plates,
-    songs, r.note, 'Yes'
+    r.dietary, songs, r.note, 'Yes'
   ]);
 }
 
@@ -189,7 +203,8 @@ function notifyCouple(r) {
   var subject = 'RSVP · ' + names + ' · ' + (attending ? attending + ' attending' : 'regrets');
 
   var lines = r.guests.map(function (g) {
-    return '<tr><td style="padding:6px 12px 6px 0;">' + esc(g.name) + (g.child ? ' <em style="color:#777;">(8 or under)</em>' : '') + '</td>'
+    return '<tr><td style="padding:6px 12px 6px 0;">' + esc(g.name) + (g.child ? ' <em style="color:#777;">(8 or under)</em>' : '')
+      + (g.diet ? '<br><em style="color:#8f2b2b;">' + esc(g.diet.kind) + (g.diet.detail ? ': ' + esc(g.diet.detail) : '') + '</em>' : '') + '</td>'
       + '<td style="padding:6px 0;color:#555;">' + g.label + '</td></tr>';
   }).join('');
 
@@ -199,6 +214,7 @@ function notifyCouple(r) {
     + '<p style="margin:22px 0 4px;">Ceremony: <strong>' + r.ceremonyCount + '</strong> &nbsp;·&nbsp; Reception: <strong>' + r.receptionCount + '</strong>'
     + (r.childCount ? ' &nbsp;·&nbsp; Eight or under: <strong>' + r.childCount + '</strong>' : '')
     + ' &nbsp;·&nbsp; Plates: <strong>' + r.plates + '</strong></p>'
+    + (r.dietary ? '<p style="margin:4px 0;color:#8f2b2b;">Dietary: ' + esc(r.dietary) + '</p>' : '')
     + (r.songs.length ? '<p style="margin:14px 0 4px;">Songs: ' + esc(r.songs.join(' · ')) + '</p>' : '')
     + (r.note ? '<p style="margin:14px 0 4px;padding:12px 16px;border-left:2px solid #b89149;background:#faf7f0;">' + esc(r.note).replace(/\n/g, '<br>') + '</p>' : '')
     + '<p style="margin:22px 0 0;color:#777;font-size:14px;">From ' + esc(r.email) + ' &nbsp;·&nbsp; <a href="' + SpreadsheetApp.getActiveSpreadsheet().getUrl() + '" style="color:#b89149;">Open the Sheet</a></p>'
@@ -219,7 +235,8 @@ function confirmGuest(r) {
   var attending = r.guests.filter(function (g) { return g.attend !== 'none'; }).length;
 
   var lines = r.guests.map(function (g) {
-    return '<tr><td style="padding:6px 12px 6px 0;">' + esc(g.name) + (g.child ? ' <em style="color:#777;">(eight or under)</em>' : '') + '</td>'
+    return '<tr><td style="padding:6px 12px 6px 0;">' + esc(g.name) + (g.child ? ' <em style="color:#777;">(eight or under)</em>' : '')
+      + (g.diet ? '<br><em style="color:#666;">' + esc(g.diet.kind.toLowerCase()) + (g.diet.detail ? ': ' + esc(g.diet.detail) : '') + '</em>' : '') + '</td>'
       + '<td style="padding:6px 0;color:#555;">' + g.label + '</td></tr>';
   }).join('');
 
@@ -235,6 +252,7 @@ function confirmGuest(r) {
     + '<p style="margin:0 0 18px;font-size:18px;">' + (attending ? 'Thank you, ' + esc(firsts) + '. We have your reply and we cannot wait to see you.' : 'Thank you, ' + esc(firsts) + '. We are sorry you cannot join us, and grateful you let us know.') + '</p>'
     + '<table style="border-collapse:collapse;font-size:16px;">' + lines + '</table>'
     + whereLine
+    + (r.dietary ? '<p style="margin:18px 0 0;">We have noted the dietary needs you shared and will pass them to the kitchen at Crestview.</p>' : '')
     + (r.songs.length ? '<p style="margin:18px 0 0;">Noted for the playlist: ' + esc(r.songs.join(' · ')) + '</p>' : '')
     + '<p style="margin:22px 0 0;color:#666;font-size:14px;">Plans change? Reply again at <a href="' + SITE + '/rsvp" style="color:#b89149;">' + SITE.replace('https://', '') + '/rsvp</a> from this same email address and we will keep your latest. Replies close on the first of February.</p>'
     + '<p style="margin:22px 0 0;">With all our love,<br>Laura &amp; William</p>'
@@ -286,8 +304,9 @@ function setup() {
     guests.setColumnWidth(1, 150);
     guests.setColumnWidth(4, 200);
     guests.setColumnWidth(5, 170);
-    guests.setColumnWidth(10, 220);
-    guests.setColumnWidth(11, 260);
+    guests.setColumnWidth(11, 200);
+    guests.setColumnWidth(12, 220);
+    guests.setColumnWidth(13, 260);
     guests.getRange('A2:A').setNumberFormat('mmm d, yyyy h:mm am/pm');
   }
 
@@ -297,8 +316,9 @@ function setup() {
     styleHeader(replies, REPLY_HEADERS.length);
     replies.setColumnWidth(1, 150);
     replies.setColumnWidth(4, 260);
-    replies.setColumnWidth(9, 220);
-    replies.setColumnWidth(10, 260);
+    replies.setColumnWidth(9, 240);
+    replies.setColumnWidth(10, 220);
+    replies.setColumnWidth(11, 260);
     replies.getRange('A2:A').setNumberFormat('mmm d, yyyy h:mm am/pm');
   }
 
@@ -308,22 +328,24 @@ function setup() {
       ['Becoming Bergkamp · RSVP Summary', ''],
       ['Counts only the current reply from each household.', ''],
       ['', ''],
-      ['Households replied', '=COUNTIF(Replies!K:K,"Yes")'],
-      ['Guests replied', '=COUNTIF(Guests!L:L,"Yes")'],
-      ['Attending the ceremony', '=COUNTIFS(Guests!F:F,"Yes",Guests!L:L,"Yes")'],
-      ['Attending the reception', '=COUNTIFS(Guests!G:G,"Yes",Guests!L:L,"Yes")'],
-      ['Reception guests 8 or under', '=COUNTIFS(Guests!G:G,"Yes",Guests!H:H,"Yes",Guests!L:L,"Yes")'],
-      ['Catering plates (8 and under at half)', '=SUMIFS(Guests!I:I,Guests!L:L,"Yes")'],
-      ['Regrets', '=COUNTIFS(Guests!E:E,"Regretfully unable",Guests!L:L,"Yes")'],
+      ['Households replied', '=COUNTIF(Replies!L:L,"Yes")'],
+      ['Guests replied', '=COUNTIF(Guests!N:N,"Yes")'],
+      ['Attending the ceremony', '=COUNTIFS(Guests!F:F,"Yes",Guests!N:N,"Yes")'],
+      ['Attending the reception', '=COUNTIFS(Guests!G:G,"Yes",Guests!N:N,"Yes")'],
+      ['Reception guests 8 or under', '=COUNTIFS(Guests!G:G,"Yes",Guests!H:H,"Yes",Guests!N:N,"Yes")'],
+      ['Catering plates (8 and under at half)', '=SUMIFS(Guests!I:I,Guests!N:N,"Yes")'],
+      ['Guests with an allergy', '=COUNTIFS(Guests!J:J,"Allergy",Guests!G:G,"Yes",Guests!N:N,"Yes")'],
+      ['Guests with an intolerance', '=COUNTIFS(Guests!J:J,"Intolerance",Guests!G:G,"Yes",Guests!N:N,"Yes")'],
+      ['Regrets', '=COUNTIFS(Guests!E:E,"Regretfully unable",Guests!N:N,"Yes")'],
       ['', ''],
-      ['Songs suggested', '=COUNTIFS(Guests!J:J,"<>",Guests!L:L,"Yes")'],
+      ['Songs suggested', '=COUNTIFS(Guests!L:L,"<>",Guests!N:N,"Yes")'],
       ['Last reply received', '=IF(COUNTA(Replies!A:A)>1,MAX(Replies!A:A),"")']
     ];
     summary.getRange(1, 1, rows.length, 2).setValues(rows);
     summary.getRange('A1').setFontSize(14).setFontWeight('bold');
     summary.getRange('A2').setFontStyle('italic').setFontColor('#666666');
-    summary.getRange('B4:B12').setHorizontalAlignment('right').setFontWeight('bold');
-    summary.getRange('B13').setNumberFormat('mmm d, yyyy h:mm am/pm').setHorizontalAlignment('right');
+    summary.getRange('B4:B14').setHorizontalAlignment('right').setFontWeight('bold');
+    summary.getRange('B15').setNumberFormat('mmm d, yyyy h:mm am/pm').setHorizontalAlignment('right');
     summary.setColumnWidth(1, 300);
     summary.setColumnWidth(2, 140);
   }
@@ -342,6 +364,8 @@ function styleHeader(sheet, cols) {
 // testing, before the invitations go out. It also removes the blank Sheet1.
 function resetForLaunch() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
+  // A spreadsheet must always keep one sheet, so park a temporary one first.
+  var temp = ss.insertSheet('_reset');
   [SHEET_GUESTS, SHEET_REPLIES, SHEET_SUMMARY].forEach(function (name) {
     var sh = ss.getSheetByName(name);
     if (sh) ss.deleteSheet(sh);
@@ -349,6 +373,7 @@ function resetForLaunch() {
   SpreadsheetApp.flush();
   Utilities.sleep(1500);            // let the deletes settle before rebuilding
   setup();
+  ss.deleteSheet(temp);
   var blank = ss.getSheetByName('Sheet1');
   if (blank && ss.getSheets().length > 1 && blank.getLastRow() === 0) ss.deleteSheet(blank);
 }
@@ -366,7 +391,7 @@ function testReply() {
         guests: [
           { name: 'Test Guest', attend: 'both', child: false },
           { name: 'Test Partner', attend: 'reception', child: false },
-          { name: 'Test Little One', attend: 'both', child: true }
+          { name: 'Test Little One', attend: 'both', child: true, diet: { kind: 'allergy', detail: 'tree nuts' } }
         ],
         songs: ['September, Earth Wind & Fire'],
         note: 'This is a test reply from the Apps Script editor.'
