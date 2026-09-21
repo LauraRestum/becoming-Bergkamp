@@ -125,29 +125,8 @@
 
   // RSVP · the form on /rsvp is run by rsvp.js and posts to /api/rsvp
 
-  // Blinds reveal · scroll-driven progress, text fades in when assembled
-  var blinds = document.getElementById('blindsReveal');
-  if (blinds) {
-    // The section now also holds the colours/attire copy, so measure the
-    // fixed-height photo backdrop (not the whole section) to drive progress.
-    var blindsHero = blinds.querySelector('.blinds-backdrop') || blinds;
-    var textRevealed = false;
-    function updateBlinds() {
-      var rect = blindsHero.getBoundingClientRect();
-      var vh = window.innerHeight;
-      var center = rect.top + rect.height / 2;
-      var raw = 1 - (center - vh / 2) / (vh * 0.8);
-      var progress = Math.min(1, Math.max(0, raw));
-      blinds.style.setProperty('--blinds-progress', progress);
-      if (progress >= 0.95 && !textRevealed) {
-        textRevealed = true;
-        blinds.classList.add('blinds-complete');
-      }
-    }
-    window.addEventListener('scroll', updateBlinds, { passive: true });
-    window.addEventListener('resize', updateBlinds, { passive: true });
-    updateBlinds();
-  }
+  // (blinds reveal removed · the order of the evening sits beside the
+  // Crestview details now, no scroll-driven assembly)
 
   // Wedding party · expandable bio cards (accessible disclosure pattern).
   // The summary is a native <button>, so Enter/Space and focus come for free;
