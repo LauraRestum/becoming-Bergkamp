@@ -903,6 +903,52 @@
     letter-spacing: 0.5em;
   }
 
+  /* From the Family Album · candid strip under the story columns */
+  .np-album {
+    border-top: 1px solid #1a1a1a;
+    margin-top: 4px;
+    padding: 22px 20px 8px;
+  }
+  .np-album-hed {
+    font-family: var(--sans);
+    font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: #555;
+    text-align: center;
+    margin-bottom: 18px;
+  }
+  .np-album-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+    align-items: start;
+  }
+  .np-album-grid .np-photo { margin: 0; }
+  @media (max-width: 900px) {
+    .np-album-grid { grid-template-columns: repeat(2, 1fr); }
+    .np-album-grid .np-photo:last-child { grid-column: 1 / -1; }
+  }
+
+  /* Honeymoon · photograph beneath the contribution card */
+  .honeymoon-photo {
+    max-width: 420px;
+    margin: 40px auto 0;
+  }
+  .honeymoon-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.04);
+  }
+  .honeymoon-photo figcaption {
+    font-family: var(--serif); font-style: italic;
+    font-size: 13px; letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.65);
+    text-align: center;
+    margin-top: 12px;
+  }
+
   /* Footer */
   .np-footer {
     margin-top: 8px;
