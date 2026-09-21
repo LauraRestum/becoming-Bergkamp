@@ -40,6 +40,7 @@
 
 
 <link rel="stylesheet" href="/styles.css" />
+<link rel="stylesheet" href="/rsvp.css" />
 </head>
 <body class="subpage">
 
@@ -71,22 +72,111 @@
 
   <main>
 
-  <section id="rsvp" class="dark-section">
+  <section id="rsvp" class="dark-section rsvp-section">
     <div class="container narrow">
-      <div class="portal">
+      <div class="portal rsvp-portal">
         <div class="seal" aria-hidden="true">R</div>
         <div class="kicker" style="margin-bottom: 14px;">Chapter V &middot; The Honor of a Reply</div>
         <h2>RSVP</h2>
-        <p class="sub">Enclosed with your invitation is a card bearing your name. Please enter it below to respond.</p>
-        <form class="portal-input" id="rsvpForm" action="https://formspree.io/f/your-id" method="POST" novalidate>
-          <input type="text" name="name" placeholder="Your name as printed" required aria-label="Your name as printed" autocomplete="name" />
-          <button type="submit">Reply</button>
+        <p class="sub" id="rsvpIntro">Kindly respond by the first of February, two thousand twenty seven. One reply covers your household.</p>
+
+        <!-- Returning guest · shown only when this browser has already sent a reply -->
+        <div class="rsvp-returning" id="rsvpReturning" hidden>
+          <p>You replied on <span id="returningDate"></span>. Plans change? Edit below and send again; we keep your latest.</p>
+        </div>
+
+        <form id="rsvpReply" class="rsvp-form" novalidate autocomplete="on">
+
+          <!-- Honeypot · hidden from people, tempting to bots -->
+          <div class="rsvp-hp" aria-hidden="true">
+            <label>Leave this field empty <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+          </div>
+
+          <!-- I · YOUR PARTY -->
+          <fieldset class="rsvp-block" id="guestsBlock">
+            <legend><span class="rsvp-numeral">I</span> Your Party</legend>
+            <p class="rsvp-help">Add everyone replying on this card, and tell us which part of the day each of you will join. Bring whomever you need; there is room.</p>
+            <div id="guestList" class="guest-list"></div>
+            <p class="rsvp-field-error" id="guestsError" hidden></p>
+            <button type="button" class="rsvp-add" id="addGuest">
+              <span class="rsvp-add-mark" aria-hidden="true">+</span> Add another guest
+            </button>
+          </fieldset>
+
+          <!-- II · THE MOTORCOACH · appears once someone is headed to the reception -->
+          <fieldset class="rsvp-block" id="transportBlock" hidden>
+            <legend><span class="rsvp-numeral">II</span> The Motorcoach</legend>
+            <p class="rsvp-help">A coach will carry guests from Central Community Church to Crestview Country Club after the ceremony. It travels in one direction only.</p>
+            <p class="rsvp-notice"><strong>There is no return service.</strong> Please arrange your own ride home from Crestview at the end of the evening.</p>
+            <div class="rsvp-pill-row" role="radiogroup" aria-labelledby="transportLegend">
+              <span id="transportLegend" class="visually-hidden">Will you ride the motorcoach?</span>
+              <label class="rsvp-pill">
+                <input type="radio" name="transport" value="yes" />
+                <span>Yes, hold our seats</span>
+              </label>
+              <label class="rsvp-pill">
+                <input type="radio" name="transport" value="no" />
+                <span>No, we will drive</span>
+              </label>
+            </div>
+            <p class="rsvp-help small" id="transportSeats" aria-live="polite"></p>
+            <p class="rsvp-field-error" id="transportError" hidden></p>
+          </fieldset>
+
+          <!-- III · THE PLAYLIST -->
+          <fieldset class="rsvp-block">
+            <legend><span class="rsvp-numeral">III</span> The Playlist</legend>
+            <p class="rsvp-help">A song that will get you to the floor. Optional, but warmly encouraged.</p>
+            <div id="songList" class="song-list"></div>
+            <button type="button" class="rsvp-add" id="addSong">
+              <span class="rsvp-add-mark" aria-hidden="true">+</span> Add another song
+            </button>
+          </fieldset>
+
+          <!-- IV · WHERE TO REACH YOU -->
+          <fieldset class="rsvp-block">
+            <legend><span class="rsvp-numeral">IV</span> Where to Reach You</legend>
+            <div class="rsvp-field">
+              <label for="rsvpEmail">Email</label>
+              <input id="rsvpEmail" name="email" type="email" required autocomplete="email" inputmode="email" spellcheck="false" placeholder="you@example.com" aria-describedby="emailHelp emailError" />
+              <p class="rsvp-help small" id="emailHelp">Your confirmation will arrive here. If plans change, reply again from the same address and we will keep the latest.</p>
+              <p class="rsvp-field-error" id="emailError" hidden></p>
+            </div>
+            <div class="rsvp-field">
+              <label for="rsvpNote">A note for Laura &amp; William <span class="rsvp-optional">optional</span></label>
+              <textarea id="rsvpNote" name="note" rows="3" maxlength="600"></textarea>
+            </div>
+          </fieldset>
+
+          <div class="rsvp-summary" id="liveSummary" aria-live="polite"></div>
+
+          <p class="rsvp-error" id="formError" role="alert" hidden></p>
+
+          <button type="submit" class="rsvp-submit" id="submitBtn">
+            <span class="rsvp-submit-label">Send our reply</span>
+            <span class="rsvp-submit-wait" aria-hidden="true">Sending&hellip;</span>
+          </button>
         </form>
-        <p class="portal-feedback" id="rsvpNote" aria-live="polite">
-          Kindly respond by the first of February, two thousand twenty seven.
-        </p>
+
+        <!-- Confirmation · replaces the form on success -->
+        <div id="rsvpDone" class="rsvp-done" hidden tabindex="-1">
+          <p class="rsvp-done-kicker">Received with gratitude</p>
+          <h3 class="rsvp-done-title" id="doneTitle">Thank you</h3>
+          <p class="sub">A confirmation is on its way to <span id="doneEmail"></span>.</p>
+          <ul class="rsvp-done-list" id="doneList"></ul>
+          <p class="rsvp-done-extra" id="doneTransport" hidden></p>
+          <button type="button" class="rsvp-add" id="editReply">Edit this reply</button>
+        </div>
+
+        <!-- Closed · shown after the first of February -->
+        <div id="rsvpClosed" class="rsvp-done" hidden>
+          <p class="rsvp-done-kicker">The book is closed</p>
+          <h3 class="rsvp-done-title">Replies closed on the first of February</h3>
+          <p class="sub">If you still need to reach us, write to <a href="mailto:laurarestumm@gmail.com?subject=RSVP">laurarestumm@gmail.com</a> and we will take care of it personally.</p>
+        </div>
+
         <p class="portal-feedback">
-          One reply covers your household. Misplaced your card, or have a question about the weekend? Write to us at <a href="mailto:laurarestumm@gmail.com?subject=RSVP">laurarestumm@gmail.com</a> and we will take care of it.
+          Misplaced your card, or have a question about the weekend? Write to us at <a href="mailto:laurarestumm@gmail.com?subject=RSVP">laurarestumm@gmail.com</a> and we will take care of it.
         </p>
         <p class="portal-feedback">
           Traveling in? Rooms at The Ambassador are held under <em>Restum &amp; Bergkamp</em> until February the tenth. <a href="/travel">Travel &amp; Stay &rarr;</a>
@@ -111,8 +201,48 @@
     <div class="credit">With all our love &middot; 03 &middot; 20 &middot; 2027</div>
   </footer>
 
+  <!-- Guest row · cloned by rsvp.js for each person in the party -->
+  <template id="guestRowTpl">
+    <div class="guest-row">
+      <div class="guest-head">
+        <span class="guest-index" aria-hidden="true"></span>
+        <div class="rsvp-field guest-name">
+          <label>Guest name</label>
+          <input type="text" name="guestName" autocomplete="off" autocapitalize="words" placeholder="First and last name" />
+        </div>
+        <button type="button" class="guest-remove" aria-label="Remove this guest">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="rsvp-pill-row guest-attend" role="radiogroup" aria-label="Which part of the day will this guest attend?">
+        <label class="rsvp-pill"><input type="radio" value="both" /><span>Ceremony &amp; Reception</span></label>
+        <label class="rsvp-pill"><input type="radio" value="ceremony" /><span>Ceremony only</span></label>
+        <label class="rsvp-pill"><input type="radio" value="reception" /><span>Reception only</span></label>
+        <label class="rsvp-pill decline"><input type="radio" value="none" /><span>Regretfully unable</span></label>
+      </div>
+      <label class="rsvp-check guest-child">
+        <input type="checkbox" name="child" />
+        <span class="rsvp-check-box" aria-hidden="true"></span>
+        <span>Eight years old or under</span>
+      </label>
+    </div>
+  </template>
+
+  <template id="songRowTpl">
+    <div class="song-row">
+      <div class="rsvp-field">
+        <label>Song and artist</label>
+        <input type="text" name="song" autocomplete="off" placeholder="Song and artist" maxlength="120" />
+      </div>
+      <button type="button" class="guest-remove song-remove" aria-label="Remove this song">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </template>
+
   <script src="/music.js"></script>
 
   <script src="/app.js"></script>
+  <script src="/rsvp.js"></script>
 </body>
 </html>

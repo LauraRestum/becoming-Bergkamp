@@ -48,16 +48,41 @@ strict-transport-security. The `og:url` and `canonical` URLs in the HTML
 currently point at `https://becoming-bergkamp.vercel.app/` — update both files
 after Vercel assigns the production domain.
 
-### Connecting the RSVP form
+### The RSVP
 
-The RSVP form posts to a Formspree placeholder. To wire it up:
+`/rsvp` is a real form (`rsvp.html`, `rsvp.css`, `rsvp.js`). Each reply posts to
+`api/rsvp.js`, a Vercel serverless function, which relays it to a Google Apps
+Script attached to a Google Sheet. The Sheet holds every reply and the script
+emails Laura and William on each one, plus a confirmation to the guest.
 
-1. Create a form at <https://formspree.io>.
-2. Replace `action="https://formspree.io/f/your-id"` in `index.html` with the
-   form endpoint Formspree gives you.
+What the form collects: a row per guest (name, ceremony and reception or only
+one, eight or under), whether the household wants seats on the one-way
+motorcoach from Central Community Church to Crestview (asked only when someone
+is headed to the reception, with the no-return-service note), song suggestions,
+an email for the confirmation, and an optional note. Replies close at the end of
+1 February 2027 (Central); after that the page shows a closed notice and the
+function refuses submissions. Add `?open=1` to the URL to preview the form
+past the deadline (the function still enforces it).
 
-Without that change, the form degrades gracefully: it acknowledges the guest
-locally and prompts for a real connection.
+Catering: the Sheet's **Summary** tab counts plates with guests eight and under
+at one half. Only reception attendance counts toward plates.
+
+Wiring it up (once):
+
+1. Create a Google Sheet. Extensions → Apps Script. Paste in
+   `apps-script/Code.gs`, set `SECRET` and `NOTIFY_TO`, run `setup` once.
+2. Deploy → New deployment → Web app → Execute as **Me**, access **Anyone**.
+   Copy the `/exec` URL.
+3. In Vercel → Project → Settings → Environment Variables add
+   `RSVP_WEBHOOK_URL` (that URL) and `RSVP_SECRET` (the same secret), then
+   redeploy.
+4. Run `testReply` in the Apps Script editor to check the Sheet and the emails,
+   and delete the sample rows.
+
+If a guest replies twice from the same email, the earlier rows are marked
+`Current = No` and the Summary only counts the latest. Drafts are kept in the
+guest's browser so a refresh does not lose their work, and a browser that has
+already sent a reply shows the confirmation with an "Edit this reply" button.
 
 ### Connecting honeymoon contributions
 

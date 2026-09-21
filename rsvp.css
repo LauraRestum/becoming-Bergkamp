@@ -1,0 +1,314 @@
+/* ============================================================
+   RSVP · Chapter V · The Honor of a Reply
+   ------------------------------------------------------------
+   Page styles for /rsvp. Builds on the tokens and the .portal
+   card in styles.css (ink, paper-on-ink, gold, gold-ring,
+   Rosaline for --serif/--display, Vintage Glamour for --sans).
+   ============================================================ */
+
+.rsvp-portal { padding-bottom: 64px; }
+.rsvp-portal .sub { margin-bottom: 28px; }
+
+/* Utilities */
+.visually-hidden,
+.rsvp-hp {
+  position: absolute !important; left: -9999px; top: auto;
+  width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);
+}
+
+/* Returning-guest banner */
+.rsvp-returning {
+  max-width: 520px; margin: 0 auto 30px;
+  border: 0.5px solid var(--gold-ring);
+  padding: 14px 20px;
+  font-family: var(--serif); font-style: italic; font-size: 15px; line-height: 1.6;
+  color: var(--paper-soft-on-ink);
+}
+
+/* ---------- Form skeleton ---------- */
+.rsvp-form { text-align: left; margin-top: 8px; }
+
+.rsvp-block {
+  border: 0; padding: 0; margin: 0; min-width: 0;
+  position: relative;
+  padding-top: 40px; margin-top: 30px;
+}
+.rsvp-block::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0;
+  height: 0.5px; background: var(--rule-dark);
+}
+.rsvp-block:first-of-type { margin-top: 0; }
+.rsvp-block > legend {
+  float: left; width: 100%;           /* renders as a normal block, so the rule above it stays intact */
+  padding: 0; margin: 0 0 12px;
+  font-family: var(--sans); font-size: 11px; letter-spacing: 0.42em; text-transform: uppercase;
+  color: var(--gold-bright);
+  display: flex; align-items: baseline; gap: 14px;
+}
+.rsvp-block > legend .rsvp-numeral {
+  font-family: var(--display); font-size: 22px; letter-spacing: 0.1em;
+  color: var(--gold-ring); line-height: 1;
+}
+.rsvp-block > *:not(legend) { clear: both; }
+
+.rsvp-help {
+  font-family: var(--serif); font-size: 16px; line-height: 1.7;
+  color: var(--paper-soft-on-ink); margin: 0 0 22px;
+}
+.rsvp-help.small { font-size: 14px; font-style: italic; margin: 12px 0 0; }
+
+.rsvp-notice {
+  margin: 0 0 22px;
+  padding: 14px 18px;
+  border-left: 2px solid var(--gold-ring);
+  background: rgba(184, 145, 73, 0.07);
+  font-family: var(--serif); font-size: 15px; line-height: 1.65;
+  color: var(--paper-on-ink);
+}
+.rsvp-notice strong {
+  display: block; margin-bottom: 4px;
+  font-family: var(--sans); font-weight: 400; font-size: 11px;
+  letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold-ring);
+}
+
+/* ---------- Fields ---------- */
+.rsvp-field { margin: 0 0 18px; min-width: 0; }
+.rsvp-field label {
+  display: block; margin-bottom: 6px;
+  font-family: var(--sans); font-size: 10px; letter-spacing: 0.36em; text-transform: uppercase;
+  color: var(--gold-bright);
+}
+.rsvp-field label .rsvp-optional {
+  margin-left: 10px; letter-spacing: 0.2em; color: var(--paper-faint-on-ink);
+}
+.rsvp-field input,
+.rsvp-field textarea {
+  display: block; width: 100%; min-width: 0;
+  background: transparent; border: 0; border-radius: 0;
+  border-bottom: 0.5px solid var(--gold);
+  color: var(--paper-on-ink);
+  font-family: var(--serif); font-size: 18px; line-height: 1.4;
+  padding: 10px 0 11px;
+  transition: border-color 200ms ease;
+  -webkit-appearance: none; appearance: none;
+}
+.rsvp-field textarea { resize: vertical; min-height: 88px; line-height: 1.6; }
+.rsvp-field input::placeholder,
+.rsvp-field textarea::placeholder { color: rgba(240, 240, 240, 0.42); font-style: italic; }
+.rsvp-field input:focus,
+.rsvp-field textarea:focus { border-bottom-color: var(--gold-ring); outline: none; }
+.rsvp-field input:focus-visible,
+.rsvp-field textarea:focus-visible { outline: 2px solid #4A90D9; outline-offset: 4px; }
+.rsvp-field.has-error input { border-bottom-color: #d9bd85; }
+
+.rsvp-field-error,
+.rsvp-error {
+  margin: 10px 0 0;
+  font-family: var(--serif); font-style: italic; font-size: 14px; line-height: 1.5;
+  color: #d9bd85;
+}
+.rsvp-error { margin-top: 20px; text-align: center; font-size: 15px; }
+.rsvp-error a { color: var(--gold-ring); border-bottom: 1px solid rgba(184, 145, 73, 0.5); }
+
+/* ---------- Guest rows ---------- */
+.guest-list { display: flex; flex-direction: column; gap: 14px; }
+.guest-row {
+  border: 0.5px solid var(--rule-dark);
+  background: rgba(255, 255, 255, 0.02);
+  padding: 22px 24px 20px;
+  animation: guestIn 320ms ease both;
+}
+@keyframes guestIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+.guest-head { display: flex; align-items: flex-end; gap: 16px; }
+.guest-index {
+  flex: 0 0 auto; width: 26px; padding-bottom: 12px;
+  font-family: var(--display); font-size: 20px; letter-spacing: 0.06em;
+  color: var(--gold-ring); text-align: center; line-height: 1;
+}
+.guest-head .rsvp-field { flex: 1 1 auto; margin: 0; }
+.guest-remove {
+  flex: 0 0 auto;
+  width: 40px; height: 40px; margin-bottom: 2px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 0.5px solid var(--rule-dark); border-radius: 50%;
+  background: transparent; color: var(--paper-soft-on-ink);
+  font-family: var(--serif); font-size: 22px; line-height: 1; cursor: pointer;
+  transition: border-color 200ms ease, color 200ms ease;
+}
+.guest-remove:hover, .guest-remove:focus-visible { border-color: var(--paper-on-ink); color: var(--paper-on-ink); }
+.guest-row.is-only .guest-remove { visibility: hidden; }
+
+/* Pills · radio buttons dressed as the honeymoon amount chips */
+.rsvp-pill-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.rsvp-pill { position: relative; display: block; }
+.rsvp-pill input {
+  position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0;
+  pointer-events: none;
+}
+.rsvp-pill span {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: 10px 18px;
+  border: 0.5px solid var(--gold);
+  font-family: var(--sans); font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase;
+  line-height: 1.35; text-align: center;
+  color: var(--paper-on-ink); cursor: pointer; user-select: none;
+  transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+.rsvp-pill:hover span { border-color: var(--gold-bright); }
+.rsvp-pill input:checked + span {
+  background: var(--paper-on-ink); color: var(--ink); border-color: var(--paper-on-ink);
+}
+.rsvp-pill.decline input:checked + span {
+  background: var(--gold-deep); color: var(--paper-on-ink); border-color: var(--gold-deep);
+}
+.rsvp-pill input:focus-visible + span { outline: 2px solid #4A90D9; outline-offset: 3px; }
+.guest-attend { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.guest-attend .rsvp-pill span { width: 100%; }
+.guest-attend.has-error .rsvp-pill span { border-color: rgba(217, 189, 133, 0.7); }
+
+/* Checkbox · eight or under */
+.rsvp-check {
+  display: inline-flex; align-items: center; gap: 12px;
+  margin-top: 14px; min-height: 44px; cursor: pointer;
+  font-family: var(--serif); font-size: 15px; color: var(--paper-soft-on-ink);
+  transition: color 200ms ease;
+}
+.rsvp-check:hover { color: var(--paper-on-ink); }
+.rsvp-check input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
+.rsvp-check-box {
+  position: relative; flex: 0 0 auto; width: 18px; height: 18px;
+  border: 0.5px solid var(--gold);
+  transition: background 200ms ease, border-color 200ms ease;
+}
+.rsvp-check-box::after {
+  content: ""; position: absolute; left: 5px; top: 1px;
+  width: 5px; height: 10px;
+  border: solid var(--ink); border-width: 0 1.5px 1.5px 0;
+  transform: rotate(45deg) scale(0); opacity: 0;
+  transition: transform 160ms ease, opacity 160ms ease;
+}
+.rsvp-check input:checked ~ .rsvp-check-box { background: var(--gold-ring); border-color: var(--gold-ring); }
+.rsvp-check input:checked ~ .rsvp-check-box::after { transform: rotate(45deg) scale(1); opacity: 1; }
+.rsvp-check input:checked ~ span:last-child { color: var(--paper-on-ink); }
+.rsvp-check input:focus-visible ~ .rsvp-check-box { outline: 2px solid #4A90D9; outline-offset: 3px; }
+.guest-row.is-declined .guest-child { opacity: 0.45; pointer-events: none; }
+
+/* Add-another buttons */
+.rsvp-add {
+  display: inline-flex; align-items: center; gap: 12px;
+  margin-top: 16px; padding: 10px 0; min-height: 44px;
+  background: transparent; border: 0; cursor: pointer;
+  font-family: var(--sans); font-size: 10px; letter-spacing: 0.34em; text-transform: uppercase;
+  color: var(--gold-bright);
+  transition: color 200ms ease;
+}
+.rsvp-add:hover, .rsvp-add:focus-visible { color: var(--paper-on-ink); }
+.rsvp-add-mark {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 0.5px solid var(--gold);
+  font-family: var(--serif); font-size: 18px; line-height: 1; color: var(--gold-ring);
+}
+
+/* Songs */
+.song-list { display: flex; flex-direction: column; gap: 4px; }
+.song-row { display: flex; align-items: flex-end; gap: 16px; }
+.song-row .rsvp-field { flex: 1 1 auto; margin: 0; }
+.song-row .song-remove { margin-bottom: 2px; }
+.song-row.is-only .song-remove { visibility: hidden; }
+
+/* Live summary and submit */
+.rsvp-summary {
+  margin-top: 40px; padding-top: 22px;
+  border-top: 0.5px dotted var(--rule-dark);
+  text-align: center; min-height: 1.6em;
+  font-family: var(--serif); font-style: italic; font-size: 16px; line-height: 1.7;
+  color: var(--paper-soft-on-ink);
+}
+.rsvp-summary .dot { margin: 0 10px; color: var(--gold); font-style: normal; }
+.rsvp-summary .n { color: var(--gold-ring); font-style: normal; }
+
+.rsvp-submit {
+  position: relative; display: block; width: 100%;
+  margin-top: 24px; padding: 21px 24px;
+  background: var(--paper-on-ink); color: var(--ink);
+  border: 0.5px solid var(--paper-on-ink); cursor: pointer;
+  font-family: var(--sans); font-size: 11px; letter-spacing: 0.42em; text-transform: uppercase;
+  transition: background 200ms ease, border-color 200ms ease, color 200ms ease, opacity 200ms ease;
+}
+.rsvp-submit:hover, .rsvp-submit:focus-visible { background: var(--gold-ring); border-color: var(--gold-ring); }
+.rsvp-submit .rsvp-submit-wait { display: none; }
+.rsvp-submit.is-sending { opacity: 0.7; cursor: progress; }
+.rsvp-submit.is-sending .rsvp-submit-label { display: none; }
+.rsvp-submit.is-sending .rsvp-submit-wait { display: inline; }
+.rsvp-submit:disabled { cursor: not-allowed; }
+
+/* ---------- Confirmation and closed states ---------- */
+.rsvp-done { padding-top: 6px; outline: none; }
+.rsvp-done-kicker {
+  font-family: var(--sans); font-size: 11px; letter-spacing: 0.5em; text-transform: uppercase;
+  color: var(--gold-bright); margin-bottom: 16px;
+}
+.rsvp-done-title {
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(24px, 3.4vw, 34px); letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--paper-on-ink); margin-bottom: 14px; line-height: 1.25;
+}
+.rsvp-done .sub { margin-bottom: 28px; }
+.rsvp-done .sub a { color: var(--gold-ring); border-bottom: 1px solid rgba(184, 145, 73, 0.5); }
+.rsvp-done-list {
+  list-style: none; margin: 0 auto 8px; padding: 0; max-width: 440px; text-align: left;
+}
+.rsvp-done-list li {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+  padding: 13px 0; border-bottom: 0.5px dotted var(--rule-dark);
+  font-family: var(--serif); font-size: 17px; color: var(--paper-on-ink);
+}
+.rsvp-done-list li .status {
+  flex: 0 0 auto; text-align: right;
+  font-family: var(--sans); font-size: 9.5px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold-bright);
+}
+.rsvp-done-list li .status.in { color: var(--gold-ring); }
+.rsvp-done-list li .little {
+  font-family: var(--serif); font-style: italic; font-size: 14px; color: var(--paper-soft-on-ink);
+  margin-left: 8px;
+}
+.rsvp-done-extra {
+  max-width: 440px; margin: 18px auto 0;
+  font-family: var(--serif); font-style: italic; font-size: 15px; line-height: 1.65;
+  color: var(--paper-soft-on-ink);
+}
+.rsvp-done .rsvp-add { margin-top: 28px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 800px) {
+  .rsvp-portal { padding-bottom: 44px; }
+  .rsvp-block { padding-top: 32px; margin-top: 26px; }
+  .guest-row { padding: 18px 16px 16px; }
+  .guest-head { gap: 12px; }
+  .guest-index { width: 20px; }
+  .guest-attend { gap: 8px; }
+  .guest-attend .rsvp-pill span { padding: 10px 10px; font-size: 10px; letter-spacing: 0.18em; }
+  .rsvp-pill-row:not(.guest-attend) .rsvp-pill { flex: 1 1 calc(50% - 5px); }
+  .rsvp-pill-row:not(.guest-attend) .rsvp-pill span { width: 100%; }
+  .rsvp-field input, .rsvp-field textarea { font-size: 17px; }
+  .rsvp-done-list li { font-size: 16px; }
+}
+@media (max-width: 420px) {
+  .guest-attend { grid-template-columns: 1fr; }
+  .rsvp-pill-row:not(.guest-attend) .rsvp-pill { flex-basis: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .guest-row { animation: none; }
+  .rsvp-pill span, .rsvp-check-box, .rsvp-check-box::after, .rsvp-submit, .rsvp-add,
+  .rsvp-field input, .rsvp-field textarea, .guest-remove { transition: none; }
+}
+
+@media print {
+  .rsvp-submit, .rsvp-add, .guest-remove { display: none !important; }
+}
