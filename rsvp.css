@@ -41,7 +41,14 @@
 
 /* ---------- Hero ---------- */
 .rsvp-bleed .content { padding-top: 120px; max-width: 900px; }
-.rsvp-bleed .hero-name { font-size: clamp(40px, 7vw, 72px); }
+.rsvp-bleed .hero-name {
+  font-size: clamp(40px, 7vw, 72px);
+  /* The brass is painted only inside the box (background-clip: text), so give the
+     script's tall strokes and the tails of p and y room on every side. */
+  padding: 0.28em 0.7em 0.5em;
+  line-height: 1.12;
+  margin: -0.1em auto -0.22em;
+}
 @media (min-width: 861px) {
   /* Sized so "The Honor of a Reply" stays one unbroken line inside the content box. */
   .rsvp-bleed .hero-name { font-size: clamp(44px, 4.6vw, 60px); }
@@ -239,7 +246,18 @@
 .rsvp-check input:checked ~ .rsvp-check-box { background: var(--card-ink); border-color: var(--card-ink); }
 .rsvp-check input:checked ~ .rsvp-check-box::after { transform: rotate(45deg) scale(1); opacity: 1; }
 .rsvp-check input:focus-visible ~ .rsvp-check-box { outline: 2px solid #4A90D9; outline-offset: 3px; }
-.guest-row.is-declined .guest-child { opacity: 0.4; pointer-events: none; }
+.guest-row.is-declined .guest-child,
+.guest-row.is-declined .guest-diet-toggle { opacity: 0.4; pointer-events: none; }
+.guest-checks { display: flex; flex-wrap: wrap; gap: 0 32px; }
+
+/* Dietary restriction · opens under the toggle */
+.guest-diet {
+  margin-top: 10px; padding: 16px 0 4px;
+  border-top: 1px dashed var(--card-rule);
+}
+.guest-diet .diet-kind { margin-top: 0; }
+.guest-diet .diet-kind .rsvp-pill { flex: 0 0 auto; }
+.guest-diet .rsvp-field { margin: 16px 0 0; }
 
 /* Add-another buttons */
 .rsvp-add {
@@ -334,6 +352,7 @@
   font-family: var(--serif); font-style: italic; font-size: 15px; color: var(--card-ink-soft);
   margin-left: 8px;
 }
+.rsvp-done-list li .little.diet { display: block; margin-left: 0; }
 .rsvp-done-extra {
   max-width: 440px; margin: 18px auto 0;
   font-family: var(--serif); font-style: italic; font-size: 16px; line-height: 1.65;
@@ -352,6 +371,9 @@
   .guest-index { width: 20px; }
   .guest-attend { gap: 8px; }
   .guest-attend .rsvp-pill span { padding: 10px 10px; font-size: 10px; letter-spacing: 0.18em; }
+  .guest-checks { flex-direction: column; }
+  .guest-diet .diet-kind .rsvp-pill { flex: 1 1 calc(50% - 5px); }
+  .guest-diet .diet-kind .rsvp-pill span { width: 100%; }
   .rsvp-field input, .rsvp-field textarea { font-size: 18px; }
   .rsvp-done-list li { font-size: 17px; }
 }

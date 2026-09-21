@@ -2,7 +2,7 @@
    RSVP · Chapter V · The Honor of a Reply
    ------------------------------------------------------------
    Runs the form on /rsvp:
-     · one row per guest (name · ceremony/reception pick · eight or under)
+     · one row per guest (name · ceremony/reception pick · eight or under · dietary restriction)
      · song suggestions, email for the confirmation, an optional note
      · a live tally, a draft that survives a refresh, and a closed state
        after the first of February
@@ -86,6 +86,17 @@
     var child = row.querySelector('input[name="child"]');
     child.id = id + '-child';
 
+    var dietToggle = row.querySelector('input[name="diet"]');
+    dietToggle.id = id + '-diet';
+    var dietKinds = row.querySelectorAll('.diet-kind input[type="radio"]');
+    for (var k = 0; k < dietKinds.length; k++) {
+      dietKinds[k].name = id + '-diet-kind';
+      dietKinds[k].id = id + '-diet-' + dietKinds[k].value;
+    }
+    var dietDetail = row.querySelector('input[name="dietDetail"]');
+    dietDetail.id = id + '-diet-detail';
+    row.querySelector('.diet-detail label').setAttribute('for', dietDetail.id);
+
     if (data) {
       nameInput.value = data.name || '';
       if (data.attend) {
@@ -93,6 +104,14 @@
         if (r) r.checked = true;
       }
       child.checked = !!data.child;
+      if (data.diet && (data.diet.kind || data.diet.detail)) {
+        dietToggle.checked = true;
+        if (data.diet.kind) {
+          var dk = row.querySelector('.diet-kind input[value="' + data.diet.kind + '"]');
+          if (dk) dk.checked = true;
+        }
+        dietDetail.value = data.diet.detail || '';
+      }
     }
 
     row.querySelector('.guest-remove').addEventListener('click', function () {
@@ -128,8 +147,31 @@
     var declined = !!pick && pick.value === 'none';
     row.classList.toggle('is-declined', declined);
     var child = row.querySelector('input[name="child"]');
-    if (declined) { child.checked = false; child.disabled = true; }
-    else { child.disabled = false; }
+    var diet = row.querySelector('input[name="diet"]');
+    if (declined) {
+      child.checked = false; child.disabled = true;
+      diet.checked = false; diet.disabled = true;
+    } else {
+      child.disabled = false;
+      diet.disabled = false;
+    }
+    var block = row.querySelector('.guest-diet');
+    var open = diet.checked && !declined;
+    if (block.hidden === open) block.hidden = !open;
+    if (!open) {
+      var err = row.querySelector('.diet-error');
+      if (err) { err.hidden = true; err.textContent = ''; }
+    }
+  }
+
+  function readDiet(row) {
+    var toggle = row.querySelector('input[name="diet"]');
+    if (!toggle.checked || toggle.disabled) return null;
+    var kind = row.querySelector('.diet-kind input:checked');
+    return {
+      kind: kind ? kind.value : '',
+      detail: row.querySelector('input[name="dietDetail"]').value.trim()
+    };
   }
 
   function readGuests() {
@@ -141,7 +183,8 @@
         row: rows[i],
         name: rows[i].querySelector('input[name="guestName"]').value.trim(),
         attend: pick ? pick.value : '',
-        child: rows[i].querySelector('input[name="child"]').checked
+        child: rows[i].querySelector('input[name="child"]').checked,
+        diet: readDiet(rows[i])
       });
     }
     return out;
@@ -216,7 +259,7 @@
   /* ---------- Draft ---------- */
   var draftTimer = null;
   function currentPayload() {
-    var guests = readGuests().map(function (g) { return { name: g.name, attend: g.attend, child: g.child }; });
+    var guests = readGuests().map(function (g) { return { name: g.name, attend: g.attend, child: g.child, diet: g.diet }; });
     return {
       guests: guests,
       songs: readSongs(),
@@ -272,7 +315,15 @@
         guestsError = guestsError || 'Please tell us which part of the day each guest will join.';
         if (!firstBad) firstBad = attend.querySelector('input');
       }
-      if (g.name && g.attend) live.push(g);
+      var dietErr = g.row.querySelector('.diet-error');
+      var dietBad = '';
+      if (g.diet && g.attend !== 'none') {
+        if (!g.diet.kind) dietBad = 'Is it an intolerance or an allergy?';
+        else if (!g.diet.detail) dietBad = 'Please tell us what to keep off the plate.';
+      }
+      setFieldError(dietErr, dietBad);
+      if (dietBad && !firstBad) firstBad = g.diet.kind ? g.row.querySelector('input[name="dietDetail"]') : g.row.querySelector('.diet-kind input');
+      if (g.name && g.attend) live.push(g);   // a dietary slip is flagged on the row and blocks the send via firstBad
     }
     if (!guestsError && !live.length) {
       guestsError = 'Please add at least one guest.';
@@ -317,7 +368,14 @@
     var payload = {
       email: emailInput.value.trim(),
       note: noteInput.value.trim(),
-      guests: v.guests.map(function (g) { return { name: g.name, attend: g.attend, child: g.child && g.attend !== 'none' }; }),
+      guests: v.guests.map(function (g) {
+        return {
+          name: g.name,
+          attend: g.attend,
+          child: g.child && g.attend !== 'none',
+          diet: (g.diet && g.attend !== 'none') ? { kind: g.diet.kind, detail: g.diet.detail } : null
+        };
+      }),
       songs: readSongs(),
       website: form.elements['website'] ? form.elements['website'].value : '',
       sentAt: new Date().toISOString()
@@ -379,6 +437,12 @@
         little.className = 'little';
         little.textContent = 'eight or under';
         name.appendChild(little);
+      }
+      if (g.diet && g.diet.detail) {
+        var diet = document.createElement('span');
+        diet.className = 'little diet';
+        diet.textContent = (g.diet.kind === 'allergy' ? 'allergy: ' : 'intolerance: ') + g.diet.detail;
+        name.appendChild(diet);
       }
       var status = document.createElement('span');
       status.className = 'status' + (g.attend === 'none' ? '' : ' in');
