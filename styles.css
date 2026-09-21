@@ -1207,6 +1207,17 @@
   .reception-exterior .chapel-exterior-info .sched-row .time,
   .reception-exterior .chapel-exterior-info .sched-row .event,
   .reception-exterior .chapel-exterior-info .sched-row .loc { text-shadow: 0 1px 12px rgba(0, 0, 0, 0.7); }
+  /* THE SHUTTLE · a black interlude between the church and the club,
+     giving the two venue panels room to breathe. */
+  .shuttle-band { padding: 170px 40px; text-align: center; }
+  .shuttle-band .lede { color: var(--paper-soft-on-ink); max-width: 620px; }
+  .shuttle-oneway {
+    font-family: var(--serif); font-style: italic; font-size: 17px;
+    line-height: 1.7;
+    color: var(--gold-bright);
+    max-width: 520px; margin: 30px auto 0;
+  }
+
   /* VENUE PANELS · the venues as inked cards, after the invitation suite:
      tall serif caps with the script sweeping under, the building drawn in
      ink. The ceremony keeps the paper ground, the reception the black. */
