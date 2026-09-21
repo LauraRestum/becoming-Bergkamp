@@ -110,7 +110,7 @@
           <!-- I · YOUR PARTY -->
           <fieldset class="rsvp-block" id="guestsBlock">
             <legend><span class="rsvp-numeral">I</span> Your Party</legend>
-            <p class="rsvp-help">Add everyone replying on this card, and tell us which part of the day each of you will join. Bring whomever you need; there is room.</p>
+            <p class="rsvp-help">Add everyone replying on this card, and tell us which part of the day each of you will join.</p>
             <div id="guestList" class="guest-list"></div>
             <p class="rsvp-field-error" id="guestsError" hidden></p>
             <button type="button" class="rsvp-add" id="addGuest">
@@ -215,11 +215,29 @@
         <label class="rsvp-pill"><input type="radio" value="reception" /><span>Reception only</span></label>
         <label class="rsvp-pill decline"><input type="radio" value="none" /><span>Regretfully unable</span></label>
       </div>
-      <label class="rsvp-check guest-child">
-        <input type="checkbox" name="child" />
-        <span class="rsvp-check-box" aria-hidden="true"></span>
-        <span>Eight years old or under</span>
-      </label>
+      <div class="guest-checks">
+        <label class="rsvp-check guest-child">
+          <input type="checkbox" name="child" />
+          <span class="rsvp-check-box" aria-hidden="true"></span>
+          <span>Eight years old or under</span>
+        </label>
+        <label class="rsvp-check guest-diet-toggle">
+          <input type="checkbox" name="diet" />
+          <span class="rsvp-check-box" aria-hidden="true"></span>
+          <span>Dietary restriction</span>
+        </label>
+      </div>
+      <div class="guest-diet" hidden>
+        <div class="rsvp-pill-row diet-kind" role="radiogroup" aria-label="Is it an intolerance or an allergy?">
+          <label class="rsvp-pill"><input type="radio" value="intolerance" /><span>Intolerance</span></label>
+          <label class="rsvp-pill"><input type="radio" value="allergy" /><span>Allergy</span></label>
+        </div>
+        <div class="rsvp-field diet-detail">
+          <label>Please tell us what</label>
+          <input type="text" name="dietDetail" autocomplete="off" placeholder="Gluten, shellfish, tree nuts, dairy&hellip;" maxlength="120" />
+        </div>
+        <p class="rsvp-field-error diet-error" hidden></p>
+      </div>
     </div>
   </template>
 

@@ -56,7 +56,8 @@ Script attached to a Google Sheet. The Sheet holds every reply and the script
 emails Laura and William on each one, plus a confirmation to the guest.
 
 What the form collects: a row per guest (name, ceremony and reception or only
-one, eight or under), song suggestions, an email for the confirmation, and an
+one, eight or under, and a dietary restriction marked as an intolerance or an
+allergy with what to avoid), song suggestions, an email for the confirmation, and an
 optional note. The page is set on the course like The Day (grass art-bg, house
 script, white type). Replies close at the end of 1 February 2027 (Central);
 after that the page shows a closed notice and the function refuses submissions.
