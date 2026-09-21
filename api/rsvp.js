@@ -13,9 +13,10 @@
    ============================================================ */
 
 const ATTEND = new Set(['both', 'ceremony', 'reception', 'none']);
+const DIET = new Set(['intolerance', 'allergy']);
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-const LIMITS = { guests: 12, name: 80, songs: 6, song: 120, note: 600, email: 254 };
+const LIMITS = { guests: 12, name: 80, songs: 6, song: 120, note: 600, email: 254, diet: 120 };
 
 module.exports = async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
@@ -106,7 +107,14 @@ function clean(body) {
     const attend = str(g.attend, 20);
     if (!name) return { error: 'bad-guest-name' };
     if (!ATTEND.has(attend)) return { error: 'bad-guest-attend' };
-    guests.push({ name, attend, child: attend !== 'none' && g.child === true });
+    let diet = null;
+    if (g.diet && typeof g.diet === 'object' && attend !== 'none') {
+      const kind = str(g.diet.kind, 20);
+      const detail = str(g.diet.detail, LIMITS.diet);
+      if (kind && !DIET.has(kind)) return { error: 'bad-diet' };
+      if (kind || detail) diet = { kind: kind || 'intolerance', detail };
+    }
+    guests.push({ name, attend, child: attend !== 'none' && g.child === true, diet });
   }
 
   // Transportation is not offered; the field is accepted for compatibility and always stored blank.
