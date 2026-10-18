@@ -49,8 +49,8 @@
     }
   ],
   "redirects": [
-    { "source": "/", "destination": "/home", "permanent": false },
-    { "source": "/party", "destination": "/wedding-party", "permanent": true },
-    { "source": "/almanac", "destination": "/wedding-party", "permanent": true }
+    { "source": "/", "destination": "/coming-soon", "permanent": false },
+    { "source": "/:page(home|ceremony|rsvp|travel|honeymoon|wedding-party|schedule|party|almanac)", "destination": "/coming-soon", "permanent": false },
+    { "source": "/:page(home|ceremony|rsvp|travel|honeymoon|wedding-party|schedule).html", "destination": "/coming-soon", "permanent": false }
   ]
 }

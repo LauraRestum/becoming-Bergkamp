@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#0a0a0a" />
+<title>Invitations Coming Soon · Laura &amp; William</title>
+<meta name="description" content="The wedding of Laura Beth Restum and William James Bergkamp. Invitations are coming soon." />
+<link rel="icon" href="/favicon.ico" sizes="48x48" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Laura &amp; William · Invitations Coming Soon" />
+<meta property="og:description" content="Twentieth of March, two thousand twenty seven · Wichita, Kansas." />
+<meta property="og:image" content="https://becoming-bergkamp.vercel.app/images/envelope-lace-closed.png" />
+<style>
+  @font-face {
+    font-family: 'Rosaline';
+    src: url('/fonts/RosalineRegular-9MErB.otf') format('opentype');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Vintage Glamour';
+    src: url('/fonts/VintageGlamourRegular-ALX27.ttf') format('truetype');
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Vintage Glamour';
+    src: url('/fonts/VintageGlamourItalic-DO471.ttf') format('truetype');
+    font-style: italic;
+    font-display: swap;
+  }
+
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(ellipse at 50% 40%, #1a1a1a 0%, #0a0a0a 70%);
+    color: #f0f0f0;
+    font-family: 'Rosaline', serif;
+    padding: 40px 16px;
+    text-align: center;
+  }
+  .wrap {
+    max-width: 560px; width: 100%;
+    animation: rise 1400ms ease-out both;
+  }
+  .eyebrow {
+    font-family: 'Vintage Glamour', serif; font-size: 11px;
+    letter-spacing: 0.5em; text-transform: uppercase;
+    color: #999999; margin-bottom: 22px;
+  }
+  .names {
+    font-weight: 400;
+    font-size: clamp(30px, 7vw, 52px);
+    letter-spacing: 0.08em; line-height: 1.15;
+  }
+  .names .amp {
+    display: block;
+    font-family: 'Vintage Glamour', serif; font-style: italic;
+    font-size: 0.7em; color: #999999; margin: 4px 0;
+  }
+  .envelope {
+    display: block;
+    width: min(100%, 420px); height: auto;
+    margin: 18px auto 8px;
+    aspect-ratio: 1920 / 1080;
+    object-fit: cover;
+    animation: float 6s ease-in-out infinite;
+  }
+  h1 {
+    font-weight: 400;
+    font-size: clamp(22px, 5vw, 34px);
+    letter-spacing: 0.22em; text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .rule {
+    display: flex; align-items: center; justify-content: center; gap: 14px;
+    color: #666666; margin: 0 auto 22px; max-width: 240px;
+  }
+  .rule .line { flex: 1; height: 0.5px; background: #666666; }
+  p {
+    font-style: italic; font-size: 18px; line-height: 1.7;
+    color: rgba(240, 240, 240, 0.72);
+    margin-bottom: 28px;
+  }
+  .date {
+    font-family: 'Vintage Glamour', serif; font-size: 11px;
+    letter-spacing: 0.42em; text-transform: uppercase;
+    color: #999999; line-height: 2.2;
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: none; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wrap, .envelope { animation: none; }
+  }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="eyebrow">The Wedding of</div>
+    <div class="names">
+      Laura Beth
+      <span class="amp">&amp;</span>
+      William James
+    </div>
+
+    <img class="envelope" src="/images/envelope-lace-closed.png" alt="A sealed lace-trimmed envelope" width="1920" height="1080" />
+
+    <h1>Invitations<br />Coming Soon</h1>
+    <div class="rule" aria-hidden="true"><span class="line"></span>✦<span class="line"></span></div>
+    <p>Our invitations are on their way. Please keep an eye on your mailbox. Everything you'll need, including how to RSVP, will be inside.</p>
+    <div class="date">
+      Twentieth of March &middot; Two Thousand Twenty Seven<br />
+      Wichita, Kansas
+    </div>
+  </main>
+</body>
+</html>
