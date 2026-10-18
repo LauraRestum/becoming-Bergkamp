@@ -58,5 +58,13 @@ with `-2` for the second. A photo slot stays hidden until its file exists.
 | ------------- | ------------------- | --------------------- |
 | Amy and Ron   | `amy-and-ron.jpg`   | `amy-and-ron-2.jpg`   |
 
+## The Family
+
+The round portraits on the Family chapter live in `family/<name>.jpg`
+(square crops of the face), and each household card ends with one group
+photo: `family/restums.jpg` and `family/bergkamps.jpg`. Teal has no photo
+yet; add `family/teal.jpg` and swap her placeholder for an `<img>` like
+the others.
+
 Julie and Gil's card is a plain nameplate for now; it will need a tribute
 and its photo slots added back before it opens like Amy and Ron's.

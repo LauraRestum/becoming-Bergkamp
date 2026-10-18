@@ -2408,6 +2408,19 @@
     font-size: 15px; line-height: 1.75; color: var(--a-ink);
     max-width: 380px; margin: 0 auto;
   }
+  /* One family photo at the foot of each household, matted in the same
+     black-and-white as the portraits above it. */
+  .almanac .household-photo {
+    max-width: 380px; margin: 34px auto 0;
+    box-shadow:
+      0 0 0 2px rgba(255, 255, 255, 0.6),
+      0 0 0 6px rgba(0, 0, 0, 0.8),
+      0 0 0 8px rgba(255, 255, 255, 0.4);
+  }
+  .almanac .household-photo img {
+    display: block; width: 100%; height: auto;
+    filter: grayscale(1) contrast(1.15) brightness(0.95);
+  }
 
   /* MENAGERIE */
   .almanac .menagerie {
