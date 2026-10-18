@@ -62,10 +62,12 @@ move it if that was the wrong read.
 
 ## Parents
 
-The parents' cards are still the expandable kind and support up to two
-photos each, with `-2` for the second.
+Amy and Ron's card is the expandable kind and supports up to two photos,
+with `-2` for the second. A photo slot stays hidden until its file exists.
 
 | People        | File 1              | File 2                |
 | ------------- | ------------------- | --------------------- |
 | Amy and Ron   | `amy-and-ron.jpg`   | `amy-and-ron-2.jpg`   |
-| Julie and Gil | `julie-and-gil.jpg` | `julie-and-gil-2.jpg` |
+
+Julie and Gil's card is a plain nameplate for now; it will need a tribute
+and its photo slots added back before it opens like Amy and Ron's.

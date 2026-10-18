@@ -140,11 +140,11 @@
             <div class="bio-detail-inner">
               <div class="bio-photos">
                 <figure class="bio-photo">
-                  <img src="/photos/amy-and-ron.jpg" alt="Laura with Amy and Ron" loading="lazy" onerror="this.style.display='none'">
+                  <img src="/photos/amy-and-ron.jpg" alt="Laura with Amy and Ron" onerror="this.closest('figure').remove()">
                   <figcaption><span class="ph-name">Laura, Amy &amp; Ron</span><span class="ph-file">/photos/amy-and-ron.jpg</span></figcaption>
                 </figure>
                 <figure class="bio-photo">
-                  <img src="/photos/amy-and-ron-2.jpg" alt="Laura with Amy and Ron" loading="lazy" onerror="this.style.display='none'">
+                  <img src="/photos/amy-and-ron-2.jpg" alt="Laura with Amy and Ron" onerror="this.closest('figure').remove()">
                   <figcaption><span class="ph-name">Laura, Amy &amp; Ron</span><span class="ph-file">/photos/amy-and-ron-2.jpg</span></figcaption>
                 </figure>
               </div>
@@ -153,9 +153,9 @@
           </div>
         </article>
 
-        <article class="parent-card bio-card" data-bio-card>
+        <article class="parent-card bio-card">
           <div class="card-crown" aria-hidden="true">❦</div>
-          <button type="button" class="bio-summary" aria-expanded="false" aria-controls="bio-julie-gil">
+          <div class="bio-summary" style="cursor: default;">
             <div class="parent-portraits">
               <div class="parent-portrait placeholder"></div>
               <div class="parent-portrait placeholder"></div>
@@ -164,26 +164,6 @@
             <div class="parent-surname">BERGKAMP</div>
             <div class="parent-role">Parents of the Groom</div>
             <div class="parent-divider" aria-hidden="true">⁂</div>
-            <p class="parent-bio">A short tribute to Julie and Gil will live here.</p>
-            <span class="bio-cue">
-              <span class="bio-cue-text">Tap to read more</span>
-              <span class="bio-chevron" aria-hidden="true">⌄</span>
-            </span>
-          </button>
-          <div class="bio-detail" id="bio-julie-gil" role="region" aria-labelledby="name-julie-gil" hidden>
-            <div class="bio-detail-inner">
-              <div class="bio-photos">
-                <figure class="bio-photo">
-                  <img src="/photos/julie-and-gil.jpg" alt="William with Julie and Gil" loading="lazy" onerror="this.style.display='none'">
-                  <figcaption><span class="ph-name">William, Julie &amp; Gil</span><span class="ph-file">/photos/julie-and-gil.jpg</span></figcaption>
-                </figure>
-                <figure class="bio-photo">
-                  <img src="/photos/julie-and-gil-2.jpg" alt="William with Julie and Gil" loading="lazy" onerror="this.style.display='none'">
-                  <figcaption><span class="ph-name">William, Julie &amp; Gil</span><span class="ph-file">/photos/julie-and-gil-2.jpg</span></figcaption>
-                </figure>
-              </div>
-              <p class="bio-blurb">The longer tribute to Julie and Gil will live here, and what William carries from them into this marriage.</p>
-            </div>
           </div>
         </article>
       </div>
@@ -398,7 +378,6 @@
             </div>
           </div>
 
-          <p class="household-bio">A short paragraph about Erica, David, Teal, and the three. Replace with the real one when ready.</p>
         </article>
 
         <article class="household">
@@ -439,7 +418,6 @@
             </div>
           </div>
 
-          <p class="household-bio">A short paragraph about James, Ginny, and the three. Replace with the real one when ready.</p>
         </article>
       </div>
     </div>
@@ -460,27 +438,11 @@
       <div class="menagerie-grid">
         <article class="creature">
           <div class="creature-portrait placeholder"></div>
-          <h4 class="creature-name">Pet Name</h4>
           <div class="creature-species">BORDER COLLIE</div>
-          <p class="creature-bio">A small note. Two sentences is plenty.</p>
         </article>
         <article class="creature">
           <div class="creature-portrait placeholder"></div>
-          <h4 class="creature-name">Pet Name</h4>
           <div class="creature-species">GERMAN SHEPHERD</div>
-          <p class="creature-bio">A small note. Two sentences is plenty.</p>
-        </article>
-        <article class="creature">
-          <div class="creature-portrait placeholder"></div>
-          <h4 class="creature-name">Pet Name</h4>
-          <div class="creature-species">THE GOAT</div>
-          <p class="creature-bio">A small note. Two sentences is plenty.</p>
-        </article>
-        <article class="creature">
-          <div class="creature-portrait placeholder"></div>
-          <h4 class="creature-name">Pet Name</h4>
-          <div class="creature-species">THE ALPACA</div>
-          <p class="creature-bio">A small note. Two sentences is plenty.</p>
         </article>
       </div>
     </div>

@@ -2425,7 +2425,8 @@
     height: 1px; background: rgba(255, 255, 255, 0.3);
   }
   .almanac .menagerie-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 280px));
+    justify-content: center;
     gap: 60px 30px; max-width: 1100px; margin: 0 auto;
   }
   .almanac .creature { text-align: center; }
