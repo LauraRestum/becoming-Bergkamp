@@ -60,9 +60,11 @@ with `-2` for the second. A photo slot stays hidden until its file exists.
 
 ## The Family
 
-The round portraits on the Family chapter live in `family/<name>.jpg`
-(square crops of the face), and each household card ends with one group
-photo: `family/restums.jpg` and `family/bergkamps.jpg`.
+Erica, David and James each have a round portrait (`family/<name>.jpg`,
+a square crop of the face) and a family photo with everyone named under it:
 
-Julie and Gil's card is a plain nameplate for now; it will need a tribute
-and its photo slots added back before it opens like Amy and Ron's.
+| Who    | Family photo                  |
+| ------ | ----------------------------- |
+| Erica  | `family/erica-and-john.jpg` (hidden until it exists) |
+| David  | `family/restums.jpg`          |
+| James  | `family/bergkamps.jpg`        |
