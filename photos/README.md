@@ -60,11 +60,10 @@ with `-2` for the second. A photo slot stays hidden until its file exists.
 
 ## The Family
 
-Erica, David and James each have a round portrait (`family/<name>.jpg`,
-a square crop of the face) and a family photo with everyone named under it:
+One column per sibling, each with a family photo and everyone named under it:
 
-| Who    | Family photo                  |
-| ------ | ----------------------------- |
-| Erica  | `family/erica-and-john.jpg` (hidden until it exists) |
-| David  | `family/restums.jpg`          |
-| James  | `family/bergkamps.jpg`        |
+| Who    | Family photo                                          |
+| ------ | ----------------------------------------------------- |
+| Erica  | `family/erica-and-john.jpg` (still needed)            |
+| David  | `family/restums.jpg`                                  |
+| James  | `family/bergkamps.jpg`                                |

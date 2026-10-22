@@ -2303,8 +2303,8 @@
 
   /* HOUSEHOLDS */
   .almanac .households {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
-    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+    max-width: 1200px; margin: 0 auto;
   }
   .almanac .household {
     text-align: center; padding: 56px 32px 48px;
@@ -2408,12 +2408,9 @@
     font-size: 15px; line-height: 1.75; color: var(--a-ink);
     max-width: 380px; margin: 0 auto;
   }
-  /* Each household member: a round portrait, then a family photo with
-     everyone in it named underneath, matted in the same black-and-white. */
-  .almanac .household-member + .household-member {
-    margin-top: 44px; padding-top: 40px;
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
-  }
+  /* Each sibling's column ends in a family photo with everyone named
+     underneath, matted in the same black-and-white as the portraits. */
+  .almanac .household .household-adult-role { margin-top: -20px; }
   .almanac .household-photo { max-width: 380px; margin: 26px auto 0; }
   .almanac .household-photo img {
     display: block; width: 100%; height: auto;
