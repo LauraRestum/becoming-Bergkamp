@@ -2208,6 +2208,16 @@
     padding-left: 0.5em; text-transform: uppercase;
   }
 
+  /* Flower girls, ushers and readers: names only, no frames. */
+  .almanac .ceremony-roles {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px; max-width: 1100px; margin: 0 auto; text-align: center;
+  }
+  .almanac .ceremony-role-names {
+    font-family: var(--wp-heading); font-size: 30px; line-height: 1.1;
+    color: var(--a-ink); margin: 10px 0 8px;
+  }
+
   /* PEOPLE */
   .almanac .party-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
