@@ -2420,10 +2420,11 @@
   }
   /* Each sibling's column ends in a family photo with everyone named
      underneath, matted in the same black-and-white as the portraits. */
-  .almanac .household .household-adult-role { margin-top: -20px; }
+  .almanac .household .household-adult-role { margin-top: -20px; min-height: 2.8em; }
   .almanac .household-photo { max-width: 380px; margin: 26px auto 0; }
   .almanac .household-photo img {
     display: block; width: 100%; height: auto;
+    aspect-ratio: 4 / 5; object-fit: cover;
     filter: grayscale(1) contrast(1.15) brightness(0.95);
     box-shadow:
       0 0 0 2px rgba(255, 255, 255, 0.6),
