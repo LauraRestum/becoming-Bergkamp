@@ -64,6 +64,6 @@ One column per sibling, each with a family photo and everyone named under it:
 
 | Who    | Family photo                                          |
 | ------ | ----------------------------------------------------- |
-| Erica  | `family/erica-and-john.jpg` (still needed)            |
+| Erica  | `family/erica.jpg` (still needed)                      |
 | David  | `family/restums.jpg`                                  |
 | James  | `family/bergkamps.jpg`                                |
