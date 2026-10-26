@@ -3,7 +3,7 @@
    offline cache as it goes. When the network is unreachable it falls back to
    the cached copy so the app still opens and works offline. */
 
-const VERSION = 'v11';
+const VERSION = 'v12';
 const CACHE = 'bergkamp-wedding-' + VERSION;
 
 // Pre-cache the homepage, the things it needs to render, the manifest, and the
@@ -49,15 +49,19 @@ self.addEventListener('message', (event) => {
 
 // Fetch: network-first for same-origin GET requests. Grab the freshest copy,
 // stash it for offline use, and only fall back to the cache when the network
-// is unreachable.
+// is unreachable. Pages, scripts and styles use 'no-cache' so the browser
+// checks with the server rather than handing back a stale copy from its own
+// HTTP cache; images and fonts keep their long-lived caching.
 self.addEventListener('fetch', (event) => {
   const request = event.request;
 
   if (request.method !== 'GET') return;
   if (new URL(request.url).origin !== self.location.origin) return;
 
+  const fresh = ['document', 'script', 'style', 'manifest', ''].includes(request.destination);
+
   event.respondWith(
-    fetch(request)
+    fetch(request, fresh ? { cache: 'no-cache' } : undefined)
       .then((response) => {
         // Stash a fresh copy of valid, basic (same-origin) responses.
         if (response && response.status === 200 && response.type === 'basic') {
