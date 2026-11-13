@@ -14,8 +14,13 @@
     if (p && typeof p.catch === 'function') { p.catch(function () {}); }
   }
 
+  var ENTERED_KEY = 'bk_entered';
+  function rememberEntered() { try { sessionStorage.setItem(ENTERED_KEY, '1'); } catch (e) {} }
+  function enteredBefore() { try { return sessionStorage.getItem(ENTERED_KEY) === '1'; } catch (e) { return false; } }
+
   function enter() {
     if (!cover || cover.classList.contains('opening')) return;
+    rememberEntered();
     cover.classList.add('opening');
     window.scrollTo(0, 0);
     document.body.classList.remove('cover-open');
@@ -35,6 +40,12 @@
   // If the user arrives with a hash (deep link), open straight away.
   if (cover && window.location.hash && window.location.hash !== '#top') {
     enter();
+  } else if (cover && enteredBefore() && !/[?&]intro=1/.test(window.location.search)) {
+    // Already came through the doors this visit: skip straight to the page.
+    cover.style.display = 'none';
+    document.body.classList.remove('cover-open');
+    document.body.classList.add('entered');
+    playHero();
   }
   // Subpages have no cover · render entered immediately so nav and content show.
   if (!cover) {
@@ -45,7 +56,7 @@
   // subpage (no cover present) it returns home where the intro plays fresh.
   function restartCover() {
     if (!cover) {
-      window.location.href = '/home';
+      window.location.href = '/home?intro=1';
       return;
     }
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
@@ -211,20 +222,6 @@
         closePanel();
       } else {
         openPanel();
-      }
-    });
-  });
-
-  // Honeymoon amounts feedback
-  var honeyNote = document.getElementById('honeymoonNote');
-  document.querySelectorAll('.honeymoon-amounts .amt').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var amt = btn.getAttribute('data-amt');
-      if (honeyNote) {
-        honeyNote.textContent = amt === 'other'
-          ? 'Thank you. A note from us is on its way with the contribution link.'
-          : 'Thank you. $' + amt + '. A note from us is on its way with the contribution link.';
-        honeyNote.className = 'portal-feedback success';
       }
     });
   });
