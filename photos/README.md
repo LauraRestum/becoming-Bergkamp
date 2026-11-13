@@ -50,7 +50,6 @@ move it if that was the wrong read.
 | Nick   | `nick.jpg`   |
 | Tim    | `tim.jpg`    |
 | Gabe   | `gabe.jpg`   |
-| Thomas | `thomas.jpg` |
 | Ethan  | `ethan.jpg`  |
 | Eddy   | `eddy.jpg`   |
 
