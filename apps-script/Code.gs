@@ -36,6 +36,7 @@ var SITE = 'https://becoming-bergkamp.vercel.app';
 // find their name, and each reply marks the RSVP and # Attending columns there.
 // Only names, households and an eight-or-under flag ever leave this script; never
 // addresses or notes.
+var RSVP_SHEET_ID = '1yN1A07SoUacIJovtF56KmIEKioI2MX6VP-nJ0-vo3aY';
 var GUEST_LIST_ID = '1gWT-nBPu5Pft_EKS8pf_bdEGIOtYHDTHImxJC89j7OM';
 
 var SHEET_GUESTS = 'Guests';
@@ -299,6 +300,43 @@ function updateGuestList(r) {
     }
   });
   return unlisted;
+}
+
+/* ---------- Catch-up sync from the RSVP sheet ---------- */
+
+// Reads every current reply on the Guests tab of this RSVP sheet and marks each
+// person on the Wedding Invites list. Safe to run again: it only sets RSVP and
+// # Attending. Covers replies that arrived before the live sync existed and any
+// row added to the Guests tab by hand.
+function syncAllReplies() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet() || SpreadsheetApp.openById(RSVP_SHEET_ID);
+  var sh = ss.getSheetByName(SHEET_GUESTS);
+  if (!sh || sh.getLastRow() < 2) return { replies: 0, unlisted: [] };
+  var values = sh.getRange(2, 1, sh.getLastRow() - 1, GUEST_HEADERS.length).getValues();
+  var byReply = {};
+  var order = [];
+  values.forEach(function (row) {
+    var name = String(row[3] || '').trim();
+    var current = String(row[13] || 'Yes').trim();
+    if (!name || current === 'No') return;
+    var id = String(row[1] || row[2] || name);
+    if (!byReply[id]) { byReply[id] = { guests: [] }; order.push(id); }
+    var label = String(row[4] || '');
+    byReply[id].guests.push({ name: name, listName: '', attend: /unable|not/i.test(label) ? 'none' : 'both' });
+  });
+  var unlisted = [];
+  order.forEach(function (id) { unlisted = unlisted.concat(updateGuestList(byReply[id])); });
+  Logger.log('Synced ' + order.length + ' replies. Not on the guest list: ' + (unlisted.join(', ') || 'none'));
+  return { replies: order.length, unlisted: unlisted };
+}
+
+// Run once: re-runs the catch-up sync every hour, so any reply that lands on the
+// RSVP sheet some other way still marks the guest list.
+function installSyncTrigger() {
+  ScriptApp.getProjectTriggers().forEach(function (t) {
+    if (t.getHandlerFunction() === 'syncAllReplies') ScriptApp.deleteTrigger(t);
+  });
+  ScriptApp.newTrigger('syncAllReplies').timeBased().everyHours(1).create();
 }
 
 /* ---------- Emails ---------- */
