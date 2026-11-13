@@ -2208,6 +2208,16 @@
     padding-left: 0.5em; text-transform: uppercase;
   }
 
+  /* Flower girls, ushers and readers: names only, no frames. */
+  .almanac .ceremony-roles {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px; max-width: 1100px; margin: 0 auto; text-align: center;
+  }
+  .almanac .ceremony-role-names {
+    font-family: var(--wp-heading); font-size: 30px; line-height: 1.1;
+    color: var(--a-ink); margin: 10px 0 8px;
+  }
+
   /* PEOPLE */
   .almanac .party-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -2303,8 +2313,8 @@
 
   /* HOUSEHOLDS */
   .almanac .households {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
-    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+    max-width: 1200px; margin: 0 auto;
   }
   .almanac .household {
     text-align: center; padding: 56px 32px 48px;
@@ -2408,6 +2418,29 @@
     font-size: 15px; line-height: 1.75; color: var(--a-ink);
     max-width: 380px; margin: 0 auto;
   }
+  /* Each sibling's column ends in a family photo with everyone named
+     underneath, matted in the same black-and-white as the portraits. */
+  .almanac .household .household-adult-role { margin-top: -20px; min-height: 2.8em; }
+  .almanac .household-photo { max-width: 380px; margin: 26px auto 0; }
+  .almanac .household-photo img {
+    display: block; width: 100%; height: auto;
+    aspect-ratio: 4 / 5; object-fit: cover;
+    filter: grayscale(1) contrast(1.15) brightness(0.95);
+    box-shadow:
+      0 0 0 2px rgba(255, 255, 255, 0.6),
+      0 0 0 6px rgba(0, 0, 0, 0.8),
+      0 0 0 8px rgba(255, 255, 255, 0.4);
+  }
+  .almanac .household-photo-names {
+    margin-top: 18px;
+    font-family: var(--a-serif-body); font-size: 22px; line-height: 1.2;
+    color: var(--a-ink);
+  }
+  .almanac .household-photo-names span {
+    display: block; margin-top: 6px;
+    font-family: var(--a-condensed); font-weight: 600; font-size: 10px;
+    letter-spacing: 0.3em; text-transform: uppercase; padding-left: 0.3em;
+  }
 
   /* MENAGERIE */
   .almanac .menagerie {
@@ -2425,7 +2458,8 @@
     height: 1px; background: rgba(255, 255, 255, 0.3);
   }
   .almanac .menagerie-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 280px));
+    justify-content: center;
     gap: 60px 30px; max-width: 1100px; margin: 0 auto;
   }
   .almanac .creature { text-align: center; }
