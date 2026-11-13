@@ -140,11 +140,11 @@
             <div class="bio-detail-inner">
               <div class="bio-photos">
                 <figure class="bio-photo">
-                  <img src="/photos/amy-and-ron.jpg" alt="Laura with Amy and Ron" loading="lazy" onerror="this.style.display='none'">
+                  <img src="/photos/amy-and-ron.jpg" alt="Laura with Amy and Ron" onerror="this.closest('figure').remove()">
                   <figcaption><span class="ph-name">Laura, Amy &amp; Ron</span><span class="ph-file">/photos/amy-and-ron.jpg</span></figcaption>
                 </figure>
                 <figure class="bio-photo">
-                  <img src="/photos/amy-and-ron-2.jpg" alt="Laura with Amy and Ron" loading="lazy" onerror="this.style.display='none'">
+                  <img src="/photos/amy-and-ron-2.jpg" alt="Laura with Amy and Ron" onerror="this.closest('figure').remove()">
                   <figcaption><span class="ph-name">Laura, Amy &amp; Ron</span><span class="ph-file">/photos/amy-and-ron-2.jpg</span></figcaption>
                 </figure>
               </div>
@@ -153,9 +153,9 @@
           </div>
         </article>
 
-        <article class="parent-card bio-card" data-bio-card>
+        <article class="parent-card bio-card">
           <div class="card-crown" aria-hidden="true">❦</div>
-          <button type="button" class="bio-summary" aria-expanded="false" aria-controls="bio-julie-gil">
+          <div class="bio-summary" style="cursor: default;">
             <div class="parent-portraits">
               <div class="parent-portrait placeholder"></div>
               <div class="parent-portrait placeholder"></div>
@@ -164,26 +164,6 @@
             <div class="parent-surname">BERGKAMP</div>
             <div class="parent-role">Parents of the Groom</div>
             <div class="parent-divider" aria-hidden="true">⁂</div>
-            <p class="parent-bio">A short tribute to Julie and Gil will live here.</p>
-            <span class="bio-cue">
-              <span class="bio-cue-text">Tap to read more</span>
-              <span class="bio-chevron" aria-hidden="true">⌄</span>
-            </span>
-          </button>
-          <div class="bio-detail" id="bio-julie-gil" role="region" aria-labelledby="name-julie-gil" hidden>
-            <div class="bio-detail-inner">
-              <div class="bio-photos">
-                <figure class="bio-photo">
-                  <img src="/photos/julie-and-gil.jpg" alt="William with Julie and Gil" loading="lazy" onerror="this.style.display='none'">
-                  <figcaption><span class="ph-name">William, Julie &amp; Gil</span><span class="ph-file">/photos/julie-and-gil.jpg</span></figcaption>
-                </figure>
-                <figure class="bio-photo">
-                  <img src="/photos/julie-and-gil-2.jpg" alt="William with Julie and Gil" loading="lazy" onerror="this.style.display='none'">
-                  <figcaption><span class="ph-name">William, Julie &amp; Gil</span><span class="ph-file">/photos/julie-and-gil-2.jpg</span></figcaption>
-                </figure>
-              </div>
-              <p class="bio-blurb">The longer tribute to Julie and Gil will live here, and what William carries from them into this marriage.</p>
-            </div>
           </div>
         </article>
       </div>
@@ -219,56 +199,48 @@
           <div class="person-portrait"><img src="/photos/paige.jpg" alt="Paige" loading="lazy" onerror="this.parentElement.classList.add('placeholder'); this.remove();" /></div>
           <h4 class="person-name">Paige</h4>
           <div class="person-role">Maid of Honor</div>
-          <p class="person-bio">Laura's ride-or-die since their waitressing days.</p>
         </article>
 
         <article class="person">
           <div class="person-portrait"><img src="/photos/ginger.jpg" alt="Ginger" loading="lazy" onerror="this.parentElement.classList.add('placeholder'); this.remove();" /></div>
           <h4 class="person-name">Ginger</h4>
           <div class="person-role">Matron of Honor</div>
-          <p class="person-bio">Best friends since high school soccer.</p>
         </article>
 
         <article class="person">
           <div class="person-portrait"><img src="/photos/erica.jpg" alt="Erica" loading="lazy" onerror="this.parentElement.classList.add('placeholder'); this.remove();" /></div>
           <h4 class="person-name">Erica</h4>
           <div class="person-role">Sister of the Bride</div>
-          <p class="person-bio">Laura's big sister, the coolest person around.</p>
         </article>
 
         <article class="person">
           <div class="person-portrait"><img src="/photos/ali.jpg" alt="Ali" loading="lazy" onerror="this.parentElement.classList.add('placeholder'); this.remove();" /></div>
           <h4 class="person-name">Ali</h4>
           <div class="person-role">Bridesmaid</div>
-          <p class="person-bio">Close since high school, closer ever since.</p>
         </article>
 
         <article class="person">
           <div class="person-portrait"><img src="/photos/ashtyn.jpg" alt="Ashtyn" loading="lazy" onerror="this.parentElement.classList.add('placeholder'); this.remove();" /></div>
           <h4 class="person-name">Ashtyn</h4>
           <div class="person-role">Bridesmaid</div>
-          <p class="person-bio">The glue of the trio, loyal through anything.</p>
         </article>
 
         <article class="person">
           <div class="person-portrait"><img src="/photos/jacey.jpg" alt="Jacey" loading="lazy" onerror="this.parentElement.classList.add('placeholder'); this.remove();" /></div>
           <h4 class="person-name">Jacey</h4>
           <div class="person-role">Bridesmaid</div>
-          <p class="person-bio">Fellow Libra, one of the funniest people Laura knows.</p>
         </article>
 
         <article class="person">
           <div class="person-portrait"><img src="/photos/maddie.jpg" alt="Maddie" loading="lazy" onerror="this.parentElement.classList.add('placeholder'); this.remove();" /></div>
           <h4 class="person-name">Maddie</h4>
           <div class="person-role">Bridesmaid</div>
-          <p class="person-bio">Sorority sister, mom to Sunday and Dax.</p>
         </article>
 
         <article class="person">
           <div class="person-portrait"><img src="/photos/rachel.jpg" alt="Rachel" loading="lazy" onerror="this.parentElement.classList.add('placeholder'); this.remove();" /></div>
           <h4 class="person-name">Rachel</h4>
           <div class="person-role">Bridesmaid</div>
-          <p class="person-bio">Old friend, sorority sister, always good company.</p>
         </article>
 
       </div>
@@ -285,58 +257,69 @@
           <div class="person-portrait"><img src="/photos/james.jpg" alt="James" loading="lazy" onerror="this.parentElement.classList.add('placeholder'); this.remove();" /></div>
           <h4 class="person-name">James</h4>
           <div class="person-role">Best Man</div>
-          <p class="person-bio">Brother of the groom.</p>
         </article>
 
         <article class="person">
           <div class="person-portrait"><img src="/photos/andrew.jpg" alt="Andrew" loading="lazy" onerror="this.parentElement.classList.add('placeholder'); this.remove();" /></div>
           <h4 class="person-name">Andrew</h4>
           <div class="person-role">Groomsman</div>
-          <p class="person-bio">Cousin of the groom.</p>
         </article>
 
         <article class="person">
           <div class="person-portrait"><img src="/photos/nick.jpg" alt="Nick" loading="lazy" onerror="this.parentElement.classList.add('placeholder'); this.remove();" /></div>
           <h4 class="person-name">Nick</h4>
           <div class="person-role">Groomsman</div>
-          <p class="person-bio">A steady friend through the years.</p>
         </article>
 
         <article class="person">
           <div class="person-portrait"><img src="/photos/tim.jpg" alt="Tim" loading="lazy" onerror="this.parentElement.classList.add('placeholder'); this.remove();" /></div>
           <h4 class="person-name">Tim</h4>
           <div class="person-role">Groomsman</div>
-          <p class="person-bio">Good company in every season.</p>
         </article>
 
         <article class="person">
           <div class="person-portrait"><img src="/photos/gabe.jpg" alt="Gabe" loading="lazy" onerror="this.parentElement.classList.add('placeholder'); this.remove();" /></div>
           <h4 class="person-name">Gabe</h4>
           <div class="person-role">Groomsman</div>
-          <p class="person-bio">Cousin of the groom.</p>
-        </article>
-
-        <article class="person">
-          <div class="person-portrait"><img src="/photos/thomas.jpg" alt="Thomas" loading="lazy" onerror="this.parentElement.classList.add('placeholder'); this.remove();" /></div>
-          <h4 class="person-name">Thomas</h4>
-          <div class="person-role">Groomsman</div>
-          <p class="person-bio">A familiar face in the first row.</p>
         </article>
 
         <article class="person">
           <div class="person-portrait"><img src="/photos/ethan.jpg" alt="Ethan" loading="lazy" onerror="this.parentElement.classList.add('placeholder'); this.remove();" /></div>
           <h4 class="person-name">Ethan</h4>
           <div class="person-role">Groomsman</div>
-          <p class="person-bio">Cousin of the groom.</p>
         </article>
 
         <article class="person">
           <div class="person-portrait"><img src="/photos/eddy.jpg" alt="Eddy" loading="lazy" onerror="this.parentElement.classList.add('placeholder'); this.remove();" /></div>
           <h4 class="person-name">Eddy</h4>
           <div class="person-role">Groomsman</div>
-          <p class="person-bio">Cousin of the groom.</p>
         </article>
 
+      </div>
+
+      <div class="party-side-wrap">
+        <div class="side-rule"><span></span><div class="glyph">❦</div><span></span></div>
+        <div class="side-label">Taking Part</div>
+        <div class="side-sub">~ IN THE CEREMONY ~</div>
+      </div>
+
+      <div class="ceremony-roles">
+        <div class="ceremony-role">
+          <div class="person-role">Flower Girls</div>
+          <div class="ceremony-role-names">Ayla &amp; Emmy</div>
+        </div>
+        <div class="ceremony-role">
+          <div class="person-role">Ring Bearer</div>
+          <div class="ceremony-role-names">Harper</div>
+        </div>
+        <div class="ceremony-role">
+          <div class="person-role">Ushers</div>
+          <div class="ceremony-role-names">Archer &amp; Greyson</div>
+        </div>
+        <div class="ceremony-role">
+          <div class="person-role">Scripture Readings</div>
+          <div class="ceremony-role-names">Ron &amp; David</div>
+        </div>
       </div>
     </div>
 
@@ -354,92 +337,39 @@
         <div class="fleuron"><span></span><div class="ornament">❦</div><span></span></div>
       </div>
 
+      <!-- One column per sibling: a family photo with everyone named under it. -->
       <div class="households">
         <article class="household">
           <div class="card-crown">❦</div>
           <div class="household-eyebrow">Bride's Side</div>
-          <h4 class="household-name">THE RESTUMS</h4>
+          <h4 class="household-name">Erica</h4>
+          <div class="household-adult-role">Sister of the Bride</div>
+          <figure class="household-photo">
+            <img src="/photos/family/erica.jpg" alt="Erica and Laura" loading="lazy" />
+            <figcaption class="household-photo-names">Erica &amp; Laura</figcaption>
+          </figure>
+        </article>
 
-          <div class="household-adults">
-            <div class="household-adult">
-              <div class="household-adult-portrait placeholder"></div>
-              <div class="household-adult-name">Erica</div>
-              <div class="household-adult-role">Sister of the Bride &middot; Dating John</div>
-            </div>
-            <div class="household-adult">
-              <div class="household-adult-portrait placeholder"></div>
-              <div class="household-adult-name">David</div>
-              <div class="household-adult-role">Brother of the Bride</div>
-            </div>
-            <div class="household-adult">
-              <div class="household-adult-portrait placeholder"></div>
-              <div class="household-adult-name">Teal</div>
-              <div class="household-adult-role">Sister of the Bride</div>
-            </div>
-          </div>
-
-          <div class="household-divider"><span></span><div class="label">&amp; the little ones</div><span></span></div>
-
-          <div class="household-kids">
-            <div class="household-kid">
-              <div class="household-kid-portrait placeholder"></div>
-              <div class="household-kid-name">Ayla</div>
-              <div class="household-kid-age">age 5 by then</div>
-            </div>
-            <div class="household-kid">
-              <div class="household-kid-portrait placeholder"></div>
-              <div class="household-kid-name">Emmy</div>
-              <div class="household-kid-age">age 4 by then</div>
-            </div>
-            <div class="household-kid">
-              <div class="household-kid-portrait placeholder"></div>
-              <div class="household-kid-name">Reed</div>
-              <div class="household-kid-age">age 1½ by then</div>
-            </div>
-          </div>
-
-          <p class="household-bio">A short paragraph about Erica, David, Teal, and the three. Replace with the real one when ready.</p>
+        <article class="household">
+          <div class="card-crown">❦</div>
+          <div class="household-eyebrow">Bride's Side</div>
+          <h4 class="household-name">David</h4>
+          <div class="household-adult-role">Brother of the Bride &middot; Scripture Reading</div>
+          <figure class="household-photo">
+            <img src="/photos/family/restums.jpg" alt="David and Teal with Ayla, Emmy and Reed" loading="lazy" />
+            <figcaption class="household-photo-names">David &amp; Teal<span>Ayla &amp; Emmy, flower girls &middot; Reed</span></figcaption>
+          </figure>
         </article>
 
         <article class="household">
           <div class="card-crown">❦</div>
           <div class="household-eyebrow">Groom's Side</div>
-          <h4 class="household-name">THE BERGKAMPS</h4>
-
-          <div class="household-adults">
-            <div class="household-adult">
-              <div class="household-adult-portrait placeholder"></div>
-              <div class="household-adult-name">James</div>
-              <div class="household-adult-role">Brother of the Groom</div>
-            </div>
-            <div class="household-adult">
-              <div class="household-adult-portrait placeholder"></div>
-              <div class="household-adult-name">Ginny</div>
-              <div class="household-adult-role">Sister of the Groom</div>
-            </div>
-          </div>
-
-          <div class="household-divider"><span></span><div class="label">&amp; the little ones</div><span></span></div>
-
-          <div class="household-kids">
-            <div class="household-kid">
-              <div class="household-kid-portrait placeholder"></div>
-              <div class="household-kid-name">Archer</div>
-              <div class="household-kid-age">high school freshman</div>
-            </div>
-            <div class="household-kid">
-              <div class="household-kid-portrait placeholder"></div>
-              <div class="household-kid-name">Greyson</div>
-              <div class="household-kid-age">middle school</div>
-            </div>
-            <div class="household-kid">
-              <div class="household-kid-portrait placeholder"></div>
-              <div class="household-kid-name">Harper</div>
-              <div class="household-kid-age">age 8 or 9 by then</div>
-            </div>
-          </div>
-
-          <p class="household-bio">A short paragraph about James, Ginny, and the three. Replace with the real one when ready.</p>
+          <h4 class="household-name">James</h4>
+          <div class="household-adult-role">Brother of the Groom</div>
+          <figure class="household-photo">
+            <img src="/photos/family/bergkamps.jpg" alt="James and Ginny with Archer, Greyson and Harper" loading="lazy" />
+            <figcaption class="household-photo-names">James &amp; Ginny<span>Archer &amp; Greyson, ushers &middot; Harper, ring bearer</span></figcaption>
+          </figure>
         </article>
       </div>
     </div>
@@ -460,27 +390,11 @@
       <div class="menagerie-grid">
         <article class="creature">
           <div class="creature-portrait placeholder"></div>
-          <h4 class="creature-name">Pet Name</h4>
           <div class="creature-species">BORDER COLLIE</div>
-          <p class="creature-bio">A small note. Two sentences is plenty.</p>
         </article>
         <article class="creature">
           <div class="creature-portrait placeholder"></div>
-          <h4 class="creature-name">Pet Name</h4>
           <div class="creature-species">GERMAN SHEPHERD</div>
-          <p class="creature-bio">A small note. Two sentences is plenty.</p>
-        </article>
-        <article class="creature">
-          <div class="creature-portrait placeholder"></div>
-          <h4 class="creature-name">Pet Name</h4>
-          <div class="creature-species">THE GOAT</div>
-          <p class="creature-bio">A small note. Two sentences is plenty.</p>
-        </article>
-        <article class="creature">
-          <div class="creature-portrait placeholder"></div>
-          <h4 class="creature-name">Pet Name</h4>
-          <div class="creature-species">THE ALPACA</div>
-          <p class="creature-bio">A small note. Two sentences is plenty.</p>
         </article>
       </div>
     </div>
