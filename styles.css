@@ -2287,6 +2287,12 @@
     --frame: url('/images/frames/frame-gold-oval-ornate.png'); --ar: 543 / 720;
     --clip: ellipse(35% 37% at 50% 50%);
   }
+  /* Per-person override: a rectangular gold frame for photos that look
+     distorted inside an oval. */
+  .almanac .party-grid > .person.frame-rect .person-portrait {
+    --frame: url('/images/frames/frame-gold-portrait.png'); --ar: 471 / 720;
+    --clip: inset(10% 13% 8% 13% round 5%);
+  }
   .almanac .person-name {
     font-family: var(--a-serif-body); font-size: 34px; line-height: 1;
   }
