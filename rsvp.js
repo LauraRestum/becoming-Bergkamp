@@ -97,6 +97,10 @@
     dietDetail.id = id + '-diet-detail';
     row.querySelector('.diet-detail label').setAttribute('for', dietDetail.id);
 
+    if (data && data.listName) row.dataset.listName = data.listName;
+    if (data && data.open) {
+      nameInput.placeholder = data.kid ? 'Your little one’s first and last name' : 'Your guest’s first and last name';
+    }
     if (data) {
       nameInput.value = data.name || '';
       if (data.attend) {
@@ -181,6 +185,7 @@
       var pick = rows[i].querySelector('.guest-attend input:checked');
       out.push({
         row: rows[i],
+        listName: rows[i].dataset.listName || '',
         name: rows[i].querySelector('input[name="guestName"]').value.trim(),
         attend: pick ? pick.value : '',
         child: rows[i].querySelector('input[name="child"]').checked,
@@ -259,7 +264,7 @@
   /* ---------- Draft ---------- */
   var draftTimer = null;
   function currentPayload() {
-    var guests = readGuests().map(function (g) { return { name: g.name, attend: g.attend, child: g.child, diet: g.diet }; });
+    var guests = readGuests().map(function (g) { return { name: g.name, listName: g.listName, attend: g.attend, child: g.child, diet: g.diet }; });
     return {
       guests: guests,
       songs: readSongs(),
@@ -371,6 +376,7 @@
       guests: v.guests.map(function (g) {
         return {
           name: g.name,
+          listName: g.listName || '',
           attend: g.attend,
           child: g.child && g.attend !== 'none',
           diet: (g.diet && g.attend !== 'none') ? { kind: g.diet.kind, detail: g.diet.detail } : null
@@ -500,6 +506,172 @@
     try { form.scrollIntoView({ block: 'start', behavior: 'smooth' }); } catch (e) {}
   });
 
+  /* ---------- Find your invitation ---------- */
+  // Type a name, pick it, and everyone on that card is filled in. If the lookup is
+  // unavailable the finder simply stays hidden and the form works by hand as before.
+  var finder = $('finder');
+  var finderInput = $('finderInput');
+  var finderList = $('finderList');
+  var finderNote = $('finderNote');
+  var finderChosen = $('finderChosen');
+  var finderChosenLabel = $('finderChosenLabel');
+  var GUESTS_ENDPOINT = '/api/guests';
+  var HOUSEHOLD_KEY = 'bb.rsvp.household';
+  var findTimer = null;
+  var findSeq = 0;
+  var results = [];
+  var active = -1;
+
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function others(r) {
+    var names = [];
+    var extra = 0;
+    for (var i = 0; i < r.members.length; i++) {
+      var m = r.members[i];
+      if (m.name === r.match) continue;
+      if (m.name) names.push(m.name.split(/\s+/)[0]); else extra++;
+    }
+    if (extra) names.push(extra === 1 ? 'a guest' : extra + ' guests');
+    if (!names.length) return '';
+    if (names.length === 1) return 'with ' + names[0];
+    return 'with ' + names.slice(0, -1).join(', ') + ' & ' + names[names.length - 1];
+  }
+
+  function closeList() {
+    finderList.hidden = true;
+    finderList.innerHTML = '';
+    finderInput.setAttribute('aria-expanded', 'false');
+    finderInput.removeAttribute('aria-activedescendant');
+    active = -1;
+  }
+
+  function setNote(msg) {
+    finderNote.textContent = msg || '';
+    finderNote.hidden = !msg;
+  }
+
+  function highlight(i) {
+    var items = finderList.children;
+    for (var k = 0; k < items.length; k++) items[k].setAttribute('aria-selected', k === i ? 'true' : 'false');
+    active = i;
+    if (i >= 0 && items[i]) {
+      finderInput.setAttribute('aria-activedescendant', items[i].id);
+      try { items[i].scrollIntoView({ block: 'nearest' }); } catch (e) {}
+    } else {
+      finderInput.removeAttribute('aria-activedescendant');
+    }
+  }
+
+  function render() {
+    finderList.innerHTML = '';
+    for (var i = 0; i < results.length; i++) {
+      var r = results[i];
+      var li = document.createElement('li');
+      li.id = 'finder-opt-' + i;
+      li.setAttribute('role', 'option');
+      li.setAttribute('aria-selected', 'false');
+      li.className = 'finder-option';
+      var sub = others(r);
+      li.innerHTML = '<span class="finder-name">' + esc(r.match) + '</span>'
+        + (sub ? '<span class="finder-sub">' + esc(sub) + '</span>' : '');
+      (function (idx) {
+        li.addEventListener('mousedown', function (e) { e.preventDefault(); choose(idx); });
+      })(i);
+      finderList.appendChild(li);
+    }
+    var open = results.length > 0;
+    finderList.hidden = !open;
+    finderInput.setAttribute('aria-expanded', open ? 'true' : 'false');
+    active = -1;
+  }
+
+  function search(q) {
+    var seq = ++findSeq;
+    fetch(GUESTS_ENDPOINT + '?q=' + encodeURIComponent(q), { headers: { Accept: 'application/json' } })
+      .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, body: b }; }); })
+      .then(function (res) {
+        if (seq !== findSeq) return;                           // a newer keystroke already won
+        if (!res.ok || !res.body || !res.body.ok) { closeList(); setNote(''); return; }
+        results = res.body.results || [];
+        render();
+        setNote(results.length ? '' : 'We could not find that name. Try your last name, or fill in your party below by hand.');
+      })
+      .catch(function () { if (seq === findSeq) { closeList(); } });
+  }
+
+  function choose(i) {
+    var r = results[i];
+    if (!r) return;
+    closeList();
+    setNote('');
+    var guests = r.members.map(function (m) {
+      return { name: m.name, listName: m.listName, open: m.open, kid: m.child };   // ages vary, so the eight-or-under box is left for them
+    });
+    guestList.innerHTML = '';
+    for (var k = 0; k < guests.length; k++) addGuest(guests[k], { silent: true });
+    showChosen(r.label);
+    save(HOUSEHOLD_KEY, r.label);
+    refresh();
+    // Land on the first thing left to answer.
+    var firstBlank = null;
+    var rows = guestList.children;
+    for (var j = 0; j < rows.length && !firstBlank; j++) {
+      var n = rows[j].querySelector('input[name="guestName"]');
+      if (!n.value) firstBlank = n;
+    }
+    var target = firstBlank || guestList.querySelector('.guest-attend input');
+    if (target) { target.focus(); try { target.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) {} }
+  }
+
+  function showChosen(label) {
+    finderChosenLabel.textContent = label;
+    finderChosen.hidden = false;
+    finder.hidden = true;
+  }
+
+  function showFinder() {
+    finderChosen.hidden = true;
+    finder.hidden = false;
+    finderInput.value = '';
+    setNote('');
+    closeList();
+  }
+
+  finderInput.addEventListener('input', function () {
+    var q = finderInput.value.trim();
+    clearTimeout(findTimer);
+    if (q.replace(/\s/g, '').length < 2) { findSeq++; results = []; closeList(); setNote(''); return; }
+    findTimer = setTimeout(function () { search(q); }, 160);
+  });
+  finderInput.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowDown' && results.length) { e.preventDefault(); highlight(Math.min(active + 1, results.length - 1)); }
+    else if (e.key === 'ArrowUp' && results.length) { e.preventDefault(); highlight(Math.max(active - 1, 0)); }
+    else if (e.key === 'Enter') { e.preventDefault(); if (results.length) choose(active >= 0 ? active : 0); }
+    else if (e.key === 'Escape') { closeList(); }
+  });
+  finderInput.addEventListener('blur', function () { setTimeout(closeList, 120); });
+  $('finderAgain').addEventListener('click', function () {
+    clear(HOUSEHOLD_KEY);
+    showFinder();
+    finderInput.focus();
+  });
+
+  // Show the finder only once the lookup answers, so a broken lookup never shows a dead box.
+  function bootFinder() {
+    fetch(GUESTS_ENDPOINT + '?q=', { headers: { Accept: 'application/json' } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (b) {
+        if (!b || !b.ok) return;
+        var label = load(HOUSEHOLD_KEY);
+        if (label && guestList.querySelector('.guest-row')) showChosen(label);
+        else showFinder();
+      })
+      .catch(function () {});
+  }
+
   /* ---------- Wiring ---------- */
   addGuestBtn.addEventListener('click', function () { addGuest(); });
   addSongBtn.addEventListener('click', function () { addSong(); });
@@ -538,4 +710,5 @@
   } else {
     fill(load(DRAFT_KEY));
   }
+  bootFinder();
 })();

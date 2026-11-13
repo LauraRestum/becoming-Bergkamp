@@ -164,6 +164,42 @@
 .rsvp-error { margin-top: 20px; text-align: center; font-size: 16px; }
 .rsvp-error a { color: var(--card-ink); border-bottom: 1px solid var(--card-gold); }
 
+/* ---------- Find your invitation ---------- */
+.rsvp-finder { margin: 0 0 22px; }
+.finder-field { position: relative; margin-bottom: 0; }
+.finder-field input { font-size: 21px; }
+.finder-list {
+  position: absolute; left: 0; right: 0; top: 100%; z-index: 20;
+  margin: 6px 0 0; padding: 6px 0; list-style: none;
+  background: var(--card);
+  border: 1px solid var(--card-rule-strong);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.18);
+  max-height: 320px; overflow-y: auto;
+}
+.finder-option {
+  display: flex; flex-direction: column; gap: 2px;
+  padding: 11px 18px; cursor: pointer;
+  border-left: 2px solid transparent;
+}
+.finder-option:hover,
+.finder-option[aria-selected="true"] { background: #f6f3ec; border-left-color: var(--card-gold); }
+.finder-name { font-family: var(--serif); font-size: 19px; line-height: 1.3; color: var(--card-ink); }
+.finder-sub { font-family: var(--serif); font-style: italic; font-size: 15px; color: var(--card-ink-soft); }
+.finder-note { margin: 12px 0 0; font-style: italic; }
+.finder-chosen {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 18px;
+  margin: 0 0 18px; padding: 14px 18px;
+  border: 1px solid var(--card-gold);
+  font-family: var(--serif); font-size: 17px; color: var(--card-ink);
+}
+.finder-chosen p { margin: 0; }
+.finder-again {
+  background: none; border: 0; padding: 0; cursor: pointer;
+  font-family: var(--sans); font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--card-ink); border-bottom: 1px solid var(--card-gold);
+}
+.finder-again:focus-visible { outline: 2px solid #4A90D9; outline-offset: 4px; }
+
 /* ---------- Guest rows ---------- */
 .guest-list { display: flex; flex-direction: column; gap: 14px; }
 .guest-row {

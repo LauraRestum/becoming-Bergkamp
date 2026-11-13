@@ -114,7 +114,8 @@ function clean(body) {
       if (kind && !DIET.has(kind)) return { error: 'bad-diet' };
       if (kind || detail) diet = { kind: kind || 'intolerance', detail };
     }
-    guests.push({ name, attend, child: attend !== 'none' && g.child === true, diet });
+    const listName = str(g.listName, LIMITS.name);   // the row on the guest list this person was picked from, if any
+    guests.push({ name, listName, attend, child: attend !== 'none' && g.child === true, diet });
   }
 
   // Transportation is not offered; the field is accepted for compatibility and always stored blank.
