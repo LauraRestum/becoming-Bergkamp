@@ -2692,6 +2692,27 @@
     --clip: inset(9% 14% 9% 14% round 48% 48% 7% 7% / 32% 32% 5% 5%);
   }
 
+  /* A parent card with a photo: the picture fills the frame's window and the
+     names sit underneath, like the wedding party cards. */
+  .almanac .bio-summary > img.parent-photo {
+    position: absolute; inset: 0; z-index: 1;
+    width: 100%; height: 100%; object-fit: cover; object-position: 50% 38%;
+    clip-path: var(--clip);
+    filter: grayscale(1) contrast(1.1) brightness(0.96);
+  }
+  .almanac .bio-card.has-photo .parent-caption { margin-top: 14px; }
+  .almanac .bio-card.has-photo .parent-caption .parent-names {
+    font-family: var(--a-serif-body); color: var(--a-ink);
+    font-size: 34px; line-height: 1; margin: 0;
+  }
+  .almanac .bio-card.has-photo .parent-caption .parent-surname {
+    color: var(--a-ink); font-size: 12px; letter-spacing: 0.26em; margin-top: 6px;
+  }
+  .almanac .bio-card.has-photo .parent-caption .parent-role {
+    color: #c9a24b; font-size: 10px; letter-spacing: 0.22em; margin-top: 4px;
+    text-transform: uppercase;
+  }
+
   /* The opened panel · a plain box on the wall (no frame), holding the bio and
      a photo placeholder to add a picture later. */
   .almanac .bio-detail {
