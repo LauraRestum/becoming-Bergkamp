@@ -2,4 +2,4 @@
 User-agent: *
 Disallow: /
 
-Sitemap: https://becoming-bergkamp.vercel.app/sitemap.xml
+Sitemap: https://becomingbergkamp.com/sitemap.xml
