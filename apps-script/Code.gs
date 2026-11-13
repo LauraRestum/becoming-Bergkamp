@@ -322,7 +322,7 @@ function notifyCouple(r) {
     + ' &nbsp;·&nbsp; Plates: <strong>' + r.plates + '</strong></p>'
     + (r.dietary ? '<p style="margin:4px 0;color:#8f2b2b;">Dietary: ' + esc(r.dietary) + '</p>' : '')
     + (r.unlisted && r.unlisted.length ? '<p style="margin:14px 0 4px;color:#8f2b2b;">Not on the guest list yet: ' + esc(r.unlisted.join(', ')) + '. Add them to Wedding Invites by hand.</p>' : '')
-    + (r.songs.length ? '<p style="margin:14px 0 4px;">Songs:' + esc(r.songs.join(' · ')) + '</p>' : '')
+    + (r.songs.length ? '<p style="margin:14px 0 4px;">Songs: ' + esc(r.songs.join(' · ')) + '</p>' : '')
     + (r.note ? '<p style="margin:14px 0 4px;padding:12px 16px;border-left:2px solid #b89149;background:#faf7f0;">' + esc(r.note).replace(/\n/g, '<br>') + '</p>' : '')
     + '<p style="margin:22px 0 0;color:#777;font-size:14px;">From ' + esc(r.email) + ' &nbsp;·&nbsp; <a href="' + SpreadsheetApp.getActiveSpreadsheet().getUrl() + '" style="color:#b89149;">Open the Sheet</a></p>'
   );
