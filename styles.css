@@ -2220,9 +2220,12 @@
 
   /* PEOPLE */
   .almanac .party-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    display: flex; flex-wrap: wrap; justify-content: center;
     gap: 70px 40px;
   }
+  /* Three across on wide screens; a short last row sits centered instead of
+     leaving an empty slot. */
+  .almanac .party-grid > .person { flex: 0 1 280px; }
   .almanac .party-grid.single-feature { max-width: 360px; margin: 0 auto; }
   .almanac .person { text-align: center; position: relative; }
   /* A brass nail above each portrait, so it reads as hung on the wall. */
@@ -2257,7 +2260,7 @@
   }
   .almanac .person-portrait img {
     position: absolute; inset: 0; z-index: 1;
-    width: 100%; height: 100%; object-fit: cover;
+    width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%;
     clip-path: var(--clip);
     filter: grayscale(1) contrast(1.15) brightness(0.95);
   }
@@ -2287,11 +2290,11 @@
     --frame: url('/images/frames/frame-gold-oval-ornate.png'); --ar: 543 / 720;
     --clip: ellipse(35% 37% at 50% 50%);
   }
-  /* Per-person override: a rectangular gold frame for photos that look
-     distorted inside an oval. */
-  .almanac .party-grid > .person.frame-rect .person-portrait {
-    --frame: url('/images/frames/frame-gold-portrait.png'); --ar: 471 / 720;
-    --clip: inset(10% 13% 8% 13% round 5%);
+  /* Photo-shape override: near-square photos get the square frame so they are
+     not cropped hard into a tall window (which made them look zoomed in). */
+  .almanac .party-grid > .person.frame-square .person-portrait {
+    --frame: url('/images/frames/frame-gold-square.png'); --ar: 671 / 720;
+    --clip: inset(13% 13% 13% 13% round 5%);
   }
   .almanac .person-name {
     font-family: var(--a-serif-body); font-size: 34px; line-height: 1;
