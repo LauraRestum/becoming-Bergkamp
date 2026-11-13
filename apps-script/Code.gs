@@ -32,6 +32,12 @@ var REPLY_TO = 'laurarestumm@gmail.com';                 // guest confirmations 
 var SENDER_NAME = 'Laura & William';
 var SITE = 'https://becoming-bergkamp.vercel.app';
 
+// The master guest list ("Wedding Invites"). The RSVP page searches it so guests can
+// find their name, and each reply marks the RSVP and # Attending columns there.
+// Only names, households and an eight-or-under flag ever leave this script; never
+// addresses or notes.
+var GUEST_LIST_ID = '1gWT-nBPu5Pft_EKS8pf_bdEGIOtYHDTHImxJC89j7OM';
+
 var SHEET_GUESTS = 'Guests';
 var SHEET_REPLIES = 'Replies';
 var SHEET_SUMMARY = 'Summary';
@@ -56,7 +62,17 @@ var REPLY_HEADERS = [
 
 /* ---------- Web app entry points ---------- */
 
-function doGet() {
+function doGet(e) {
+  var p = (e && e.parameter) || {};
+  if (p.action === 'guests') {
+    if (p.secret !== SECRET) return json({ ok: false, error: 'forbidden' });
+    try {
+      return json({ ok: true, households: readGuestList() });
+    } catch (err) {
+      console.error('readGuestList failed: ' + err);
+      return json({ ok: false, error: 'guest-list-unavailable' });
+    }
+  }
   return json({ ok: true, service: 'becoming-bergkamp-rsvp' });
 }
 
@@ -83,6 +99,9 @@ function doPost(e) {
     lock.releaseLock();
   }
 
+  // Mark the master guest list. A problem here should never lose the reply.
+  try { reply.unlisted = updateGuestList(reply); } catch (err) { console.error('updateGuestList failed: ' + err); reply.unlisted = []; }
+
   // Emails go out after the Sheet is safe. A mail hiccup should not lose the row.
   try { notifyCouple(reply); } catch (err) { console.error('notifyCouple failed: ' + err); }
   try { confirmGuest(reply); } catch (err) { console.error('confirmGuest failed: ' + err); }
@@ -107,6 +126,7 @@ function normalize(data) {
     }
     return {
       name: String(g.name || '').trim(),
+      listName: String(g.listName || '').trim(),
       attend: attend,
       label: ATTEND_LABEL[attend],
       ceremony: ceremony,
@@ -195,6 +215,92 @@ function writeReply(ss, r) {
   ]);
 }
 
+/* ---------- The master guest list ---------- */
+
+// Rows like "Arlo's +1", "Elle's fiancé", "Pizonka child 1" or "Ginger's mom" stand
+// in for someone whose name we do not know yet. The guest types it on the RSVP and
+// the reply writes the real name back into the list.
+function isPlaceholder(name) {
+  return /('s\s*\+1|\+1$|'s fianc|'s mom$|'s dad$|'s guest$|\bchild(\s*\d+)?$)/i.test(String(name || '').trim());
+}
+
+function guestListSheet() {
+  var book = SpreadsheetApp.openById(GUEST_LIST_ID);
+  return book.getSheets()[0];
+}
+
+function headerIndex(headers) {
+  var map = {};
+  for (var i = 0; i < headers.length; i++) map[String(headers[i]).trim().toLowerCase()] = i;
+  return {
+    name: map['name'],
+    mailing: map['mailing name'],
+    notes: map['notes'],
+    rsvp: map['rsvp'],
+    attending: map['# attending']
+  };
+}
+
+// Households in sheet order. A row with a Mailing Name starts a household; the rows
+// under it (spouse, +1, kids) belong to it until the next Mailing Name.
+function readGuestList() {
+  var values = guestListSheet().getDataRange().getValues();
+  if (values.length < 2) return [];
+  var c = headerIndex(values[0]);
+  var out = [];
+  var current = null;
+  for (var r = 1; r < values.length; r++) {
+    var row = values[r];
+    var name = String(row[c.name] || '').trim();
+    if (!name) continue;
+    var mailing = c.mailing != null ? String(row[c.mailing] || '').trim() : '';
+    var notes = c.notes != null ? String(row[c.notes] || '') : '';
+    if (mailing || !current) {
+      current = { label: mailing || name, members: [] };
+      out.push(current);
+    }
+    var open = isPlaceholder(name);
+    var shown = open ? '' : name.replace(/\s*\([^)]*\)\s*$/, '').trim();   // "Andrew (Rachel's)" shows as "Andrew"
+    current.members.push({
+      listName: name,
+      name: shown,
+      open: open,
+      child: /^(child|son|daughter) of/i.test(notes.trim()) || /\bchild(\s*\d+)?$/i.test(name)
+    });
+  }
+  return out;
+}
+
+// Marks RSVP and # Attending for each guest on the reply. Returns the names that
+// could not be matched to a row, so the couple can add them by hand.
+function updateGuestList(r) {
+  var sheet = guestListSheet();
+  var values = sheet.getDataRange().getValues();
+  if (values.length < 2) return r.guests.map(function (g) { return g.name; });
+  var c = headerIndex(values[0]);
+  if (c.name == null || c.rsvp == null) return [];
+
+  var index = {};
+  for (var i = 1; i < values.length; i++) {
+    var key = String(values[i][c.name] || '').trim().toLowerCase();
+    if (key && !(key in index)) index[key] = i + 1;            // sheet row number
+  }
+
+  var unlisted = [];
+  r.guests.forEach(function (g) {
+    var row = (g.listName && index[g.listName.toLowerCase()]) || index[g.name.toLowerCase()];
+    if (!row) { unlisted.push(g.name); return; }
+    var coming = g.attend !== 'none';
+    sheet.getRange(row, c.rsvp + 1).setValue(coming ? 'Attending' : 'Not Attending');
+    if (c.attending != null) sheet.getRange(row, c.attending + 1).setValue(coming ? 1 : 0);
+    if (g.listName && isPlaceholder(g.listName) && g.name && g.name.toLowerCase() !== g.listName.toLowerCase()) {
+      sheet.getRange(row, c.name + 1).setValue(g.name);      // "Arlo's +1" becomes the real name
+      index[g.name.toLowerCase()] = row;
+    }
+  });
+  return unlisted;
+}
+
 /* ---------- Emails ---------- */
 
 function notifyCouple(r) {
@@ -215,7 +321,8 @@ function notifyCouple(r) {
     + (r.childCount ? ' &nbsp;·&nbsp; Eight or under: <strong>' + r.childCount + '</strong>' : '')
     + ' &nbsp;·&nbsp; Plates: <strong>' + r.plates + '</strong></p>'
     + (r.dietary ? '<p style="margin:4px 0;color:#8f2b2b;">Dietary: ' + esc(r.dietary) + '</p>' : '')
-    + (r.songs.length ? '<p style="margin:14px 0 4px;">Songs: ' + esc(r.songs.join(' · ')) + '</p>' : '')
+    + (r.unlisted && r.unlisted.length ? '<p style="margin:14px 0 4px;color:#8f2b2b;">Not on the guest list yet: ' + esc(r.unlisted.join(', ')) + '. Add them to Wedding Invites by hand.</p>' : '')
+    + (r.songs.length ? '<p style="margin:14px 0 4px;">Songs:' + esc(r.songs.join(' · ')) + '</p>' : '')
     + (r.note ? '<p style="margin:14px 0 4px;padding:12px 16px;border-left:2px solid #b89149;background:#faf7f0;">' + esc(r.note).replace(/\n/g, '<br>') + '</p>' : '')
     + '<p style="margin:22px 0 0;color:#777;font-size:14px;">From ' + esc(r.email) + ' &nbsp;·&nbsp; <a href="' + SpreadsheetApp.getActiveSpreadsheet().getUrl() + '" style="color:#b89149;">Open the Sheet</a></p>'
   );

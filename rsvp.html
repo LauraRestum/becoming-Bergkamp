@@ -109,7 +109,22 @@
           <!-- I · YOUR PARTY -->
           <fieldset class="rsvp-block" id="guestsBlock">
             <legend><span class="rsvp-numeral">I</span> Your Party</legend>
-            <p class="rsvp-help">Add everyone replying on this card, and tell us which part of the day each of you will join.</p>
+            <p class="rsvp-help">Find your name and we will fill in everyone on your card. Then tell us which part of the day each of you will join.</p>
+
+            <!-- Find your invitation · searches the guest list as you type -->
+            <div class="rsvp-finder" id="finder" hidden>
+              <div class="rsvp-field finder-field">
+                <label for="finderInput">Find your invitation</label>
+                <input id="finderInput" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="finderList" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Start typing your name" />
+                <ul class="finder-list" id="finderList" role="listbox" aria-label="Matching invitations" hidden></ul>
+              </div>
+              <p class="rsvp-help small finder-note" id="finderNote" aria-live="polite" hidden></p>
+            </div>
+            <div class="finder-chosen" id="finderChosen" hidden>
+              <p>Replying for <strong id="finderChosenLabel"></strong></p>
+              <button type="button" class="finder-again" id="finderAgain">Not you? Search again</button>
+            </div>
+
             <div id="guestList" class="guest-list"></div>
             <p class="rsvp-field-error" id="guestsError" hidden></p>
             <button type="button" class="rsvp-add" id="addGuest">

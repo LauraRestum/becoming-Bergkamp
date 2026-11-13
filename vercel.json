@@ -5,6 +5,9 @@
   "functions": {
     "api/rsvp.js": {
       "maxDuration": 20
+    },
+    "api/guests.js": {
+      "maxDuration": 15
     }
   },
   "headers": [
